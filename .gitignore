@@ -49,3 +49,8 @@ out/
 
 ### VS Code ###
 .vscode/
+src/main/java/com/example/demo/hospital/controller/
+src/main/java/com/example/demo/hospital/dao/
+src/main/java/com/example/demo/hospital/service/
+src/main/resources/static/
+src/main/resources/templates/
