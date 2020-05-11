@@ -23,7 +23,8 @@ public class Address {
 
 
     @Builder
-    public Address(String zipcode, String street) {
+    public Address(String city,String zipcode, String street) {
+        this.city = city;
         this.zipcode = zipcode;
         this.street = street;
     }

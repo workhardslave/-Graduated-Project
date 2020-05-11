@@ -4,7 +4,14 @@ import com.example.demo.member.dao.MemberRepository;
 import com.example.demo.member.vo.Member;
 import com.example.demo.member.dao.MemberSaveRequestDto;
 import com.example.demo.member.dao.MemberUpdateRequestDto;
+
+
+import org.slf4j.LoggerFactory;
 import lombok.RequiredArgsConstructor;
+
+import org.slf4j.Logger;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,27 +23,24 @@ import java.util.List;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    @Transactional
-    //회원가입
-    public Member SingUp(MemberSaveRequestDto requestDto) {
-        String result= validateDuplicateMember(requestDto);
-        if(result =="OK") {
-            return memberRepository.save(requestDto.toEntity());
+    private Logger logger = LoggerFactory.getLogger(MemberService.class);
 
-        }else {
-            return null;
-        }
+    @Transactional
+    public Long SingUp(Member member) {
+        logger.debug(member.getEmail());
+        logger.debug(member.getName());
+        validateDuplicateMember(member);
+        memberRepository.save(member);
+        return member.getId();
     }
 
     //회원가입 아이디 중복체크
     @Transactional
-    public String validateDuplicateMember(MemberSaveRequestDto requestDto) {
-        Member findMember = memberRepository.findEmailCheck(requestDto.getEmail());
-        if (findMember ==null) {
-//            throw new IllegalStateException("회원가입된 사람입니다.");
-            return "NO";
+    public void validateDuplicateMember(Member member) {
+        Member findMember = memberRepository.findEmailCheck(member.getEmail());
+        if (findMember!=null) {
+            throw new IllegalStateException("회원가입된 사람입니다.");
         }
-        return "OK";
     }
 
     //아이디 패스워드 확인 후 로그인
@@ -58,6 +62,7 @@ public class MemberService {
         Member m = memberRepository.findEmailCheck(email);
         m.update(requestDto.getPassword());
     }
+
 
     //아이디찾기
     @Transactional(readOnly =  true)

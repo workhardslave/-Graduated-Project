@@ -17,7 +17,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     Member findEmailCheck(String email);
 
     /**
-     *
      * @param id
      * return 회원찾기
      */
@@ -28,7 +27,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
      *
      * @param email
      * @param password
-     * @return 아이디와 이메일을 확인해주세요
+     * @return 이메일과 패스워드를 확인해주세요.
      */
     @Query("SELECT m FROM Member m where m.email = :email AND m.password = :password")
     Member findByEmailPassword(Object email, Object password);
@@ -38,13 +37,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 //    @Query("UPDATE Member m set m.address = :address where m.id = :id")
 //    Member UpdateAddress(Long id, Object address);
 
-    /**
-     *
-     * @param email
-     * @return 구글계정변경
-     */
-
-    Optional<Member> findByEmail(String email);
 
 
 
