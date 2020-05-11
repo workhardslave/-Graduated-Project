@@ -1,8 +1,5 @@
 database: h2
 spring:
-  thymeleaf:
-  prefix: classpath:/templates/
-  suffix: .html
   profiles:
     active: local
     include: real-oauth
