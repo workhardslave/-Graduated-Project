@@ -26,4 +26,10 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-logging
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-logging', version: '2.0.3.RELEASE'
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-webflux
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: '2.2.5.RELEASE'
+
+
 }
