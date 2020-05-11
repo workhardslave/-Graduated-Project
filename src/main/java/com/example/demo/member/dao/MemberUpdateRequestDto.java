@@ -11,14 +11,14 @@ public class MemberUpdateRequestDto {
 
     private String name;
     private String email;
-    private int password;
+    private String password;
     private Address address;
     private Role role;
     private String phone;
     private String birth;
 
     @Builder
-    public MemberUpdateRequestDto(String name, String email, int password, Address address, Role role, String phone, String birth) {
+    public MemberUpdateRequestDto(String name, String email, String password, Address address, Role role, String phone, String birth) {
         this.name = name;
         this.email = email;
         this.password = password;

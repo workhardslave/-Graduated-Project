@@ -1,5 +1,8 @@
 database: h2
 spring:
+  thymeleaf:
+  prefix: classpath:/templates/
+  suffix: .html
   profiles:
     active: local
     include: real-oauth
@@ -12,15 +15,13 @@ spring:
     username: sa
     password: 1234
     driver-class-name: org.h2.Driver
-    initialization-mode: always
+    initialization-mode: never
     sql-script-encoding: UTF-8
   jpa:
     database-platform: H2
     show-sql: true
     hibernate:
-      ddl-auto: create
-  server:
-    max-http-header-size: 30000
+      ddl-auto: update
 
 
 

@@ -6,13 +6,17 @@ import com.example.demo.overlap.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 public class Member extends BaseTimeEntity {
+
+
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,7 +27,7 @@ public class Member extends BaseTimeEntity {
     private String email;
 
 
-    private int password;
+    private String password;
 
 
     private String birth;
@@ -39,7 +43,8 @@ public class Member extends BaseTimeEntity {
 
 
     @Builder
-    public  Member(String name, Address address, Role role,String email ,int password, String birth, String phone) {
+    public  Member(Long id, String name, Address address, Role role,String email ,String password, String birth, String phone) {
+        this.id = id;
         this.name = name;
         this.address = address;
         this.role = role;
@@ -50,7 +55,7 @@ public class Member extends BaseTimeEntity {
     }
 
 
-    public Member update(int password) {
+    public Member update(String password) {
         this.password = password;
         return this;
     }
