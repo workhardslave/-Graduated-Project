@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-//@RequiredArgsConstructor
-//@RestController
+@RequiredArgsConstructor
 @Controller
 @Slf4j
 public class MemberController {
@@ -34,9 +33,9 @@ public class MemberController {
 
     @GetMapping("/members/new")
     public String createForm(Model model) {
+        model.addAttribute("memberForm", new MemberForm());
         log.info("/members/new logger");
         return "members/createMemberForm";
-
     }
 
     @PostMapping(value = "/api/members/new")
