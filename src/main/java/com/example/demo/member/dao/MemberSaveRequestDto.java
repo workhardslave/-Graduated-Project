@@ -6,8 +6,10 @@ import com.example.demo.overlap.Address;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @NoArgsConstructor
 public class MemberSaveRequestDto {
 
