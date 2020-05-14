@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
@@ -87,7 +88,8 @@ public class HomeController {
     }
 
     //로그인 결과
-    @GetMapping("/member/login/result")
+    @PostMapping("/member/login/result")
+    //@GetMapping("/member/login/result")
     public String dispLoginResult(Principal principals) {
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -96,7 +98,7 @@ public class HomeController {
 
         System.out.println(username);
         System.out.println(principals.getName());
-        return "home_hyun";
+        return "home";
     }
 
 
