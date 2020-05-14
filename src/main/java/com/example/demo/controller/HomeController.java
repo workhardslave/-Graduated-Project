@@ -83,7 +83,7 @@ public class HomeController {
     public String dispLogin(Principal principals) throws Exception
     {
 
-        return "members/login";
+        return "memberAuth/signIn";
     }
 
     //로그인 결과
