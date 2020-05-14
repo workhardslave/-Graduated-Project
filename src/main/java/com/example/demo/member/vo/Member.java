@@ -3,15 +3,19 @@ package com.example.demo.member.vo;
 
 import com.example.demo.overlap.Address;
 import com.example.demo.overlap.BaseTimeEntity;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.web.context.WebApplicationContext;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
+@Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
+@ToString
 public class Member extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +27,7 @@ public class Member extends BaseTimeEntity {
     private String email;
 
 
-    private int password;
+    private String password;
 
 
     private String birth;
@@ -39,7 +43,8 @@ public class Member extends BaseTimeEntity {
 
 
     @Builder
-    public  Member(String name, Address address, Role role,String email ,int password, String birth, String phone) {
+    public  Member(Long id, String name, Address address, Role role,String email ,String password, String birth, String phone) {
+        this.id = id;
         this.name = name;
         this.address = address;
         this.role = role;
@@ -50,13 +55,19 @@ public class Member extends BaseTimeEntity {
     }
 
 
-    public Member update(int password) {
+    public Member update(String name, String email, String password,String phone, String birth) {
+        this.email = email;
         this.password = password;
+        this.name = name;
+        this.password=password;
+        this.phone = phone;
+        this.birth=birth;
         return this;
+
     }
 
     public String getRoleKey() {
-        return this.role.getKey();
+        return this.role.getValue();
     }
 
 }

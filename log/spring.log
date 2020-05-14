@@ -1,0 +1,717 @@
+2020-05-14 12:43:01.722  INFO 27456 --- [restartedMain] com.example.demo.DemoApplication         : Starting DemoApplication on DESKTOP-09M87UV with PID 27456 (started by tkawn in H:\workspace\my_project\web\졸업 프로젝트\GuhaeDog)
+2020-05-14 12:43:01.731 DEBUG 27456 --- [restartedMain] com.example.demo.DemoApplication         : Running with Spring Boot v2.1.13.RELEASE, Spring v5.1.14.RELEASE
+2020-05-14 12:43:01.732  INFO 27456 --- [restartedMain] com.example.demo.DemoApplication         : The following profiles are active: real-oauth,test
+2020-05-14 12:43:01.847  INFO 27456 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-05-14 12:43:01.848  INFO 27456 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-05-14 12:43:03.586  INFO 27456 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-05-14 12:43:03.748  INFO 27456 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 152ms. Found 2 JPA repository interfaces.
+2020-05-14 12:43:05.202  INFO 27456 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-05-14 12:43:05.243  INFO 27456 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-05-14 12:43:05.244  INFO 27456 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-05-14 12:43:05.499  INFO 27456 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-05-14 12:43:05.500  INFO 27456 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3652 ms
+2020-05-14 12:43:05.849  INFO 27456 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-05-14 12:43:05.962  INFO 27456 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-05-14 12:43:06.029  INFO 27456 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2020-05-14 12:43:06.133  INFO 27456 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.15.Final}
+2020-05-14 12:43:06.136  INFO 27456 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2020-05-14 12:43:06.393  INFO 27456 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2020-05-14 12:43:06.572  INFO 27456 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2020-05-14 12:43:07.650  INFO 27456 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-05-14 12:43:07.922  WARN 27456 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2020-05-14 12:43:08.219  INFO 27456 --- [restartedMain] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2020-05-14 12:43:08.858  INFO 27456 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2020-05-14 12:43:08.859  INFO 27456 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2020-05-14 12:43:08.860  INFO 27456 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/img/**'], []
+2020-05-14 12:43:08.860  INFO 27456 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/lib/**'], []
+2020-05-14 12:43:08.911  INFO 27456 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@56224c8e, org.springframework.security.web.context.SecurityContextPersistenceFilter@15a71c13, org.springframework.security.web.header.HeaderWriterFilter@2e9a768a, org.springframework.security.web.csrf.CsrfFilter@4c65f6de, org.springframework.security.web.authentication.logout.LogoutFilter@9432de, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@19404431, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5b7603c5, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@370a6cd9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4dd8ebb7, org.springframework.security.web.session.SessionManagementFilter@7ecd13f2, org.springframework.security.web.access.ExceptionTranslationFilter@6dc184b2, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@45e505c6]
+2020-05-14 12:43:09.452  INFO 27456 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-05-14 12:43:09.512  WARN 27456 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-14 12:43:12.047  INFO 27456 --- [restartedMain] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2020-05-14 12:43:12.076 ERROR 27456 --- [restartedMain] org.apache.catalina.util.LifecycleBase   : Failed to start component [Connector[HTTP/1.1-8080]]
+
+org.apache.catalina.LifecycleException: Protocol handler start failed
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1038) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:227) [tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.addPreviouslyRemovedConnectors(TomcatWebServer.java:263) [spring-boot-2.1.13.RELEASE.jar:2.1.13.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:195) [spring-boot-2.1.13.RELEASE.jar:2.1.13.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.startWebServer(ServletWebServerApplicationContext.java:297) [spring-boot-2.1.13.RELEASE.jar:2.1.13.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.finishRefresh(ServletWebServerApplicationContext.java:163) [spring-boot-2.1.13.RELEASE.jar:2.1.13.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:552) [spring-context-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:141) [spring-boot-2.1.13.RELEASE.jar:2.1.13.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:744) [spring-boot-2.1.13.RELEASE.jar:2.1.13.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:391) [spring-boot-2.1.13.RELEASE.jar:2.1.13.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:312) [spring-boot-2.1.13.RELEASE.jar:2.1.13.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1215) [spring-boot-2.1.13.RELEASE.jar:2.1.13.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1204) [spring-boot-2.1.13.RELEASE.jar:2.1.13.RELEASE]
+	at com.example.demo.DemoApplication.main(DemoApplication.java:12) [main/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_241]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_241]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_241]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_241]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.1.13.RELEASE.jar:2.1.13.RELEASE]
+Caused by: java.net.BindException: Address already in use: bind
+	at sun.nio.ch.Net.bind0(Native Method) ~[na:1.8.0_241]
+	at sun.nio.ch.Net.bind(Net.java:433) ~[na:1.8.0_241]
+	at sun.nio.ch.Net.bind(Net.java:425) ~[na:1.8.0_241]
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223) ~[na:1.8.0_241]
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74) ~[na:1.8.0_241]
+	at org.apache.tomcat.util.net.NioEndpoint.initServerSocket(NioEndpoint.java:229) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:212) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.tomcat.util.net.AbstractEndpoint.bindWithCleanup(AbstractEndpoint.java:1141) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:1227) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:592) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1035) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	... 19 common frames omitted
+
+2020-05-14 12:43:12.082  INFO 27456 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2020-05-14 12:43:12.087  WARN 27456 --- [restartedMain] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [HikariPool-1 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+ java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+ java.lang.Thread.run(Thread.java:748)
+2020-05-14 12:43:12.094  INFO 27456 --- [restartedMain] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-05-14 12:43:12.102 ERROR 27456 --- [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The Tomcat connector configured to listen on port 8080 failed to start. The port may already be in use or the connector may be misconfigured.
+
+Action:
+
+Verify the connector's configuration, identify and stop any process that's listening on port 8080, or configure this application to listen on another port.
+
+2020-05-14 12:43:12.143  INFO 27456 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-05-14 12:43:12.145  INFO 27456 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-05-14 12:43:12.148  INFO 27456 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2020-05-14 12:43:12.160  INFO 27456 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2020-05-14 12:43:50.242  INFO 16272 --- [restartedMain] com.example.demo.DemoApplication         : Starting DemoApplication on DESKTOP-09M87UV with PID 16272 (started by tkawn in H:\workspace\my_project\web\졸업 프로젝트\GuhaeDog)
+2020-05-14 12:43:50.246 DEBUG 16272 --- [restartedMain] com.example.demo.DemoApplication         : Running with Spring Boot v2.1.13.RELEASE, Spring v5.1.14.RELEASE
+2020-05-14 12:43:50.247  INFO 16272 --- [restartedMain] com.example.demo.DemoApplication         : The following profiles are active: real-oauth,test
+2020-05-14 12:43:50.317  INFO 16272 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-05-14 12:43:50.318  INFO 16272 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-05-14 12:43:51.702  INFO 16272 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-05-14 12:43:51.810  INFO 16272 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 101ms. Found 2 JPA repository interfaces.
+2020-05-14 12:43:52.651  INFO 16272 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-05-14 12:43:52.676  INFO 16272 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-05-14 12:43:52.677  INFO 16272 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-05-14 12:43:52.851  INFO 16272 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-05-14 12:43:52.851  INFO 16272 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2533 ms
+2020-05-14 12:43:53.072  INFO 16272 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-05-14 12:43:53.115  INFO 16272 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-05-14 12:43:53.161  INFO 16272 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2020-05-14 12:43:53.235  INFO 16272 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.15.Final}
+2020-05-14 12:43:53.238  INFO 16272 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2020-05-14 12:43:53.383  INFO 16272 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2020-05-14 12:43:53.527  INFO 16272 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2020-05-14 12:43:54.362  INFO 16272 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-05-14 12:43:54.511  INFO 16272 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-05-14 12:43:54.808  INFO 16272 --- [restartedMain] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2020-05-14 12:43:55.209  INFO 16272 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2020-05-14 12:43:55.209  INFO 16272 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2020-05-14 12:43:55.210  INFO 16272 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/img/**'], []
+2020-05-14 12:43:55.210  INFO 16272 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/lib/**'], []
+2020-05-14 12:43:55.245  INFO 16272 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3c29ae29, org.springframework.security.web.context.SecurityContextPersistenceFilter@74c92baa, org.springframework.security.web.header.HeaderWriterFilter@42598ae, org.springframework.security.web.csrf.CsrfFilter@4b748580, org.springframework.security.web.authentication.logout.LogoutFilter@1f7bccd9, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3c5afad7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@55ccfd9e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@42fa838a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@574e7739, org.springframework.security.web.session.SessionManagementFilter@2791a66c, org.springframework.security.web.access.ExceptionTranslationFilter@5872608b, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@47d8b37d]
+2020-05-14 12:43:55.500  INFO 16272 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-05-14 12:43:55.545  WARN 16272 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-14 12:43:57.215  INFO 16272 --- [restartedMain] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2020-05-14 12:43:57.258  INFO 16272 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-05-14 12:43:57.262  INFO 16272 --- [restartedMain] com.example.demo.DemoApplication         : Started DemoApplication in 7.665 seconds (JVM running for 10.079)
+2020-05-14 12:44:37.218  INFO 16272 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-05-14 12:44:37.219  INFO 16272 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-05-14 12:44:37.233  INFO 16272 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 13 ms
+2020-05-14 12:44:37.317  INFO 16272 --- [http-nio-8080-exec-1] c.e.demo.controller.HomeController       : home logger
+2020-05-14 12:46:50.948  INFO 27764 --- [restartedMain] com.example.demo.DemoApplication         : Starting DemoApplication on DESKTOP-09M87UV with PID 27764 (started by tkawn in H:\workspace\my_project\web\졸업 프로젝트\GuhaeDog)
+2020-05-14 12:46:50.955 DEBUG 27764 --- [restartedMain] com.example.demo.DemoApplication         : Running with Spring Boot v2.1.13.RELEASE, Spring v5.1.14.RELEASE
+2020-05-14 12:46:50.956  INFO 27764 --- [restartedMain] com.example.demo.DemoApplication         : The following profiles are active: real-oauth,test
+2020-05-14 12:46:51.083  INFO 27764 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-05-14 12:46:51.083  INFO 27764 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-05-14 12:46:53.941  INFO 27764 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-05-14 12:46:54.094  INFO 27764 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 138ms. Found 2 JPA repository interfaces.
+2020-05-14 12:46:55.757  INFO 27764 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-05-14 12:46:55.795  INFO 27764 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-05-14 12:46:55.796  INFO 27764 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-05-14 12:46:56.063  INFO 27764 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-05-14 12:46:56.063  INFO 27764 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 4979 ms
+2020-05-14 12:46:56.475  INFO 27764 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-05-14 12:46:56.546  INFO 27764 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-05-14 12:46:56.617  INFO 27764 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2020-05-14 12:46:56.732  INFO 27764 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.15.Final}
+2020-05-14 12:46:56.737  INFO 27764 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2020-05-14 12:46:57.026  INFO 27764 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2020-05-14 12:46:57.330  INFO 27764 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2020-05-14 12:46:58.630  INFO 27764 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-05-14 12:46:58.900  INFO 27764 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-05-14 12:46:59.406  INFO 27764 --- [restartedMain] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2020-05-14 12:46:59.941  INFO 27764 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2020-05-14 12:46:59.941  INFO 27764 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2020-05-14 12:46:59.941  INFO 27764 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/img/**'], []
+2020-05-14 12:46:59.941  INFO 27764 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/lib/**'], []
+2020-05-14 12:46:59.988  INFO 27764 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2f53299, org.springframework.security.web.context.SecurityContextPersistenceFilter@304fc8ff, org.springframework.security.web.header.HeaderWriterFilter@75efd3d3, org.springframework.security.web.csrf.CsrfFilter@3ea8980f, org.springframework.security.web.authentication.logout.LogoutFilter@1dd51be9, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3d5352d8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3bcbc0ec, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@625f01e3, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2517658d, org.springframework.security.web.session.SessionManagementFilter@7de31615, org.springframework.security.web.access.ExceptionTranslationFilter@1f1b78c8, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@332d10cd]
+2020-05-14 12:47:00.366  INFO 27764 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-05-14 12:47:00.419  WARN 27764 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-14 12:47:02.399  INFO 27764 --- [restartedMain] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2020-05-14 12:47:02.463  INFO 27764 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-05-14 12:47:02.470  INFO 27764 --- [restartedMain] com.example.demo.DemoApplication         : Started DemoApplication in 12.385 seconds (JVM running for 16.888)
+2020-05-14 12:47:04.019  INFO 27764 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-05-14 12:47:04.020  INFO 27764 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-05-14 12:47:04.054  INFO 27764 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 34 ms
+2020-05-14 12:47:04.192  INFO 27764 --- [http-nio-8080-exec-1] c.e.demo.controller.HomeController       : home logger
+2020-05-14 12:47:08.298  INFO 27764 --- [http-nio-8080-exec-4] c.e.demo.controller.HomeController       : home logger
+2020-05-14 12:47:32.863  INFO 27764 --- [Thread-11] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-05-14 12:47:32.867  INFO 27764 --- [Thread-11] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-05-14 12:47:32.875  INFO 27764 --- [Thread-11] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2020-05-14 12:47:32.897  INFO 27764 --- [Thread-11] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2020-05-14 12:47:36.284  INFO 27764 --- [restartedMain] com.example.demo.DemoApplication         : Starting DemoApplication on DESKTOP-09M87UV with PID 27764 (started by tkawn in H:\workspace\my_project\web\졸업 프로젝트\GuhaeDog)
+2020-05-14 12:47:36.284 DEBUG 27764 --- [restartedMain] com.example.demo.DemoApplication         : Running with Spring Boot v2.1.13.RELEASE, Spring v5.1.14.RELEASE
+2020-05-14 12:47:36.284  INFO 27764 --- [restartedMain] com.example.demo.DemoApplication         : The following profiles are active: real-oauth,test
+2020-05-14 12:47:36.977  INFO 27764 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-05-14 12:47:37.005  INFO 27764 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 28ms. Found 2 JPA repository interfaces.
+2020-05-14 12:47:37.347  INFO 27764 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-05-14 12:47:37.348  INFO 27764 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-05-14 12:47:37.349  INFO 27764 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-05-14 12:47:37.433  INFO 27764 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-05-14 12:47:37.433  INFO 27764 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1144 ms
+2020-05-14 12:47:37.498  INFO 27764 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2020-05-14 12:47:37.513  INFO 27764 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2020-05-14 12:47:37.528  INFO 27764 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2020-05-14 12:47:37.547  INFO 27764 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2020-05-14 12:47:37.701  INFO 27764 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-05-14 12:47:37.782  INFO 27764 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-05-14 12:47:37.835  INFO 27764 --- [restartedMain] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2020-05-14 12:47:37.999  INFO 27764 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2020-05-14 12:47:37.999  INFO 27764 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2020-05-14 12:47:37.999  INFO 27764 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/img/**'], []
+2020-05-14 12:47:37.999  INFO 27764 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/lib/**'], []
+2020-05-14 12:47:38.027  INFO 27764 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7005b4c2, org.springframework.security.web.context.SecurityContextPersistenceFilter@6245c404, org.springframework.security.web.header.HeaderWriterFilter@72a823d9, org.springframework.security.web.csrf.CsrfFilter@9fbd7f0, org.springframework.security.web.authentication.logout.LogoutFilter@732806a9, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4f5a8dbb, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@43709a7b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7075df27, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6c57d9a3, org.springframework.security.web.session.SessionManagementFilter@3556c109, org.springframework.security.web.access.ExceptionTranslationFilter@1be75e61, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@41efa355]
+2020-05-14 12:47:38.425  INFO 27764 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-05-14 12:47:38.482  WARN 27764 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-14 12:47:39.201  INFO 27764 --- [restartedMain] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2020-05-14 12:47:39.253  INFO 27764 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-05-14 12:47:39.265  INFO 27764 --- [restartedMain] com.example.demo.DemoApplication         : Started DemoApplication in 3.088 seconds (JVM running for 53.683)
+2020-05-14 12:47:39.274  INFO 27764 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-05-14 12:47:46.146  INFO 27764 --- [http-nio-8080-exec-8] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-05-14 12:47:46.147  INFO 27764 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-05-14 12:47:46.156  INFO 27764 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms
+2020-05-14 12:47:47.201  INFO 27764 --- [http-nio-8080-exec-4] c.e.demo.controller.HomeController       : home logger
+2020-05-14 12:49:24.297  INFO 27764 --- [Thread-27] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-05-14 12:49:24.301  INFO 27764 --- [Thread-27] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-05-14 12:49:24.304  INFO 27764 --- [Thread-27] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2020-05-14 12:49:24.327  INFO 27764 --- [Thread-27] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2020-05-14 12:49:26.975  INFO 27764 --- [restartedMain] com.example.demo.DemoApplication         : Starting DemoApplication on DESKTOP-09M87UV with PID 27764 (started by tkawn in H:\workspace\my_project\web\졸업 프로젝트\GuhaeDog)
+2020-05-14 12:49:26.976 DEBUG 27764 --- [restartedMain] com.example.demo.DemoApplication         : Running with Spring Boot v2.1.13.RELEASE, Spring v5.1.14.RELEASE
+2020-05-14 12:49:26.976  INFO 27764 --- [restartedMain] com.example.demo.DemoApplication         : The following profiles are active: real-oauth,test
+2020-05-14 12:49:27.406  INFO 27764 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-05-14 12:49:27.430  INFO 27764 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23ms. Found 2 JPA repository interfaces.
+2020-05-14 12:49:27.714  INFO 27764 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-05-14 12:49:27.715  INFO 27764 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-05-14 12:49:27.716  INFO 27764 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-05-14 12:49:27.758  INFO 27764 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-05-14 12:49:27.758  INFO 27764 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 780 ms
+2020-05-14 12:49:27.806  INFO 27764 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2020-05-14 12:49:27.821  INFO 27764 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2020-05-14 12:49:27.834  INFO 27764 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2020-05-14 12:49:27.851  INFO 27764 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2020-05-14 12:49:27.992  INFO 27764 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-05-14 12:49:28.050  INFO 27764 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-05-14 12:49:28.083  INFO 27764 --- [restartedMain] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2020-05-14 12:49:28.224  INFO 27764 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2020-05-14 12:49:28.225  INFO 27764 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2020-05-14 12:49:28.225  INFO 27764 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/img/**'], []
+2020-05-14 12:49:28.225  INFO 27764 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/lib/**'], []
+2020-05-14 12:49:28.255  INFO 27764 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2d3429a7, org.springframework.security.web.context.SecurityContextPersistenceFilter@4dca25d9, org.springframework.security.web.header.HeaderWriterFilter@51cee448, org.springframework.security.web.csrf.CsrfFilter@43ff8cd6, org.springframework.security.web.authentication.logout.LogoutFilter@26df6b4, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@2fe216d5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@32aecb01, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@14e495b8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7b2bc3a0, org.springframework.security.web.session.SessionManagementFilter@72ec8e6e, org.springframework.security.web.access.ExceptionTranslationFilter@33f848d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@52a0a5b]
+2020-05-14 12:49:28.450  INFO 27764 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-05-14 12:49:28.466  WARN 27764 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-14 12:49:28.685  INFO 27764 --- [restartedMain] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2020-05-14 12:49:28.695  INFO 27764 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-05-14 12:49:28.696  INFO 27764 --- [restartedMain] com.example.demo.DemoApplication         : Started DemoApplication in 1.768 seconds (JVM running for 163.114)
+2020-05-14 12:49:28.702  INFO 27764 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-05-14 12:49:31.010  INFO 27764 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-05-14 12:49:31.011  INFO 27764 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-05-14 12:49:31.024  INFO 27764 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 12 ms
+2020-05-14 12:49:45.932  INFO 27764 --- [http-nio-8080-exec-4] c.e.d.m.controller.MemberApiController   : admin@gmail.com
+2020-05-14 12:49:46.044 ERROR 27764 --- [http-nio-8080-exec-4] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.IllegalStateException: 회원가입된 사람입니다.] with root cause
+
+java.lang.IllegalStateException: 회원가입된 사람입니다.
+	at com.example.demo.member.service.MemberService.validateDuplicateMember(MemberService.java:45) ~[main/:na]
+	at com.example.demo.member.service.MemberService.SingUp(MemberService.java:58) ~[main/:na]
+	at com.example.demo.member.service.MemberService$$FastClassBySpringCGLIB$$f01c9748.invoke(<generated>) ~[main/:na]
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:750) ~[spring-aop-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:295) ~[spring-tx-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98) ~[spring-tx-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:689) ~[spring-aop-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at com.example.demo.member.service.MemberService$$EnhancerBySpringCGLIB$$5a6a2167.SingUp(<generated>) ~[main/:na]
+	at com.example.demo.member.controller.MemberApiController.create(MemberApiController.java:46) ~[main/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_241]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_241]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_241]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_241]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190) ~[spring-web-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) ~[spring-web-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:105) ~[spring-webmvc-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:893) ~[spring-webmvc-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:798) ~[spring-webmvc-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040) ~[spring-webmvc-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943) ~[spring-webmvc-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909) ~[spring-webmvc-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:320) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:127) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:91) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:170) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:200) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.security.web.csrf.CsrfFilter.doFilterInternal(CsrfFilter.java:100) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:74) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178) ~[spring-security-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358) ~[spring-web-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271) ~[spring-web-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:94) ~[spring-web-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.springframework.session.web.http.SessionRepositoryFilter.doFilterInternal(SessionRepositoryFilter.java:151) ~[spring-session-core-2.1.10.RELEASE.jar:2.1.10.RELEASE]
+	at org.springframework.session.web.http.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:86) ~[spring-session-core-2.1.10.RELEASE.jar:2.1.10.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541) [tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) [tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) [tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:367) [tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) [tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868) [tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1639) [tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.31.jar:9.0.31]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_241]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_241]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.31.jar:9.0.31]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_241]
+
+2020-05-14 12:50:32.702  INFO 27764 --- [http-nio-8080-exec-6] c.e.demo.controller.HomeController       : home logger
+2020-05-14 12:50:36.222  INFO 27764 --- [http-nio-8080-exec-8] c.e.demo.member.service.MemberService    : 여기까지?
+2020-05-14 12:50:36.223  INFO 27764 --- [http-nio-8080-exec-8] c.e.demo.member.service.MemberService    : admin@gmail.com
+2020-05-14 12:50:36.223  INFO 27764 --- [http-nio-8080-exec-8] c.e.demo.member.service.MemberService    : ROLE_ADMIN
+2020-05-14 12:50:36.223  INFO 27764 --- [http-nio-8080-exec-8] c.e.demo.member.service.MemberService    : $2a$10$jfpYBZZlyfNQxvGMuU5ixOiyIciJoJhSC1MBRcSNa2.3.R5whobN6
+2020-05-14 12:50:36.226  INFO 27764 --- [http-nio-8080-exec-8] c.e.demo.member.service.MemberService    : $2a$10$jfpYBZZlyfNQxvGMuU5ixOiyIciJoJhSC1MBRcSNa2.3.R5whobN6
+2020-05-14 12:57:49.197  INFO 25048 --- [restartedMain] com.example.demo.DemoApplication         : Starting DemoApplication on DESKTOP-09M87UV with PID 25048 (started by tkawn in H:\workspace\my_project\web\졸업 프로젝트\GuhaeDog)
+2020-05-14 12:57:49.200 DEBUG 25048 --- [restartedMain] com.example.demo.DemoApplication         : Running with Spring Boot v2.1.13.RELEASE, Spring v5.1.14.RELEASE
+2020-05-14 12:57:49.201  INFO 25048 --- [restartedMain] com.example.demo.DemoApplication         : The following profiles are active: real-oauth,test
+2020-05-14 12:57:49.268  INFO 25048 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-05-14 12:57:49.269  INFO 25048 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-05-14 12:57:50.681  INFO 25048 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-05-14 12:57:50.904  INFO 25048 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 201ms. Found 2 JPA repository interfaces.
+2020-05-14 12:57:53.381  INFO 25048 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-05-14 12:57:53.533  INFO 25048 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-05-14 12:57:53.535  INFO 25048 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-05-14 12:57:54.174  INFO 25048 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-05-14 12:57:54.175  INFO 25048 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 4906 ms
+2020-05-14 12:57:54.631  INFO 25048 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-05-14 12:57:54.703  INFO 25048 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-05-14 12:57:54.803  INFO 25048 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2020-05-14 12:57:54.945  INFO 25048 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.15.Final}
+2020-05-14 12:57:54.951  INFO 25048 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2020-05-14 12:57:55.272  INFO 25048 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2020-05-14 12:57:55.597  INFO 25048 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2020-05-14 12:57:58.370  INFO 25048 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-05-14 12:57:58.830  INFO 25048 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-05-14 12:57:59.782  INFO 25048 --- [restartedMain] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2020-05-14 12:58:01.138  INFO 25048 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2020-05-14 12:58:01.138  INFO 25048 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2020-05-14 12:58:01.139  INFO 25048 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/img/**'], []
+2020-05-14 12:58:01.140  INFO 25048 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/lib/**'], []
+2020-05-14 12:58:01.410  INFO 25048 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3fd3543c, org.springframework.security.web.context.SecurityContextPersistenceFilter@4657877a, org.springframework.security.web.header.HeaderWriterFilter@2194678b, org.springframework.security.web.csrf.CsrfFilter@62a2676, org.springframework.security.web.authentication.logout.LogoutFilter@e9447ed, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@543a04f7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7923b31e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@777b9c74, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3b4af28d, org.springframework.security.web.session.SessionManagementFilter@3b497993, org.springframework.security.web.access.ExceptionTranslationFilter@64530aee, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4971e0af]
+2020-05-14 12:58:01.938  INFO 25048 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-05-14 12:58:01.999  WARN 25048 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-14 12:58:06.132  INFO 25048 --- [restartedMain] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2020-05-14 12:58:06.221  INFO 25048 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-05-14 12:58:06.229  INFO 25048 --- [restartedMain] com.example.demo.DemoApplication         : Started DemoApplication in 17.653 seconds (JVM running for 21.933)
+2020-05-14 12:58:18.643  INFO 25048 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-05-14 12:58:18.643  INFO 25048 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-05-14 12:58:18.670  INFO 25048 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 26 ms
+2020-05-14 12:59:12.799  INFO 10376 --- [restartedMain] com.example.demo.DemoApplication         : Starting DemoApplication on DESKTOP-09M87UV with PID 10376 (started by tkawn in H:\workspace\my_project\web\졸업 프로젝트\GuhaeDog)
+2020-05-14 12:59:12.812 DEBUG 10376 --- [restartedMain] com.example.demo.DemoApplication         : Running with Spring Boot v2.1.13.RELEASE, Spring v5.1.14.RELEASE
+2020-05-14 12:59:12.814  INFO 10376 --- [restartedMain] com.example.demo.DemoApplication         : The following profiles are active: real-oauth,test
+2020-05-14 12:59:13.037  INFO 10376 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-05-14 12:59:13.040  INFO 10376 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-05-14 12:59:15.701  INFO 10376 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-05-14 12:59:15.946  INFO 10376 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 217ms. Found 2 JPA repository interfaces.
+2020-05-14 12:59:18.264  INFO 10376 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-05-14 12:59:18.341  INFO 10376 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-05-14 12:59:18.342  INFO 10376 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-05-14 12:59:18.838  INFO 10376 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-05-14 12:59:18.839  INFO 10376 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 5796 ms
+2020-05-14 12:59:19.469  INFO 10376 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-05-14 12:59:19.613  INFO 10376 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-05-14 12:59:19.760  INFO 10376 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2020-05-14 12:59:19.975  INFO 10376 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.15.Final}
+2020-05-14 12:59:19.983  INFO 10376 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2020-05-14 12:59:20.494  INFO 10376 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2020-05-14 12:59:20.967  INFO 10376 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2020-05-14 12:59:24.025  INFO 10376 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-05-14 12:59:24.573  INFO 10376 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-05-14 12:59:25.417  INFO 10376 --- [restartedMain] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2020-05-14 12:59:26.067  INFO 10376 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2020-05-14 12:59:26.068  INFO 10376 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2020-05-14 12:59:26.068  INFO 10376 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/img/**'], []
+2020-05-14 12:59:26.069  INFO 10376 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/lib/**'], []
+2020-05-14 12:59:26.135  INFO 10376 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@320064b9, org.springframework.security.web.context.SecurityContextPersistenceFilter@496e55c1, org.springframework.security.web.header.HeaderWriterFilter@304e840d, org.springframework.security.web.csrf.CsrfFilter@3d97ea1c, org.springframework.security.web.authentication.logout.LogoutFilter@45ea8094, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@8b0c452, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3c9cbdf3, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@bde08ff, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3c9cb4ff, org.springframework.security.web.session.SessionManagementFilter@7e12e68a, org.springframework.security.web.access.ExceptionTranslationFilter@4e165976, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@77fdcad9]
+2020-05-14 12:59:26.483  INFO 10376 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-05-14 12:59:26.544  WARN 10376 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-14 12:59:28.674  INFO 10376 --- [restartedMain] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2020-05-14 12:59:28.753  INFO 10376 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-05-14 12:59:28.760  INFO 10376 --- [restartedMain] com.example.demo.DemoApplication         : Started DemoApplication in 17.433 seconds (JVM running for 20.377)
+2020-05-14 12:59:29.031  INFO 10376 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-05-14 12:59:29.031  INFO 10376 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-05-14 12:59:29.049  INFO 10376 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 17 ms
+2020-05-14 12:59:29.255  INFO 10376 --- [http-nio-8080-exec-1] c.e.demo.controller.HomeController       : home logger
+2020-05-14 13:00:51.869  INFO 21380 --- [restartedMain] com.example.demo.DemoApplication         : Starting DemoApplication on DESKTOP-09M87UV with PID 21380 (started by tkawn in H:\workspace\my_project\web\졸업 프로젝트\GuhaeDog)
+2020-05-14 13:00:51.873 DEBUG 21380 --- [restartedMain] com.example.demo.DemoApplication         : Running with Spring Boot v2.1.13.RELEASE, Spring v5.1.14.RELEASE
+2020-05-14 13:00:51.873  INFO 21380 --- [restartedMain] com.example.demo.DemoApplication         : The following profiles are active: real-oauth,test
+2020-05-14 13:00:51.929  INFO 21380 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-05-14 13:00:51.929  INFO 21380 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-05-14 13:00:54.021  INFO 21380 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-05-14 13:00:54.208  INFO 21380 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 168ms. Found 2 JPA repository interfaces.
+2020-05-14 13:00:56.435  INFO 21380 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-05-14 13:00:56.493  INFO 21380 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-05-14 13:00:56.494  INFO 21380 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-05-14 13:00:57.038  INFO 21380 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-05-14 13:00:57.039  INFO 21380 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 5110 ms
+2020-05-14 13:00:57.589  INFO 21380 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-05-14 13:00:57.689  INFO 21380 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-05-14 13:00:57.809  INFO 21380 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2020-05-14 13:00:58.012  INFO 21380 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.15.Final}
+2020-05-14 13:00:58.022  INFO 21380 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2020-05-14 13:00:58.420  INFO 21380 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2020-05-14 13:00:58.901  INFO 21380 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2020-05-14 13:01:00.548  INFO 21380 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-05-14 13:01:00.774  INFO 21380 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-05-14 13:01:01.282  INFO 21380 --- [restartedMain] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2020-05-14 13:01:01.941  INFO 21380 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2020-05-14 13:01:01.942  INFO 21380 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2020-05-14 13:01:01.942  INFO 21380 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/img/**'], []
+2020-05-14 13:01:01.942  INFO 21380 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/lib/**'], []
+2020-05-14 13:01:01.991  INFO 21380 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@871a154, org.springframework.security.web.context.SecurityContextPersistenceFilter@775a4b65, org.springframework.security.web.header.HeaderWriterFilter@7d24f727, org.springframework.security.web.csrf.CsrfFilter@510f9d91, org.springframework.security.web.authentication.logout.LogoutFilter@6564ffd8, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@20549893, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3241d55a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5694c2f9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@ce530c9, org.springframework.security.web.session.SessionManagementFilter@1404f4fe, org.springframework.security.web.access.ExceptionTranslationFilter@52c92f2a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@69e40891]
+2020-05-14 13:01:02.318  INFO 21380 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-05-14 13:01:02.381  WARN 21380 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-14 13:01:05.903  INFO 21380 --- [restartedMain] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2020-05-14 13:01:06.013  INFO 21380 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-05-14 13:01:06.022  INFO 21380 --- [restartedMain] com.example.demo.DemoApplication         : Started DemoApplication in 14.665 seconds (JVM running for 18.159)
+2020-05-14 13:01:10.177  INFO 21380 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-05-14 13:01:10.177  INFO 21380 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-05-14 13:01:10.192  INFO 21380 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 14 ms
+2020-05-14 13:01:10.309  INFO 21380 --- [http-nio-8080-exec-1] c.e.demo.controller.HomeController       : home logger
+2020-05-14 13:02:32.941  INFO 21380 --- [Thread-21] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-05-14 13:02:32.946  INFO 21380 --- [Thread-21] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-05-14 13:02:32.954  INFO 21380 --- [Thread-21] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2020-05-14 13:02:32.973  INFO 21380 --- [Thread-21] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2020-05-14 13:02:36.066  INFO 21380 --- [restartedMain] com.example.demo.DemoApplication         : Starting DemoApplication on DESKTOP-09M87UV with PID 21380 (started by tkawn in H:\workspace\my_project\web\졸업 프로젝트\GuhaeDog)
+2020-05-14 13:02:36.066 DEBUG 21380 --- [restartedMain] com.example.demo.DemoApplication         : Running with Spring Boot v2.1.13.RELEASE, Spring v5.1.14.RELEASE
+2020-05-14 13:02:36.066  INFO 21380 --- [restartedMain] com.example.demo.DemoApplication         : The following profiles are active: real-oauth,test
+2020-05-14 13:02:36.532  INFO 21380 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-05-14 13:02:36.565  INFO 21380 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 32ms. Found 2 JPA repository interfaces.
+2020-05-14 13:02:36.948  INFO 21380 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-05-14 13:02:36.949  INFO 21380 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-05-14 13:02:36.950  INFO 21380 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-05-14 13:02:37.001  INFO 21380 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-05-14 13:02:37.001  INFO 21380 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 932 ms
+2020-05-14 13:02:37.066  INFO 21380 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2020-05-14 13:02:37.072  INFO 21380 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2020-05-14 13:02:37.085  INFO 21380 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2020-05-14 13:02:37.114  INFO 21380 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2020-05-14 13:02:37.319  INFO 21380 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-05-14 13:02:37.412  INFO 21380 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-05-14 13:02:37.469  INFO 21380 --- [restartedMain] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2020-05-14 13:02:37.586  INFO 21380 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2020-05-14 13:02:37.586  INFO 21380 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2020-05-14 13:02:37.586  INFO 21380 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/img/**'], []
+2020-05-14 13:02:37.586  INFO 21380 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/lib/**'], []
+2020-05-14 13:02:37.599  INFO 21380 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1526cc8c, org.springframework.security.web.context.SecurityContextPersistenceFilter@1bf2ba35, org.springframework.security.web.header.HeaderWriterFilter@5f65c065, org.springframework.security.web.csrf.CsrfFilter@d4e37d1, org.springframework.security.web.authentication.logout.LogoutFilter@656d8528, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@6cfa91bc, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4d97fea, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@75cee1fc, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4bc85810, org.springframework.security.web.session.SessionManagementFilter@67fee9a4, org.springframework.security.web.access.ExceptionTranslationFilter@8e2ead3, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5837495c]
+2020-05-14 13:02:37.706  INFO 21380 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-05-14 13:02:37.717  WARN 21380 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-14 13:02:37.892  INFO 21380 --- [restartedMain] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2020-05-14 13:02:37.899  INFO 21380 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-05-14 13:02:37.900  INFO 21380 --- [restartedMain] com.example.demo.DemoApplication         : Started DemoApplication in 1.894 seconds (JVM running for 110.037)
+2020-05-14 13:02:37.905  INFO 21380 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-05-14 13:02:43.234  INFO 21380 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-05-14 13:02:43.236  INFO 21380 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-05-14 13:02:43.242  INFO 21380 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+2020-05-14 13:03:15.217  INFO 21380 --- [Thread-40] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-05-14 13:03:15.221  INFO 21380 --- [Thread-40] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-05-14 13:03:15.223  INFO 21380 --- [Thread-40] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2020-05-14 13:03:15.249  INFO 21380 --- [Thread-40] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2020-05-14 13:03:18.119  INFO 21380 --- [restartedMain] com.example.demo.DemoApplication         : Starting DemoApplication on DESKTOP-09M87UV with PID 21380 (started by tkawn in H:\workspace\my_project\web\졸업 프로젝트\GuhaeDog)
+2020-05-14 13:03:18.119 DEBUG 21380 --- [restartedMain] com.example.demo.DemoApplication         : Running with Spring Boot v2.1.13.RELEASE, Spring v5.1.14.RELEASE
+2020-05-14 13:03:18.119  INFO 21380 --- [restartedMain] com.example.demo.DemoApplication         : The following profiles are active: real-oauth,test
+2020-05-14 13:03:18.483  INFO 21380 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-05-14 13:03:18.507  INFO 21380 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23ms. Found 2 JPA repository interfaces.
+2020-05-14 13:03:18.835  INFO 21380 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-05-14 13:03:18.836  INFO 21380 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-05-14 13:03:18.836  INFO 21380 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-05-14 13:03:18.877  INFO 21380 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-05-14 13:03:18.877  INFO 21380 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 755 ms
+2020-05-14 13:03:18.924  INFO 21380 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2020-05-14 13:03:18.929  INFO 21380 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2020-05-14 13:03:18.938  INFO 21380 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2020-05-14 13:03:18.954  INFO 21380 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2020-05-14 13:03:19.074  INFO 21380 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-05-14 13:03:19.133  INFO 21380 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-05-14 13:03:19.171  INFO 21380 --- [restartedMain] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2020-05-14 13:03:19.247  INFO 21380 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2020-05-14 13:03:19.247  INFO 21380 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2020-05-14 13:03:19.247  INFO 21380 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/img/**'], []
+2020-05-14 13:03:19.248  INFO 21380 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/lib/**'], []
+2020-05-14 13:03:19.259  INFO 21380 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7c4819dc, org.springframework.security.web.context.SecurityContextPersistenceFilter@389713a7, org.springframework.security.web.header.HeaderWriterFilter@1ef5355b, org.springframework.security.web.csrf.CsrfFilter@4866f474, org.springframework.security.web.authentication.logout.LogoutFilter@4ace8f5e, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@25fecd06, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5673cfed, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@619b7795, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@35701e97, org.springframework.security.web.session.SessionManagementFilter@472d8a62, org.springframework.security.web.access.ExceptionTranslationFilter@7e421909, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@608209f2]
+2020-05-14 13:03:19.362  INFO 21380 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-05-14 13:03:19.372  WARN 21380 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-14 13:03:19.495  INFO 21380 --- [restartedMain] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2020-05-14 13:03:19.501  INFO 21380 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-05-14 13:03:19.502  INFO 21380 --- [restartedMain] com.example.demo.DemoApplication         : Started DemoApplication in 1.435 seconds (JVM running for 151.638)
+2020-05-14 13:03:19.505  INFO 21380 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-05-14 13:03:20.741  INFO 21380 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-05-14 13:03:20.743  INFO 21380 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-05-14 13:03:20.754  INFO 21380 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 11 ms
+2020-05-14 13:31:12.393  INFO 21380 --- [Thread-46] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-05-14 13:31:12.396  INFO 21380 --- [Thread-46] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-05-14 13:31:12.398  INFO 21380 --- [Thread-46] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2020-05-14 13:31:12.423  INFO 21380 --- [Thread-46] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2020-05-14 13:31:15.390  INFO 21380 --- [restartedMain] com.example.demo.DemoApplication         : Starting DemoApplication on DESKTOP-09M87UV with PID 21380 (started by tkawn in H:\workspace\my_project\web\졸업 프로젝트\GuhaeDog)
+2020-05-14 13:31:15.390 DEBUG 21380 --- [restartedMain] com.example.demo.DemoApplication         : Running with Spring Boot v2.1.13.RELEASE, Spring v5.1.14.RELEASE
+2020-05-14 13:31:15.390  INFO 21380 --- [restartedMain] com.example.demo.DemoApplication         : The following profiles are active: real-oauth,test
+2020-05-14 13:31:16.133  INFO 21380 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-05-14 13:31:16.163  INFO 21380 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 30ms. Found 2 JPA repository interfaces.
+2020-05-14 13:31:16.536  INFO 21380 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-05-14 13:31:16.537  INFO 21380 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-05-14 13:31:16.537  INFO 21380 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-05-14 13:31:16.713  INFO 21380 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-05-14 13:31:16.713  INFO 21380 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1319 ms
+2020-05-14 13:31:16.766  INFO 21380 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2020-05-14 13:31:16.775  INFO 21380 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2020-05-14 13:31:16.785  INFO 21380 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2020-05-14 13:31:16.802  INFO 21380 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2020-05-14 13:31:17.051  INFO 21380 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-05-14 13:31:17.189  INFO 21380 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-05-14 13:31:17.280  INFO 21380 --- [restartedMain] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2020-05-14 13:31:17.490  INFO 21380 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2020-05-14 13:31:17.491  INFO 21380 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2020-05-14 13:31:17.491  INFO 21380 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/img/**'], []
+2020-05-14 13:31:17.491  INFO 21380 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/lib/**'], []
+2020-05-14 13:31:17.524  INFO 21380 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@e0623a3, org.springframework.security.web.context.SecurityContextPersistenceFilter@70a99c99, org.springframework.security.web.header.HeaderWriterFilter@6c89a0a4, org.springframework.security.web.csrf.CsrfFilter@22bbd1b5, org.springframework.security.web.authentication.logout.LogoutFilter@39b2c64b, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5959c179, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@af8a109, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2bd5ac72, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@112713fd, org.springframework.security.web.session.SessionManagementFilter@ce3c2c9, org.springframework.security.web.access.ExceptionTranslationFilter@25abe00d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@101701ce]
+2020-05-14 13:31:17.776  INFO 21380 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-05-14 13:31:17.798  WARN 21380 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-14 13:31:18.062  INFO 21380 --- [restartedMain] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2020-05-14 13:31:18.072  INFO 21380 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-05-14 13:31:18.073  INFO 21380 --- [restartedMain] com.example.demo.DemoApplication         : Started DemoApplication in 2.743 seconds (JVM running for 1830.21)
+2020-05-14 13:31:18.079  INFO 21380 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-05-14 13:31:25.685  INFO 21380 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-05-14 13:31:25.687  INFO 21380 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-05-14 13:31:25.699  INFO 21380 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 12 ms
+2020-05-14 13:34:54.633  INFO 21380 --- [Thread-52] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-05-14 13:34:54.635  INFO 21380 --- [Thread-52] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-05-14 13:34:54.636  INFO 21380 --- [Thread-52] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown initiated...
+2020-05-14 13:34:54.666  INFO 21380 --- [Thread-52] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown completed.
+2020-05-14 13:34:55.973  INFO 21380 --- [restartedMain] com.example.demo.DemoApplication         : Starting DemoApplication on DESKTOP-09M87UV with PID 21380 (started by tkawn in H:\workspace\my_project\web\졸업 프로젝트\GuhaeDog)
+2020-05-14 13:34:55.974 DEBUG 21380 --- [restartedMain] com.example.demo.DemoApplication         : Running with Spring Boot v2.1.13.RELEASE, Spring v5.1.14.RELEASE
+2020-05-14 13:34:55.974  INFO 21380 --- [restartedMain] com.example.demo.DemoApplication         : The following profiles are active: real-oauth,test
+2020-05-14 13:34:56.338  INFO 21380 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-05-14 13:34:56.361  INFO 21380 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23ms. Found 2 JPA repository interfaces.
+2020-05-14 13:34:56.635  INFO 21380 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-05-14 13:34:56.636  INFO 21380 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-05-14 13:34:56.636  INFO 21380 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-05-14 13:34:56.673  INFO 21380 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-05-14 13:34:56.673  INFO 21380 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 697 ms
+2020-05-14 13:34:56.761  INFO 21380 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Starting...
+2020-05-14 13:34:56.773  INFO 21380 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Start completed.
+2020-05-14 13:34:56.796  INFO 21380 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2020-05-14 13:34:56.838  INFO 21380 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2020-05-14 13:34:57.131  INFO 21380 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-05-14 13:34:57.233  INFO 21380 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-05-14 13:34:57.299  INFO 21380 --- [restartedMain] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2020-05-14 13:34:57.457  INFO 21380 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2020-05-14 13:34:57.457  INFO 21380 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2020-05-14 13:34:57.457  INFO 21380 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/img/**'], []
+2020-05-14 13:34:57.458  INFO 21380 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/lib/**'], []
+2020-05-14 13:34:57.477  INFO 21380 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@8ae2b94, org.springframework.security.web.context.SecurityContextPersistenceFilter@35ac0dd3, org.springframework.security.web.header.HeaderWriterFilter@108e926b, org.springframework.security.web.csrf.CsrfFilter@620feb98, org.springframework.security.web.authentication.logout.LogoutFilter@2afcf4b1, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@7fdf33a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@755f5e73, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@11a68779, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@219409b2, org.springframework.security.web.session.SessionManagementFilter@28e2607c, org.springframework.security.web.access.ExceptionTranslationFilter@43406e63, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@22c8c52a]
+2020-05-14 13:34:57.656  INFO 21380 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-05-14 13:34:57.673  WARN 21380 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-14 13:34:57.894  INFO 21380 --- [restartedMain] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2020-05-14 13:34:57.904  INFO 21380 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-05-14 13:34:57.905  INFO 21380 --- [restartedMain] com.example.demo.DemoApplication         : Started DemoApplication in 1.98 seconds (JVM running for 2050.042)
+2020-05-14 13:34:57.910  INFO 21380 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-05-14 13:35:24.190  INFO 21380 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-05-14 13:35:24.192  INFO 21380 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-05-14 13:35:24.205  INFO 21380 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 12 ms
+2020-05-14 13:41:58.763  INFO 13400 --- [restartedMain] com.example.demo.DemoApplication         : Starting DemoApplication on DESKTOP-09M87UV with PID 13400 (started by tkawn in H:\workspace\my_project\web\졸업 프로젝트\GuhaeDog)
+2020-05-14 13:41:58.767 DEBUG 13400 --- [restartedMain] com.example.demo.DemoApplication         : Running with Spring Boot v2.1.13.RELEASE, Spring v5.1.14.RELEASE
+2020-05-14 13:41:58.767  INFO 13400 --- [restartedMain] com.example.demo.DemoApplication         : The following profiles are active: real-oauth,test
+2020-05-14 13:41:58.831  INFO 13400 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-05-14 13:41:58.831  INFO 13400 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-05-14 13:42:01.135  INFO 13400 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-05-14 13:42:01.331  INFO 13400 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 176ms. Found 2 JPA repository interfaces.
+2020-05-14 13:42:02.509  INFO 13400 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-05-14 13:42:02.537  INFO 13400 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-05-14 13:42:02.537  INFO 13400 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-05-14 13:42:02.720  INFO 13400 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-05-14 13:42:02.720  INFO 13400 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3888 ms
+2020-05-14 13:42:02.936  INFO 13400 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-05-14 13:42:02.980  INFO 13400 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-05-14 13:42:03.029  INFO 13400 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2020-05-14 13:42:03.097  INFO 13400 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.15.Final}
+2020-05-14 13:42:03.100  INFO 13400 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2020-05-14 13:42:03.244  INFO 13400 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2020-05-14 13:42:03.387  INFO 13400 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2020-05-14 13:42:04.576  INFO 13400 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-05-14 13:42:04.880  INFO 13400 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-05-14 13:42:05.548  INFO 13400 --- [restartedMain] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2020-05-14 13:42:06.334  INFO 13400 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2020-05-14 13:42:06.335  INFO 13400 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2020-05-14 13:42:06.335  INFO 13400 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/img/**'], []
+2020-05-14 13:42:06.336  INFO 13400 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/lib/**'], []
+2020-05-14 13:42:06.407  INFO 13400 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@123f8872, org.springframework.security.web.context.SecurityContextPersistenceFilter@4645321e, org.springframework.security.web.header.HeaderWriterFilter@3d17fab1, org.springframework.security.web.csrf.CsrfFilter@551699c5, org.springframework.security.web.authentication.logout.LogoutFilter@6b5842d9, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5c1fd9c0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@c12fcda, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@e21c10b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@30cc822c, org.springframework.security.web.session.SessionManagementFilter@1705cecc, org.springframework.security.web.access.ExceptionTranslationFilter@c6edc48, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3e21c1d4]
+2020-05-14 13:42:06.907  INFO 13400 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-05-14 13:42:06.971  WARN 13400 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-14 13:42:08.505  INFO 13400 --- [restartedMain] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2020-05-14 13:42:08.545  INFO 13400 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-05-14 13:42:08.548  INFO 13400 --- [restartedMain] com.example.demo.DemoApplication         : Started DemoApplication in 10.384 seconds (JVM running for 16.095)
+2020-05-14 13:42:19.967  INFO 13400 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-05-14 13:42:19.967  INFO 13400 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-05-14 13:42:19.976  INFO 13400 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms
+2020-05-14 13:53:18.278  INFO 25884 --- [restartedMain] com.example.demo.DemoApplication         : Starting DemoApplication on DESKTOP-09M87UV with PID 25884 (started by tkawn in H:\workspace\my_project\web\졸업 프로젝트\GuhaeDog)
+2020-05-14 13:53:18.282 DEBUG 25884 --- [restartedMain] com.example.demo.DemoApplication         : Running with Spring Boot v2.1.13.RELEASE, Spring v5.1.14.RELEASE
+2020-05-14 13:53:18.282  INFO 25884 --- [restartedMain] com.example.demo.DemoApplication         : The following profiles are active: real-oauth,test
+2020-05-14 13:53:18.336  INFO 25884 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-05-14 13:53:18.337  INFO 25884 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-05-14 13:53:19.374  INFO 25884 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-05-14 13:53:19.450  INFO 25884 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 68ms. Found 2 JPA repository interfaces.
+2020-05-14 13:53:21.043  INFO 25884 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-05-14 13:53:21.099  INFO 25884 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-05-14 13:53:21.100  INFO 25884 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-05-14 13:53:21.515  INFO 25884 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-05-14 13:53:21.516  INFO 25884 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3179 ms
+2020-05-14 13:53:21.991  INFO 25884 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-05-14 13:53:22.088  INFO 25884 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-05-14 13:53:22.187  INFO 25884 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2020-05-14 13:53:22.358  INFO 25884 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.15.Final}
+2020-05-14 13:53:22.367  INFO 25884 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2020-05-14 13:53:22.656  INFO 25884 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2020-05-14 13:53:22.793  INFO 25884 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2020-05-14 13:53:23.641  INFO 25884 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-05-14 13:53:23.799  INFO 25884 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-05-14 13:53:24.063  INFO 25884 --- [restartedMain] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2020-05-14 13:53:24.393  INFO 25884 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2020-05-14 13:53:24.393  INFO 25884 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2020-05-14 13:53:24.393  INFO 25884 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/img/**'], []
+2020-05-14 13:53:24.394  INFO 25884 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/lib/**'], []
+2020-05-14 13:53:24.427  INFO 25884 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2055911d, org.springframework.security.web.context.SecurityContextPersistenceFilter@3f433755, org.springframework.security.web.header.HeaderWriterFilter@2c224ad4, org.springframework.security.web.csrf.CsrfFilter@6119c71e, org.springframework.security.web.authentication.logout.LogoutFilter@4183720, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@2c9fc01a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@69f81a0a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6fa41b18, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@72981a1d, org.springframework.security.web.session.SessionManagementFilter@5042add2, org.springframework.security.web.access.ExceptionTranslationFilter@1f23c303, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@33f0afcb]
+2020-05-14 13:53:24.652  INFO 25884 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-05-14 13:53:24.733  WARN 25884 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-14 13:53:27.885  INFO 25884 --- [restartedMain] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2020-05-14 13:53:27.918  INFO 25884 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-05-14 13:53:27.920  INFO 25884 --- [restartedMain] com.example.demo.DemoApplication         : Started DemoApplication in 10.167 seconds (JVM running for 14.001)
+2020-05-14 13:53:52.888  INFO 25884 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-05-14 13:53:52.888  INFO 25884 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-05-14 13:53:52.906  INFO 25884 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 18 ms
+2020-05-14 13:53:55.827  INFO 25884 --- [http-nio-8080-exec-6] c.e.demo.controller.HomeController       : home logger
+2020-05-14 13:54:01.098  INFO 25884 --- [http-nio-8080-exec-9] c.e.demo.controller.HomeController       : home logger
+2020-05-14 13:54:03.064  INFO 25884 --- [http-nio-8080-exec-10] c.e.demo.controller.HomeController       : home logger
+2020-05-14 13:54:32.059  INFO 25884 --- [http-nio-8080-exec-3] c.e.demo.member.service.MemberService    : 여기까지?
+2020-05-14 13:54:32.060  INFO 25884 --- [http-nio-8080-exec-3] c.e.demo.member.service.MemberService    : admin@gmail.com
+2020-05-14 13:54:32.060  INFO 25884 --- [http-nio-8080-exec-3] c.e.demo.member.service.MemberService    : ROLE_ADMIN
+2020-05-14 13:54:32.060  INFO 25884 --- [http-nio-8080-exec-3] c.e.demo.member.service.MemberService    : $2a$10$jfpYBZZlyfNQxvGMuU5ixOiyIciJoJhSC1MBRcSNa2.3.R5whobN6
+2020-05-14 13:54:32.062  INFO 25884 --- [http-nio-8080-exec-3] c.e.demo.member.service.MemberService    : $2a$10$jfpYBZZlyfNQxvGMuU5ixOiyIciJoJhSC1MBRcSNa2.3.R5whobN6
+2020-05-14 13:55:01.817  INFO 25884 --- [http-nio-8080-exec-6] c.e.demo.member.service.MemberService    : 여기까지?
+2020-05-14 13:55:01.818  INFO 25884 --- [http-nio-8080-exec-6] c.e.demo.member.service.MemberService    : admin@gmail.com
+2020-05-14 13:55:01.818  INFO 25884 --- [http-nio-8080-exec-6] c.e.demo.member.service.MemberService    : ROLE_ADMIN
+2020-05-14 13:55:01.818  INFO 25884 --- [http-nio-8080-exec-6] c.e.demo.member.service.MemberService    : $2a$10$jfpYBZZlyfNQxvGMuU5ixOiyIciJoJhSC1MBRcSNa2.3.R5whobN6
+2020-05-14 13:55:01.818  INFO 25884 --- [http-nio-8080-exec-6] c.e.demo.member.service.MemberService    : $2a$10$jfpYBZZlyfNQxvGMuU5ixOiyIciJoJhSC1MBRcSNa2.3.R5whobN6

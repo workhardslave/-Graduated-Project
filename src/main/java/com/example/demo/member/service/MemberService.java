@@ -4,71 +4,115 @@ import com.example.demo.member.dao.MemberRepository;
 import com.example.demo.member.vo.Member;
 import com.example.demo.member.dao.MemberSaveRequestDto;
 import com.example.demo.member.dao.MemberUpdateRequestDto;
+
+
+import com.example.demo.member.vo.MemberResponseDto;
+import com.example.demo.member.vo.Role;
+
+import org.slf4j.LoggerFactory;
 import lombok.RequiredArgsConstructor;
+
+import org.slf4j.Logger;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
 @RequiredArgsConstructor
-public class MemberService {
+public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
-    @Transactional
-    //회원가입
-    public Member SingUp(MemberSaveRequestDto requestDto) {
-        String result= validateDuplicateMember(requestDto);
-        if(result =="OK") {
-            return memberRepository.save(requestDto.toEntity());
+    private Logger logger = LoggerFactory.getLogger(MemberService.class);
 
-        }else {
-            return null;
-        }
-    }
 
     //회원가입 아이디 중복체크
     @Transactional
-    public String validateDuplicateMember(MemberSaveRequestDto requestDto) {
-        Member findMember = memberRepository.findEmailCheck(requestDto.getEmail());
-        if (findMember ==null) {
-//            throw new IllegalStateException("회원가입된 사람입니다.");
-            return "NO";
+    public void validateDuplicateMember(Member member) {
+        Member findMember = memberRepository.findEmailCheck(member.getEmail());
+        if (findMember!=null) {
+            throw new IllegalStateException("회원가입된 사람입니다.");
         }
-        return "OK";
     }
 
-    //아이디 패스워드 확인 후 로그인
     @Transactional
-    public String Check_Login(Object email, Object password){
-        Member member = memberRepository.findByEmailPassword(email, password);
-        if (member == null) {
-//            throw new IllegalStateException("아이디와 비밀번호를 다시 확인해 주세요.");
-            return "NO";
-        }
-
-        return "YES";
-    }
-
-
-    //정보 수정
-    @Transactional
-    public void InfoUpdate(String email, MemberUpdateRequestDto requestDto){
-        Member m = memberRepository.findEmailCheck(email);
-        m.update(requestDto.getPassword());
-    }
-
-    //아이디찾기
-    @Transactional(readOnly =  true)
-    public List<Member> findMembers() {
+    public List<Member> findMembers(){
         return memberRepository.findAll();
     }
 
+
+    //회원가입
+    @Transactional
+    public Long SingUp(MemberSaveRequestDto memberDto) {
+        validateDuplicateMember(memberDto.toEntity());
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
+        memberDto.setRole(Role.ADMIN);
+        return memberRepository.save(memberDto.toEntity()).getId();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
+        Member userEntityWrapper = memberRepository.findEmailCheck(userEmail); //이메일값 반환
+        logger.info("여기까지?");
+        logger.info(userEntityWrapper.getEmail());
+        logger.info(userEntityWrapper.getRole().getValue());
+        logger.info(userEntityWrapper.getPassword());
+        if(userEntityWrapper == null ){
+            throw new UsernameNotFoundException("User not authorized.");
+        }
+
+        GrantedAuthority authority = new SimpleGrantedAuthority(userEntityWrapper.getRole().getValue());
+        UserDetails userDetails = (UserDetails)new User(userEntityWrapper.getEmail(),
+                userEntityWrapper.getPassword(), Arrays.asList(authority));
+        logger.info(userDetails.getPassword());
+        return userDetails;
+    }
+
+    @Transactional
+    public Long update(Long id, MemberUpdateRequestDto requestDto) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
+
+        member.update(requestDto.getName(),requestDto.getEmail(), requestDto.getPassword(),requestDto.getBirth(),requestDto.getPhone());
+
+        return id;
+    }
+
+
+    //수정을 위한 서비스
+    @Transactional(readOnly = true)
+    public MemberResponseDto findById(Long id) {
+        Member entity = memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
+
+        return new MemberResponseDto(entity);
+    }
+
+
+
+    //
+//
+//    //아이디찾기
+//    @Transactional(readOnly =  true)
+//    public List<Member> findMembers() {
+//        return memberRepository.findAll();
+//    }
+//
     @Transactional(readOnly =  true)
     public Member findOne(Long memberId) {
         return memberRepository.findOne(memberId);
     }
-
 
 }
