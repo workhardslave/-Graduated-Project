@@ -8259,3 +8259,104 @@ org.thymeleaf.exceptions.TemplateInputException: Error resolving template [/], t
 2020-05-14 20:42:12.949  WARN 29244 --- [http-nio-8080-exec-5] o.s.web.servlet.PageNotFound             : No mapping for GET /member/static/images/dog1.jpg
 2020-05-14 20:42:12.951  WARN 29244 --- [http-nio-8080-exec-7] o.s.web.servlet.PageNotFound             : No mapping for GET /member/static/js/bootstrap.js
 2020-05-14 20:43:33.939  INFO 29244 --- [http-nio-8080-exec-1] c.e.demo.controller.HomeController       : home logger
+2020-05-14 20:48:45.511  INFO 14988 --- [restartedMain] com.example.demo.DemoApplication         : Starting DemoApplication on DESKTOP-Q19NM96 with PID 14988 (C:\Users\leede\Desktop\PROJ_Spring\Guhae_Dog\build\classes\java\main started by 다은 in C:\Users\leede\Desktop\PROJ_Spring\Guhae_Dog)
+2020-05-14 20:48:45.516 DEBUG 14988 --- [restartedMain] com.example.demo.DemoApplication         : Running with Spring Boot v2.1.13.RELEASE, Spring v5.1.14.RELEASE
+2020-05-14 20:48:45.517  INFO 14988 --- [restartedMain] com.example.demo.DemoApplication         : The following profiles are active: real-oauth,test
+2020-05-14 20:48:45.634  INFO 14988 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-05-14 20:48:45.634  INFO 14988 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-05-14 20:48:48.348  INFO 14988 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-05-14 20:48:48.587  INFO 14988 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 218ms. Found 2 JPA repository interfaces.
+2020-05-14 20:48:50.411  INFO 14988 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-05-14 20:48:50.472  INFO 14988 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-05-14 20:48:50.473  INFO 14988 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-05-14 20:48:50.907  INFO 14988 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-05-14 20:48:50.907  INFO 14988 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 5272 ms
+2020-05-14 20:48:51.384  INFO 14988 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-05-14 20:48:51.448  INFO 14988 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-05-14 20:48:51.542  INFO 14988 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2020-05-14 20:48:51.748  INFO 14988 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.15.Final}
+2020-05-14 20:48:51.757  INFO 14988 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2020-05-14 20:48:52.141  INFO 14988 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2020-05-14 20:48:52.633  INFO 14988 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2020-05-14 20:48:55.184  INFO 14988 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-05-14 20:48:55.456  INFO 14988 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-05-14 20:48:55.939  INFO 14988 --- [restartedMain] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2020-05-14 20:48:56.594  INFO 14988 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/static/**'], []
+2020-05-14 20:48:56.594  INFO 14988 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2020-05-14 20:48:56.595  INFO 14988 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/memberAuth/**'], []
+2020-05-14 20:48:56.595  INFO 14988 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2020-05-14 20:48:56.595  INFO 14988 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/img/**'], []
+2020-05-14 20:48:56.595  INFO 14988 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/lib/**'], []
+2020-05-14 20:48:56.638  INFO 14988 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@9b1a0ac, org.springframework.security.web.context.SecurityContextPersistenceFilter@3235f1fa, org.springframework.security.web.header.HeaderWriterFilter@604c5991, org.springframework.security.web.csrf.CsrfFilter@f1edb2b, org.springframework.security.web.authentication.logout.LogoutFilter@6774b504, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@414e08c6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6c87da8d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@421adbf9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@38089164, org.springframework.security.web.session.SessionManagementFilter@6135ddf1, org.springframework.security.web.access.ExceptionTranslationFilter@6f264767, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3fe49b33]
+2020-05-14 20:48:57.006  INFO 14988 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-05-14 20:48:57.062  WARN 14988 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-14 20:49:00.039  INFO 14988 --- [restartedMain] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2020-05-14 20:49:00.092  INFO 14988 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-05-14 20:49:00.097  INFO 14988 --- [restartedMain] com.example.demo.DemoApplication         : Started DemoApplication in 15.761 seconds (JVM running for 20.559)
+2020-05-14 20:49:04.308  INFO 14988 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-05-14 20:49:04.309  INFO 14988 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-05-14 20:49:04.333  INFO 14988 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 23 ms
+2020-05-14 20:49:04.541  INFO 14988 --- [http-nio-8080-exec-1] c.e.demo.controller.HomeController       : home logger
+2020-05-14 20:49:09.403  WARN 14988 --- [http-nio-8080-exec-1] o.s.web.servlet.PageNotFound             : No mapping for GET /member/static/css/bootstrap.css
+2020-05-14 20:49:09.407  WARN 14988 --- [http-nio-8080-exec-10] o.s.web.servlet.PageNotFound             : No mapping for GET /member/static/css/style.css
+2020-05-14 20:49:09.411  WARN 14988 --- [http-nio-8080-exec-5] o.s.web.servlet.PageNotFound             : No mapping for GET /member/static/css/responsive.css
+2020-05-14 20:49:09.508  WARN 14988 --- [http-nio-8080-exec-9] o.s.web.servlet.PageNotFound             : No mapping for GET /member/static/js/jquery-3.4.1.min.js
+2020-05-14 20:49:09.530  WARN 14988 --- [http-nio-8080-exec-8] o.s.web.servlet.PageNotFound             : No mapping for GET /member/static/js/bootstrap.js
+2020-05-14 20:49:09.537  WARN 14988 --- [http-nio-8080-exec-7] o.s.web.servlet.PageNotFound             : No mapping for GET /member/static/images/logo.png
+2020-05-14 20:49:09.662  WARN 14988 --- [http-nio-8080-exec-4] o.s.web.servlet.PageNotFound             : No mapping for GET /member/static/images/dog1.jpg
+2020-05-14 20:49:09.662  WARN 14988 --- [http-nio-8080-exec-6] o.s.web.servlet.PageNotFound             : No mapping for GET /member/static/images/questionnaire-fill.png
+2020-05-14 20:49:09.662  WARN 14988 --- [http-nio-8080-exec-3] o.s.web.servlet.PageNotFound             : No mapping for GET /member/static/images/dog2.jpg
+2020-05-14 20:49:09.674  WARN 14988 --- [http-nio-8080-exec-2] o.s.web.servlet.PageNotFound             : No mapping for GET /member/static/js/bootstrap.js
+2020-05-14 20:55:37.015  INFO 24008 --- [restartedMain] com.example.demo.DemoApplication         : Starting DemoApplication on DESKTOP-Q19NM96 with PID 24008 (C:\Users\leede\Desktop\PROJ_Spring\Guhae_Dog\build\classes\java\main started by 다은 in C:\Users\leede\Desktop\PROJ_Spring\Guhae_Dog)
+2020-05-14 20:55:37.019 DEBUG 24008 --- [restartedMain] com.example.demo.DemoApplication         : Running with Spring Boot v2.1.13.RELEASE, Spring v5.1.14.RELEASE
+2020-05-14 20:55:37.019  INFO 24008 --- [restartedMain] com.example.demo.DemoApplication         : The following profiles are active: real-oauth,test
+2020-05-14 20:55:37.082  INFO 24008 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-05-14 20:55:37.082  INFO 24008 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-05-14 20:55:38.814  INFO 24008 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-05-14 20:55:38.939  INFO 24008 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 114ms. Found 2 JPA repository interfaces.
+2020-05-14 20:55:40.135  INFO 24008 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-05-14 20:55:40.170  INFO 24008 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-05-14 20:55:40.171  INFO 24008 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-05-14 20:55:40.468  INFO 24008 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-05-14 20:55:40.468  INFO 24008 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3385 ms
+2020-05-14 20:55:40.768  INFO 24008 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-05-14 20:55:40.852  INFO 24008 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-05-14 20:55:40.960  INFO 24008 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2020-05-14 20:55:41.075  INFO 24008 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.15.Final}
+2020-05-14 20:55:41.078  INFO 24008 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2020-05-14 20:55:41.331  INFO 24008 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2020-05-14 20:55:41.628  INFO 24008 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2020-05-14 20:55:43.136  INFO 24008 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-05-14 20:55:43.328  INFO 24008 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-05-14 20:55:43.880  INFO 24008 --- [restartedMain] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2020-05-14 20:55:44.905  INFO 24008 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/static/**'], []
+2020-05-14 20:55:44.906  INFO 24008 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2020-05-14 20:55:44.907  INFO 24008 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/memberAuth/**'], []
+2020-05-14 20:55:44.908  INFO 24008 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2020-05-14 20:55:44.908  INFO 24008 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/img/**'], []
+2020-05-14 20:55:44.909  INFO 24008 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/lib/**'], []
+2020-05-14 20:55:45.001  INFO 24008 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@14a2992a, org.springframework.security.web.context.SecurityContextPersistenceFilter@6fb53b5a, org.springframework.security.web.header.HeaderWriterFilter@673971a, org.springframework.security.web.csrf.CsrfFilter@5f8286bb, org.springframework.security.web.authentication.logout.LogoutFilter@57ff91a, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@24beadc3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5b6fd1c3, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4c7974ed, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@45a3fec8, org.springframework.security.web.session.SessionManagementFilter@5fdb1824, org.springframework.security.web.access.ExceptionTranslationFilter@239bfbd4, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5d7f8ad9]
+2020-05-14 20:55:45.529  INFO 24008 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-05-14 20:55:45.598  WARN 24008 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-14 20:55:49.018  INFO 24008 --- [restartedMain] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2020-05-14 20:55:49.075  INFO 24008 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-05-14 20:55:49.082  INFO 24008 --- [restartedMain] com.example.demo.DemoApplication         : Started DemoApplication in 12.715 seconds (JVM running for 16.569)
+2020-05-14 20:55:56.609  INFO 24008 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-05-14 20:55:56.610  INFO 24008 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-05-14 20:55:56.628  INFO 24008 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 17 ms
+2020-05-14 20:55:56.854  INFO 24008 --- [http-nio-8080-exec-1] c.e.demo.controller.HomeController       : home logger
+2020-05-14 20:55:57.485  INFO 24008 --- [http-nio-8080-exec-2] c.e.demo.controller.HomeController       : home logger
+2020-05-14 20:56:01.195  WARN 24008 --- [http-nio-8080-exec-2] o.s.web.servlet.PageNotFound             : No mapping for GET /member/static/css/bootstrap.css
+2020-05-14 20:56:01.202  WARN 24008 --- [http-nio-8080-exec-6] o.s.web.servlet.PageNotFound             : No mapping for GET /member/static/css/style.css
+2020-05-14 20:56:01.205  WARN 24008 --- [http-nio-8080-exec-7] o.s.web.servlet.PageNotFound             : No mapping for GET /member/static/css/responsive.css
+2020-05-14 20:56:01.305  WARN 24008 --- [http-nio-8080-exec-9] o.s.web.servlet.PageNotFound             : No mapping for GET /member/static/js/jquery-3.4.1.min.js
+2020-05-14 20:56:01.315  WARN 24008 --- [http-nio-8080-exec-5] o.s.web.servlet.PageNotFound             : No mapping for GET /member/static/js/bootstrap.js
+2020-05-14 20:56:01.315  WARN 24008 --- [http-nio-8080-exec-3] o.s.web.servlet.PageNotFound             : No mapping for GET /member/static/images/logo.png
+2020-05-14 20:56:01.428  WARN 24008 --- [http-nio-8080-exec-1] o.s.web.servlet.PageNotFound             : No mapping for GET /member/static/images/questionnaire-fill.png
+2020-05-14 20:56:01.428  WARN 24008 --- [http-nio-8080-exec-8] o.s.web.servlet.PageNotFound             : No mapping for GET /member/static/images/dog2.jpg
+2020-05-14 20:56:01.431  WARN 24008 --- [http-nio-8080-exec-4] o.s.web.servlet.PageNotFound             : No mapping for GET /member/static/images/dog1.jpg
+2020-05-14 20:56:01.463  WARN 24008 --- [http-nio-8080-exec-10] o.s.web.servlet.PageNotFound             : No mapping for GET /member/static/js/bootstrap.js
