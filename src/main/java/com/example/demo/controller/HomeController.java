@@ -88,8 +88,8 @@ public class HomeController {
     }
 
     //로그인 결과
-    @PostMapping("/member/login/result")
-    //@GetMapping("/member/login/result")
+    //@PostMapping("/member/login/result")
+    @GetMapping("/member/login/result")
     public String dispLoginResult(Principal principals) {
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -105,7 +105,8 @@ public class HomeController {
     //로그아웃
     @GetMapping("/member/logout/result")
     public String dispLogout() {
-        return "/";
+
+        return "home";
     }
 
 }
