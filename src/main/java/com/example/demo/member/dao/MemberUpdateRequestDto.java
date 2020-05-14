@@ -8,7 +8,7 @@ import lombok.Getter;
 
 @Getter
 public class MemberUpdateRequestDto {
-
+    private Long id;
     private String name;
     private String email;
     private String password;
@@ -18,7 +18,8 @@ public class MemberUpdateRequestDto {
     private String birth;
 
     @Builder
-    public MemberUpdateRequestDto(String name, String email, String password, Address address, Role role, String phone, String birth) {
+    public MemberUpdateRequestDto(Long id, String name, String email, String password, Address address, Role role, String phone, String birth) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;

@@ -55,15 +55,10 @@ public class Member extends BaseTimeEntity {
     }
 
 
-    public Member update(String name, String email, String password,String phone, String birth) {
+    public void update(String name, String email, String phone) {
         this.email = email;
-        this.password = password;
         this.name = name;
-        this.password=password;
         this.phone = phone;
-        this.birth=birth;
-        return this;
-
     }
 
     public String getRoleKey() {

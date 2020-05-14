@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -80,18 +81,19 @@ public class MemberService implements UserDetailsService {
         return userDetails;
     }
 
+    //수정 api
     @Transactional
     public Long update(Long id, MemberUpdateRequestDto requestDto) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
-
-        member.update(requestDto.getName(),requestDto.getEmail(), requestDto.getPassword(),requestDto.getBirth(),requestDto.getPhone());
-
+        System.out.println("서비스의 update 함수");
+        member.update(requestDto.getName(),requestDto.getEmail(), requestDto.getPhone());
+        System.out.println(id);
         return id;
     }
 
 
-    //수정을 위한 서비스
+    //수정 페이지
     @Transactional(readOnly = true)
     public MemberResponseDto findById(Long id) {
         Member entity = memberRepository.findById(id)
@@ -102,14 +104,22 @@ public class MemberService implements UserDetailsService {
 
 
 
-    //
-//
-//    //아이디찾기
-//    @Transactional(readOnly =  true)
-//    public List<Member> findMembers() {
-//        return memberRepository.findAll();
-//    }
-//
+    //삭제 api
+    @Transactional
+    public void delete (Long id) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
+
+        memberRepository.delete(member);
+    }
+
+    @Transactional(readOnly = true)
+    public List<MemberResponseDto> findAllDesc() {
+        return memberRepository.findAllDesc().stream()
+                .map(MemberResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
     @Transactional(readOnly =  true)
     public Member findOne(Long memberId) {
         return memberRepository.findOne(memberId);
