@@ -72,7 +72,9 @@ public class MemberServiceApiTest {
         Member member = new Member();
         member.setEmail("abcdef@naver.com");
         //when
-   //     memberService.SingUp(member);
+
+//        memberService.SingUp(member);
+
         em.flush();
         //then
         fail("예외가 발생해야 한다");
