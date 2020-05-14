@@ -96,7 +96,7 @@ public class HomeController {
 
         System.out.println(username);
         System.out.println(principals.getName());
-        return "home";
+        return "home_hyun";
     }
 
 
