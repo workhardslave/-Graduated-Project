@@ -3,6 +3,7 @@ spring:
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
+    cache: false
   profiles:
     active: local
     include: real-oauth
@@ -22,7 +23,11 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
-
+  devtools:
+    livereload:
+      enabled: true
+  freemarker:
+    cache: false
 
 
 #spring:

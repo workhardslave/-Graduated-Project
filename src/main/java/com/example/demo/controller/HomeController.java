@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
@@ -83,10 +84,11 @@ public class HomeController {
     public String dispLogin(Principal principals) throws Exception
     {
 
-        return "members/login";
+        return "memberAuth/signIn";
     }
 
     //로그인 결과
+    //@PostMapping("/member/login/result")
     @GetMapping("/member/login/result")
     public String dispLoginResult(Principal principals) {
 
@@ -103,7 +105,8 @@ public class HomeController {
     //로그아웃
     @GetMapping("/member/logout/result")
     public String dispLogout() {
-        return "/";
+
+        return "home";
     }
 
 }
