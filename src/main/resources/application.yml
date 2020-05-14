@@ -1,4 +1,4 @@
-#database: h2
+database: h2
 spring:
   thymeleaf:
     prefix: classpath:/templates/
@@ -10,10 +10,10 @@ spring:
     store-type: jdbc
   datasource:
     platform: h2
-    data: classpath*:db/${h2}/data.sql
+    data: classpath*:db/${database}/data.sql
     url: jdbc:h2:tcp://localhost/~/guhaedog
     username: sa
-    password: 1234
+    password:
     driver-class-name: org.h2.Driver
     initialization-mode: never
     sql-script-encoding: UTF-8

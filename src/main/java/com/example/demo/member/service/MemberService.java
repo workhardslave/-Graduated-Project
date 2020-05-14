@@ -6,6 +6,7 @@ import com.example.demo.member.dao.MemberSaveRequestDto;
 import com.example.demo.member.dao.MemberUpdateRequestDto;
 
 
+import com.example.demo.member.vo.MemberResponseDto;
 import com.example.demo.member.vo.Role;
 
 import org.slf4j.LoggerFactory;
@@ -79,16 +80,26 @@ public class MemberService implements UserDetailsService {
         return userDetails;
     }
 
-    //아이디 패스워드 확인 후 로그인
-
-
-
-    //정보 수정
     @Transactional
-    public void InfoUpdate(String email, MemberUpdateRequestDto requestDto){
-        Member m = memberRepository.findEmailCheck(email);
-        m.update(requestDto.getPassword(), requestDto.getEmail());
+    public Long update(Long id, MemberUpdateRequestDto requestDto) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
+
+        member.update(requestDto.getName(),requestDto.getEmail(), requestDto.getPassword(),requestDto.getBirth(),requestDto.getPhone());
+
+        return id;
     }
+
+
+    //수정을 위한 서비스
+    @Transactional(readOnly = true)
+    public MemberResponseDto findById(Long id) {
+        Member entity = memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
+
+        return new MemberResponseDto(entity);
+    }
+
 
 
     //
