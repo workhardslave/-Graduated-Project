@@ -30,7 +30,7 @@ public class MemberApiController {
     @PostMapping(value = "/api/member/new")
     public String create(@Valid MemberForm form, BindingResult result) {
         if (result.hasErrors()) {
-            return "members/createMemberForm";
+            return "memberAuth/signUp"; // member/createMemberForm -> memberAuth/signUp 변경
         }
 
         log.info(form.getEmail());
@@ -44,7 +44,7 @@ public class MemberApiController {
         member.setPassword(form.getPassword());
         member.setPhone(form.getPhone());
         memberService.SingUp(member);
-        return "members/login";
+        return "home_hyun";
     }
 
     //회원정보 수정 api
