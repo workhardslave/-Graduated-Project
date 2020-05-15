@@ -27,10 +27,10 @@ public class MemberApiController {
     HttpSession session;
 
     //회원가입 등록 API
-    @PostMapping(value = "/api/member/new")
+    @PostMapping(value = "/api/member/signup")
     public String create(@Valid MemberForm form, BindingResult result) {
         if (result.hasErrors()) {
-            return "members/createMemberForm";
+            return "memberAuth/signUp";
         }
 
         log.info(form.getEmail());
@@ -43,8 +43,9 @@ public class MemberApiController {
         member.setEmail(form.getEmail());
         member.setPassword(form.getPassword());
         member.setPhone(form.getPhone());
-        memberService.SingUp(member);
-        return "members/login";
+        memberService.SignUp(member);
+
+        return "memberAuth/signIn";
     }
 
     //회원정보 수정 api

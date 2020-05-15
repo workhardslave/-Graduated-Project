@@ -54,7 +54,7 @@ public class MemberService implements UserDetailsService {
 
     //회원가입
     @Transactional
-    public Long SingUp(MemberSaveRequestDto memberDto) {
+    public Long SignUp(MemberSaveRequestDto memberDto) {
         validateDuplicateMember(memberDto.toEntity());
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
@@ -101,8 +101,6 @@ public class MemberService implements UserDetailsService {
     }
 
 
-
-    //
 //
 //    //아이디찾기
 //    @Transactional(readOnly =  true)
