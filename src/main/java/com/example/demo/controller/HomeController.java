@@ -15,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
@@ -41,7 +40,7 @@ public class HomeController {
     @GetMapping("/member/new")
     public String createForm(Model model) {
         model.addAttribute("memberForm", new MemberForm());
-        return "members/createMemberForm";
+        return "memberAuth/signUp";
     }
 
     //회원정보 리스트
@@ -88,8 +87,8 @@ public class HomeController {
     }
 
     //로그인 결과
-    @PostMapping("/member/login/result")
-    //@GetMapping("/member/login/result")
+    //@PostMapping("/member/login/result")
+    @GetMapping("/member/login/result")
     public String dispLoginResult(Principal principals) {
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -105,7 +104,8 @@ public class HomeController {
     //로그아웃
     @GetMapping("/member/logout/result")
     public String dispLogout() {
-        return "/";
+
+        return "home";
     }
 
 }
