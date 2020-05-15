@@ -32,7 +32,7 @@ public class MemberSaveRequestDto {
         this.address = address;
         this.role = role; //필수
         this.phone = phone;
-        this.birth =birth;
+        this.birth = birth;
     }
 
 

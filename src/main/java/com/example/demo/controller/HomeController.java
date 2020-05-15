@@ -37,7 +37,7 @@ public class HomeController {
     }
 
     //회원가입 페이지
-    @GetMapping("/member/new")
+    @GetMapping("/member/signup")
     public String createForm(Model model) {
         model.addAttribute("memberForm", new MemberForm());
         return "memberAuth/signUp";
