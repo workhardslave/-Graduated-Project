@@ -1,53 +1,47 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="fragments/config :: configFragment"/>
+    <head th:replace="fragments/config :: configFragment" />
     <body>
         <header th:replace="fragments/header :: headerFragment"></header>
 
         <div class="limiter">
             <div class="container-login100" style="background-image: url('../../static/images/bg-01.jpg');">
                 <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-                    <!--/*@thymesVar id="memberForm" type=""*/-->
-                    <form class="login100-form validate-form" action="/api/member/signup" th:object="${memberForm}" method="post">
-                        <!--                  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
-                        <span class="login100-form-title p-b-49">회원가입</span>
+                    <form class="login100-form validate-form">
+                        <span class="login100-form-title p-b-49">정보수정</span>
+
+                        <input type="text" id="memberId" th:field="${member.id}" hidden="true">
 
                         <div class="form-group">
                             <label th:for="name">이름</label>
-                            <input type="text" th:field="*{name}" class="form-control"
-                                   placeholder="이름을 입력해주세요"
-                                   th:class="${#fields.hasErrors('name')}? 'form-control fieldError' : 'form-control'" required>
+                            <input type="text" id="memberName" th:field="${member.name}" class="form-control" readonly required>
                         </div>
 
                         <div class="form-group">
                             <label th:for="email">이메일</label>
-                            <input type="email" th:field="*{email}" class="form-control"
-                                   placeholder="이메일을 입력해주세요 ('@' 포함해주세요)" required>
+                            <input type="email" id="memberEmail" th:field="${member.email}" class="form-control" readonly required>
                         </div>
 
                         <div class="form-group">
                             <label th:for="password">비밀번호</label>
-                            <input type="password" th:field="*{password}" class="form-control"
-                                   placeholder="비밀번호를 입력해주세요" required>
+                            <input type="password" id="memberPassword" th:field="${member.password}" class="form-control" required>
                         </div>
 
                         <div class="form-group">
                             <label th:for="phone">전화번호</label>
-                            <input type="text" th:field="*{phone}" class="form-control"
-                                   maxlength="11" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                                   placeholder="전화번호를 입력해주세요 (숫자만 입력해주세요)" required>
+                            <input type="text" id="memberPhone" th:field="${member.phone}" class="form-control"
+                                   maxlength="11" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
                         </div>
 
                         <div class="form-group">
                             <label th:for="birth">생일</label>
-                            <input type="date" th:field="*{birth}" class="form-control"
-                                   placeholder="생일을 입력해주세요" required>
+                            <input type="date" id="memberBirth" th:field="${member.birth}" class="form-control" readonly required>
                         </div>
 
                         <div class="form-group">
                             <label th:for="zipcode">우편번호</label>
                             <div class="form-inline form-group">
-                                <input type="text" th:field="*{zipcode}" class="form-control" id="sample6_postcode" placeholder="우편번호" required>
+                                <input type="text" th:field="${member.address.zipcode}" class="form-control" id="sample6_postcode" placeholder="우편번호" readonly required>
                                 &nbsp;&nbsp;&nbsp;
                                 <input type="button" onclick="sample6_execDaumPostcode()"
                                        class="btn btn-info" value="우편번호 검색"><br>
@@ -56,9 +50,9 @@
 
                         <div class="form-group">
                             <label th:for="city">주소</label>
-                            <input type="text" th:field="*{city}" class="form-control" id="sample6_address" placeholder="주소" required><br>
+                            <input type="text" th:field="${member.address.city}" class="form-control" id="sample6_address" placeholder="주소" readonly required><br>
                             <label th:for="street">상세주소</label>
-                            <input type="text" th:field="*{street}" class="form-control" id="sample6_detailAddress" placeholder="상세주소" required>
+                            <input type="text" th:field="${member.address.street}" class="form-control" id="sample6_detailAddress" placeholder="상세주소" required>
                             <!--
                             <input type="text" id="sample6_extraAddress" class="form-control" placeholder="참고항목" required></br>
                             -->
@@ -68,9 +62,7 @@
                         <div class="container-login100-form-btn">
                             <div class="wrap-login100-form-btn">
                                 <div class="login100-form-bgbtn"></div>
-                                <button class="login100-form-btn" type="submit">
-                                    회원가입
-                                </button>
+                                <a th:href="'javascript:update()'" class="login100-form-btn">수정하기</a>
                             </div>
                         </div>
                     </form>
@@ -102,5 +94,39 @@
         <script src="../static/js/postcode-api.js"></script>
 
         <footer th:replace="fragments/footer :: footerFragment"></footer>
+
+        <script th:inline="javascript">
+            function update() {
+                var data = {                                // 이름, 이메일, 생일 변경 불가
+                    password: $("#memberPassword").val(),     // 비밀번호, 전화번호, 주소, 상세주소, 참고항목 변경 가능
+                    phone: $("#memberPhone").val(),
+                    zipcode: $("#sample6_postcode").val(),
+                    city: $("#sample6_address").val(),
+                    street: $("#sample6_detailAddress").val()
+                };
+
+                var id = $("#memberId").val();
+
+                $.ajax({
+                    type: 'PUT',
+                    url: '/api/member/settings/' + id,
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data)
+                }).done(function() {
+                    alert('정보수정 되었습니다!');
+                    window.location.href = "/member/settings/" + id;
+                }).fail(function(request, status, error) {
+                    alert(JSON.stringify(error));
+                    window.location.href = "/member/settings/" + id;
+                    alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+                });
+
+                console.log(data);
+            }
+        </script>
+
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     </body>
 </html>

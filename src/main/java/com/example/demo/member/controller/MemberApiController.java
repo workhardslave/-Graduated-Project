@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-@Controller
+@RestController
 @AllArgsConstructor
 @Slf4j
 public class MemberApiController {
@@ -26,39 +26,32 @@ public class MemberApiController {
 
     HttpSession session;
 
-    //회원가입 등록 API
-    @PostMapping(value = "/api/member/signup")
-    public String create(@Valid MemberForm form, BindingResult result) {
-        if (result.hasErrors()) {
-            return "memberAuth/signUp";
-        }
+//    // 회원가입 등록 API
+//    @PostMapping(value = "/api/member/signup")
+//    public String create(@Valid MemberForm form, BindingResult result) {
+//        if (result.hasErrors()) {
+//            return "memberAuth/signUp";
+//        }
+//
+//        log.info(form.getEmail());
+//        Address address = new Address(form.getCity(), form.getStreet(),
+//                form.getZipcode());
+//        MemberSaveRequestDto member = new MemberSaveRequestDto();
+//        member.setName(form.getName());
+//        member.setAddress(address);
+//        member.setBirth(form.getBirth());
+//        member.setEmail(form.getEmail());
+//        member.setPassword(form.getPassword());
+//        member.setPhone(form.getPhone());
+//        memberService.SignUp(member);
+//
+//        return "memberAuth/signIn";
+//    }
 
-        log.info(form.getEmail());
-        Address address = new Address(form.getCity(), form.getStreet(),
-                form.getZipcode());
-        MemberSaveRequestDto member = new MemberSaveRequestDto();
-        member.setName(form.getName());
-        member.setAddress(address);
-        member.setBirth(form.getBirth());
-        member.setEmail(form.getEmail());
-        member.setPassword(form.getPassword());
-        member.setPhone(form.getPhone());
-        memberService.SignUp(member);
-
-        return "memberAuth/signIn";
-    }
-
-    //회원정보 수정 api
-    @PutMapping("/api/member/update/{id}")
+    // 회원정보 수정 API
+    @PutMapping("/api/member/settings/{id}")
     public Long updateForm(@PathVariable Long id, @RequestBody MemberUpdateRequestDto requestDto) {
 
         return memberService.update(id, requestDto);
-
     }
-
 }
-
-
-
-
-
