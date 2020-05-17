@@ -19,6 +19,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("SELECT m FROM Member m where m.email =  :email")
     Member findEmailCheck(String email);
 
+//    @Query("SELECT m FROM Member m where m.email =  :email")
     Optional<Member> findByEmail(String email);
 
     /**
@@ -36,15 +37,15 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
      */
     @Query("SELECT m FROM Member m where m.email = :email AND m.password = :password")
     Member findByEmailPassword(Object email, Object password);
-
-    /**
-     *
-     * @param email
-     * @param password
-     * @return 이메일 중복 확인
-     */
-    @Query("SELECT m FROM Member m where m.email = :email")
-    Member findByEmail(Object email, Object password);
+//
+//    /**
+//     *
+//     * @param email
+//     * @param password
+//     * @return 이메일 중복 확인
+//     */
+//    @Query("SELECT m FROM Member m where m.email = :email")
+//    Member findByEmail(Object email, Object password);
 
 
 //    @Modifying

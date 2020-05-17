@@ -17,12 +17,16 @@ log/
 .springBeans
 .sts4-cache
 
+
+
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
 *.gz
+*.log
 out/
 
 ### NetBeans ###
@@ -34,24 +38,3 @@ out/
 
 ### VS Code ###
 .vscode/
-
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-*.gz
-out/
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-
-### VS Code ###
-.vscode/
-src/main/java/com/example/demo/hospital/controller/
-src/main/java/com/example/demo/hospital/dao/
-src/main/java/com/example/demo/hospital/service/

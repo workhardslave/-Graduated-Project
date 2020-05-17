@@ -6,23 +6,19 @@ import com.example.demo.member.dao.MemberRepository;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.member.vo.Member;
 import com.example.demo.member.vo.MemberResponseDto;
-<<<<<<< HEAD
+import com.example.demo.member.vo.MemberSaveRequestDto;
 import com.example.demo.overlap.Address;
-=======
->>>>>>> d239a9fd8fbd5759cb3503da764ac39c2dbe8e03
+
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-=======
->>>>>>> d239a9fd8fbd5759cb3503da764ac39c2dbe8e03
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -51,14 +47,13 @@ public class HomeController {
         return "memberAuth/signUp";
     }
 
-    // 회원가입 등록 API
+
     @PostMapping(value = "/api/member/signup")
     public String create(@Valid MemberForm form, BindingResult result) {
         if (result.hasErrors()) {
             return "memberAuth/signUp";
         }
 
-        log.info(form.getEmail());
         Address address = new Address(form.getCity(), form.getStreet(),
                 form.getZipcode());
         MemberSaveRequestDto member = new MemberSaveRequestDto();
@@ -73,26 +68,6 @@ public class HomeController {
         return "memberAuth/signIn";
     }
 
-    @PostMapping(value = "/api/member/new")
-    public String create(@Valid MemberForm form, BindingResult result) {
-        if (result.hasErrors()) {
-            return "members/createMemberForm";
-        }
-
-        log.info(form.getEmail());
-        Address address = new Address(form.getCity(), form.getStreet(),
-                form.getZipcode());
-        MemberSaveRequestDto member = new MemberSaveRequestDto();
-        member.setName(form.getName());
-        member.setAddress(address);
-        member.setBirth(form.getBirth());
-        member.setEmail(form.getEmail());
-        member.setPassword(form.getPassword());
-        member.setPhone(form.getPhone());
-
-        memberService.SingUp(member);
-        return "members/login";
-    }
 
     //회원정보 리스트
     @GetMapping(value = "/member/members")
