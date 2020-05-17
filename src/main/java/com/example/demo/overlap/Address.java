@@ -1,9 +1,7 @@
 package com.example.demo.overlap;
 
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -11,7 +9,8 @@ import java.util.Objects;
 
 @Embeddable //H2 디비
 @Getter
-@NoArgsConstructor
+@Setter
+@RequiredArgsConstructor
 public class Address {
 
     @Column(name = "city")

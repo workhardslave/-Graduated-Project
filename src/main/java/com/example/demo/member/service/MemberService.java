@@ -90,7 +90,8 @@ public class MemberService implements UserDetailsService {
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodePwd = passwordEncoder.encode(requestDto.getPassword());
-        member.update(encodePwd, requestDto.getAddress(), requestDto.getPhone());
+        member.update(encodePwd, requestDto.getCity(), requestDto.getStreet(), requestDto.getZipcode(), requestDto.getPhone());
+
 
         return id;
     }
