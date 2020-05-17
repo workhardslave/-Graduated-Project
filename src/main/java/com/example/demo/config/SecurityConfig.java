@@ -1,8 +1,5 @@
 package com.example.demo.config;
 
-
-
-import com.example.demo.member.dao.MemberRepository;
 import com.example.demo.member.service.MemberService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
