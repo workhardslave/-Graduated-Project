@@ -12,13 +12,11 @@ import com.example.demo.overlap.Address;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -48,14 +46,15 @@ public class HomeController {
     }
 
 
+    //회원가입 api
     @PostMapping(value = "/api/member/signup")
     public String create(@Valid MemberForm form, BindingResult result) {
         if (result.hasErrors()) {
             return "memberAuth/signUp";
         }
 
-        Address address = new Address(form.getCity(), form.getStreet(),
-                form.getZipcode());
+        Address address = new Address(form.getCity(),
+                form.getZipcode(),form.getStreet());
         MemberSaveRequestDto member = new MemberSaveRequestDto();
         member.setName(form.getName());
         member.setAddress(address);
@@ -63,6 +62,7 @@ public class HomeController {
         member.setEmail(form.getEmail());
         member.setPassword(form.getPassword());
         member.setPhone(form.getPhone());
+
         memberService.SignUp(member);
 
         return "memberAuth/signIn";
@@ -122,22 +122,13 @@ public class HomeController {
     public String updateForm(@PathVariable Long id, Model model) {
 
         MemberResponseDto dto = memberService.findById(id);
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         model.addAttribute("member", dto);
+        System.out.println(dto.getPassword());
 
         return "memberAuth/settings";
     }
 
-    /*
-    @PutMapping("/member/settings/{id}")
-    public Long update(@PathVariable Long id, @RequestBody MemberUpdateRequestDto memberUpdateRequestDto) {
-        return memberService.update(id, memberUpdateRequestDto);
-    }
-
-    @GetMapping("/member/settings/{id}")
-    public MemberUpdateRequestDto findById(@PathVariable Long id) {
-        return memberService.findById(id);
-    }
-    */
 
     //로그인 페이지
     @GetMapping("/member/login")

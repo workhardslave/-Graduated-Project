@@ -34,6 +34,8 @@ public class Member extends BaseTimeEntity {
     @Embedded
     private Address address;
 
+
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -48,11 +50,12 @@ public class Member extends BaseTimeEntity {
         this.password = password;
         this.birth = birth;
         this.phone = phone;
+
     }
 
-    public Member update(String password, Address address, String phone) {
+    public Member update(String password, String city, String street, String zipcode, String phone) {
         this.password = password;
-        this.address = address;
+        this.address = new Address(city, zipcode, street); //이부분
         this.phone = phone;
         return this;
     }

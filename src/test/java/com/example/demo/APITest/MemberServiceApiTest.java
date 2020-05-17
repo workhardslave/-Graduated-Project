@@ -2,20 +2,25 @@ package com.example.demo.APITest;
 
 
 import com.example.demo.member.dao.MemberRepository;
-import com.example.demo.member.vo.MemberSaveRequestDto;
+import com.example.demo.member.vo.*;
 import com.example.demo.member.service.MemberService;
-import com.example.demo.member.vo.Member;
-import com.example.demo.member.vo.MemberResponseDto;
-import com.example.demo.member.vo.Role;
 import com.example.demo.overlap.Address;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
 
 
 import javax.persistence.EntityManager;
@@ -23,13 +28,11 @@ import javax.persistence.EntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
 @Rollback(false)
 public class MemberServiceApiTest {
@@ -41,6 +44,21 @@ public class MemberServiceApiTest {
     MemberRepository memberRepository;
     @Autowired
     EntityManager em;
+
+    @LocalServerPort
+    private int port;
+
+    @Autowired
+    private TestRestTemplate restTemplate;
+
+
+    @Autowired
+    private WebApplicationContext context;
+
+    private MockMvc mvc;
+
+
+
 
 
     /**
@@ -85,17 +103,25 @@ public class MemberServiceApiTest {
     }
 
 
-    @Test
-    public void 로그인() throws Exception {
-    }
 
-    @Test
-    public void 로그아웃() throws Exception {
-    }
 
 
     @Test
+    @Rollback(false)
     public void 회원수정() throws Exception {
+
+        Member member = memberRepository.findOne(10L);
+
+        Address address = new Address("abc","kfc","def");
+        MemberUpdateRequestDto requestDto = MemberUpdateRequestDto.builder()
+                .addr(address)
+                .password("12345")
+                .build();
+        memberService.update(10L, requestDto);
+
+        String url = "http://localhost:" + port + "/api/member/settings/10";
+
+        System.out.println(requestDto.getAddress().getZipcode());
     }
 
 
