@@ -60,6 +60,7 @@ public class MemberService implements UserDetailsService {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
         memberDto.setRole(Role.GUEST);
+        // memberDto.setRole(Role.ADMIN);
         return memberRepository.save(memberDto.toEntity()).getId();
 
     }
