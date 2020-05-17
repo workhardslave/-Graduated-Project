@@ -67,10 +67,6 @@ public class MemberService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
         Member userEntityWrapper = memberRepository.findEmailCheck(userEmail); //이메일 값 반환
-        logger.info("여기까지?");
-        logger.info(userEntityWrapper.getEmail());
-        logger.info(userEntityWrapper.getRole().getValue());
-        logger.info(userEntityWrapper.getPassword());
         if(userEntityWrapper == null ){
             throw new UsernameNotFoundException("User not authorized.");
         }

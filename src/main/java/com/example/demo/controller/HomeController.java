@@ -132,23 +132,17 @@ public class HomeController {
 
     //로그인 페이지
     @GetMapping("/member/login")
-    public String dispLogin(Principal principals) throws Exception
+    public String dispLogin() throws Exception
     {
 
         return "memberAuth/signIn";
     }
 
+
     //로그인 결과
 
     @GetMapping("/member/login/result")
-    public String dispLoginResult(Principal principal) {
-
-//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        UserDetails userDetails = (UserDetails)principal;
-//        String username = ((UserDetails) principal).getUsername();
-//
-//        System.out.println(username);
-//        System.out.println(principals.getName());
+    public String dispLoginResult() {
         return "home";
     }
 
