@@ -93,17 +93,9 @@
                                         <li class="nav-item dropdown">
                                             <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">질병 관리</a>
                                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-<<<<<<< HEAD
-                                                <a class="dropdown-item" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/member/members/'}">사용자 정보 조회</a>
-                                                <a class="dropdown-item" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/member/signout/'}">사용자 탈퇴</a>
-                                                <a class="dropdown-item" href="single-blog.html">반려견 정보 등록</a>
-                                                <a class="dropdown-item" href="single-blog.html">반려견 정보 수정</a>
-                                                <a class="dropdown-item" href="single-blog.html">진단 결과 조회</a>
-=======
                                                 <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" href="#">동물병원 예약 조회</a>
                                                 <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" href="#">질병 정보 조회</a>
                                                 <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" href="#">질병 진단 정보 조회</a>
->>>>>>> 9dcd16f1d677093277a78006157ead3dd2f32dc6
                                             </div>
                                         </li>
 
