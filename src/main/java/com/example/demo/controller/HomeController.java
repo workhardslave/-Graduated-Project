@@ -70,11 +70,11 @@ public class HomeController {
 
 
     //회원정보 리스트
-    @GetMapping(value = "/member/members")
+    @GetMapping(value = "/admin/members")
     public String list(Model model) {
-        List<Member> members = memberService.findMembers();
+        List<MemberResponseDto> members = memberService.findAllDesc();
         model.addAttribute("members", members);
-        return "members/memberList";
+        return "admin/memberList";
     }
 
     //내정보
@@ -127,6 +127,18 @@ public class HomeController {
         System.out.println(dto.getPassword());
 
         return "memberAuth/settings";
+    }
+
+    // 관리자 회원정보 수정페이지
+    @GetMapping("/admin/settings/{id}")
+    public String detailList(@PathVariable Long id, Model model){
+
+        MemberResponseDto dto = memberService.findById(id);
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        model.addAttribute("member", dto);
+        System.out.println(dto.getPassword());
+
+        return "admin/settings";
     }
 
 

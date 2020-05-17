@@ -47,10 +47,10 @@ public class MemberService implements UserDetailsService {
         }
     }
 
-    @Transactional
-    public List<Member> findMembers(){
-        return memberRepository.findAll();
-    }
+//    @Transactional
+//    public List<Member> findMembers(){
+//        return memberRepository.findAll();
+//    }
 
 
     //회원가입
