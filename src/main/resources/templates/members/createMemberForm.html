@@ -8,7 +8,7 @@
 </style>
 <body>
 <div class="container">
-    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+<!--    <div th:replace="fragments/bodyHeader :: bodyHeader"/>-->
     <form role="form" action="/api/member/new" th:object="${memberForm}"
           method="post">
         <div class="form-group">
@@ -56,11 +56,8 @@ fieldError' : 'form-control'">
             <input type="text" th:field="*{street}" class="form-control"
                    placeholder="거리를 입력하세요">
         </div>
-        <div class="form-group">
-            <label th:for="zipcode">우편번호</label>
-            <input type="text" th:field="*{zipcode}" class="form-control"
-                   placeholder="우편번호를 입력하세요">
-        </div>
+
+
 
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

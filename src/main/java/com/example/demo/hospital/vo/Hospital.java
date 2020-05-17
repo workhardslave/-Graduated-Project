@@ -35,9 +35,5 @@ public class Hospital {
     @Enumerated(EnumType.STRING)
     private HospitalStatus status;
 
-    @ManyToOne
-    private Member member;
-
-
 
 }

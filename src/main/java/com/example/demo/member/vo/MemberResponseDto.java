@@ -25,7 +25,6 @@ public class MemberResponseDto {
         this.setAddress(entity.getAddress());
         this.phone = entity.getPhone();
         this.birth = entity.getBirth();
-
     }
 
 }

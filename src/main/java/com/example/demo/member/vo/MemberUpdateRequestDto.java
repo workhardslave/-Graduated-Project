@@ -10,6 +10,9 @@ import lombok.Getter;
 @Getter
 public class MemberUpdateRequestDto {
 
+    private Long id;
+    private String name;
+    private String email;
     private String password;
     private Address address;
     private String phone;
