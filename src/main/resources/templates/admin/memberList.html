@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/config :: configFragment">
+    <body>
+        <header th:replace="fragments/header :: headerFragment"></header>
+        <div class="col-md-12"></div>
+        <div class="col-md-12"></div>
+        <div class="col-md-12">
+            <div class="container">
+
+                <div>
+                    <table class="table table-horizontal table-striped table-bordered">
+                        <thead class="thead-strong">
+                        <tr>
+                            <th>ID</th>
+                            <th>이름</th>
+                            <th>이메일</th>
+                            <th>도시</th>
+                            <th>주소</th>
+                            <th>우편번호</th>
+                            <th>폰번호</th>
+                            <th>생일</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbody">
+
+
+                        <tr th:each="member : ${members}">
+                            <td th:text="${member.id}"/></td>
+                            <td><a th:href = "@{/admin/settings/{id}(id = ${member.id})}" th:text="${member.name}"></a></td>
+                            <td th:text="${member.email}"></td>
+                            <td th:text="${member.address?.city}"></td>
+                            <td th:text="${member.address?.street}"></td>
+                            <td th:text="${member.address?.zipcode}"></td>
+                            <td th:text="${member.phone}"></td>
+                            <td th:text="${member.birth}"></td>
+                        </tr>
+                        </a>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="fragments/footer :: footerFragment"></footer>
+    </body>
+</html>
