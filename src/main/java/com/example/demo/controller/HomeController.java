@@ -3,16 +3,12 @@ package com.example.demo.controller;
 
 import com.example.demo.member.controller.MemberForm;
 import com.example.demo.member.dao.MemberRepository;
-import com.example.demo.member.dao.MemberSaveRequestDto;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.member.vo.Member;
 import com.example.demo.member.vo.MemberResponseDto;
 <<<<<<< HEAD
 import com.example.demo.overlap.Address;
 =======
-import com.example.demo.member.vo.MemberUpdateRequestDto;
-import com.example.demo.overlap.Address;
-import jdk.nashorn.internal.objects.annotations.Getter;
 >>>>>>> d239a9fd8fbd5759cb3503da764ac39c2dbe8e03
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +22,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 =======
-import org.springframework.web.bind.annotation.*;
 >>>>>>> d239a9fd8fbd5759cb3503da764ac39c2dbe8e03
 
 import javax.validation.Valid;
