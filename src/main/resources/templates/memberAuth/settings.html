@@ -65,6 +65,13 @@
                                 <a th:href="'javascript:update()'" class="login100-form-btn">수정하기</a>
                             </div>
                         </div>
+                        <br/>
+                        <div class="container-login100-form-btn">
+                            <div class="wrap-login100-form-btn">
+                                <div class="login100-form-bgbtn"></div>
+                                <a th:href="'javascript:deleteMember()'" class="login100-form-btn">탈퇴하기</a>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -119,6 +126,29 @@
                 }).fail(function(request, status, error) {
                     alert(JSON.stringify(error));
                     window.location.href = "/member/settings/" + id;
+                    alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+                });
+
+                console.log(data);
+            }
+
+            function deleteMember() {
+
+                var id = [[ ${member.id} ]];
+
+                console.log("---------");
+
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/api/member/delete/' + id,
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8'
+                }).done(function() {
+                    console.log(name);
+                    alert('탈퇴 되었습니다.');
+                    window.location.href = '/';
+                }).fail(function (request,status,error) {
+                    alert(JSON.stringify(error));
                     alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
                 });
 
