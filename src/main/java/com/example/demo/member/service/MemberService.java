@@ -59,8 +59,9 @@ public class MemberService implements UserDetailsService {
         validateDuplicateMember(memberDto.toEntity());
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
-        memberDto.setRole(Role.ADMIN);
+        memberDto.setRole(Role.GUEST);
         return memberRepository.save(memberDto.toEntity()).getId();
+
     }
 
     @Override
@@ -87,7 +88,9 @@ public class MemberService implements UserDetailsService {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + id));
 
-        member.update(requestDto.getPassword(), requestDto.getAddress(), requestDto.getPhone());
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodePwd = passwordEncoder.encode(requestDto.getPassword());
+        member.update(encodePwd, requestDto.getAddress(), requestDto.getPhone());
 
         return id;
     }
@@ -106,7 +109,6 @@ public class MemberService implements UserDetailsService {
     public void delete (Long id) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
-
         memberRepository.delete(member);
     }
 
@@ -117,16 +119,5 @@ public class MemberService implements UserDetailsService {
                 .collect(Collectors.toList());
     }
 
-//
-//    //아이디찾기
-//    @Transactional(readOnly =  true)
-//    public List<Member> findMembers() {
-//        return memberRepository.findAll();
-//    }
-//
-    @Transactional(readOnly =  true)
-    public Member findOne(Long memberId) {
-        return memberRepository.findOne(memberId);
-    }
 
 }

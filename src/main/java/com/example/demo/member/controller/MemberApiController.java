@@ -24,6 +24,7 @@ public class MemberApiController {
     // 회원정보 수정 API
     @PutMapping("/api/member/settings/{id}")
     public Long updateForm(@PathVariable Long id, @RequestBody MemberUpdateRequestDto requestDto) {
+
         return memberService.update(id, requestDto);
     }
 
