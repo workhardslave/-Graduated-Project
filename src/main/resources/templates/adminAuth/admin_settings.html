@@ -1,3 +1,4 @@
+<!--관리자가 자기자신을 수정하는 페이지 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head th:replace="fragments/config :: configFragment" />
@@ -64,6 +65,7 @@
                     password: $("#adminPassword").val(),     // 비밀번호, 전화번호, 주소, 상세주소, 참고항목 변경 가능
                     phone: $("#adminPhone").val(),
                 };
+
 
                 console.log(data);
 

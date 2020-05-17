@@ -1,3 +1,4 @@
+<!--관리자가 회원정보를 수정하는 페이지-->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head th:replace="fragments/config :: configFragment" />
@@ -74,11 +75,9 @@
                 </div>
             </div>
         </div>
-
-
-
         <script th:inline="javascript">
             function update() {
+                console.log("넘어는가니?");
                 var data = {                                // 이름, 이메일, 생일 변경 불가
                     password: $("#memberPassword").val(),     // 비밀번호, 전화번호, 주소, 상세주소, 참고항목 변경 가능
                     phone: $("#memberPhone").val(),
@@ -87,21 +86,19 @@
                     street: $("#sample6_detailAddress").val()
                 };
 
-
-
                 console.log(data);
 
                 var id = $("#memberId").val();
 
                 $.ajax({
                     type: 'PUT',
-                    url: '/api/admin/settings/' + id,
+                    url: '/api/admin/member/settings/' + id,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(data)
                 }).done(function() {
                     alert('정보수정 되었습니다!');
-                    window.location.href = "/admin/settings/" + id;
+                    window.location.href = "/admin/member/settings/" + id;
                 }).fail(function(request, status, error) {
                     alert(JSON.stringify(error));
                     window.location.href = "/admin/settings/" + id;
@@ -117,7 +114,7 @@
 
                 $.ajax({
                     type: 'DELETE',
-                    url: '/api/admin/delete/' + id,
+                    url: '/api/admin/member/delete/' + id,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8'
                 }).done(function() {
@@ -137,24 +134,24 @@
         <div id="dropDownSelect1"></div>
 
         <!--===============================================================================================-->
-        <script src="../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+        <script src="../../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
         <!--===============================================================================================-->
-        <script src="../../static/vendor/animsition/js/animsition.min.js"></script>
+        <script src="../../../static/vendor/animsition/js/animsition.min.js"></script>
         <!--===============================================================================================-->
-        <script src="../../static/vendor/bootstrap/js/popper.js"></script>
-        <script src="../../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../../../static/vendor/bootstrap/js/popper.js"></script>
+        <script src="../../../static/vendor/bootstrap/js/bootstrap.min.js"></script>
         <!--===============================================================================================-->
-        <script src="../../static/vendor/select2/select2.min.js"></script>
+        <script src="../../../static/vendor/select2/select2.min.js"></script>
         <!--===============================================================================================-->
-        <script src="../../static/vendor/daterangepicker/moment.min.js"></script>
-        <script src="../../static/vendor/daterangepicker/daterangepicker.js"></script>
+        <script src="../../../static/vendor/daterangepicker/moment.min.js"></script>
+        <script src="../../../static/vendor/daterangepicker/daterangepicker.js"></script>
         <!--===============================================================================================-->
-        <script src="../../static/vendor/countdowntime/countdowntime.js"></script>
+        <script src="../../../static/vendor/countdowntime/countdowntime.js"></script>
         <!--===============================================================================================-->
-        <script src="../../static/js/main.js"></script>
+        <script src="../../../static/js/main.js"></script>
 
         <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-        <script src="../../static/js/postcode-api.js"></script>
+        <script src="../../../static/js/postcode-api.js"></script>
 
         <footer th:replace="fragments/footer :: footerFragment"></footer>
     </body>

@@ -135,7 +135,7 @@ public class HomeController {
     }
 
     // 관리자 회원정보 수정페이지
-    @GetMapping("/admin/settings/{id}")
+    @GetMapping("/admin/member/settings/{id}")
     public String detailList(@PathVariable Long id, Model model){
 
         MemberResponseDto dto = memberService.findById(id);
@@ -169,10 +169,9 @@ public class HomeController {
     }
 
     // 관리자 정보조회
-    @GetMapping("/admin/mypage")
+    @GetMapping("/admin/manage")
     public String readAdminMyDate(Model model, Principal principal) {
         Admin admin = adminRepository.findEmailCheck(principal.getName());
-
         if(admin != null) {
             model.addAttribute("admin", admin);
         }

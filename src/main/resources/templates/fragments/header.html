@@ -55,7 +55,7 @@
                 <div class="row align-items-center">
                     <div class="col-4 col-md-4 col-xl-6">
                         <div id="logo">
-                            <a href="/"><img src="../../static/leopet/img/logo.png" alt="구해독_로고" /></a>
+                            <a href="/"><img src="../../../static/leopet/img/logo.png" alt="구해독_로고" /></a>
                         </div>
                     </div>
                     <div class="col-8 col-md-8 col-xl-6 ">
@@ -103,7 +103,7 @@
                                         <a sec:authorize="isAuthenticated()" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이페이지</a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                             <a sec:authorize="hasRole('ROLE_MEMBER')" class="dropdown-item" th:href="@{/member/mypage}">정보조회</a>
-                                            <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{/admin/mypage}">정보조회</a>
+                                            <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{/member/mypage}">정보조회</a>
 
                                             <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" href="#">관리자 탈퇴</a>
 
