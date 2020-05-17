@@ -2,6 +2,7 @@ package com.example.demo.member.vo;
 
 
 import com.example.demo.overlap.Address;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +18,7 @@ public class MemberResponseDto {
     private String phone;
     private String birth;
 
+
     public MemberResponseDto(Member entity) {
         this.id = entity.getId();
         this.name = entity.getName();
@@ -26,5 +28,6 @@ public class MemberResponseDto {
         this.phone = entity.getPhone();
         this.birth = entity.getBirth();
     }
+
 
 }
