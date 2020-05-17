@@ -94,11 +94,19 @@ public class HomeController {
         return "members/Info";
     }
     */
+<<<<<<< HEAD
 
     @GetMapping("/member/mypage")
     public String readMyData(Model model, Principal principal) {
         Member member = memberRepository.findEmailCheck(principal.getName());
 
+=======
+
+    @GetMapping("/member/mypage")
+    public String readMyData(Model model, Principal principal) {
+        Member member = memberRepository.findEmailCheck(principal.getName());
+
+>>>>>>> 7503b9589e35f0e6fe447e4aaa1bc327e1d6df0e
         if(member != null) {
             model.addAttribute("member", member);
 
@@ -120,6 +128,7 @@ public class HomeController {
     //회원정보 수정페이지
     @GetMapping("/member/settings/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
+<<<<<<< HEAD
 
         MemberResponseDto dto = memberService.findById(id);
         model.addAttribute("member", dto);
@@ -136,6 +145,34 @@ public class HomeController {
     @GetMapping("/member/settings/{id}")
     public MemberUpdateRequestDto findById(@PathVariable Long id) {
         return memberService.findById(id);
+    }
+    */
+
+    // 사용자 탈퇴페이지
+    @GetMapping("/member/signout{id}")
+    public String signOutForm(@PathVariable Long id, Model model) {
+=======
+>>>>>>> 7503b9589e35f0e6fe447e4aaa1bc327e1d6df0e
+
+        MemberResponseDto dto = memberService.findById(id);
+        model.addAttribute("member", dto);
+
+<<<<<<< HEAD
+        return "memberAuth/signOut";
+=======
+        return "memberAuth/settings";
+    }
+
+    /*
+    @PutMapping("/member/settings/{id}")
+    public Long update(@PathVariable Long id, @RequestBody MemberUpdateRequestDto memberUpdateRequestDto) {
+        return memberService.update(id, memberUpdateRequestDto);
+    }
+
+    @GetMapping("/member/settings/{id}")
+    public MemberUpdateRequestDto findById(@PathVariable Long id) {
+        return memberService.findById(id);
+>>>>>>> 7503b9589e35f0e6fe447e4aaa1bc327e1d6df0e
     }
     */
 

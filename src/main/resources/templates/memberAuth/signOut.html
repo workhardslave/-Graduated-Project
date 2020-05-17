@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button type="button" class="btn btn-danger" onclick="Delete()">사용자 탈퇴</button>
+
+    <script th:inline="javascript" src="https://code.jquery.com/jquery-2.0.3.min.js">
+
+        function Delete(){
+
+            var id = [[ ${member.id} ]];
+
+            console.log("---------");
+            // ajax
+            $.ajax({
+                type: 'DELETE',
+                url: '/api/member/delete/'+id,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8'
+            }).done(function() {
+                console.log(name);
+                alert('탈퇴되었습니다.');
+                window.location.href = '/';
+            }).fail(function (request,status,error) {
+                alert(JSON.stringify(error));
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            });
+
+            console.log(data);
+        }
+    </script>
+</body>
+</html>

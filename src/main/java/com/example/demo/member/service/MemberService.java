@@ -91,6 +91,15 @@ public class MemberService implements UserDetailsService {
         return id;
     }
 
+    @Transactional
+    public void delete(Long id) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
+
+        memberRepository.delete(member);
+    }
+
+
 
     //수정을 위한 서비스
     @Transactional(readOnly = true)
@@ -113,5 +122,7 @@ public class MemberService implements UserDetailsService {
     public Member findOne(Long memberId) {
         return memberRepository.findOne(memberId);
     }
+
+
 
 }

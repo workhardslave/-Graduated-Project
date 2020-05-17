@@ -22,7 +22,8 @@
                         <div class="form-group">
                             <label th:for="email">이메일</label>
                             <input type="email" th:field="*{email}" class="form-control"
-                                   placeholder="이메일을 입력해주세요 ('@' 포함해주세요)" required>
+                                   id="user_email" placeholder="이메일을 입력해주세요 ('@' 포함해주세요)" required>
+                            <div class="check_font" id="email_check"></div>
                         </div>
 
                         <div class="form-group">
@@ -80,6 +81,33 @@
 
 
         <div id="dropDownSelect1"></div>
+        <script>
+            // 아이디 유효성 검사(1 = 중복 / 0 != 중복)
+            $("#user_email").blur(function() {
+                // id = "id_reg" / name = "userId"
+                var user_email = $('#user_email').val();
+                $.ajax({
+                    url : '${pageContext.request.contextPath}/user/idCheck?userId='+ user_email,
+                    type : 'get',
+                    success : function(data) {
+                        console.log("1 = 중복o / 0 = 중복x : "+ data);
+
+                        if (data == 1) {
+                            // 1 : 아이디가 중복되는 문구
+                            $("#email_check").text("사용중인 아이디입니다 :p");
+                            $("#email_check").css("color", "red");
+                            $("#reg_submit").attr("disabled", true);
+                        } else {
+                            $("#email_check").text("");
+                            $("#reg_submit").attr("disabled", false);
+                        }
+                    }, error : function() {
+                        console.log("실패");
+                    }
+                });
+            });
+        </script>
+
 
         <!--===============================================================================================-->
         <script src="../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
