@@ -59,7 +59,7 @@ public class MemberService implements UserDetailsService {
         validateDuplicateMember(memberDto.toEntity());
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
-        memberDto.setRole(Role.ADMIN);
+        memberDto.setRole(Role.GUEST);
         return memberRepository.save(memberDto.toEntity()).getId();
     }
 
