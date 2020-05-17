@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 2020-05-17 00:10:17.291  INFO 1136 --- [restartedMain] com.example.demo.DemoApplication         : Starting DemoApplication on DESKTOP-SSOBR7K with PID 1136 (D:\guhae_dog\build\classes\java\main started by HSH in D:\guhae_dog)
 2020-05-17 00:10:17.296 DEBUG 1136 --- [restartedMain] com.example.demo.DemoApplication         : Running with Spring Boot v2.1.13.RELEASE, Spring v5.1.14.RELEASE
 2020-05-17 00:10:17.296  INFO 1136 --- [restartedMain] com.example.demo.DemoApplication         : The following profiles are active: real-oauth,test
@@ -92,6 +93,8 @@
 2020-05-17 00:11:29.597  INFO 3884 --- [http-nio-8080-exec-1] c.e.demo.controller.HomeController       : home logger
 2020-05-17 00:11:32.841  WARN 3884 --- [http-nio-8080-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingPathVariableException: Missing URI template variable 'id' for method parameter of type Long]
 =======
+=======
+>>>>>>> 7503b9589e35f0e6fe447e4aaa1bc327e1d6df0e
 2020-05-17 00:04:27.181  INFO 23468 --- [restartedMain] com.example.demo.DemoApplication         : Starting DemoApplication on DESKTOP-Q19NM96 with PID 23468 (C:\Users\leede\Desktop\PROJ_Spring\Guhae_Dog\build\classes\java\main started by 다은 in C:\Users\leede\Desktop\PROJ_Spring\Guhae_Dog)
 2020-05-17 00:04:27.189 DEBUG 23468 --- [restartedMain] com.example.demo.DemoApplication         : Running with Spring Boot v2.1.13.RELEASE, Spring v5.1.14.RELEASE
 2020-05-17 00:04:27.190  INFO 23468 --- [restartedMain] com.example.demo.DemoApplication         : The following profiles are active: real-oauth,test
@@ -5428,4 +5431,7 @@ org.attoparser.ParseException: (Line = 44, Column = 129) Malformed markup: Attri
 2020-05-17 02:46:35.272  WARN 18724 --- [http-nio-8080-exec-7] o.s.web.servlet.PageNotFound             : No mapping for GET /member/static/js/bootstrap.js
 2020-05-17 02:46:38.021  INFO 18724 --- [http-nio-8080-exec-2] c.e.demo.controller.HomeController       : home logger
 2020-05-17 02:46:43.163  INFO 18724 --- [http-nio-8080-exec-7] c.e.demo.controller.HomeController       : home logger
+<<<<<<< HEAD
+>>>>>>> 7503b9589e35f0e6fe447e4aaa1bc327e1d6df0e
+=======
 >>>>>>> 7503b9589e35f0e6fe447e4aaa1bc327e1d6df0e

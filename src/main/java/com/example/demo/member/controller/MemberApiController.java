@@ -54,7 +54,6 @@ public class MemberApiController {
 
         return memberService.update(id, requestDto);
     }
-<<<<<<< HEAD
 
     //회원정보 삭제 api
     @DeleteMapping("/api/member/delete/{id}")
@@ -64,11 +63,3 @@ public class MemberApiController {
     }
 
 }
-
-
-
-
-
-=======
-}
->>>>>>> 7503b9589e35f0e6fe447e4aaa1bc327e1d6df0e
