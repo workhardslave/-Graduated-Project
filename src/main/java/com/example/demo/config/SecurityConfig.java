@@ -45,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/myinfo").hasRole("MEMBER")
 //                .antMatchers("/**").permitAll()
 //                .antMatchers("/css/**", "/memberAuth/**", "/js/**", "/images/**").permitAll()
+                .antMatchers("/h2-console/*").permitAll().anyRequest().permitAll()
                 .antMatchers("/resources/**").permitAll().anyRequest().permitAll()
                 .and() //권한 설정
                     .csrf()
@@ -62,7 +63,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true)
                 .and()
                 // 403 예외처리 핸들링
-                .exceptionHandling().accessDeniedPage("/member/denied");
+                .exceptionHandling().accessDeniedPage("/member/denied")
+        .and().headers().frameOptions().disable();
     }
 
     @Override

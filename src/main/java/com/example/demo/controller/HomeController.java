@@ -3,20 +3,31 @@ package com.example.demo.controller;
 
 import com.example.demo.member.controller.MemberForm;
 import com.example.demo.member.dao.MemberRepository;
+import com.example.demo.member.dao.MemberSaveRequestDto;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.member.vo.Member;
 import com.example.demo.member.vo.MemberResponseDto;
+<<<<<<< HEAD
 import com.example.demo.overlap.Address;
+=======
+import com.example.demo.member.vo.MemberUpdateRequestDto;
+import com.example.demo.overlap.Address;
+import jdk.nashorn.internal.objects.annotations.Getter;
+>>>>>>> d239a9fd8fbd5759cb3503da764ac39c2dbe8e03
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+=======
+import org.springframework.web.bind.annotation.*;
+>>>>>>> d239a9fd8fbd5759cb3503da764ac39c2dbe8e03
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -39,10 +50,32 @@ public class HomeController {
     }
 
     //회원가입 페이지
-    @GetMapping("/member/new")
+    @GetMapping("/member/signup")
     public String createForm(Model model) {
         model.addAttribute("memberForm", new MemberForm());
-        return "members/createMemberForm";
+        return "memberAuth/signUp";
+    }
+
+    // 회원가입 등록 API
+    @PostMapping(value = "/api/member/signup")
+    public String create(@Valid MemberForm form, BindingResult result) {
+        if (result.hasErrors()) {
+            return "memberAuth/signUp";
+        }
+
+        log.info(form.getEmail());
+        Address address = new Address(form.getCity(), form.getStreet(),
+                form.getZipcode());
+        MemberSaveRequestDto member = new MemberSaveRequestDto();
+        member.setName(form.getName());
+        member.setAddress(address);
+        member.setBirth(form.getBirth());
+        member.setEmail(form.getEmail());
+        member.setPassword(form.getPassword());
+        member.setPhone(form.getPhone());
+        memberService.SignUp(member);
+
+        return "memberAuth/signIn";
     }
 
     @PostMapping(value = "/api/member/new")
@@ -75,7 +108,8 @@ public class HomeController {
     }
 
     //내정보
-    @GetMapping("/member/Info") //내 정보
+    /*
+    @GetMapping("/member/Info")
     public String postsMyData(Model model, Principal principal) {
 
         Member member = memberRepository.findEmailCheck(principal.getName());
@@ -89,17 +123,51 @@ public class HomeController {
         }
         return "members/Info";
     }
+    */
 
+    @GetMapping("/member/mypage")
+    public String readMyData(Model model, Principal principal) {
+        Member member = memberRepository.findEmailCheck(principal.getName());
+
+        if(member != null) {
+            model.addAttribute("member", member);
+
+            /*
+            System.out.println(member.getName());
+            model.addAttribute("memberId", member.getId());
+            model.addAttribute("memberName", member.getName());
+            model.addAttribute("memberEmail", member.getEmail());
+            model.addAttribute("userPassword", member.getPassword());
+            model.addAttribute("userPhone", member.getPhone());
+            model.addAttribute("userBirth", member.getBirth());
+            model.addAttribute("userAddress", member.getAddress());
+            */
+        }
+
+        return "memberAuth/myPage";
+    }
 
     //회원정보 수정페이지
-    @GetMapping("/member/update/{id}")
-    public String updateseeForm(@PathVariable Long id,  Model model) {
+    @GetMapping("/member/settings/{id}")
+    public String updateForm(@PathVariable Long id, Model model) {
 
         MemberResponseDto dto = memberService.findById(id);
         model.addAttribute("member", dto);
 
-        return "members/memberUpdate";
+        return "memberAuth/settings";
     }
+
+    /*
+    @PutMapping("/member/settings/{id}")
+    public Long update(@PathVariable Long id, @RequestBody MemberUpdateRequestDto memberUpdateRequestDto) {
+        return memberService.update(id, memberUpdateRequestDto);
+    }
+
+    @GetMapping("/member/settings/{id}")
+    public MemberUpdateRequestDto findById(@PathVariable Long id) {
+        return memberService.findById(id);
+    }
+    */
 
     //로그인 페이지
     @GetMapping("/member/login")
@@ -127,6 +195,7 @@ public class HomeController {
     //로그아웃
     @GetMapping("/member/logout/result")
     public String dispLogout() {
+
         return "home";
     }
 

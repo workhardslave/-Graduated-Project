@@ -16,16 +16,11 @@ public class MemberUpdateRequestDto {
     private String password;
     private Address address;
     private String phone;
-    private String birth;
 
     @Builder
-    public MemberUpdateRequestDto(Long id, String name, String email, String password, Address address,String phone, String birth) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
+    public MemberUpdateRequestDto(String password, Address address, String phone) {
         this.password = password;
         this.address = address;
         this.phone = phone;
-        this.birth = birth;
     }
 }
