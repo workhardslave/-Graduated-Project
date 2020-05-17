@@ -78,6 +78,16 @@ public class HomeController {
         return "members/memberUpdate";
     }
 
+    // 사용자 탈퇴페이지
+    @GetMapping("/member/signout{id}")
+    public String signOutForm(@PathVariable Long id, Model model) {
+
+        MemberResponseDto dto = memberService.findById(id);
+        model.addAttribute("member", dto);
+
+        return "memberAuth/signOut";
+    }
+
     //로그인 페이지
     @GetMapping("/member/login")
     public String dispLogin(Principal principals) throws Exception

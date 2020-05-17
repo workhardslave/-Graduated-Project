@@ -56,6 +56,13 @@ public class MemberApiController {
 
     }
 
+    //회원정보 삭제 api
+    @DeleteMapping("/api/member/delete/{id}")
+    public Long delete(@PathVariable Long id) {
+        memberService.delete(id);
+        return id;
+    }
+
 }
 
 

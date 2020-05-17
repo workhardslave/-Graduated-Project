@@ -14,8 +14,9 @@
                         <div class="col-8 col-md-8 col-xl-6 ">
                             <div class="sub_header_social_icon float-right">
                                 <a class="btn_1 d-none d-md-inline-block"
-                                   sec:authorize="isAnonymous()" th:href="@{/member/login}">로그인</a>
-                                <a sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a>
+                                   sec:authorize="isAnonymous()" th:href="@{'/member/login'}">로그인</a>
+                                <a class="btn_1 d-none d-md-inline-block"
+                                   sec:authorize="isAuthenticated()" th:href="@{'/member/logout'}">로그아웃</a>
                             </div>
                         </div>
                     </div>
@@ -47,7 +48,7 @@
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                                 <a class="dropdown-item" href="elements.html">사용자 정보 조회</a>
-                                                <a class="dropdown-item" href="single-blog.html">사용자 탈퇴</a>
+                                                <a class="dropdown-item" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/member/signout/'}">사용자 탈퇴</a>
                                                 <a class="dropdown-item" href="single-blog.html">반려견 정보 등록</a>
                                                 <a class="dropdown-item" href="single-blog.html">반려견 정보 수정</a>
                                                 <a class="dropdown-item" href="single-blog.html">진단 결과 조회</a>
