@@ -69,7 +69,7 @@
                                                 마이페이지
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                <a class="dropdown-item" href="elements.html">사용자 정보 조회</a>
+                                                <a class="dropdown-item" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/member/members/'}">사용자 정보 조회</a>
                                                 <a class="dropdown-item" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/member/signout/'}">사용자 탈퇴</a>
                                                 <a class="dropdown-item" href="single-blog.html">반려견 정보 등록</a>
                                                 <a class="dropdown-item" href="single-blog.html">반려견 정보 수정</a>
