@@ -12,21 +12,21 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 public class MemberForm {
 
-        @NotEmpty(message = "회원 이름은 필수 입니다")
+        @NotEmpty(message = "이름 입력은 필수입니다")
         private String name;
-        @NotEmpty(message = "회원 이메일은 필수 입니다")
+        @NotEmpty(message = "이메일 입력은 필수입니다")
         private String email;
-        @NotEmpty(message = "패스워드 입력은 필수 입니다")
+        @NotEmpty(message = "비밀번호 입력은 필수입니다")
         private String password;
-        @NotEmpty(message = "생일 입력은 필수 입니다")
+        @NotEmpty(message = "생일 입력은 필수입니다")
         private String birth;
-        @NotEmpty(message = "휴대폰 입력은 필수 입니다")
+        @NotEmpty(message = "전화번호 입력은 필수입니다")
         private String phone;
-        @NotEmpty(message = "주소 입력은 필수 입니다")
-        private String city;
-        @NotEmpty(message = "주소 입력은 필수 입니다")
-        private String street;
-        @NotEmpty(message = "주소 입력은 필수 입니다")
+        @NotEmpty(message = "우편번호 입력은 필수입니다")
         private String zipcode;
+        @NotEmpty(message = "주소 입력은 필수입니다")
+        private String city;
+        @NotEmpty(message = "상세주소 입력은 필수입니다")
+        private String street;
 
 }
