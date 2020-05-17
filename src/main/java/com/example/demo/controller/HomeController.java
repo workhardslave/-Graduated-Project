@@ -74,7 +74,7 @@ public class HomeController {
     public String list(Model model) {
         List<Member> members = memberService.findMembers();
         model.addAttribute("members", members);
-        return "members/memberList";
+        return "memberAuth/memberList";
     }
 
     //내정보
