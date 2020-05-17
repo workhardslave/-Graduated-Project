@@ -43,7 +43,7 @@ public class Member extends BaseTimeEntity {
 
 
     @Builder
-    public  Member(Long id, String name, Address address, Role role,String email ,String password, String birth, String phone) {
+    public Member(Long id, String name, Address address, Role role,String email ,String password, String birth, String phone) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -55,15 +55,11 @@ public class Member extends BaseTimeEntity {
     }
 
 
-    public Member update(String name, String email, String password,String phone, String birth) {
-        this.email = email;
+    public Member update(String password, Address address, String phone) {
         this.password = password;
-        this.name = name;
-        this.password=password;
+        this.address = address;
         this.phone = phone;
-        this.birth=birth;
         return this;
-
     }
 
     public String getRoleKey() {

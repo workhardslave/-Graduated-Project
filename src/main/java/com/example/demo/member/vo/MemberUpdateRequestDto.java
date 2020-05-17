@@ -10,20 +10,14 @@ import lombok.Getter;
 @Getter
 public class MemberUpdateRequestDto {
 
-    private String name;
-    private String email;
     private String password;
     private Address address;
     private String phone;
-    private String birth;
 
     @Builder
-    public MemberUpdateRequestDto(String name, String email, String password, Address address,String phone, String birth) {
-        this.name = name;
-        this.email = email;
+    public MemberUpdateRequestDto(String password, Address address, String phone) {
         this.password = password;
         this.address = address;
         this.phone = phone;
-        this.birth = birth;
     }
 }

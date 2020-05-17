@@ -54,7 +54,7 @@ public class MemberService implements UserDetailsService {
 
     //회원가입
     @Transactional
-    public Long SingUp(MemberSaveRequestDto memberDto) {
+    public Long SignUp(MemberSaveRequestDto memberDto) {
         validateDuplicateMember(memberDto.toEntity());
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
@@ -64,7 +64,7 @@ public class MemberService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
-        Member userEntityWrapper = memberRepository.findEmailCheck(userEmail); //이메일값 반환
+        Member userEntityWrapper = memberRepository.findEmailCheck(userEmail); //이메일 값 반환
         logger.info("여기까지?");
         logger.info(userEntityWrapper.getEmail());
         logger.info(userEntityWrapper.getRole().getValue());
@@ -80,12 +80,13 @@ public class MemberService implements UserDetailsService {
         return userDetails;
     }
 
+    // 회원 정보수정
     @Transactional
     public Long update(Long id, MemberUpdateRequestDto requestDto) {
         Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + id));
 
-        member.update(requestDto.getName(),requestDto.getEmail(), requestDto.getPassword(),requestDto.getBirth(),requestDto.getPhone());
+        member.update(requestDto.getPassword(), requestDto.getAddress(), requestDto.getPhone());
 
         return id;
     }
@@ -95,14 +96,12 @@ public class MemberService implements UserDetailsService {
     @Transactional(readOnly = true)
     public MemberResponseDto findById(Long id) {
         Member entity = memberRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + id));
 
         return new MemberResponseDto(entity);
     }
 
 
-
-    //
 //
 //    //아이디찾기
 //    @Transactional(readOnly =  true)
