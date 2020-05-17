@@ -19,9 +19,9 @@ import java.security.Principal;
 @Slf4j
 public class MemberApiController {
 
-    MemberService memberService;
-
     FindByIndexNameSessionRepository sessionRepository;
+
+    MemberService memberService;
 
     MemberRepository memberRepository;
 
@@ -38,7 +38,6 @@ public class MemberApiController {
     //회원정보 삭제 api
     @DeleteMapping("/api/member/delete/{id}")
     public Long delete(@PathVariable Long id, Principal principal) {
-
         sessionRepository.findByIndexNameAndIndexValue(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME,
                 principal.getName()).keySet().forEach(session -> sessionRepository.deleteById((String) session));
         memberService.delete(id);
@@ -58,9 +57,7 @@ public class MemberApiController {
     @DeleteMapping("/api/admin/delete/{id}")
     public Long deleteMember(@PathVariable Long id) {
         memberService.delete(id);
+
         return id;
     }
-
-
-
 }

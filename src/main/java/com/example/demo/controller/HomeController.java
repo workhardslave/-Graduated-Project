@@ -1,6 +1,10 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.admin.dao.AdminRepository;
+import com.example.demo.admin.service.AdminService;
+import com.example.demo.admin.vo.Admin;
+import com.example.demo.admin.vo.AdminResponseDto;
 import com.example.demo.member.controller.MemberForm;
 import com.example.demo.member.dao.MemberRepository;
 import com.example.demo.member.service.MemberService;
@@ -30,15 +34,17 @@ public class HomeController {
     MemberRepository memberRepository;
     MemberService memberService;
 
+    AdminRepository adminRepository;
+    AdminService adminService;
 
-    //메인페이지
+    // 회원 메인 홈
     @RequestMapping("/")
     public String home(){
         log.info("home logger");
         return "home";
     }
 
-    //회원가입 페이지
+    // 회원가입
     @GetMapping("/member/signup")
     public String createForm(Model model) {
         model.addAttribute("memberForm", new MemberForm());
@@ -46,7 +52,7 @@ public class HomeController {
     }
 
 
-    //회원가입 api
+    // 회원가입 API
     @PostMapping(value = "/api/member/signup")
     public String create(@Valid MemberForm form, BindingResult result) {
         if (result.hasErrors()) {
@@ -68,7 +74,6 @@ public class HomeController {
         return "memberAuth/signIn";
     }
 
-
     //회원정보 리스트
     @GetMapping(value = "/admin/members")
     public String list(Model model) {
@@ -77,7 +82,7 @@ public class HomeController {
         return "admin/memberList";
     }
 
-    //내정보
+    // 회원 정보조회
     /*
     @GetMapping("/member/Info")
     public String postsMyData(Model model, Principal principal) {
@@ -117,7 +122,7 @@ public class HomeController {
         return "memberAuth/myPage";
     }
 
-    //회원정보 수정페이지
+    // 회원 정보수정
     @GetMapping("/member/settings/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
 
@@ -150,20 +155,40 @@ public class HomeController {
         return "memberAuth/signIn";
     }
 
-
-    //로그인 결과
-
+    // 회원 로그인 결과
     @GetMapping("/member/login/result")
     public String dispLoginResult() {
         return "home";
     }
 
-
-    //로그아웃
+    // 회원 로그아웃
     @GetMapping("/member/logout/result")
     public String dispLogout() {
 
         return "home";
     }
 
+    // 관리자 정보조회
+    @GetMapping("/admin/mypage")
+    public String readAdminMyDate(Model model, Principal principal) {
+        Admin admin = adminRepository.findEmailCheck(principal.getName());
+
+        if(admin != null) {
+            model.addAttribute("admin", admin);
+        }
+
+        return "adminAuth/admin_myPage";
+    }
+
+    // 관리자 정보수정
+    @GetMapping("/admin/settings/{id}")
+    public String updateAdminForm(@PathVariable Long id, Model model) {
+
+        AdminResponseDto dto = adminService.findById(id);
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        model.addAttribute("admin", dto);
+        System.out.println(dto.getPassword());
+
+        return "adminAuth/admin_settings";
+    }
 }
