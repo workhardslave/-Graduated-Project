@@ -44,4 +44,20 @@ public class MemberApiController {
 
         return id;
     }
+
+    // 관리자 회원정보 수정 API
+    @PutMapping("/api/admin/settings/{id}")
+    public Long updateMember(@PathVariable Long id, @RequestBody MemberUpdateRequestDto requestDto) {
+
+        return memberService.update(id, requestDto);
+    }
+
+
+    //관리자 회원정보 삭제 api
+    @DeleteMapping("/api/admin/delete/{id}")
+    public Long deleteMember(@PathVariable Long id) {
+        memberService.delete(id);
+
+        return id;
+    }
 }

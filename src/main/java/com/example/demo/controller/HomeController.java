@@ -74,12 +74,12 @@ public class HomeController {
         return "memberAuth/signIn";
     }
 
-    // 회원정보 리스트
-    @GetMapping(value = "/member/members")
+    //회원정보 리스트
+    @GetMapping(value = "/admin/members")
     public String list(Model model) {
-        List<Member> members = memberService.findMembers();
+        List<MemberResponseDto> members = memberService.findAllDesc();
         model.addAttribute("members", members);
-        return "memberAuth/memberList";
+        return "admin/memberList";
     }
 
     // 회원 정보조회
@@ -134,9 +134,22 @@ public class HomeController {
         return "memberAuth/settings";
     }
 
-    // 회원 로그인
+    // 관리자 회원정보 수정페이지
+    @GetMapping("/admin/settings/{id}")
+    public String detailList(@PathVariable Long id, Model model){
+
+        MemberResponseDto dto = memberService.findById(id);
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        model.addAttribute("member", dto);
+        System.out.println(dto.getPassword());
+
+        return "admin/settings";
+    }
+
+
+    //로그인 페이지
     @GetMapping("/member/login")
-    public String dispLogin(Principal principals) throws Exception
+    public String dispLogin() throws Exception
     {
 
         return "memberAuth/signIn";
@@ -144,14 +157,7 @@ public class HomeController {
 
     // 회원 로그인 결과
     @GetMapping("/member/login/result")
-    public String dispLoginResult(Principal principal) {
-
-//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        UserDetails userDetails = (UserDetails)principal;
-//        String username = ((UserDetails) principal).getUsername();
-//
-//        System.out.println(username);
-//        System.out.println(principals.getName());
+    public String dispLoginResult() {
         return "home";
     }
 
