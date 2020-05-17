@@ -2,15 +2,18 @@ package com.example.demo.APITest;
 
 
 import com.example.demo.member.dao.MemberRepository;
-import com.example.demo.member.dao.MemberSaveRequestDto;
+import com.example.demo.member.vo.MemberSaveRequestDto;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.member.vo.Member;
+import com.example.demo.member.vo.MemberResponseDto;
 import com.example.demo.member.vo.Role;
 import com.example.demo.overlap.Address;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
+@Rollback(false)
 public class MemberServiceApiTest {
 
 
@@ -72,7 +76,9 @@ public class MemberServiceApiTest {
         Member member = new Member();
         member.setEmail("abcdef@naver.com");
         //when
+
 //        memberService.SingUp(member);
+
         em.flush();
         //then
         fail("예외가 발생해야 한다");
@@ -95,6 +101,22 @@ public class MemberServiceApiTest {
 
     @Test
     public void 회원삭제() throws Exception {
+    }
+
+    @Test
+    public void 회원정보보기() throws Exception {
+        Member member = memberRepository.findOne(1L);
+
+        System.out.println(member.getName());
+        MemberResponseDto responseDto = new MemberResponseDto(member);
+
+        System.out.println(responseDto.getAddress().getCity());
+        System.out.println(responseDto.getAddress().getStreet());
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        String Bycript = passwordEncoder.encode(member.getPassword());
+        System.out.println(Bycript);
     }
 
 

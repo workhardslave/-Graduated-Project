@@ -3,7 +3,6 @@ package com.example.demo.controller;
 
 import com.example.demo.member.controller.MemberForm;
 import com.example.demo.member.dao.MemberRepository;
-import com.example.demo.member.dao.MemberSaveRequestDto;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.member.vo.Member;
 import com.example.demo.member.vo.MemberResponseDto;
@@ -11,8 +10,6 @@ import com.example.demo.overlap.Address;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -109,19 +106,20 @@ public class HomeController {
     public String dispLogin(Principal principals) throws Exception
     {
 
-        return "members/login";
+        return "memberAuth/signIn";
     }
 
     //로그인 결과
+
     @GetMapping("/member/login/result")
-    public String dispLoginResult(Principal principals) {
+    public String dispLoginResult(Principal principal) {
 
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        UserDetails userDetails = (UserDetails)principal;
-        String username = ((UserDetails) principal).getUsername();
-
-        System.out.println(username);
-        System.out.println(principals.getName());
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        UserDetails userDetails = (UserDetails)principal;
+//        String username = ((UserDetails) principal).getUsername();
+//
+//        System.out.println(username);
+//        System.out.println(principals.getName());
         return "home";
     }
 
@@ -129,7 +127,7 @@ public class HomeController {
     //로그아웃
     @GetMapping("/member/logout/result")
     public String dispLogout() {
-        return "/";
+        return "home";
     }
 
 }

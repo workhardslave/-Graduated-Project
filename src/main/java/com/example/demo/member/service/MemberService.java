@@ -2,8 +2,8 @@ package com.example.demo.member.service;
 
 import com.example.demo.member.dao.MemberRepository;
 import com.example.demo.member.vo.Member;
-import com.example.demo.member.dao.MemberSaveRequestDto;
-import com.example.demo.member.dao.MemberUpdateRequestDto;
+import com.example.demo.member.vo.MemberSaveRequestDto;
+import com.example.demo.member.vo.MemberUpdateRequestDto;
 
 
 import com.example.demo.member.vo.MemberResponseDto;

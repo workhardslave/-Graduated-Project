@@ -1,15 +1,41 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="header">
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrinkto-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css" integrity="sha384-
-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-          crossorigin="anonymous">
-    <!-- Custom styles for this template -->
-    <link href="/css/jumbotron-narrow.css" rel="stylesheet">
-    <title>Hello, world!</title>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <header th:fragment="headerFragment">
+        <!-- header section starts -->
+        <header class="header_section">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg custom_nav-container pt-3">
+                    <a class="navbar-brand" href="/">
+                        <img src="../static/images/logo.png" alt=""/><span>GUHAEDOG</span>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-</head>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
+                            <ul class="navbar-nav  ">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">반려견 질병 진단</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">동물병원 예약</a>
+
+                                </li>
+                                <li class="nav-item">
+                                    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/member/login}">마이페이지</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a sec:authorize="isAnonymous()" th:href="@{/member/new}">회원가입</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <a sec:authorize="isAnonymous()" th:href="@{/member/login}">로그인</a>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <!-- end header section -->
+    </header>
+</html>
