@@ -16,7 +16,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 @ToString
-public class Member extends BaseTimeEntity {
+public class
+Member extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,20 +1,38 @@
 package com.example.demo.dog.controller;
 
 
+import com.example.demo.dog.dto.DogResponseDto;
+import com.example.demo.dog.dto.DogSaveRequestDto;
 import com.example.demo.dog.service.DogService;
+import com.example.demo.member.dao.MemberRepository;
+import com.example.demo.member.service.MemberService;
+import com.example.demo.member.vo.Member;
+import com.example.demo.member.vo.MemberResponseDto;
+import com.example.demo.member.vo.MemberSaveRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.security.Principal;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
 public class DogController {
 
     private final DogService dogService;
+    private final MemberService memberService;
+    private final MemberRepository memberRepository;
 
-    @GetMapping("/dogtest")
-    public String dog(){
-        return "Hello" + dogService.getName();
+    //강아지 정보 저장
+    @PostMapping("/member/dog/save")
+    public Long save(@RequestBody DogSaveRequestDto dogSaveRequestDto) {
+
+        return dogService.dog_SignUp(dogSaveRequestDto);
     }
 }
