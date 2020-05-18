@@ -48,6 +48,11 @@ public class MemberService implements UserDetailsService {
     }
 
 //    @Transactional
+//    public int check(String user_email){
+//
+//    }
+
+//    @Transactional
 //    public List<Member> findMembers(){
 //        return memberRepository.findAll();
 //    }

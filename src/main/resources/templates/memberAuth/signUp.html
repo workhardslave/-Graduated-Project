@@ -22,7 +22,7 @@
                         <div class="form-group">
                             <label th:for="email">이메일</label>
                             <input type="email" th:field="*{email}" class="form-control"
-                                   id="user_email" placeholder="이메일을 입력해주세요 ('@' 포함해주세요)" required>
+                                   id="user_email" placeholder="이메일을 입력해주세요 ('@' 포함해주세요)" text="admin@gmail.com" required>
                             <div class="check_font" id="email_check"></div>
                         </div>
 
@@ -77,14 +77,16 @@
         </div>
 
 
-        <div id="dropDownSelect1"></div>
-        <script>
+
+        <script th:inline="text/javascript">
             // 아이디 유효성 검사(1 = 중복 / 0 != 중복)
+
             $("#user_email").blur(function() {
                 // id = "id_reg" / name = "userId"
                 var user_email = $('#user_email').val();
+                console.log(user_email);
                 $.ajax({
-                    url : '${pageContext.request.contextPath}/member/idCheck?userId='+ user_email,
+                    url : '/member/emailCheck/'+user_email,
                     type : 'get',
                     success : function(data) {
                         console.log("1 = 중복o / 0 = 중복x : "+ data);
@@ -93,10 +95,11 @@
                             // 1 : 아이디가 중복되는 문구
                             $("#email_check").text("사용중인 아이디입니다 :p");
                             $("#email_check").css("color", "red");
-                            $("#reg_submit").attr("disabled", true);
+                            $("#email_check").focus();
                         } else {
-                            $("#email_check").text("");
-                            $("#reg_submit").attr("disabled", false);
+                            $("#email_check").text("사용가능한 아이디입니다.");
+                            $("#email_check").css("")
+
                         }
                     }, error : function() {
                         console.log("실패");
@@ -105,26 +108,27 @@
             });
         </script>
 
+        <div id="dropDownSelect1"></div>
 
         <!--===============================================================================================-->
-        <script src="../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+        <script src="../../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
         <!--===============================================================================================-->
-        <script src="../../static/vendor/animsition/js/animsition.min.js"></script>
+        <script src="../../../static/vendor/animsition/js/animsition.min.js"></script>
         <!--===============================================================================================-->
-        <script src="../../static/vendor/bootstrap/js/popper.js"></script>
-        <script src="../../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../../../static/vendor/bootstrap/js/popper.js"></script>
+        <script src="../../../static/vendor/bootstrap/js/bootstrap.min.js"></script>
         <!--===============================================================================================-->
-        <script src="../../static/vendor/select2/select2.min.js"></script>
+        <script src="../../../static/vendor/select2/select2.min.js"></script>
         <!--===============================================================================================-->
-        <script src="../../static/vendor/daterangepicker/moment.min.js"></script>
-        <script src="../../static/vendor/daterangepicker/daterangepicker.js"></script>
+        <script src="../../../static/vendor/daterangepicker/moment.min.js"></script>
+        <script src="../../../static/vendor/daterangepicker/daterangepicker.js"></script>
         <!--===============================================================================================-->
-        <script src="../../static/vendor/countdowntime/countdowntime.js"></script>
+        <script src="../../../static/vendor/countdowntime/countdowntime.js"></script>
         <!--===============================================================================================-->
-        <script src="../../static/js/main.js"></script>
+        <script src="../../../static/js/main.js"></script>
 
         <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-        <script src="../static/js/postcode-api.js"></script>
+        <script src="../../../static/js/postcode-api.js"></script>
 
         <footer th:replace="fragments/footer :: footerFragment"></footer>
     </body>
