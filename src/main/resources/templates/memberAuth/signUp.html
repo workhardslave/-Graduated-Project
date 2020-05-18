@@ -85,7 +85,7 @@
                 // id = "id_reg" / name = "userId"
                 var user_email = $('#user_email').val();
                 $.ajax({
-                    url : '${pageContext.request.contextPath}/user/idCheck?userId='+ user_email,
+                    url : '${pageContext.request.contextPath}/member/idCheck?userId='+ user_email,
                     type : 'get',
                     success : function(data) {
                         console.log("1 = 중복o / 0 = 중복x : "+ data);
