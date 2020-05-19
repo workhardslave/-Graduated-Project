@@ -116,19 +116,19 @@
                             console.log("1 = 중복o / 0 = 중복x : "+ data);
 
                             if (data == 1) {
-                                // 1 : 아이디가 중복되는 문구
-                                $("#email_check").text("사용중인 아이디입니다 :p");
+                                // 1 : 이메일이 중복되는 문구
+                                $("#email_check").text("사용중인 이메일입니다 :p");
                                 $("#email_check").css("color", "red");
                                 $("#user_email").focus();
                             } else { // 0
-                                // 공백일 때 아이디 입력 문구
+                                // 공백일 때 이메일 입력 문구
                                 if($('#user_email').val() == ""){
-                                        $('#email_check').text('아이디를 입력해주세요 :)');
+                                        $('#email_check').text('이메일을 입력해주세요 :)');
                                         $('#email_check').css('color', 'red');
                                         $("#user_email").focus();
-                                // 아이디가 사용가능한 문구
+                                // 이메일이 사용가능한 문구
                                 }else{
-                                    $("#email_check").text("사용가능한 아이디입니다 :p");
+                                    $("#email_check").text("사용가능한 이메일입니다 :p");
                                     $("#email_check").css("color", "blue");
                                 }
                             }
