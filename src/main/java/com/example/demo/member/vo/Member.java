@@ -1,6 +1,7 @@
 package com.example.demo.member.vo;
 
 
+import com.example.demo.dog.Dog;
 import com.example.demo.overlap.Address;
 import com.example.demo.overlap.BaseTimeEntity;
 import lombok.*;
@@ -9,6 +10,8 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -36,6 +39,8 @@ Member extends BaseTimeEntity {
     private Address address;
 
 
+    @OneToMany(mappedBy="member", orphanRemoval = true)
+    List<Dog> dogList = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Role role;

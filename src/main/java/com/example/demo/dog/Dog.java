@@ -19,9 +19,8 @@ public class Dog {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
-
     private String name;
 
     private int age;
