@@ -103,9 +103,6 @@ public class MemberServiceApiTest {
     }
 
 
-
-
-
     @Test
     @Rollback(false)
     public void 회원수정() throws Exception {
@@ -114,19 +111,23 @@ public class MemberServiceApiTest {
 
         Address address = new Address("abc","kfc","def");
         MemberUpdateRequestDto requestDto = MemberUpdateRequestDto.builder()
-                .addr(address)
                 .password("12345")
                 .build();
         memberService.update(10L, requestDto);
 
         String url = "http://localhost:" + port + "/api/member/settings/10";
 
-        System.out.println(requestDto.getAddress().getZipcode());
     }
 
 
     @Test
+    @Rollback(false)
     public void 회원삭제() throws Exception {
+
+//        Member member = memberRepository.findOne(1L);
+
+        memberService.delete(1L);
+
     }
 
     @Test
