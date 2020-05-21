@@ -112,7 +112,6 @@ public class DogServiceApiTest {
     @Test//조회
     public void 반려견조회() throws Exception{
 
-     ;
 
     }
     @Test //수정
