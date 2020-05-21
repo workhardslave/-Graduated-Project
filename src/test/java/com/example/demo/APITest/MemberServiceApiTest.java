@@ -121,7 +121,13 @@ public class MemberServiceApiTest {
 
 
     @Test
+    @Rollback(false)
     public void 회원삭제() throws Exception {
+
+//        Member member = memberRepository.findOne(1L);
+
+        memberService.delete(1L);
+
     }
 
     @Test

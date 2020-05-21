@@ -101,7 +101,7 @@ public class MemberService implements UserDetailsService {
         return id;
     }
 
-    //수정 페이지8
+    //수정 페이지
     @Transactional(readOnly = true)
     public MemberResponseDto findById(Long id) {
         Member entity = memberRepository.findById(id)

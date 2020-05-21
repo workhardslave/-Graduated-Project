@@ -86,23 +86,7 @@ public class HomeController {
         return "admin/memberList";
     }
 
-    // 회원 정보조회
-    /*
-    @GetMapping("/member/Info")
-    public String postsMyData(Model model, Principal principal) {
 
-        Member member = memberRepository.findEmailCheck(principal.getName());
-
-        if (member != null) { // 세션에 저장된 값이 있을때만 model에 userName으로 등록한다.
-            //세션에 저장된 값이 없으면 model엔 아무런 값이 없는 상태이니 로그인 버튼이 보인다.
-            model.addAttribute("userName", member.getName());
-            model.addAttribute("userEmail", member.getEmail());
-            model.addAttribute("userPhone", member.getPhone());
-
-        }
-        return "members/Info";
-    }
-    */
 
     @GetMapping("/member/mypage")
     public String readMyData(Model model, Principal principal) {
@@ -126,7 +110,7 @@ public class HomeController {
         return "memberAuth/myPage";
     }
 
-    // 회원 정보수정
+    // 회원 정보수정 페이지
     @GetMapping("/member/settings/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
 

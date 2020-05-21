@@ -12,10 +12,12 @@ import com.example.demo.member.vo.MemberSaveRequestDto;
 import com.example.demo.overlap.Address;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
@@ -48,6 +50,20 @@ public class DogController {
         model.addAttribute("dog", Dogs);
         return "";
     }
+
+
+    // 강아지 정보 수정 및 삭제 홈페이지
+    @GetMapping("/member/dogs/settings/{id}")
+    public String updateForm(@PathVariable Long id, Model model) {
+
+        DogResponseDto dto = dogService.findById(id);
+        model.addAttribute("dog", dto);
+
+        return "";
+    }
+
+
+
 
 }
 
