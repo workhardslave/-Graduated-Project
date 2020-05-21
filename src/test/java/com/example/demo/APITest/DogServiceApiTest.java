@@ -1,7 +1,7 @@
 package com.example.demo.APITest;
 
 
-import com.example.demo.dog.Dog;
+import com.example.demo.dog.dto.Dog;
 import com.example.demo.dog.dao.DogRepository;
 import com.example.demo.dog.dto.DogSaveRequestDto;
 import com.example.demo.dog.service.DogService;
@@ -86,7 +86,7 @@ public class DogServiceApiTest {
 
         //given
         DogSaveRequestDto requestDto = DogSaveRequestDto.builder()
-               .age(12)
+               .age(Age.생후12개월미만)
                 .gender("숫컷")
                 .value("포메")
                 .birth("2001-1")

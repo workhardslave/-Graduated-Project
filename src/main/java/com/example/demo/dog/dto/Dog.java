@@ -1,12 +1,11 @@
-package com.example.demo.dog;
+package com.example.demo.dog.dto;
 
 
 import com.example.demo.member.vo.Member;
-import com.example.demo.overlap.Address;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.web.context.WebApplicationContext;
 
 import javax.persistence.*;
 
@@ -14,23 +13,25 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
+@ToString
 public class Dog {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
+
     private String name;
 
-    private int age;
+    private String age;
     private String gender;
     private String birth;
     private String value;
 
 
     @Builder
-    public Dog(Long id, Member member, String name, int age, String gender, String birth, String value) {
+    public Dog(Long id, Member member, String name, String age, String gender, String birth, String value) {
         this.id = id;
         this.member=member;
         this.name = name;
@@ -40,7 +41,7 @@ public class Dog {
         this.value=value;
     }
 
-    public Dog update(int age, String value, String name) {
+    public Dog update(String age, String value, String name) {
         this.age = age;
         this.value = value;
         this.name = name;

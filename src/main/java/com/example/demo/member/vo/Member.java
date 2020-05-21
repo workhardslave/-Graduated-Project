@@ -1,7 +1,7 @@
 package com.example.demo.member.vo;
 
 
-import com.example.demo.dog.Dog;
+import com.example.demo.dog.dto.Dog;
 import com.example.demo.overlap.Address;
 import com.example.demo.overlap.BaseTimeEntity;
 import lombok.*;
@@ -19,8 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 @ToString
-public class
-Member extends BaseTimeEntity {
+public class Member extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

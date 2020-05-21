@@ -1,14 +1,11 @@
 package com.example.demo.dog.dto;
 
 
-import com.example.demo.dog.Dog;
 import com.example.demo.member.vo.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.*;
 
 @NoArgsConstructor
 @Getter
@@ -18,14 +15,14 @@ public class DogSaveRequestDto {
     private Long id;
     private Member member;
     private String name;
-    private int age;
+    private String age;
     private String gender;
     private String birth;
     private String value;
 
 
     @Builder
-    public DogSaveRequestDto(Long id, Member member, String name, int age, String gender, String birth, String value) {
+    public DogSaveRequestDto(Long id, Member member, String name, String age, String gender, String birth, String value) {
         this.id = id;
         this.member = member;
         this.name = name;

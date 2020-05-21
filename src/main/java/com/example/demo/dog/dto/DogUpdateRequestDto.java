@@ -14,13 +14,13 @@ public class DogUpdateRequestDto {
     private Long id;
     private Member member;
     private String name;
-    private int age;
+    private String age;
     private String gender;
     private String birth;
     private String value;
 
     @Builder
-    public DogUpdateRequestDto(Long id, Member member, String name, int age, String gender, String birth, String value) {
+    public DogUpdateRequestDto(Long id, Member member, String name, String age, String gender, String birth, String value) {
         this.id = id;
         this.member = member;
         this.name = name;

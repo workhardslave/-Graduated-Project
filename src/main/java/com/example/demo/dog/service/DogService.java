@@ -1,28 +1,17 @@
 package com.example.demo.dog.service;
 
 
-import com.example.demo.dog.Dog;
+import com.example.demo.dog.dto.Dog;
 import com.example.demo.dog.dao.DogRepository;
 import com.example.demo.dog.dto.DogResponseDto;
 import com.example.demo.dog.dto.DogSaveRequestDto;
 import com.example.demo.dog.dto.DogUpdateRequestDto;
-import com.example.demo.member.dao.MemberRepository;
-import com.example.demo.member.service.MemberService;
 import com.example.demo.member.vo.*;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 

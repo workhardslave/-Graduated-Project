@@ -32,24 +32,7 @@ public class DogApiController {
     private final MemberService memberService;
     private final MemberRepository memberRepository;
     private final FindByIndexNameSessionRepository sessionRepository;
-    // 강아지 정보 저장 API
-    @PostMapping(value = "/member/dog/save")
-    public String Dogcreate(@Valid DogForm form, BindingResult result, Principal principal) {
-        if (result.hasErrors()) {
-            return "";
-        }
 
-        Member member = memberRepository.findEmailCheck(principal.getName());
-
-        DogSaveRequestDto dog = new DogSaveRequestDto();
-        dog.setAge(form.getAge());
-        dog.setBirth(form.getBirth());
-        dog.setGender(form.getGender());
-        dog.setName(form.getName());
-        dog.setValue(form.getValue());
-        dog.setMember(member);
-        return "";
-    }
 
 
     // 강아지 정보 수정 API
