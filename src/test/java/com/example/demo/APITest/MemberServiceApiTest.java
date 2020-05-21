@@ -57,18 +57,15 @@ public class MemberServiceApiTest {
     private MockMvc mvc;
 
 
-
-
-
     /**
      * 중복 확인
      */
     @Test
     public void 회원가입() throws Exception {
-       //given
+        //given
         Member member = new Member();
         MemberSaveRequestDto memberSaveRequestDto = new MemberSaveRequestDto();
-        Address address = new Address("경기도","광명시","어딘가");
+        Address address = new Address("경기도", "광명시", "어딘가");
 
         member.builder()
                 .name("현우")
@@ -108,7 +105,7 @@ public class MemberServiceApiTest {
 
         Member member = memberRepository.findOne(10L);
 
-        Address address = new Address("abc","kfc","def");
+        Address address = new Address("abc", "kfc", "def");
         MemberUpdateRequestDto requestDto = MemberUpdateRequestDto.builder()
                 .password("12345")
                 .build();
@@ -117,33 +114,8 @@ public class MemberServiceApiTest {
         String url = "http://localhost:" + port + "/api/member/settings/10";
 
     }
-
-
-    @Test
-    @Rollback(false)
-    public void 회원삭제() throws Exception {
-
-//        Member member = memberRepository.findOne(1L);
-
-        memberService.delete(1L);
-
-    }
-
-    @Test
-    public void 회원정보보기() throws Exception {
-        Member member = memberRepository.findOne(1L);
-
-        System.out.println(member.getName());
-        MemberResponseDto responseDto = new MemberResponseDto(member);
-
-        System.out.println(responseDto.getAddress().getCity());
-        System.out.println(responseDto.getAddress().getStreet());
-
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-        String Bycript = passwordEncoder.encode(member.getPassword());
-        System.out.println(Bycript);
-    }
-
-
 }
+//
+//    @Test
+//    @Rollback(false)
+//    public void 회원삭제() throws Exception {
