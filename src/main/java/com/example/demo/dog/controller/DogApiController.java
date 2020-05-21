@@ -54,7 +54,7 @@ public class DogApiController {
 
     // 강아지 정보 수정 API
     @PutMapping("/api/member/dogs/settings/{id}")
-    public Long DogiupdateForm(@PathVariable Long id, @RequestBody DogUpdateRequestDto requestDto) {
+    public Long DogupdateForm(@PathVariable Long id, @RequestBody DogUpdateRequestDto requestDto) {
         return dogService.update(id, requestDto);
     }
 
