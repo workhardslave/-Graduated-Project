@@ -59,4 +59,19 @@ public class MemberApiController {
         return id;
     }
 
+    @PostMapping("/api/checkEmail")
+    public int checkEmail(@RequestBody String user_email){
+
+        return memberService.validateDuplicateMember(user_email);
+    }
+
+//    // 이메일 중복 확인 api
+//    @GetMapping("member/emailCheck/{user_email}")
+//    public int emailCheck(@PathVariable String user_email){
+//
+//
+//
+//    }
+
+
 }

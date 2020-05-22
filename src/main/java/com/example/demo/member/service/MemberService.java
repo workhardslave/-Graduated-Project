@@ -9,6 +9,7 @@ import com.example.demo.member.vo.MemberUpdateRequestDto;
 import com.example.demo.member.vo.MemberResponseDto;
 import com.example.demo.member.vo.Role;
 
+import net.minidev.json.JSONObject;
 import org.slf4j.LoggerFactory;
 import lombok.RequiredArgsConstructor;
 
@@ -23,10 +24,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -40,20 +38,38 @@ public class MemberService implements UserDetailsService {
 
     //회원가입 아이디 중복체크
     @Transactional
-    public void validateDuplicateMember(Member member) {
-        Member findMember = memberRepository.findEmailCheck(member.getEmail());
+    public int validateDuplicateMember(String user_email) {
+//        String st = user_email.substring()
+        String value = user_email;
+        value = value.substring(1,value.length()-1);
+        HashMap<String, String> hashMap = new HashMap<>();
+
+        String[] entry = value.split(":");
+//        System.out.println("키값확인0"+entry[0]);
+//        System.out.println("키값확인1"+entry[1]);
+        hashMap.put(entry[0].trim(), entry[1].trim());
+//        System.out.println("맵값확인"+hashMap.values().toString());
+        String value2 = hashMap.values().toString().substring(2, hashMap.values().toString().length()-2);
+//        System.out.println("맵값확인1"+value2);
+
+//        System.out.println(hashMap.values());
+//        System.out.println(hashMap.keySet());
+
+        Member findMember = memberRepository.findEmailCheck(value2);
+
+//        System.out.println(findMember.getEmail());
         if (findMember!=null) {
-            throw new IllegalStateException("회원가입된 사람입니다.");
+//            throw new IllegalStateException("회원가입된 사람입니다.");
+            return 1;
+        }else{
+            return 0;
         }
     }
-
-
-
 
     //회원가입
     @Transactional
     public Long SignUp(MemberSaveRequestDto memberDto) {
-        validateDuplicateMember(memberDto.toEntity());
+//        validateDuplicateMember(memberDto.toEntity());
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
         memberDto.setRole(Role.GUEST);
