@@ -41,7 +41,7 @@ public class DogService {
     @Transactional
     public Long update(Long id, DogUpdateRequestDto requestDto) {
         Dog dog = dogRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + id));
+                .orElseThrow(() -> new IllegalArgumentException("해당 멍멍이가 없습니다. id=" + id));
 
         dog.update(requestDto.getAge(),requestDto.getName(),requestDto.getValue());
         return id;
@@ -51,7 +51,7 @@ public class DogService {
     @Transactional(readOnly = true)
     public DogResponseDto findById(Long id) {
         Dog entity = dogRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + id));
+                .orElseThrow(() -> new IllegalArgumentException("해당  멍멍이가 없습니다. id=" + id));
 
         return new DogResponseDto(entity);
     }

@@ -85,7 +85,7 @@ public class DogController {
         DogResponseDto dto = dogService.findById(id);
         model.addAttribute("dog", dto);
 
-        return "";
+        return "members/dogs/dogSettings";
     }
 
 
