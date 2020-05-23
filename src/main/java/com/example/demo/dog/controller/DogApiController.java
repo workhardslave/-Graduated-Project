@@ -46,7 +46,7 @@ public class DogApiController {
         dog.setBirth(form.getBirth());
         dog.setGender(form.getGender());
         dog.setName(form.getName());
-        dog.setValue(form.getValue());
+        dog.setType(form.getType());
         dog.setMember(member);
         return "";
     }

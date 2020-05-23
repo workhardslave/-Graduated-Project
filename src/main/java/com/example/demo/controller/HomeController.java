@@ -51,11 +51,6 @@ public class HomeController {
         return "memberAuth/signUp";
     }
 
-
-
-
-
-
     // 회원가입 API
     @PostMapping(value = "/api/member/signup")
     public String create(@Valid MemberForm form, BindingResult result) {
@@ -85,8 +80,6 @@ public class HomeController {
         model.addAttribute("members", members);
         return "admin/memberList";
     }
-
-
 
     @GetMapping("/member/mypage")
     public String readMyData(Model model, Principal principal) {
@@ -133,7 +126,6 @@ public class HomeController {
 
         return "admin/settings";
     }
-
 
     //로그인 페이지
     @GetMapping("/member/login")

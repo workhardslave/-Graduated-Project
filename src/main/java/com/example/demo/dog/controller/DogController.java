@@ -29,7 +29,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DogController {
 
-
     private final DogRepository dogRepository;
     private final DogService dogService;
     private final MemberRepository memberRepository;
@@ -41,7 +40,6 @@ public class DogController {
         return "";
     }
 
-
     // 사용자 자신의 강아지 정보 조회 홈페이지
     @GetMapping("/member/dogs")
     public String DogInfo(Model model, Principal principal) {
@@ -50,7 +48,6 @@ public class DogController {
         model.addAttribute("dog", Dogs);
         return "";
     }
-
 
     // 강아지 정보 수정 및 삭제 홈페이지
     @GetMapping("/member/dogs/settings/{id}")
@@ -62,10 +59,15 @@ public class DogController {
         return "";
     }
 
+    // 관리자, 반려견 정보조회
+    @GetMapping("/admin/dogs/dog_info/{id}")
+    public String adminDogInfo(@PathVariable Long id, Model model, Principal principal) {
+        DogResponseDto dto = dogService.findById(id);
 
+        Member member = memberRepository.findEmailCheck(principal.getName());
+        List<DogResponseDto> dogs = dogService.findAllDesc(member);
+        model.addAttribute("dogs", dogs);
 
-
+        return "dog/admin_dogInfo";
+    }
 }
-
-
-
