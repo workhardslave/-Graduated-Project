@@ -75,7 +75,7 @@
                         <div class="container-login100-form-btn">
                             <div class="wrap-login100-form-btn">
                                 <div class="login100-form-bgbtn"></div>
-                                <a th:href="@{/admin/member/dogs}" class="login100-form-btn">반려견 조회</a>
+                                <a th:href="@{/admin/member/{id}/dogs(id = ${member.id})}" class="login100-form-btn">반려견 조회</a>
                             </div>
                         </div>
                     </form>

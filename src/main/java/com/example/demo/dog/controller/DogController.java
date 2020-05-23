@@ -42,7 +42,7 @@ public class DogController {
 
     // 사용자 자신의 강아지 정보 조회 홈페이지
     @GetMapping("/member/dogs")
-    public String DogInfo(Model model, Principal principal) {
+    public String DogInfo(Model model, Principal principal) {                   // principle: session DB에 저장되어 있는 값 가져옴
         Member member = memberRepository.findEmailCheck(principal.getName());
         List<DogResponseDto> Dogs = dogService.findAllDesc(member);
         model.addAttribute("dog", Dogs);
@@ -60,9 +60,9 @@ public class DogController {
     }
 
     // 관리자, 회원별 반려견 정보조회
-    @GetMapping("/admin/member/dogs")
-    public String adminDogInfo(Model model, Principal principal) {
-        Member member = memberRepository.findEmailCheck(principal.getName());
+    @GetMapping("/admin/member/{id}/dogs")
+    public String adminDogInfo(@PathVariable Long id, Model model) {
+        Member member = memberRepository.findOne(id);
         List<DogResponseDto> dogs = dogService.findAllDesc(member);
 
         model.addAttribute("dogs", dogs);
