@@ -59,13 +59,12 @@ public class DogController {
         return "";
     }
 
-    // 관리자, 반려견 정보조회
-    @GetMapping("/admin/dogs/dog_info/{id}")
-    public String adminDogInfo(@PathVariable Long id, Model model, Principal principal) {
-        DogResponseDto dto = dogService.findById(id);
-
+    // 관리자, 회원별 반려견 정보조회
+    @GetMapping("/admin/member/dogs")
+    public String adminDogInfo(Model model, Principal principal) {
         Member member = memberRepository.findEmailCheck(principal.getName());
         List<DogResponseDto> dogs = dogService.findAllDesc(member);
+
         model.addAttribute("dogs", dogs);
 
         return "dog/admin_dogInfo";
