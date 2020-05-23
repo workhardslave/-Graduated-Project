@@ -7,6 +7,9 @@ log/
 !**/src/main/**
 !**/src/test/**
 
+application.properties
+application.yml
+
 
 ### STS ###
 .apt_generated
