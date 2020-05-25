@@ -65,8 +65,23 @@ public class DogController {
         Member member = memberRepository.findOne(id);
         List<DogResponseDto> dogs = dogService.findAllDesc(member);
 
+        model.addAttribute("member", member);
         model.addAttribute("dogs", dogs);
 
         return "dog/admin_dogInfo";
     }
+
+    // 관리자, 회원 반려견 정보수정
+    @GetMapping("/admin/member/{id}/dogs/settings/{dog_id}")
+    public String adminDogSettings(@PathVariable Long id, @PathVariable Long dog_id, Model model) {
+        Member member = memberRepository.findOne(id);
+        model.addAttribute("member", member);
+
+        DogResponseDto dto = dogService.findById(dog_id);
+        model.addAttribute("dog", dto);
+
+        return "dog/admin_dogSettings";
+    }
+
+    // 관리자, 회원 반려견 정보삭제
 }

@@ -52,7 +52,7 @@ public class DogService {
     @Transactional
     public Long update(Long id, DogUpdateRequestDto requestDto) {
         Dog dog = dogRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + id));
+                .orElseThrow(() -> new IllegalArgumentException("해당 반려견이 없습니다. id=" + id));
 
         dog.update(requestDto.getAge(),requestDto.getName(),requestDto.getType());
         return id;
@@ -62,7 +62,7 @@ public class DogService {
     @Transactional(readOnly = true)
     public DogResponseDto findById(Long id) {
         Dog entity = dogRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + id));
+                .orElseThrow(() -> new IllegalArgumentException("해당 반려견이 없습니다. id=" + id));
 
         return new DogResponseDto(entity);
     }
@@ -71,10 +71,20 @@ public class DogService {
     @Transactional
     public void delete (Long id) {
         Dog dog = dogRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
+                .orElseThrow(() -> new IllegalArgumentException("해당 반려견이 없습니다. id=" + id));
         dogRepository.delete(dog);
     }
 
+    // 관리자, 회원 반려견 정보수정 POST
+    @Transactional
+    public Long updateDogAdmin(Long id, Long dog_id, DogUpdateRequestDto requestDto) {
+        Dog dog = dogRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 반려견이 없습니다. id=" + id));
+
+        dog.updateDogAdmin(requestDto.getName(), requestDto.getAge(), requestDto.getBirth(), requestDto.getGender());
+
+        return id;
+    }
 
 }
 

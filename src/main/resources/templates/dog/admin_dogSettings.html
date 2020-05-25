@@ -1,10 +1,138 @@
+<!--관리자가 회원의 반려견 정보를 수정하는 페이지 -->
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/config :: configFragment" />
 
-</body>
+    <body>
+    <header th:replace="fragments/header :: headerFragment"></header>
+
+    <div class="limiter">
+        <div class="container-login100" style="background-image: url('../../static/images/bg-01.jpg');">
+            <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+                <form class="login100-form validate-form">
+                    <span class="login100-form-title p-b-49">반려견 정보수정</span>
+
+                    <input type="text" id="memberId" th:field="${member.id}" hidden="true">
+                    <input type="text" id="dogId" th:field="${dog.id}" hidden="true">
+
+                    <div class="form-group">
+                        <label th:for="name">이름</label>
+                        <input type="text" id="dogName" th:field="${dog.name}" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label th:for="email">견종</label>
+                        <input type="text" id="dogType" th:field="${dog.type}" class="form-control" readonly required>
+                    </div>
+
+                    <div class="form-group">
+                        <label th:for="password">나이</label>
+                        <input type="text" id="dogAge" th:value="${dog.age}" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label th:for="birth">생년월일</label>
+                        <input type="date" id="dogBirth" th:field="${dog.birth}" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label th:for="phone">성별</label>
+                        <input type="text" id="dogGender" th:field="${dog.gender}" class="form-control" required>
+                    </div>
+
+                    <br/>
+
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <a th:href="'javascript:updateDog()'" class="login100-form-btn">수정하기</a>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <a href="#" class="login100-form-btn">삭제하기</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        function updateDog() {
+            var data = {                          // 견종 변경 불가
+                dogName: $("#dogName").val(),     // 이름, 나이, 생년월일, 성별 변경 가능
+                dogAge: $("#dogAge").val(),
+                dogBirth: $("#dogBirth").val(),
+                dogGender: $("#dogGender").val()
+            };
+
+            console.log(data);
+
+            var id = $("#memberId").val();
+            var dog_id = $("#dogId").val();
+
+            $.ajax({
+                type: 'PUT',
+                url: '/admin/member/{id}' + id + '/dogs/settings/{dog_id}' + dog_id,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data)
+            }).done(function() {
+                alert('정보수정 되었습니다!');
+                window.location.href = "/admin/member/{id}" + "/dogs/settings/{dog_id}" + dog_id;
+            }).fail(function(request, status, error) {
+                alert(JSON.stringify(error));
+                window.location.href = "/admin/member/{id}" + "/dogs/settings/{dog_id}" + dog_id;
+                alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+            });
+        }
+
+        function deleteAdmin() {
+
+            var id = [[ ${admin.id} ]];
+
+            console.log("---------");
+
+            $.ajax({
+                type: 'DELETE',
+                url: '/api/admin/delete/' + id,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8'
+            }).done(function() {
+                console.log(name);
+                alert('탈퇴 되었습니다.');
+                window.location.href = '/';
+            }).fail(function (request, status, error) {
+                alert(JSON.stringify(error));
+                alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+            });
+
+            console.log(data);
+        }
+    </script>
+
+    <div id="dropDownSelect1"></div>
+
+    <!--===============================================================================================-->
+    <script src="../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../../static/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../../static/vendor/bootstrap/js/popper.js"></script>
+    <script src="../../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../../static/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../../static/vendor/daterangepicker/moment.min.js"></script>
+    <script src="../../static/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="../../static/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="../../static/js/main.js"></script>
+
+    <footer th:replace="fragments/footer :: footerFragment"></footer>
+    </body>
 </html>
