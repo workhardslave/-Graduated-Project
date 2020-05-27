@@ -72,16 +72,12 @@ public class DogController {
     }
 
     // 관리자, 회원 반려견 정보수정
-    @GetMapping("/admin/member/{id}/dogs/settings/{dog_id}")
-    public String adminDogSettings(@PathVariable Long id, @PathVariable Long dog_id, Model model) {
-        Member member = memberRepository.findOne(id);
-        model.addAttribute("member", member);
+    @GetMapping("/admin/dogs/settings/{id}")
+    public String adminDogSettings(@PathVariable Long id, Model model) {
 
-        DogResponseDto dto = dogService.findById(dog_id);
+        DogResponseDto dto = dogService.findById(id);
         model.addAttribute("dog", dto);
 
         return "dog/admin_dogSettings";
     }
-
-    // 관리자, 회원 반려견 정보삭제
 }

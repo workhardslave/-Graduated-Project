@@ -77,11 +77,11 @@ public class DogService {
 
     // 관리자, 회원 반려견 정보수정 POST
     @Transactional
-    public Long updateDogAdmin(Long id, Long dog_id, DogUpdateRequestDto requestDto) {
+    public Long updateDog(Long id, DogUpdateRequestDto requestDto) {
         Dog dog = dogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 반려견이 없습니다. id=" + id));
 
-        dog.updateDogAdmin(requestDto.getName(), requestDto.getAge(), requestDto.getBirth(), requestDto.getGender());
+        dog.updateDog(requestDto.getName(), requestDto.getAge(), requestDto.getBirth(), requestDto.getGender());
 
         return id;
     }
