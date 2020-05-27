@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/config :: configFragment">
+    <body>
+        <header th:replace="fragments/header :: headerFragment"></header>
+
+        <div class="col-md-12"></div>
+        <div class="col-md-12"></div>
+        <div class="col-md-12">
+            <div class="container">
+
+                <div>
+                    <table class="table table-horizontal table-striped table-bordered">
+                        <thead class="thead-strong">
+                            <tr>
+                                <th>ID</th>
+                                <th>이름</th>
+                                <th>견종</th>
+                                <th>나이</th>
+                                <th>생년월일</th>
+                                <th>성별</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody" th:each="member : ${member}">
+                            <tr th:each="dog : ${dogs}">
+                                <td th:text="${dog.id}"/></td>
+                                <td><a th:href="@{/admin/member/{id}/dogs/settings/{dog_id}(id = ${member.id}, dog_id = ${dog.id})}" th:text="${dog.name}"></a></td>
+                                <td th:text="${dog.type}"></td>
+                                <td th:text="${dog.age}"></td>
+                                <td th:text="${dog.birth}"></td>
+                                <td th:text="${dog.gender}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <footer th:replace="fragments/footer :: footerFragment"></footer>
+    </body>
+</html>

@@ -26,26 +26,34 @@ public class Dog {
     private int age;
     private String gender;
     private String birth;
-    private String value;
+    private String type;
 
 
     @Builder
-    public Dog(Long id, Member member, String name, int age, String gender, String birth, String value) {
+    public Dog(Long id, Member member, String name, int age, String gender, String birth, String type) {
         this.id = id;
         this.member=member;
         this.name = name;
         this.age = age;
         this.gender=gender;
         this.birth=birth;
-        this.value=value;
+        this.type=type;
     }
 
-    public Dog update(int age, String value, String name) {
+    public Dog update(int age, String type, String name) {
         this.age = age;
-        this.value = value;
+        this.type = type;
         this.name = name;
 
         return this;
     }
 
+    public Dog updateDogAdmin(String name, int age, String birth, String gender) {
+        this.name = name;
+        this.age = age;
+        this.birth = birth;
+        this.gender = gender;
+
+        return this;
+    }
 }

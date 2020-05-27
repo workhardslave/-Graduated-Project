@@ -46,7 +46,7 @@ public class DogApiController {
         dog.setBirth(form.getBirth());
         dog.setGender(form.getGender());
         dog.setName(form.getName());
-        dog.setValue(form.getValue());
+        dog.setType(form.getType());
         dog.setMember(member);
         return "";
     }
@@ -67,4 +67,9 @@ public class DogApiController {
     }
 
 
+    // 관리자, 회원 반려견 정보수정 API
+    @PutMapping("/api/admin/member/{id}/dogs/settings/{dog_id}")
+    public Long adminDogSettingsForm(@PathVariable Long id, @PathVariable Long dog_id, @RequestBody DogUpdateRequestDto requestDto) {
+        return dogService.updateDogAdmin(id, dog_id, requestDto);
+    }
 }

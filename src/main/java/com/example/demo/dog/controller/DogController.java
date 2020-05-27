@@ -29,7 +29,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DogController {
 
-
     private final DogRepository dogRepository;
     private final DogService dogService;
     private final MemberRepository memberRepository;
@@ -41,16 +40,14 @@ public class DogController {
         return "";
     }
 
-
     // 사용자 자신의 강아지 정보 조회 홈페이지
     @GetMapping("/member/dogs")
-    public String DogInfo(Model model, Principal principal) {
+    public String DogInfo(Model model, Principal principal) {                   // principle: session DB에 저장되어 있는 값 가져옴
         Member member = memberRepository.findEmailCheck(principal.getName());
         List<DogResponseDto> Dogs = dogService.findAllDesc(member);
         model.addAttribute("dog", Dogs);
         return "";
     }
-
 
     // 강아지 정보 수정 및 삭제 홈페이지
     @GetMapping("/member/dogs/settings/{id}")
@@ -62,10 +59,29 @@ public class DogController {
         return "";
     }
 
+    // 관리자, 회원별 반려견 정보조회
+    @GetMapping("/admin/member/{id}/dogs")
+    public String adminDogInfo(@PathVariable Long id, Model model) {
+        Member member = memberRepository.findOne(id);
+        List<DogResponseDto> dogs = dogService.findAllDesc(member);
 
+        model.addAttribute("member", member);
+        model.addAttribute("dogs", dogs);
 
+        return "dog/admin_dogInfo";
+    }
 
+    // 관리자, 회원 반려견 정보수정
+    @GetMapping("/admin/member/{id}/dogs/settings/{dog_id}")
+    public String adminDogSettings(@PathVariable Long id, @PathVariable Long dog_id, Model model) {
+        Member member = memberRepository.findOne(id);
+        model.addAttribute("member", member);
+
+        DogResponseDto dto = dogService.findById(dog_id);
+        model.addAttribute("dog", dto);
+
+        return "dog/admin_dogSettings";
+    }
+
+    // 관리자, 회원 반려견 정보삭제
 }
-
-
-
