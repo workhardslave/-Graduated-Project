@@ -43,7 +43,7 @@ public class DogService {
         Dog dog = dogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 멍멍이가 없습니다. id=" + id));
 
-        dog.update(requestDto.getAge(),requestDto.getName(),requestDto.getValue());
+        dog.update(requestDto.getAge(),requestDto.getName(),requestDto.getType());
         return id;
     }
 

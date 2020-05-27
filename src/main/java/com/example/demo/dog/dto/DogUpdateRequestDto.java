@@ -17,16 +17,16 @@ public class DogUpdateRequestDto {
     private String age;
     private String gender;
     private String birth;
-    private String value;
+    private String type;
 
     @Builder
-    public DogUpdateRequestDto(Long id, Member member, String name, String age, String gender, String birth, String value) {
+    public DogUpdateRequestDto(Long id, Member member, String name, String age, String gender, String birth, String type) {
         this.id = id;
         this.member = member;
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.birth = birth;
-        this.value = value;
+        this.type = type;
     }
 }

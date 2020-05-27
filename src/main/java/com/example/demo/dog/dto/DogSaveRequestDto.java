@@ -18,18 +18,18 @@ public class DogSaveRequestDto {
     private String age;
     private String gender;
     private String birth;
-    private String value;
+    private String type;
 
 
     @Builder
-    public DogSaveRequestDto(Long id, Member member, String name, String age, String gender, String birth, String value) {
+    public DogSaveRequestDto(Long id, Member member, String name, String age, String gender, String birth, String type) {
         this.id = id;
         this.member = member;
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.birth = birth;
-        this.value = value;
+        this.type = type;
     }
     public Dog toEntity(){
         return Dog.builder()
@@ -39,7 +39,7 @@ public class DogSaveRequestDto {
                 .age(age)
                 .gender(gender)
                 .birth(birth)
-                .value(value)
+                .type(type)
                 .build();
     }
 

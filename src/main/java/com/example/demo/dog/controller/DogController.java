@@ -53,14 +53,14 @@ public class DogController {
         log.info("생일"+form.getBirth());
         log.info("이름"+form.getName());
         log.info("성별"+form.getGender());
-        log.info("종"+form.getValue()); //null
+        log.info("종"+form.getType()); //null
         log.info("멤버" + member.getName());
 
         dog.setAge(form.getAge());
         dog.setBirth(form.getBirth());
         dog.setGender(form.getGender());
         dog.setName(form.getName());
-        dog.setValue(form.getValue());
+        dog.setType(form.getType());
         dog.setMember(member);
         dogService.dog_SignUp(dog);
         return "members/dogs/dogSignUp";

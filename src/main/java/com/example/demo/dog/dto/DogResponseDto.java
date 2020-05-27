@@ -14,7 +14,7 @@ public class DogResponseDto {
     private String age;
     private String gender;
     private String birth;
-    private String value;
+    private String type;
 
 
     public DogResponseDto(Dog entity) {
@@ -24,7 +24,7 @@ public class DogResponseDto {
         this.age = entity.getAge();
         this.gender = entity.getGender();
         this.birth = entity.getBirth();
-        this.value = entity.getValue();
+        this.type = entity.getType();
     }
 }
 

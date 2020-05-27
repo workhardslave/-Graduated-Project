@@ -18,7 +18,7 @@ public class DogForm {
 //    @NotEmpty(message = "생일 입력은 필수입니다")
     private String birth;
 //    @NotEmpty(message = "종 입력은 필수입니다")
-    private String value;
+    private String type;
 
 }
 

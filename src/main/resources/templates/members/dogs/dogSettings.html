@@ -43,7 +43,7 @@
 
                 <div class="form-group">
                     <label th:for="birth">견종</label>
-                    <input type="date" id="dogvalue" th:field="${dog.value}" class="form-control"  required>
+                    <input type="date" id="dogType" th:field="${dog.type}" class="form-control"  required>
                 </div>
                 <br/>
 
@@ -70,7 +70,7 @@
         var data = {                                // 이름, 이메일, 생일 변경 불가
             age: $("#dogAge").val(),     // 비밀번호, 전화번호, 주소, 상세주소, 참고항목 변경 가능
             name: $("#dogName").val(),
-            value: $("#dogValue").val(),
+            value: $("#dogType").val(),
         };
 
         console.log(data);
