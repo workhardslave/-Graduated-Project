@@ -48,7 +48,7 @@ public class Dog {
         return this;
     }
 
-    public Dog updateDogAdmin(String name, int age, String birth, String gender) {
+    public Dog updateDog(String name, int age, String birth, String gender) {
         this.name = name;
         this.age = age;
         this.birth = birth;
