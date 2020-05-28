@@ -10,7 +10,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class DogUpdateRequestDto {
-    private Long id;
     private Member member;
     private String name;
     private String age;
@@ -19,8 +18,7 @@ public class DogUpdateRequestDto {
     private String type;
 
     @Builder
-    public DogUpdateRequestDto(Long id, Member member, String name, String age, String gender, String birth, String type) {
-        this.id = id;
+    public DogUpdateRequestDto( Member member, String name, String age, String gender, String birth, String type) {
         this.member = member;
         this.name = name;
         this.age = age;

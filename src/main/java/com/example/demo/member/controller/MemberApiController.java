@@ -64,14 +64,4 @@ public class MemberApiController {
 
         return memberService.validateDuplicateMember(user_email);
     }
-
-//    // 이메일 중복 확인 api
-//    @GetMapping("member/emailCheck/{user_email}")
-//    public int emailCheck(@PathVariable String user_email){
-//
-//
-//
-//    }
-
-
 }

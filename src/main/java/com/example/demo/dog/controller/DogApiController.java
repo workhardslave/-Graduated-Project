@@ -29,10 +29,8 @@ import java.util.List;
 public class DogApiController {
 
     private final DogService dogService;
-    private final MemberService memberService;
     private final MemberRepository memberRepository;
     private final FindByIndexNameSessionRepository sessionRepository;
-
 
 
     // 강아지 정보 수정 API
@@ -51,4 +49,18 @@ public class DogApiController {
     }
 
 
+    // 관리자, 회원 반려견 정보수정 API
+    @PutMapping("/api/admin/dogs/settings/{id}")
+    public Long adminDogSettingsForm(@PathVariable Long id, @RequestBody DogUpdateRequestDto requestDto) {
+
+        return dogService.updateDog(id, requestDto);
+    }
+
+    // 관리자, 회원 반려견 정보삭제 API
+    @DeleteMapping("/api/admin/dogs/delete/{id}")
+    public Long adminDogDelete(@PathVariable Long id) {
+        dogService.delete(id);
+
+        return id;
+    }
 }

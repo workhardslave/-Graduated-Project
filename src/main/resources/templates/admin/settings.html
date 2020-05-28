@@ -6,7 +6,7 @@
         <header th:replace="fragments/header :: headerFragment"></header>
 
         <div class="limiter">
-            <div class="container-login100" style="background-image: url('../../static/images/bg-01.jpg');">
+            <div class="container-login100" style="background-image: url('/../../static/images/bg-01.jpg');">
                 <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
                     <form class="login100-form validate-form">
                         <span class="login100-form-title p-b-49">회원정보수정</span>
@@ -69,6 +69,13 @@
                             <div class="wrap-login100-form-btn">
                                 <div class="login100-form-bgbtn"></div>
                                 <a th:href="'javascript:deleteMember()'" class="login100-form-btn">삭제하기</a>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="container-login100-form-btn">
+                            <div class="wrap-login100-form-btn">
+                                <div class="login100-form-bgbtn"></div>
+                                <a th:href="@{/admin/member/{id}/dogs(id = ${member.id})}" class="login100-form-btn">반려견 조회</a>
                             </div>
                         </div>
                     </form>
