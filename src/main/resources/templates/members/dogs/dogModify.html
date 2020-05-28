@@ -8,7 +8,7 @@
     <div class="container-login100" style="background-image: url('../../../static/images/bg-01.jpg');">
         <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
             <form class="login100-form validate-form">
-                <span class="login100-form-title p-b-49">정보수정</span>
+                <span class="login100-form-title p-b-49">강아지정보수정</span>
 
                 <input type="text" id="dogId" th:field="${dog.id}" hidden="true">
 
@@ -22,17 +22,15 @@
                     <input type="email" id="dogGender" th:field="${dog.gender}" class="form-control" readonly required>
                 </div>
 
-                <div class="form-group">
+                <div class="form-test">
                     <label th:for="birth">나이</label>
-                    <input type="text" th:field="${dog.age}" class="form-control" readonly required>
-                    <select  id="dogAge">
+                    <select  id="dogAge" th:field="${dog.age}" >
                         <option th:value="'생후 12개월 미만'">생후 12개월 미만</option>
                         <option th:value="'1~3세미만'">1~3세미만</option>
                         <option th:value="'3~7세미만'">3~7세미만</option>
                         <option th:value="'7~10세미만'">7~10세미만</option>
                         <option th:value="'10세이상'">10세이상</option>
                     </select>
-
                 </div>
 
                 <div class="form-group">
@@ -41,39 +39,53 @@
                 </div>
 
 
-                <div class="form-group">
-                    <label th:for="birth">견종</label>
-                    <input type="date" id="dogType" th:field="${dog.type}" class="form-control"  required>
+                <div class="form-test">
+                    <label th:for="text">견종</label>
+                    <select  id="dogType" th:field="${dog.type}" >
+                        <option th:value="포메라니안">포메라니안</option>
+                        <option th:value="치와와">치와와</option>
+                        <option th:value="비글">비글</option>
+                        <option th:value="요크셔테리어">요크셔테리어</option>
+                        <option th:value="불독">불독</option>
+                        <option th:value="골든리트리버">골든리트리버</option>
+                        <option th:value="웰시코기">웰시코기</option>
+                        <option th:value="말티즈">말티즈</option>
+                        <option th:value="시츄">시츄</option>
+                    </select>
                 </div>
                 <br/>
 
                 <div class="container-login100-form-btn">
                     <div class="wrap-login100-form-btn">
                         <div class="login100-form-bgbtn"></div>
-                        <a th:href="'javascript:update()'" class="login100-form-btn">수정하기</a>
+                        <a th:href="'javascript:updateDog()'" class="login100-form-btn">수정하기</a>
                     </div>
                 </div>
                 <br/>
                 <div class="container-login100-form-btn">
                     <div class="wrap-login100-form-btn">
                         <div class="login100-form-bgbtn"></div>
-                        <a th:href="'javascript:deleteMember()'" class="login100-form-btn">탈퇴하기</a>
+                        <a th:href="'javascript:deleteDog()'" class="login100-form-btn">탈퇴하기</a>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
+<div id="dropDownSelect1"></div>
 <script th:inline="javascript">
-    function update() {
+
+
+    function updateDog() {
         var data = {                                // 이름, 이메일, 생일 변경 불가
             age: $("#dogAge").val(),     // 비밀번호, 전화번호, 주소, 상세주소, 참고항목 변경 가능
             name: $("#dogName").val(),
-            value: $("#dogType").val(),
+            type: $("#dogType").val(),
+            id: $("#dogId").val(),
         };
 
-        console.log(data);
+        console.log(data.type);
+
 
         var id = $("#dogId").val();
 
@@ -85,60 +97,61 @@
             data: JSON.stringify(data)
         }).done(function() {
             alert('정보수정 되었습니다!');
-            window.location.href = "/member/dogs/settings/" + id;
+            window.location.href = "/member/dogs/";
         }).fail(function(request, status, error) {
             alert(JSON.stringify(error));
             window.location.href = "/member/dogs/settings/" + id;
-            alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+            alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "er" +
+                "ror: " + error);
         });
     }
 
-    function deleteMember() {
+    function deleteDog(){
 
-        var id = [[ ${member.id} ]];
+        var id = $("#dogId").val();
 
         console.log("---------");
 
         $.ajax({
             type: 'DELETE',
-            url: '/api/member/delete/' + id,
+            url: '/api/member/dogs/delete/' + id,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8'
-        }).done(function() {
+        }).done(function () {
             console.log(name);
-            alert('탈퇴 되었습니다.');
-            window.location.href = '/';
-        }).fail(function (request,status,error) {
+            alert('삭제 되었습니다.');
+            window.location.href = '/member/dogs/';
+        }).fail(function (request, status, error) {
             alert(JSON.stringify(error));
             alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
         });
 
         console.log(data);
     }
-</script>
+``</script>
 
 
-<div id="dropDownSelect1"></div>
 
 <!--===============================================================================================-->
 <script src="../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../static/vendor/animsition/js/animsition.min.js"></script>
+<script src="../../../static/vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../static/vendor/bootstrap/js/popper.js"></script>
-<script src="../../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../../static/vendor/bootstrap/js/popper.js"></script>
+<script src="../../../static/vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../static/vendor/select2/select2.min.js"></script>
+<script src="../../../static/vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../static/vendor/daterangepicker/moment.min.js"></script>
-<script src="../../static/vendor/daterangepicker/daterangepicker.js"></script>
+<script src="../../../static/vendor/daterangepicker/moment.min.js"></script>
+<script src="../../../static/vendor/daterangepicker/daterangepicker.js"></script>
 <!--===============================================================================================-->
-<script src="../../static/vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
-<script src="../../static/js/main.js"></script>
+<script src="../../../static/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+<script src="../../../static/js/main.js"></script>
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="../../static/js/postcode-api.js"></script>
+<script src="../../../static/js/postcode-api.js"></script>
 
 <footer th:replace="fragments/footer :: footerFragment"></footer>
 </body>

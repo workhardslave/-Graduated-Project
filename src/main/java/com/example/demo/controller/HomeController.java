@@ -94,17 +94,6 @@ public class HomeController {
 
         if(member != null) {
             model.addAttribute("member", member);
-
-            /*
-            System.out.println(member.getName());
-            model.addAttribute("memberId", member.getId());
-            model.addAttribute("memberName", member.getName());
-            model.addAttribute("memberEmail", member.getEmail());
-            model.addAttribute("userPassword", member.getPassword());
-            model.addAttribute("userPhone", member.getPhone());
-            model.addAttribute("userBirth", member.getBirth());
-            model.addAttribute("userAddress", member.getAddress());
-            */
         }
 
         return "memberAuth/myPage";
@@ -113,7 +102,7 @@ public class HomeController {
     // 회원 정보수정 페이지
     @GetMapping("/member/settings/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
-
+        log.info("id : " +id);
         MemberResponseDto dto = memberService.findById(id);
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         model.addAttribute("member", dto);
