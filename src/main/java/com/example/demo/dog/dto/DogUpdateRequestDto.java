@@ -1,7 +1,6 @@
 package com.example.demo.dog.dto;
 
 import com.example.demo.member.vo.Member;
-import com.example.demo.overlap.Address;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

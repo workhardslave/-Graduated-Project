@@ -8,6 +8,7 @@ import com.example.demo.dog.dto.DogSaveRequestDto;
 import com.example.demo.dog.dto.DogUpdateRequestDto;
 import com.example.demo.member.vo.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class DogService {
 
     @Autowired
@@ -42,8 +44,8 @@ public class DogService {
     public Long update(Long id, DogUpdateRequestDto requestDto) {
         Dog dog = dogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 멍멍이가 없습니다. id=" + id));
-
-        dog.update(requestDto.getAge(),requestDto.getName(),requestDto.getType());
+        log.info("몽몽이 서비스 " + requestDto.getName());
+        dog.update(requestDto.getAge(),requestDto.getType(),requestDto.getName());
         return id;
     }
 

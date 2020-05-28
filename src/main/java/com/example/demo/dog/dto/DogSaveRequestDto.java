@@ -12,7 +12,6 @@ import lombok.Setter;
 @Setter
 
 public class DogSaveRequestDto {
-    private Long id;
     private Member member;
     private String name;
     private String age;
@@ -22,8 +21,7 @@ public class DogSaveRequestDto {
 
 
     @Builder
-    public DogSaveRequestDto(Long id, Member member, String name, String age, String gender, String birth, String type) {
-        this.id = id;
+    public DogSaveRequestDto(Member member, String name, String age, String gender, String birth, String type) {
         this.member = member;
         this.name = name;
         this.age = age;
@@ -33,7 +31,6 @@ public class DogSaveRequestDto {
     }
     public Dog toEntity(){
         return Dog.builder()
-                .id(id)
                 .member(member)
                 .name(name)
                 .age(age)
