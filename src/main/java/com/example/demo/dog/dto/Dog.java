@@ -47,5 +47,12 @@ public class Dog {
         return this;
     }
 
+    public Dog update_admin(String age, String name, String gender, String birth) {
+        this.age = age;
+        this.gender = gender;
+        this.name = name;
+        this.birth = birth;
+        return this;
+    }
 
 }

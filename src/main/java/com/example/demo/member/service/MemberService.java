@@ -106,11 +106,11 @@ public class MemberService implements UserDetailsService {
         if(!requestDto.getPassword().equals(member.getPassword())) {
             System.out.println("패스워드가다른경우 암호화 시킨후 저장한다.!!");
             String encodePwd = passwordEncoder.encode(requestDto.getPassword());
-            member.update(encodePwd, requestDto.getCity(), requestDto.getStreet(), requestDto.getZipcode(), requestDto.getPhone());
+            member.update(encodePwd, requestDto.getCity(), requestDto.getStreet(), requestDto.getZipcode(), requestDto.getPhone(),requestDto.getName());
         }
         else {
             System.out.println("패스워드가같은경우!!!");
-            member.update(member.getPassword(), requestDto.getCity(), requestDto.getStreet(), requestDto.getZipcode(), requestDto.getPhone());
+            member.update(member.getPassword(), requestDto.getCity(), requestDto.getStreet(), requestDto.getZipcode(), requestDto.getPhone(),requestDto.getName());
         }
 
         return id;

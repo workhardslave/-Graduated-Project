@@ -19,14 +19,23 @@
                             <input type="text" id="dogName" th:field="${dog.name}" class="form-control" required>
                         </div>
 
+
                         <div class="form-group">
                             <label th:for="email">견종</label>
                             <input type="text" id="dogType" th:field="${dog.type}" class="form-control" readonly required>
                         </div>
 
-                        <div class="form-group">
-                            <label th:for="password">나이</label>
-                            <input type="text" id="dogAge" th:value="${dog.age}" class="form-control" required>
+                        <div>
+                            <label th:for="birth">나이</label>
+                        </div>
+                        <div class="form-option">
+                            <select  id="dogAge" th:field="${dog.age}">
+                                <option th:value="'생후 12개월 미만'">생후 12개월 미만</option>
+                                <option th:value="'1~3세미만'">1~3세미만</option>
+                                <option th:value="'3~7세미만'">3~7세미만</option>
+                                <option th:value="'7~10세미만'">7~10세미만</option>
+                                <option th:value="'10세이상'">10세이상</option>
+                            </select>
                         </div>
 
                         <div class="form-group">
@@ -34,9 +43,14 @@
                             <input type="date" id="dogBirth" th:field="${dog.birth}" class="form-control" required>
                         </div>
 
-                        <div class="form-group">
-                            <label th:for="phone">성별</label>
-                            <input type="text" id="dogGender" th:field="${dog.gender}" class="form-control" required>
+                        <div>
+                            <label th:for="gender">성별</label>
+                        </div>
+                        <div class="form-option">
+                            <select id = "dogGender" th:field="${dog.gender}">
+                                <option th:value="'수컷'">수컷</option>
+                                <option th:value="'암컷'">암컷</option>
+                            </select>
                         </div>
 
                         <br/>
@@ -107,7 +121,7 @@
                 }).done(function() {
                     console.log(data);
                     alert('정보수정 되었습니다!');
-                    window.location.href = '/admin/dogs/settings/' + id;
+                    window.location.href = '/admin/members';
                 }).fail(function(request, status, error) {
                     alert(JSON.stringify(error));
                     window.location.href = '/admin/dogs/settings/' + id;
@@ -128,7 +142,7 @@
                     contentType: 'application/json; charset=utf-8'
                 }).done(function() {
                     console.log(name);
-                    alert('탈퇴 되었습니다.');
+                    alert('삭제 되었습니다.');
                     window.location.href = '/admin/members';
                 }).fail(function (request, status, error) {
                     alert(JSON.stringify(error));

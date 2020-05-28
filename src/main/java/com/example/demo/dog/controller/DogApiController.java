@@ -53,7 +53,7 @@ public class DogApiController {
     @PutMapping("/api/admin/dogs/settings/{id}")
     public Long adminDogSettingsForm(@PathVariable Long id, @RequestBody DogUpdateRequestDto requestDto) {
 
-        return dogService.updateDog(id, requestDto);
+        return dogService.update_admin_dog(id, requestDto);
     }
 
     // 관리자, 회원 반려견 정보삭제 API

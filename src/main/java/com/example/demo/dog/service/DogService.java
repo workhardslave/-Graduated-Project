@@ -60,7 +60,7 @@ public class DogService {
 
     //사용자가 본인의 반려견정보삭제
     @Transactional
-    public void delete (Long id) {
+    public void delete(Long id) {
         Dog dog = dogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 반려견이 없습니다. id=" + id));
         dogRepository.delete(dog);
@@ -69,10 +69,10 @@ public class DogService {
 
     // 관리자, 회원 반려견 정보수정 POST
     @Transactional
-    public Long updateDog(Long id, DogUpdateRequestDto requestDto) {
+    public Long update_admin_dog(Long id, DogUpdateRequestDto requestDto) {
         Dog dog = dogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 반려견이 없습니다. id=" + id));
-        dog.update(requestDto.getAge(), requestDto.getName(), requestDto.getGender());
+        dog.update_admin(requestDto.getAge(), requestDto.getName(), requestDto.getGender(),requestDto.getBirth());
         return id;
     }
 

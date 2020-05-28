@@ -37,7 +37,7 @@
 
                         <div class="form-group">
                             <label th:for="birth">생일</label>
-                            <input type="date" id="memberBirth" th:field="${member.birth}" class="form-control" required>
+                            <input type="date" id="memberBirth" th:field="${member.birth}" class="form-control" readonly required>
                         </div>
 
                         <div class="form-group">
@@ -90,7 +90,8 @@
                     phone: $("#memberPhone").val(),
                     city: $("#sample6_address").val(),
                     zipcode: $("#sample6_postcode").val(),
-                    street: $("#sample6_detailAddress").val()
+                    street: $("#sample6_detailAddress").val(),
+                    name: $("#memberName").val()
                 };
 
                 console.log(data);
@@ -105,7 +106,7 @@
                     data: JSON.stringify(data)
                 }).done(function() {
                     alert('정보수정 되었습니다!');
-                    window.location.href = "/admin/member/settings/" + id;
+                    window.location.href = "/admin/members";
                 }).fail(function(request, status, error) {
                     alert(JSON.stringify(error));
                     window.location.href = "/admin/settings/" + id;
@@ -127,7 +128,7 @@
                 }).done(function() {
                     console.log(name);
                     alert('삭제 되었습니다.');
-                    window.location.href = '/';
+                    window.location.href = "/admin/members";
                 }).fail(function (request,status,error) {
                     alert(JSON.stringify(error));
                     alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
