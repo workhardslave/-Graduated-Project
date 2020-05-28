@@ -19,24 +19,29 @@
                            th:class="${#fields.hasErrors('name')}? 'form-control fieldError' : 'form-control'" required>
                 </div>
 
-                <div class="form-group">
+                <div>
                     <label th:for="age">나이</label>
-                        <select th:field="*{age}">
-                            <option th:value="'생후 12개월 미만'">생후 12개월 미만</option>
-                            <option th:value="'1~3세미만'">1~3세미만</option>
-                            <option th:value="'3~7세미만'">3~7세미만</option>
-                            <option th:value="'7~10세미만'">7~10세미만</option>
-                            <option th:value="'10세이상'">10세이상</option>
-                        </select>
+                </div>
+                <div class="form-option">
+                <select th:field="*{age}">
+                    <option th:value="'생후 12개월 미만'">생후 12개월 미만</option>
+                    <option th:value="'1~3세미만'">1~3세미만</option>
+                    <option th:value="'3~7세미만'">3~7세미만</option>
+                    <option th:value="'7~10세미만'">7~10세미만</option>
+                    <option th:value="'10세이상'">10세이상</option>
+                </select>
                 </div>
 
-                <div class="form-group">
+                <div>
                     <label th:for="gender">성별</label>
-                    <input type="radio" th:field="*{gender}"
-                           value ="남자"> 남자
-                    <input type="radio" th:field="*{gender}"
-                           value ="여자"> 여자
                 </div>
+                <div class="form-option">
+                    <select th:field="*{gender}">
+                        <option th:value="'수컷'">수컷</option>
+                        <option th:value="'암컷'">암컷</option>
+                    </select>
+                </div>
+
 
                 <div class="form-group">
                     <label th:for="birth">생일</label>
@@ -44,8 +49,10 @@
                            placeholder="반려견의 생일을 입력해주세요" required>
                 </div>
 
-                <div class="form-group">
+                <div>
                     <label th:for="type">견종 선택</label>
+                </div>
+                    <div class="form-option">
                     <select th:field="*{type}">
                         <option th:value="포메라니안">포메라니안</option>
                         <option th:value="치와와">치와와</option>

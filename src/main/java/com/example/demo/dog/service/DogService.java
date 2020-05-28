@@ -45,7 +45,7 @@ public class DogService {
         Dog dog = dogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 멍멍이가 없습니다. id=" + id));
         log.info("몽몽이 서비스 " + requestDto.getName());
-        dog.update(requestDto.getAge(),requestDto.getType(),requestDto.getName());
+        dog.update(requestDto.getAge(),requestDto.getGender(),requestDto.getName());
         return id;
     }
 
