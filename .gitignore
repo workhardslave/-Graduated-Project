@@ -8,8 +8,7 @@ log/
 !**/src/main/**application.yml
 !**/src/main/**application.properties
 
-application.properties
-application.yml
+build.gradle
 
 
 ### STS ###
