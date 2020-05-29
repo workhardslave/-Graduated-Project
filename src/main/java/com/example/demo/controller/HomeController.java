@@ -141,14 +141,9 @@ public class HomeController {
     @GetMapping("/admin/mypage")
     public String readAdminMyDate(Model model, Principal principal) {
 
-        Admin admin = adminRepository.findEmailCheck(principal.getName());
+        Member admin = memberRepository.findEmailCheck(principal.getName());
 
         if(admin != null) {
-            System.out.println(admin.getEmail());
-            System.out.println(admin.getName());
-            System.out.println(admin.getBirth());
-            System.out.println(admin.getPhone());
-
             model.addAttribute("admin", admin);
         }
 
@@ -159,10 +154,10 @@ public class HomeController {
     @GetMapping("/admin/settings/{id}")
     public String updateAdminForm(@PathVariable Long id, Model model) {
 
-        AdminResponseDto dto = adminService.findById(id);
+        MemberResponseDto adminDto = memberService.findById(id);
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        model.addAttribute("admin", dto);
-        System.out.println(dto.getPassword());
+
+        model.addAttribute("admin", adminDto);
 
         return "adminAuth/admin_settings";
     }

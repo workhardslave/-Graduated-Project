@@ -66,6 +66,12 @@ public class Member extends BaseTimeEntity {
         return this;
     }
 
+    public Member updateAdmin(String password, String phone) {
+        this.password = password;
+        this.phone = phone;
+        return this;
+    }
+
     public String getRoleKey() {
         return this.role.getValue();
     }

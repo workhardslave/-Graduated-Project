@@ -2,9 +2,12 @@ package com.example.demo.admin.service;
 
 import com.example.demo.admin.dao.AdminRepository;
 import com.example.demo.admin.vo.Admin;
+import com.example.demo.member.vo.Member;
 import com.example.demo.admin.vo.AdminResponseDto;
 import com.example.demo.admin.vo.AdminUpdateRequestDto;
 
+import com.example.demo.member.dao.MemberRepository;
+import com.example.demo.member.vo.MemberResponseDto;
 import lombok.RequiredArgsConstructor;
 
 import org.slf4j.Logger;
@@ -29,48 +32,50 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AdminService implements UserDetailsService {
 
-    private final AdminRepository adminRepository;
+    private final MemberRepository memberRepository;
     private Logger logger = LoggerFactory.getLogger(AdminService.class);
 
     // 관리자 정보수정
     @Transactional
-    public Long update(Long id, AdminUpdateRequestDto requestDto) {
-        Admin admin = adminRepository.findById(id)
+    public Long updateAdmin(Long id, AdminUpdateRequestDto requestDto) {
+        Member admin = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 관리자가 없습니다. id=" + id));
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodePwd = passwordEncoder.encode(requestDto.getPassword());
-        admin.update(encodePwd, requestDto.getPhone());
+        admin.updateAdmin(encodePwd, requestDto.getPhone());
 
         return id;
     }
 
     @Transactional
-    public AdminResponseDto findById(Long id) {
-        Admin entity = adminRepository.findById(id)
+    public MemberResponseDto findById(Long id) {
+        Member entity = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 관리자가 없습니다. id=" + id));
 
-        return new AdminResponseDto(entity);
+        return new MemberResponseDto(entity);
     }
 
     // 관리자 탈퇴
     @Transactional
     public void delete(Long id) {
-        Admin admin = adminRepository.findById(id)
+        Member admin = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 관리자가 없습니다. id=" + id));
-        adminRepository.delete(admin);
+
+        memberRepository.delete(admin);
     }
 
     @Transactional
-    public List<AdminResponseDto> findAllDesc() {
-        return adminRepository.findAllDesc().stream()
-                .map(AdminResponseDto::new)
+    public List<MemberResponseDto> findAllDesc() {
+        return memberRepository.findAllDesc().stream()
+                .map(MemberResponseDto::new)
                 .collect(Collectors.toList());
     }
 
     @Override
     public UserDetails loadUserByUsername(String adminEmail) throws UsernameNotFoundException {
-        Admin adminEntityWrapper = adminRepository.findEmailCheck(adminEmail);
+        Member adminEntityWrapper = memberRepository.findEmailCheck(adminEmail);
+
         logger.info("여기까지?");
         logger.info(adminEntityWrapper.getEmail());
         logger.info(adminEntityWrapper.getRole().getValue());

@@ -10,11 +10,9 @@
                     <form class="login100-form validate-form">
                         <span class="login100-form-title p-b-49">정보조회</span>
 
-                        <input type="text" id="admin" th:field="${admin.id}" hidden="true">
-
                         <div class="form-group">
                             <label th:for="name">이름</label>
-                            <input type="text" id="name" placeholder="회원이름" th:field="${admin.name}" class="form-control" readonly required>
+                            <input type="text" th:field="${admin.name}" class="form-control" readonly required>
                         </div>
 
                         <div class="form-group">
