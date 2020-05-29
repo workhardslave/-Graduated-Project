@@ -138,10 +138,17 @@ public class HomeController {
     }
 
     // 관리자 정보조회
-    @GetMapping("/admin/manage")
+    @GetMapping("/admin/mypage")
     public String readAdminMyDate(Model model, Principal principal) {
+
         Admin admin = adminRepository.findEmailCheck(principal.getName());
+
         if(admin != null) {
+            System.out.println(admin.getEmail());
+            System.out.println(admin.getName());
+            System.out.println(admin.getBirth());
+            System.out.println(admin.getPhone());
+
             model.addAttribute("admin", admin);
         }
 
