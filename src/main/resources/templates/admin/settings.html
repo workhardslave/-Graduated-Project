@@ -106,10 +106,10 @@
                     data: JSON.stringify(data)
                 }).done(function() {
                     alert('정보수정 되었습니다!');
-                    window.location.href = "/admin/members";
+                    window.location.href = "/admin/member/settings/" + id;
                 }).fail(function(request, status, error) {
                     alert(JSON.stringify(error));
-                    window.location.href = "/admin/settings/" + id;
+                    window.location.href = "/admin/member/settings/" + id;
                     alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
                 });
             }

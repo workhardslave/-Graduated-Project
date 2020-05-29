@@ -16,7 +16,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class MemberUpdateRequestDto {
 
-    private  Long id;
+    private Long id;
     private String name;
     private String email;
     private String password;
@@ -26,7 +26,8 @@ public class MemberUpdateRequestDto {
     private String phone;
 
     @Builder
-    public MemberUpdateRequestDto(String password, String street, String zipcode, String city, String phone) {
+    public MemberUpdateRequestDto(String name, String password, String street, String zipcode, String city, String phone) {
+        this.name = name;
         this.password = password;
         this.city = city;
         this.zipcode = zipcode;
