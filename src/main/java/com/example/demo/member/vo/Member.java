@@ -60,14 +60,19 @@ public class Member extends BaseTimeEntity {
 
     public Member update(String password, String city, String street, String zipcode, String phone, String name) {
         this.password = password;
-        this.address = new Address(city, zipcode, street); //이부분
+        this.address = new Address(city, zipcode, street);
         this.phone = phone;
         this.name = name;
+        return this;
+    }
+
+    public Member updateAdmin(String password, String phone) {
+        this.password = password;
+        this.phone = phone;
         return this;
     }
 
     public String getRoleKey() {
         return this.role.getValue();
     }
-
 }

@@ -27,7 +27,7 @@ public class AdminApiController {
     // 관리자 정보수정 API
     @PutMapping("/api/admin/settings/{id}")
     public Long updateForm(@PathVariable Long id, @RequestBody AdminUpdateRequestDto requestDto) {
-        return adminService.update(id, requestDto);
+        return adminService.updateAdmin(id, requestDto);
     }
 
     // 관리자 정보삭제 API
