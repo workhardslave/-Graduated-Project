@@ -32,7 +32,5 @@ public class MemberUpdateRequestDto {
         this.zipcode = zipcode;
         this.street = street;
         this.phone = phone;
-
-
     }
 }
