@@ -28,11 +28,11 @@ public class MemberSaveRequestDto implements Serializable {
     @Builder
     public MemberSaveRequestDto(Long id, String name, String email, String password, Address address, Role role, String birth, String phone) {
         this.id = id;
-        this.name = name; //현우
-        this.email = email; //네이버주소
-        this.password = password; //1234
+        this.name = name;
+        this.email = email;
+        this.password = password;
         this.address = address;
-        this.role = role; //필수
+        this.role = role;
         this.phone = phone;
         this.birth = birth;
     }

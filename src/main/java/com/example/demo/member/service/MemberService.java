@@ -73,6 +73,7 @@ public class MemberService implements UserDetailsService {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
         memberDto.setRole(Role.GUEST);
+        //memberDto.setRole(Role.ADMIN);
         return memberRepository.save(memberDto.toEntity()).getId();
 
     }
@@ -104,13 +105,32 @@ public class MemberService implements UserDetailsService {
         System.out.println(requestDto.getPassword().getClass());
 
         if(!requestDto.getPassword().equals(member.getPassword())) {
-            System.out.println("패스워드가다른경우 암호화 시킨후 저장한다.!!");
+            System.out.println("패스워드가 다른 경우 암호화 시킨 후 저장한다!!");
             String encodePwd = passwordEncoder.encode(requestDto.getPassword());
-            member.update(encodePwd, requestDto.getCity(), requestDto.getStreet(), requestDto.getZipcode(), requestDto.getPhone(),requestDto.getName());
+            member.update(encodePwd, requestDto.getCity(), requestDto.getStreet(), requestDto.getZipcode(), requestDto.getPhone());
         }
         else {
-            System.out.println("패스워드가같은경우!!!");
-            member.update(member.getPassword(), requestDto.getCity(), requestDto.getStreet(), requestDto.getZipcode(), requestDto.getPhone(),requestDto.getName());
+            System.out.println("패스워드가 같은 경우!!!");
+            member.update(member.getPassword(), requestDto.getCity(), requestDto.getStreet(), requestDto.getZipcode(), requestDto.getPhone());
+        }
+
+        return id;
+    }
+
+    // 관리자, 회원 정보수정
+    @Transactional
+    public Long updateMember(Long id, MemberUpdateRequestDto requestDto) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + id));
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        if(!requestDto.getPassword().equals(member.getPassword())) {
+            String encodePwd = passwordEncoder.encode(requestDto.getPassword());
+            member.updateMember(requestDto.getName(), encodePwd, requestDto.getCity(), requestDto.getStreet(), requestDto.getZipcode(), requestDto.getPhone());
+        }
+        else {
+            member.updateMember(requestDto.getName(), requestDto.getPassword(), requestDto.getCity(), requestDto.getStreet(), requestDto.getZipcode(), requestDto.getPhone());
         }
 
         return id;
