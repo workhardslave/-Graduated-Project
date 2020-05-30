@@ -1,8 +1,6 @@
 package com.example.demo.reserve.vo;
 
-
-import com.example.demo.dog.dto.Dog;
-import com.example.demo.overlap.Address;
+import com.example.demo.member.vo.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,15 +12,16 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class ReserveUpdateRequestDto {
     private Long id;
-    private Dog dog;
-    private LocalDate date;
+    private Member member;
+    private String date;
     private String description;
     private String name;
-    private Address address;
+    private String address;
     private String tel;
     private String op_time;
 
-    public ReserveUpdateRequestDto(LocalDate date){
+    public ReserveUpdateRequestDto(String date, String description){
         this.date = date;
+        this.description = description;
     }
 }

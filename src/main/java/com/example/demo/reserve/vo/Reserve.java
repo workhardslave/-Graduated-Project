@@ -1,17 +1,12 @@
 package com.example.demo.reserve.vo;
 
-
 import com.example.demo.member.vo.Member;
-import com.example.demo.overlap.Address;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -25,20 +20,17 @@ public class Reserve {
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
-    @Column(name = "visit_date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate date;
+    @Column(name = "visit_date", nullable = false)
+    private String date;
 
-    @NotEmpty
-    @Column(name = "description")
+    @Column(name = "description", nullable = false)
     private String description;
 
     @Column(name = "hospital_name", nullable = false)
     private String name;
 
-    @Embedded
-    @Column(nullable = false)
-    private Address address;
+    @Column(name = "hospital_adrr", nullable = false)
+    private String address;
 
     @Column(nullable = false)
     private String tel;
@@ -47,14 +39,21 @@ public class Reserve {
     private String op_time; //운영시간
 
     @Builder
-    public Reserve(Long id, Member member, LocalDate date, String description, Address address , String tel, String op_time) {
+    public Reserve(Long id, Member member, String date, String description, String name, String address , String tel, String op_time) {
         this.id = id;
         this.member = member;
         this.date = date;
         this.description = description;
+        this.name = name;
         this.address = address;
         this.tel = tel;
         this.op_time = op_time;
+    }
+
+    public Reserve update(String date, String description) {
+        this.date = date;
+        this.description = description;
+        return this;
     }
 }
 

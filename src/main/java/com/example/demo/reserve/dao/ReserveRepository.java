@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface ReserveRepository extends JpaRepository<Reserve, Long> {
 
-    @Query("SELECT d FROM Reserve d WHERE d.member = :member")
+    @Query("SELECT r FROM Reserve r WHERE r.member = :member")
     List<Reserve> findAllDesc(Member member);
+
 }
