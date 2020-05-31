@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/config :: configFragment">
+<body>
+<header th:replace="fragments/header :: headerFragment"></header>
+<div class="col-md-12"></div>
+<div class="col-md-12"></div>
+<div class="col-md-12">
+    <div class="container">
+
+        <div>
+            <table class="table table-horizontal table-striped table-bordered">
+                <thead class="thead-strong">
+                <tr>
+                    <th>병원이름</th>
+                    <th>방문날짜</th>
+                    <th>병원주소</th>
+                    <th>전화번호</th>
+                    <th>영업시간</th>
+                    <th>예약내용</th>
+                </tr>
+                </thead>
+                <tbody id="tbody">
+
+
+                <tr th:each="reserve : ${reserves}">
+                    <td><a th:href="@{/reserves/settings/{id}(id = ${reserve.id})}" th:text="${reserve.name}"></a></td>
+                    <td th:text="${reserve.date}"></td>
+                    <td th:text="${reserve.address}"></td>
+                    <td th:text="${reserve.tel}"></td>
+                    <td th:text="${reserve.op_time}"></td>
+                    <td th:text="${reserve.description}"></td>
+                </tr>
+                </a>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<footer th:replace="fragments/footer :: footerFragment"></footer>
+</body>
+</html>

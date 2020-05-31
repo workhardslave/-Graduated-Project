@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/config :: configFragment" />
+<body>
+<header th:replace="fragments/header :: headerFragment"></header>
+
+<div class="limiter">
+    <div class="container-login100" style="background-image: url('../../../static/images/bg-01.jpg');">
+        <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+            <form class="login100-form validate-form">
+                <span class="login100-form-title p-b-49">강아지정보수정</span>
+
+                <input type="text" id="dogId" th:field="${dog.id}" hidden="true">
+
+                <div class="form-group">
+                    <label th:for="name">이름</label>
+                    <input type="text" id="dogName" th:field="${dog.name}" class="form-control" required>
+                </div>
+
+                <div>
+                    <label th:for="gender">성별</label>
+                </div>
+                <div class="form-option">
+                    <select id = "dogGender" th:field="${dog.gender}">
+                        <option th:value="'수컷'">수컷</option>
+                        <option th:value="'암컷'">암컷</option>
+                    </select>
+                </div>
+
+
+                <div>
+                    <label th:for="birth">나이</label>
+                </div>
+                <div class="form-option">
+                    <select  id="dogAge" th:field="${dog.age}">
+                        <option th:value="'생후 12개월 미만'">생후 12개월 미만</option>
+                        <option th:value="'1~3세미만'">1~3세미만</option>
+                        <option th:value="'3~7세미만'">3~7세미만</option>
+                        <option th:value="'7~10세미만'">7~10세미만</option>
+                        <option th:value="'10세이상'">10세이상</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label th:for="birth">생일</label>
+                    <input type="date" id="dogBirth" th:field="${dog.birth}" class="form-control" readonly required>
+                </div>
+
+
+                <div class="form-group">
+                    <label th:for="birth">견종</label>
+                    <input type="text" id="dogType" th:field="${dog.type}" class="form-control" readonly required>
+                </div>
+                <br/>
+
+                <div class="container-login100-form-btn">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn"></div>
+                        <a th:href="'javascript:updateDog()'" class="login100-form-btn">수정하기</a>
+                    </div>
+                </div>
+                <br/>
+                <div class="container-login100-form-btn">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn"></div>
+                        <a th:href="'javascript:deleteDog()'" class="login100-form-btn">삭제하기</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="dropDownSelect1"></div>
+<script th:inline="javascript">
+
+
+    function updateDog() {
+        let data = {
+            name: $("#dogName").val(),
+            gender: $("#dogGender").val(),
+            age: $("#dogAge").val()
+        };
+
+        console.log(data.type);
+
+
+        let id = $("#dogId").val();
+
+        $.ajax({
+            type: 'PUT',
+            url: '/api/member/dogs/settings/' + id,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function() {
+            alert('정보수정 되었습니다!');
+            window.location.href = "/member/dogs/";
+        }).fail(function(request, status, error) {
+            alert(JSON.stringify(error));
+            window.location.href = "/member/dogs/settings/" + id;
+            alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "er" +
+                "ror: " + error);
+        });
+    }
+
+    function deleteDog(){
+
+        let id = $("#dogId").val();
+
+        console.log("---------");
+
+        $.ajax({
+            type: 'DELETE',
+            url: '/api/member/dogs/delete/' + id,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8'
+        }).done(function () {
+            console.log(name);
+            alert('삭제 되었습니다.');
+            window.location.href = '/member/dogs/';
+        }).fail(function (request, status, error) {
+            alert(JSON.stringify(error));
+            alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+        });
+
+        console.log(data);
+    }
+``</script>
+
+
+
+<!--===============================================================================================-->
+<script src="../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="../../../static/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+<script src="../../../static/vendor/bootstrap/js/popper.js"></script>
+<script src="../../../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="../../../static/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="../../../static/vendor/daterangepicker/moment.min.js"></script>
+<script src="../../../static/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+<!--===============================================================================================-->
+<script src="../../../static/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+<script src="../../../static/js/main.js"></script>
+
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="../../../static/js/postcode-api.js"></script>
+
+<footer th:replace="fragments/footer :: footerFragment"></footer>
+</body>
+</html>

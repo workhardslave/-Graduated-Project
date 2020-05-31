@@ -4,15 +4,11 @@ import com.example.demo.dog.dao.DogRepository;
 import com.example.demo.dog.dto.DogResponseDto;
 import com.example.demo.dog.dto.DogSaveRequestDto;
 import com.example.demo.dog.service.DogService;
-import com.example.demo.member.controller.MemberForm;
 import com.example.demo.member.dao.MemberRepository;
 import com.example.demo.member.vo.Member;
-import com.example.demo.member.vo.MemberResponseDto;
-import com.example.demo.member.vo.MemberSaveRequestDto;
-import com.example.demo.overlap.Address;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,46 +22,88 @@ import java.util.List;
 
 
 @Controller
-@RequiredArgsConstructor
+@AllArgsConstructor
+@Slf4j
 public class DogController {
 
+    DogRepository dogRepository;
+    DogService dogService;
+    MemberRepository memberRepository;
 
-    private final DogRepository dogRepository;
-    private final DogService dogService;
-    private final MemberRepository memberRepository;
 
     // 사용자 강아지 정보 입력 홈페이지
-    @GetMapping("/member/dog/singup")
+    @GetMapping("/member/dog/save")
     public String DogcreateForm(Model model) {
+        model.addAttribute("flag", true);
         model.addAttribute("dogForm", new DogForm());
-        return "";
+        return "members/dogs/dogSignUp";
     }
 
+    // 강아지 정보 저장 API
+    @PostMapping(value = "/api/member/dog/save")
+    public String Dogcreate(@Valid DogForm form, BindingResult result, Principal principal,Model model) {
+        if (result.hasErrors()) {
+            return "members/dogs/dogSignUp";
+        }
+
+        Member member = memberRepository.findEmailCheck(principal.getName());
+
+        DogSaveRequestDto dog = new DogSaveRequestDto();
+        dog.setAge(form.getAge());
+        dog.setBirth(form.getBirth());
+        dog.setGender(form.getGender());
+        dog.setName(form.getName());
+        dog.setType(form.getType());
+        dog.setMember(member);
+        dogService.dog_SignUp(dog);
+
+        List<DogResponseDto> Dogs = dogService.findAllDesc(member);
+
+        model.addAttribute("dogs", Dogs);
+        return "members/dogs/dogInfo";
+    }
 
     // 사용자 자신의 강아지 정보 조회 홈페이지
     @GetMapping("/member/dogs")
-    public String DogInfo(Model model, Principal principal) {
+    public String DogInfo(Model model, Principal principal) {                   // principle: session DB에 저장되어 있는 값 가져옴
         Member member = memberRepository.findEmailCheck(principal.getName());
         List<DogResponseDto> Dogs = dogService.findAllDesc(member);
-        model.addAttribute("dog", Dogs);
-        return "";
+
+        model.addAttribute("dogs", Dogs);
+        return "members/dogs/dogInfo";
     }
 
-
     // 강아지 정보 수정 및 삭제 홈페이지
-    @GetMapping("/member/dogs/settings/{id}")
+    @GetMapping(value = "/dogs/settings/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
 
         DogResponseDto dto = dogService.findById(id);
         model.addAttribute("dog", dto);
 
-        return "";
+        return "members/dogs/dogModify";
     }
 
+    // 관리자, 회원별 반려견 정보조회
+    @GetMapping("/admin/member/{id}/dogs")
+    public String adminDogInfo(@PathVariable Long id, Model model) {
+        Member member = memberRepository.findOne(id);
+        List<DogResponseDto> dogs = dogService.findAllDesc(member);
 
+        model.addAttribute("member", member);
+        model.addAttribute("dogs", dogs);
 
+        return "dog/admin_dogInfo";
+    }
+
+    // 관리자, 회원 반려견 정보수정
+    @GetMapping("/admin/dogs/settings/{id}")
+    public String adminDogSettings(@PathVariable Long id, Model model) {
+
+        DogResponseDto dto = dogService.findById(id);
+        model.addAttribute("dog", dto);
+
+        return "dog/admin_dogSettings";
+    }
 
 }
-
-
 

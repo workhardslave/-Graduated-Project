@@ -27,7 +27,7 @@ public class AdminApiController {
     // 관리자 정보수정 API
     @PutMapping("/api/admin/settings/{id}")
     public Long updateForm(@PathVariable Long id, @RequestBody AdminUpdateRequestDto requestDto) {
-        return adminService.update(id, requestDto);
+        return adminService.updateAdmin(id, requestDto);
     }
 
     // 관리자 정보삭제 API
@@ -35,8 +35,11 @@ public class AdminApiController {
     public Long delete(@PathVariable Long id, Principal principal) {
         sessionRepository.findByIndexNameAndIndexValue(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME,
                 principal.getName()).keySet().forEach(session -> sessionRepository.deleteById((String) session));
+
         adminService.delete(id);
 
         return id;
     }
+
+
 }

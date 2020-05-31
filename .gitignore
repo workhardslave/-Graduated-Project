@@ -1,11 +1,15 @@
 HELP.md
 .gradle
-application-oauth.properties
 build/
 log/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**
-!**/src/test/**
+!**/src/test/**application.yml
+!**/src/main/**application.yml
+!**/src/main/**application.properties
+
+application.properties
+application.yml
 
 
 ### STS ###
@@ -29,6 +33,8 @@ log/
 *.log
 out/
 
+
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
@@ -38,3 +44,4 @@ out/
 
 ### VS Code ###
 .vscode/
+!/.gitignore

@@ -41,6 +41,7 @@ public class HomeController {
     @RequestMapping("/")
     public String home(){
         log.info("home logger");
+
         return "home";
     }
 
@@ -48,13 +49,9 @@ public class HomeController {
     @GetMapping("/member/signup")
     public String createForm(Model model) {
         model.addAttribute("memberForm", new MemberForm());
+
         return "memberAuth/signUp";
     }
-
-
-
-
-
 
     // 회원가입 API
     @PostMapping(value = "/api/member/signup")
@@ -83,10 +80,9 @@ public class HomeController {
     public String list(Model model) {
         List<MemberResponseDto> members = memberService.findAllDesc();
         model.addAttribute("members", members);
+
         return "admin/memberList";
     }
-
-
 
     @GetMapping("/member/mypage")
     public String readMyData(Model model, Principal principal) {
@@ -94,17 +90,6 @@ public class HomeController {
 
         if(member != null) {
             model.addAttribute("member", member);
-
-            /*
-            System.out.println(member.getName());
-            model.addAttribute("memberId", member.getId());
-            model.addAttribute("memberName", member.getName());
-            model.addAttribute("memberEmail", member.getEmail());
-            model.addAttribute("userPassword", member.getPassword());
-            model.addAttribute("userPhone", member.getPhone());
-            model.addAttribute("userBirth", member.getBirth());
-            model.addAttribute("userAddress", member.getAddress());
-            */
         }
 
         return "memberAuth/myPage";
@@ -113,7 +98,7 @@ public class HomeController {
     // 회원 정보수정 페이지
     @GetMapping("/member/settings/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
-
+        log.info("id : " +id);
         MemberResponseDto dto = memberService.findById(id);
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         model.addAttribute("member", dto);
@@ -134,12 +119,10 @@ public class HomeController {
         return "admin/settings";
     }
 
-
     //로그인 페이지
     @GetMapping("/member/login")
     public String dispLogin() throws Exception
     {
-
         return "memberAuth/signIn";
     }
 
@@ -157,9 +140,11 @@ public class HomeController {
     }
 
     // 관리자 정보조회
-    @GetMapping("/admin/manage")
+    @GetMapping("/admin/mypage")
     public String readAdminMyDate(Model model, Principal principal) {
-        Admin admin = adminRepository.findEmailCheck(principal.getName());
+
+        Member admin = memberRepository.findEmailCheck(principal.getName());
+
         if(admin != null) {
             model.addAttribute("admin", admin);
         }
@@ -171,10 +156,10 @@ public class HomeController {
     @GetMapping("/admin/settings/{id}")
     public String updateAdminForm(@PathVariable Long id, Model model) {
 
-        AdminResponseDto dto = adminService.findById(id);
+        MemberResponseDto adminDto = memberService.findById(id);
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        model.addAttribute("admin", dto);
-        System.out.println(dto.getPassword());
+
+        model.addAttribute("admin", adminDto);
 
         return "adminAuth/admin_settings";
     }

@@ -1,19 +1,20 @@
 package com.example.demo.dog.dto;
 
 
-import com.example.demo.dog.Dog;
 import com.example.demo.member.vo.Member;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class DogResponseDto {
     private Long id;
     private Member member;
     private String name;
-    private int age;
+    private String age;
     private String gender;
     private String birth;
-    private String value;
+    private String type;
 
 
     public DogResponseDto(Dog entity) {
@@ -23,7 +24,7 @@ public class DogResponseDto {
         this.age = entity.getAge();
         this.gender = entity.getGender();
         this.birth = entity.getBirth();
-        this.value = entity.getValue();
+        this.type = entity.getType();
     }
 }
 

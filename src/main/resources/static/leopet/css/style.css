@@ -5127,4 +5127,14 @@ h6 {
   color: #FF5B5B;
 }
 
-/*# sourceMappingURL=../css/style.map */
+div.form-option > select{
+  position: relative;
+  margin-bottom: 20px;
+  width: 400px;  /* 너비설정 */
+  height: 40px;
+  border: 1px solid #999;  /* 테두리 설정 */
+  z-index: 1;
+}
+
+
+
