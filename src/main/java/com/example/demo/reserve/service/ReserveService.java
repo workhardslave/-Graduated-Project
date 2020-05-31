@@ -20,6 +20,7 @@ public class ReserveService {
     @Autowired
     ReserveRepository reserveRepository;
 
+
     //사용자가 본인의 병원예약정보조회
     @Transactional(readOnly = true)
     public List<ReserveResponseDto> findAllDesc(Member member) {

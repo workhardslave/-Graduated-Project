@@ -42,8 +42,8 @@ public class Member extends BaseTimeEntity {
     @OneToMany(mappedBy="member", orphanRemoval = true)
     List<Dog> dogList = new ArrayList<>();
 
-    @OneToMany(mappedBy="member", orphanRemoval = true)
-    List<Reserve> reserveList = new ArrayList<>();
+//    @OneToMany(mappedBy="member", orphanRemoval = true)
+//    List<Reserve> reserveList = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Role role;

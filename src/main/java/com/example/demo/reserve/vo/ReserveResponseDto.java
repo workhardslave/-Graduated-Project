@@ -1,5 +1,6 @@
 package com.example.demo.reserve.vo;
 
+import com.example.demo.dog.dto.Dog;
 import com.example.demo.member.vo.Member;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +18,6 @@ public class ReserveResponseDto {
     private String address;
     private String tel;
     private String op_time;
-
     public ReserveResponseDto(Reserve entity) {
         this.id = entity.getId();
         this.member = getMember();
