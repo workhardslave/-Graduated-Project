@@ -52,9 +52,6 @@ public class MemberService implements UserDetailsService {
         String value2 = hashMap.values().toString().substring(2, hashMap.values().toString().length()-2);
 //        System.out.println("맵값확인1"+value2);
 
-//        System.out.println(hashMap.values());
-//        System.out.println(hashMap.keySet());
-
         Member findMember = memberRepository.findEmailCheck(value2);
 
 //        System.out.println(findMember.getEmail());
@@ -66,7 +63,7 @@ public class MemberService implements UserDetailsService {
         }
     }
 
-    //회원가입
+    // 회원가입
     @Transactional
     public Long SignUp(MemberSaveRequestDto memberDto) {
 //        validateDuplicateMember(memberDto.toEntity());
@@ -74,8 +71,8 @@ public class MemberService implements UserDetailsService {
         memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
         memberDto.setRole(Role.GUEST);
         //memberDto.setRole(Role.ADMIN);
-        return memberRepository.save(memberDto.toEntity()).getId();
 
+        return memberRepository.save(memberDto.toEntity()).getId();
     }
 
     @Override
@@ -89,6 +86,7 @@ public class MemberService implements UserDetailsService {
         UserDetails userDetails = (UserDetails)new User(userEntityWrapper.getEmail(),
                 userEntityWrapper.getPassword(), Arrays.asList(authority));
         logger.info(userDetails.getPassword());
+
         return userDetails;
     }
 
@@ -159,6 +157,4 @@ public class MemberService implements UserDetailsService {
                 .map(MemberResponseDto::new)
                 .collect(Collectors.toList());
     }
-
-
 }
