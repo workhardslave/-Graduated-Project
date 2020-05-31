@@ -35,6 +35,7 @@ public class AdminApiController {
     public Long delete(@PathVariable Long id, Principal principal) {
         sessionRepository.findByIndexNameAndIndexValue(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME,
                 principal.getName()).keySet().forEach(session -> sessionRepository.deleteById((String) session));
+
         adminService.delete(id);
 
         return id;

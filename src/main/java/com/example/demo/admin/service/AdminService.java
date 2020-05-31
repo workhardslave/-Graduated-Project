@@ -89,6 +89,7 @@ public class AdminService implements UserDetailsService {
         UserDetails adminDetails = (UserDetails)new User(adminEntityWrapper.getEmail(), adminEntityWrapper.getPassword(), Arrays.asList(authority));
 
         logger.info(adminDetails.getPassword());
+
         return adminDetails;
     }
 }

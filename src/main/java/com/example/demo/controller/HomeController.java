@@ -41,6 +41,7 @@ public class HomeController {
     @RequestMapping("/")
     public String home(){
         log.info("home logger");
+
         return "home";
     }
 
@@ -48,6 +49,7 @@ public class HomeController {
     @GetMapping("/member/signup")
     public String createForm(Model model) {
         model.addAttribute("memberForm", new MemberForm());
+
         return "memberAuth/signUp";
     }
 
@@ -78,6 +80,7 @@ public class HomeController {
     public String list(Model model) {
         List<MemberResponseDto> members = memberService.findAllDesc();
         model.addAttribute("members", members);
+
         return "admin/memberList";
     }
 
@@ -120,7 +123,6 @@ public class HomeController {
     @GetMapping("/member/login")
     public String dispLogin() throws Exception
     {
-
         return "memberAuth/signIn";
     }
 
