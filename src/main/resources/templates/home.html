@@ -1,5 +1,5 @@
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head th:replace="fragments/config :: configFragment"/>
 
     <body>
@@ -23,7 +23,7 @@
         <!-- banner part start-->
 
         <!-- about part start-->
-        <section class="about_part section_padding">
+        <section sec:authorize="hasRole('ROLE_MEMBER')" class="about_part section_padding">
             <div class="container">
                 <div class="row align-items-center justify-content-between">
                     <div class="col-md-6">
@@ -50,7 +50,7 @@
         <!-- about part start-->
 
         <!-- service part start-->
-        <section class="service_part section_padding services_bg">
+        <section sec:authorize="hasRole('ROLE_MEMBER')" class="service_part section_padding services_bg">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
