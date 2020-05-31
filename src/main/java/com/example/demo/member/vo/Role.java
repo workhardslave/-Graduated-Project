@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @AllArgsConstructor
-public enum Role { //
+public enum Role {
     ADMIN("ROLE_ADMIN"),
     GUEST("ROLE_MEMBER");
     private String value;

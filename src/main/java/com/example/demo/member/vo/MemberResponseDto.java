@@ -28,6 +28,4 @@ public class MemberResponseDto {
         this.phone = entity.getPhone();
         this.birth = entity.getBirth();
     }
-
-
 }

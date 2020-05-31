@@ -4,6 +4,7 @@ package com.example.demo.member.vo;
 import com.example.demo.dog.dto.Dog;
 import com.example.demo.overlap.Address;
 import com.example.demo.overlap.BaseTimeEntity;
+import com.example.demo.reserve.vo.Reserve;
 import lombok.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -41,6 +42,9 @@ public class Member extends BaseTimeEntity {
     @OneToMany(mappedBy="member", orphanRemoval = true)
     List<Dog> dogList = new ArrayList<>();
 
+//    @OneToMany(mappedBy="member", orphanRemoval = true)
+//    List<Reserve> reserveList = new ArrayList<>();
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -58,16 +62,28 @@ public class Member extends BaseTimeEntity {
 
     }
 
-    public Member update(String password, String city, String street, String zipcode, String phone, String name) {
+    public Member update(String password, String city, String street, String zipcode, String phone) {
         this.password = password;
-        this.address = new Address(city, zipcode, street); //이부분
+        this.address = new Address(city, zipcode, street);
         this.phone = phone;
+        return this;
+    }
+
+    public Member updateMember(String name, String password, String city, String street, String zipcode, String phone) {
         this.name = name;
+        this.password = password;
+        this.address = new Address(city, zipcode, street);
+        this.phone = phone;
+        return this;
+    }
+
+    public Member updateAdmin(String password, String phone) {
+        this.password = password;
+        this.phone = phone;
         return this;
     }
 
     public String getRoleKey() {
         return this.role.getValue();
     }
-
 }

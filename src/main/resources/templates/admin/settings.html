@@ -54,7 +54,6 @@
                             <input type="text" th:field="${member.address.city}" class="form-control" id="sample6_address" placeholder="주소" required><br>
                             <label th:for="street">상세주소</label>
                             <input type="text" th:field="${member.address.street}" class="form-control" id="sample6_detailAddress" placeholder="상세주소" required>
-
                         </div>
                         <br/>
 
@@ -106,10 +105,10 @@
                     data: JSON.stringify(data)
                 }).done(function() {
                     alert('정보수정 되었습니다!');
-                    window.location.href = "/admin/members";
+                    window.location.href = "/admin/member/settings/" + id;
                 }).fail(function(request, status, error) {
                     alert(JSON.stringify(error));
-                    window.location.href = "/admin/settings/" + id;
+                    window.location.href = "/admin/member/settings/" + id;
                     alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
                 });
             }
