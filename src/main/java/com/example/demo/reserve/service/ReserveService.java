@@ -4,6 +4,7 @@ import com.example.demo.member.vo.Member;
 import com.example.demo.reserve.dao.ReserveRepository;
 import com.example.demo.reserve.vo.Reserve;
 import com.example.demo.reserve.vo.ReserveResponseDto;
+import com.example.demo.reserve.vo.ReserveSaveRequestDto;
 import com.example.demo.reserve.vo.ReserveUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,19 @@ public class ReserveService {
     @Transactional(readOnly = true)
     public List<ReserveResponseDto> findAllDesc(Member member) {
         return reserveRepository.findAllDesc(member).stream()
+                .map(ReserveResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public Long save(ReserveSaveRequestDto Dto) {
+        return reserveRepository.save(Dto.toEntity()).getId();
+    }
+
+    //관리자가 모든 예약정보 조회
+    @Transactional(readOnly = true)
+    public List<ReserveResponseDto> findAll() {
+        return reserveRepository.findAll().stream()
                 .map(ReserveResponseDto::new)
                 .collect(Collectors.toList());
     }
