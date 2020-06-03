@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Getter
 @RequiredArgsConstructor
-public class MemberSaveRequestDto  implements Serializable  {
+public class MemberSaveRequestDto {
     private String name;
     private String email;
     private String password;

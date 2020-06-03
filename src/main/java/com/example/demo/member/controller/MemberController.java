@@ -21,7 +21,12 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
-
+/**
+ * 세션부분 추후 @Aspect 적용하기.
+ * */
+/**
+ * 세션부분 추후 @Aspect 적용하기.
+ * */
 @Slf4j
 @RequiredArgsConstructor
 @Controller
@@ -80,7 +85,7 @@ public class MemberController {
 
     @GetMapping("/member/mypage")
     public String readMyData(Model model, Principal principal) {
-        Member member = memberRepository.findEmailCheck(principal.getName());
+        Member member = memberRepository.findEmailCheck(principal.getName()); //추후 ASPECT 적용대상
 
         if(member != null) {
             model.addAttribute("member", member);
@@ -138,7 +143,7 @@ public class MemberController {
     @GetMapping("/admin/mypage")
     public String readAdminMyDate(Model model, Principal principal) {
 
-        Member admin = memberRepository.findEmailCheck(principal.getName());
+        Member admin = memberRepository.findEmailCheck(principal.getName()); //추후 ASPECT 적용대상E
         if(admin != null) {
             model.addAttribute("admin", admin);
         }

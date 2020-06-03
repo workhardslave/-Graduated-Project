@@ -31,7 +31,7 @@ public class ReserveController {
     // 사용자 자신의 예약 정보 조회 홈페이지
     @GetMapping("/member/reserves")
     public String ReserveInfo(Model model, Principal principal) {                   // principle: session DB에 저장되어 있는 값 가져옴
-        Member member = memberRepository.findEmailCheck(principal.getName());
+        Member member = memberRepository.findEmailCheck(principal.getName()); //추후 ASPECT 적용대상
         List<ReserveResponseDto> Reserves = reserveService.findAllDesc(member);
 
         model.addAttribute("reserves", Reserves);
@@ -53,7 +53,7 @@ public class ReserveController {
             return "members/reserves/reserveSignUp";
         }
 
-        Member member = memberRepository.findEmailCheck(principal.getName());
+        Member member = memberRepository.findEmailCheck(principal.getName()); //추후 ASPECT 적용대상
 
         ReserveSaveRequestDto dto = new ReserveSaveRequestDto();
         reserveService.save(dto.builder()

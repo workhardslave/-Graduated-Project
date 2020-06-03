@@ -43,7 +43,7 @@ public class DogController {
             return "members/dogs/dogSignUp";
         }
 
-        Member member = memberRepository.findEmailCheck(principal.getName());
+        Member member = memberRepository.findEmailCheck(principal.getName()); //추후 ASPECT 적용대상
 
         DogSaveRequestDto dog = new DogSaveRequestDto();
         dogService.dog_SignUp(dog.builder()
@@ -64,7 +64,7 @@ public class DogController {
     // 사용자 자신의 강아지 정보 조회 홈페이지
     @GetMapping("/member/dogs")
     public String DogInfo(Model model, Principal principal) {
-        Member member = memberRepository.findEmailCheck(principal.getName());
+        Member member = memberRepository.findEmailCheck(principal.getName());//추후 ASPECT 적용대상
         List<DogResponseDto> Dogs = dogService.findAllDesc(member);
 
         model.addAttribute("dogs", Dogs);
