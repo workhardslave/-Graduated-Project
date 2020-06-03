@@ -84,7 +84,7 @@
         <script th:inline="javascript">
             function update() {
                 console.log("넘어는가니?");
-                var data = {                                // 이름, 이메일, 생일 변경 불가
+                let data = {                                // 이름, 이메일, 생일 변경 불가
                     password: $("#memberPassword").val(),     // 비밀번호, 전화번호, 주소, 상세주소, 참고항목 변경 가능
                     phone: $("#memberPhone").val(),
                     city: $("#sample6_address").val(),
@@ -95,7 +95,7 @@
 
                 console.log(data);
 
-                var id = $("#memberId").val();
+                let id = $("#memberId").val();
 
                 $.ajax({
                     type: 'PUT',
@@ -115,7 +115,7 @@
 
             function deleteMember() {
 
-                var id = [[ ${member.id} ]];
+                let id = [[ ${member.id} ]];
 
                 console.log("---------");
 
