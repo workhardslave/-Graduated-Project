@@ -1,21 +1,12 @@
 package com.example.demo.reserve.vo;
 
-import com.example.demo.dog.dto.Dog;
 import com.example.demo.member.vo.Member;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.web.servlet.tags.EditorAwareTag;
+import lombok.*;
 
-import javax.persistence.*;
-
-@NoArgsConstructor
+@RequiredArgsConstructor
 @Getter
-@Setter
 public class ReserveSaveRequestDto {
 
-    private Long id;
 
     private Member member;
 
@@ -30,11 +21,11 @@ public class ReserveSaveRequestDto {
     private String tel;
 
     private String op_time;
+
     private String dog;
 
     @Builder
-    public ReserveSaveRequestDto(Long id, Member member, String date, String description, String name, String address, String tel, String op_time,String dog) {
-        this.id = id;
+    public ReserveSaveRequestDto(Member member, String date, String description, String name, String address, String tel, String op_time,String dog) {
         this.member = member;
         this.date = date;
         this.description = description;

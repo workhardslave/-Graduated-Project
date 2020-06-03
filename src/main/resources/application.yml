@@ -6,7 +6,7 @@ spring:
     cache: false
   profiles:
     active: local
-    include: real-oauth
+    include:
   session:
     store-type: jdbc
   datasource:
@@ -23,15 +23,10 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+#      format_sql: true
   devtools:
     livereload:
       enabled: true
   freemarker:
     cache: false
 
-
-#spring.jpa.hibernate.ddl-auto=none
-#spring.datasource.url=jdbc:mariadb://guhaedogdb.c4ahwor36duc.ap-northeast-2.rds.amazonaws.com:3306/guhaedogDB
-#spring.datasource.username=admin
-#spring.datasource.password=gachon1234
-#spring.datasource.driver-class-name=org.mariadb.jdbc.Driver

@@ -10,7 +10,6 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@Setter
 @RequiredArgsConstructor
 public class Reserve {
 

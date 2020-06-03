@@ -1,15 +1,11 @@
 package com.example.demo.reserve.vo;
 
-import com.example.demo.dog.dto.Dog;
 import com.example.demo.member.vo.Member;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Getter
-@Setter
 @RequiredArgsConstructor
 public class ReserveResponseDto {
     private Long id;

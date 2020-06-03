@@ -1,33 +1,35 @@
 package com.example.demo.member.vo;
 
-import com.example.demo.member.vo.Member;
-import com.example.demo.member.vo.Role;
 import com.example.demo.overlap.Address;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
 @Getter
-@Setter
-@NoArgsConstructor
-public class MemberSaveRequestDto implements Serializable {
-
-    private Long id;
+@RequiredArgsConstructor
+public class MemberSaveRequestDto  implements Serializable  {
     private String name;
     private String email;
-    private String picture;
     private String password;
     private Address address;
     private Role role;
     private String birth;
     private String phone;
 
+
+    public void SHA256_PassWord(String password) {
+        this.password = password;
+    }
+
+
+    public void GIVE_Role(Role role) {
+        this.role = role;
+    }
+
+
+
     @Builder
-    public MemberSaveRequestDto(Long id, String name, String email, String password, Address address, Role role, String birth, String phone) {
-        this.id = id;
+    public MemberSaveRequestDto(String name, String email, String password, Address address, Role role, String birth, String phone) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -40,7 +42,6 @@ public class MemberSaveRequestDto implements Serializable {
 
     public Member toEntity(){
         return Member.builder()
-                .id(id)
                 .name(name)
                 .email(email)
                 .password(password)

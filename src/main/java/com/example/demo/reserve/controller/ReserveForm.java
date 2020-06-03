@@ -6,7 +6,6 @@ import lombok.Setter;
 import javax.validation.constraints.NotEmpty;
 
 @Getter
-@Setter
 public class ReserveForm {
 
     private String date; //방문일

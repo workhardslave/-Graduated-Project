@@ -1,7 +1,7 @@
 package com.example.demo.reserve.service;
 
 import com.example.demo.member.vo.Member;
-import com.example.demo.reserve.dao.ReserveRepository;
+import com.example.demo.reserve.repository.ReserveRepository;
 import com.example.demo.reserve.vo.Reserve;
 import com.example.demo.reserve.vo.ReserveResponseDto;
 import com.example.demo.reserve.vo.ReserveSaveRequestDto;
@@ -18,8 +18,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ReserveService {
 
-    @Autowired
-    ReserveRepository reserveRepository;
+    private final ReserveRepository reserveRepository;
 
 
     //사용자가 본인의 병원예약정보조회

@@ -32,7 +32,7 @@ dependencies {
 
 
 	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-logging
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-logging', version: '2.0.3.RELEASE'
+	compile group: 'org.sprisngframework.boot', name: 'spring-boot-starter-logging', version: '2.0.3.RELEASE'
 	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-webflux
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: '2.2.5.RELEASE'
 
@@ -40,7 +40,5 @@ dependencies {
 	implementation 'org.springframework.session:spring-session-core'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
-	compile('org.springframework.boot:spring-boot-starter-oauth2-client')
-	compile("org.mariadb.jdbc:mariadb-java-client")
 
 }

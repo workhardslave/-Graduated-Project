@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
 public class MemberResponseDto {
 
     private Long id;
@@ -24,7 +23,7 @@ public class MemberResponseDto {
         this.name = entity.getName();
         this.email = entity.getEmail();
         this.password = entity.getPassword();
-        this.setAddress(entity.getAddress());
+        this.address = entity.getAddress();
         this.phone = entity.getPhone();
         this.birth = entity.getBirth();
     }

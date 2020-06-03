@@ -1,18 +1,13 @@
 package com.example.demo.reserve.controller;
 
-import com.example.demo.dog.controller.DogForm;
-import com.example.demo.dog.dto.DogResponseDto;
-import com.example.demo.dog.dto.DogSaveRequestDto;
-import com.example.demo.member.controller.MemberForm;
-import com.example.demo.member.dao.MemberRepository;
+import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.vo.Member;
-import com.example.demo.reserve.dao.ReserveRepository;
+import com.example.demo.reserve.repository.ReserveRepository;
 import com.example.demo.reserve.service.ReserveService;
-import com.example.demo.reserve.vo.Reserve;
 import com.example.demo.reserve.vo.ReserveResponseDto;
 import com.example.demo.reserve.vo.ReserveSaveRequestDto;
-import com.example.demo.reserve.vo.ReserveUpdateRequestDto;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,13 +21,12 @@ import java.security.Principal;
 import java.util.List;
 
 @Controller
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Slf4j
 public class ReserveController {
 
-    ReserveRepository reserveRepository;
-    ReserveService reserveService;
-    MemberRepository memberRepository;
+    private final ReserveService reserveService;
+    private final MemberRepository memberRepository;
 
     // 사용자 자신의 예약 정보 조회 홈페이지
     @GetMapping("/member/reserves")
@@ -62,10 +56,14 @@ public class ReserveController {
         Member member = memberRepository.findEmailCheck(principal.getName());
 
         ReserveSaveRequestDto dto = new ReserveSaveRequestDto();
-        dto.setDate(form.getDate());
-        dto.setMember(member);
-        dto.setDescription(form.getDescription());
-        dto.setDog(form.getDog_name());
+        reserveService.save(dto.builder()
+                .date(form.getDate())
+                .member(member)
+                .description(form.getDescription())
+                .dog(form.getDog_name())
+                .date(form.getDate())
+                .build());
+
         log.info(form.getDog_name());
         log.info(form.getDescription());
         log.info(form.getDate());
