@@ -17,7 +17,6 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
-@ToString
 public class Member extends BaseTimeEntity {
 
 

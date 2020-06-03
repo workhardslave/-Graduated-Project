@@ -1,11 +1,11 @@
 package com.example.demo.dog.service;
 
 
-import com.example.demo.dog.dto.Dog;
-import com.example.demo.dog.dao.DogRepository;
-import com.example.demo.dog.dto.DogResponseDto;
-import com.example.demo.dog.dto.DogSaveRequestDto;
-import com.example.demo.dog.dto.DogUpdateRequestDto;
+import com.example.demo.dog.vo.Dog;
+import com.example.demo.dog.repository.DogRepository;
+import com.example.demo.dog.vo.DogResponseDto;
+import com.example.demo.dog.vo.DogSaveRequestDto;
+import com.example.demo.dog.vo.DogUpdateRequestDto;
 import com.example.demo.member.vo.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

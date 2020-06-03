@@ -1,16 +1,14 @@
-package com.example.demo.dog.dto;
+package com.example.demo.dog.vo;
 
 
 import com.example.demo.member.vo.Member;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 
-@NoArgsConstructor
+
 @Getter
-@Setter
-
+@RequiredArgsConstructor
 public class DogSaveRequestDto {
     private Member member;
     private String name;

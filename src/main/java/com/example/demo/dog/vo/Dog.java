@@ -1,4 +1,4 @@
-package com.example.demo.dog.dto;
+package com.example.demo.dog.vo;
 
 
 import com.example.demo.member.vo.Member;
@@ -11,10 +11,8 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
-@ToString
 public class Dog {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +21,6 @@ public class Dog {
     private Member member;
 
     private String name;
-
     private String age;
     private String gender;
     private String birth;
