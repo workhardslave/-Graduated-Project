@@ -1,6 +1,7 @@
 package com.example.demo.dog.dto;
 
 
+import com.example.demo.disease.dto.Disease;
 import com.example.demo.member.vo.Member;
 import lombok.*;
 import org.springframework.context.annotation.Scope;
@@ -8,6 +9,8 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,15 +22,18 @@ public class Dog {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
     private String name;
-
     private String age;
     private String gender;
     private String birth;
     private String type;
+
+//    @OneToMany(mappedBy = "dog", orphanRemoval = true)
+//    List<Disease> diseaseList = new ArrayList<>();
 
 
     @Builder
