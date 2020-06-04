@@ -92,10 +92,19 @@ public class ReserveController {
     public String ReserveInfoAdmin(Model model) {                   // principle: session DB에 저장되어 있는 값 가져옴
         List<ReserveResponseDto> Reserves = reserveService.findAll(); //모든예약정보확인
         model.addAttribute("reserves", Reserves);
-        log.info("--------------");
-        log.info(Reserves.get(0).getMember().getName());
-        log.info("--------------");
 
         return "admin/reserves/reserveInfoAdmin";
     }
+
+
+    // 관리자 -> 사용자 병원 예약 수정 및 삭제 홈페이지
+    @GetMapping(value = "/admin/reserves/settings/{id}")
+    public String updateFormAdmin(@PathVariable Long id, Model model) {
+
+        ReserveResponseDto dto = reserveService.findById(id);
+        model.addAttribute("reserve", dto);
+
+        return "admin/reserves/reserveModifyAdmin";
+    }
+
 }
