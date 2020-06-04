@@ -5,11 +5,17 @@
     <body>
         <header th:replace="fragments/header :: headerFragment"></header>
 
-        <section sec:authorize="hasRole('ROLE_ADMIN')" class="about_part section_padding">
+        <section class="about_part section_padding">
             <div class="container">
                 <div class="row align-items-center justify-content-between">
+
                     <div class="col-lg-6" id="diseaseInfo" style="width: 900px; height: 500px;"></div>
 
+<!--                    <table>-->
+<!--                        <tr th:each="disease : ${diseases}">-->
+<!--                            <td th:text="${disease.type}" id="diseaseType"></td>-->
+<!--                        </tr>-->
+<!--                    </table>-->
                     <div class="col-lg-6" id="diagnosisInfo" style="width: 900px; height: 500px;"></div>
                 </div>
             </div>
@@ -43,15 +49,15 @@
             google.charts.load('current', {'packages':['corechart']});
             google.charts.setOnLoadCallback(drawChart2);
 
+            var real_data = [[${diseases}]];
+
             function drawChart2() {
 
                 var data = google.visualization.arrayToDataTable([
-                    ['질병', '빈도'],
-                    ['감기', 11],
-                    ['독감', 2],
-                    ['골절', 2],
-                    ['당뇨', 2],
-                    ['코로나', 7]
+                     ['질병', '빈도'],
+                     Object.keys(real_data).forEach(function (key) {
+                        [key, real_data[key]];
+                     })
                 ]);
 
                 var options = {
