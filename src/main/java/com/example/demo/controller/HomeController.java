@@ -163,4 +163,16 @@ public class HomeController {
 
         return "adminAuth/admin_settings";
     }
+
+    // 병원 추천 페이지
+    @GetMapping("/member/recommendation")
+    public String recommendation(Model model, Principal principal) {
+        Member member = memberRepository.findEmailCheck(principal.getName());
+
+        if(member != null) {
+            model.addAttribute("member", member);
+        }
+
+        return "members/recommends/recommendation";
+    }
 }

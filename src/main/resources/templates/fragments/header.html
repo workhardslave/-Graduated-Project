@@ -36,12 +36,11 @@
                             <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
                                 <ul class="navbar-nav">
                                     <li class="nav-item">
-                                        <a sec:authorize="hasRole('ROLE_MEMBER')" class="nav-link" href="#">반려견 질병 진단</a>
+                                        <a sec:authorize="hasRole('ROLE_MEMBER')" class="nav-link" th:href="@{/member/recommendation}">반려견 질병 진단</a>
                                         <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" th:href="@{/admin/members}">회원 관리</a>
                                     </li>
-
                                     <li class="nav-item">
-                                        <a sec:authorize="hasRole('ROLE_MEMBER')" class="nav-link" th:href="@{/member/reserves}">동물병원 예약</a>
+                                        <a sec:authorize="hasRole('ROLE_MEMBER')" class="nav-link" th:href="@{/member/reservesInfo}">동물병원 예약</a>
                                     </li>
 
                                     <li class="nav-item dropdown">

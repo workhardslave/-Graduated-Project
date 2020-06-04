@@ -25,7 +25,7 @@ public class ReserveController {
     MemberRepository memberRepository;
 
     // 사용자 자신의 예약 정보 조회 홈페이지
-    @GetMapping("/member/reserves")
+    @GetMapping("/member/reservesInfo")
     public String ReserveInfo(Model model, Principal principal) {                   // principle: session DB에 저장되어 있는 값 가져옴
         Member member = memberRepository.findEmailCheck(principal.getName());
         List<ReserveResponseDto> Reserves = reserveService.findAllDesc(member);
@@ -40,7 +40,10 @@ public class ReserveController {
 
         ReserveResponseDto dto = reserveService.findById(id);
         model.addAttribute("reserve", dto);
+        log.info(dto.getDate());
 
         return "members/reserves/reserveModify";
     }
+
+    // 사용자 병원예약 페이지
 }
