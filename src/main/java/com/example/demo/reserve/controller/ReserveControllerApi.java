@@ -1,15 +1,24 @@
 package com.example.demo.reserve.controller;
 
+import com.example.demo.member.dao.MemberRepository;
+import com.example.demo.member.vo.Member;
 import com.example.demo.reserve.service.ReserveService;
+import com.example.demo.reserve.vo.ReserveSaveRequestDto;
 import com.example.demo.reserve.vo.ReserveUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+
 
 @RequiredArgsConstructor
 @RestController
+@Slf4j
 public class ReserveControllerApi {
 
     private final ReserveService reserveService;
+    private final MemberRepository memberRepository;
 
     // 병원 예약 정보 수정 API
     @PutMapping("/api/member/reserve/settings/{id}")
@@ -20,9 +29,16 @@ public class ReserveControllerApi {
 
 
     // 병원 예약 정보 삭제 API
-    @DeleteMapping("/api/member/reserve/delete/{id}")
-    public Long delete(@PathVariable Long id) {
+    @DeleteMapping("/api/member/reserve/delete/{id}")    public Long delete(@PathVariable Long id) {
         reserveService.delete(id);
         return id;
+    }
+
+    // 병원 예약 등록 API
+    @PostMapping("api/member/reserve")
+    public Long reserve(@RequestBody ReserveSaveRequestDto requestDto, Principal principal) {
+        Member member = memberRepository.findEmailCheck(principal.getName());
+
+        return reserveService.Reserve(requestDto, member);
     }
 }
