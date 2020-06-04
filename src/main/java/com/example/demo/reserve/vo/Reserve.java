@@ -35,8 +35,7 @@ public class Reserve {
     @Column(nullable = false)
     private String tel;
 
-    @Column(nullable = false)
-    private String op_time; //운영시간
+
 
     @Builder
     public Reserve(Long id, Member member, String date, String description, String name, String address , String tel, String op_time) {
@@ -47,7 +46,6 @@ public class Reserve {
         this.name = name;
         this.address = address;
         this.tel = tel;
-        this.op_time = op_time;
     }
 
     public Reserve update(String date, String description) {

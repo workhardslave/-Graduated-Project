@@ -17,7 +17,7 @@ public class ReserveResponseDto {
     private String name;
     private String address;
     private String tel;
-    private String op_time;
+
     public ReserveResponseDto(Reserve entity) {
         this.id = entity.getId();
         this.member = getMember();
@@ -26,6 +26,5 @@ public class ReserveResponseDto {
         this.name = entity.getName();
         this.address = entity.getAddress();
         this.tel = entity.getTel();
-        this.op_time = entity.getOp_time();
     }
 }

@@ -18,7 +18,6 @@ public class ReserveUpdateRequestDto {
     private String name;
     private String address;
     private String tel;
-    private String op_time;
 
     public ReserveUpdateRequestDto(String date, String description){
         this.date = date;
