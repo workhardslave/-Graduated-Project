@@ -4,10 +4,12 @@ package com.example.demo.APITest;
 import com.example.demo.dog.repository.DogRepository;
 import com.example.demo.dog.service.DogService;
 import com.example.demo.dog.vo.Dog;
+import com.example.demo.dog.vo.DogCountDto;
 import com.example.demo.dog.vo.DogSaveRequestDto;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.member.vo.Member;
+import com.example.demo.member.vo.MemberResponseDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.After;
 import org.junit.Test;
@@ -21,9 +23,14 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.persistence.OneToMany;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -31,9 +38,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Transactional
 //@WebMvcTest
 public class DogServiceApiTest {
 
+
+    @Autowired
+    DogService dogService;
+    @Autowired
+    DogRepository dogRepository;
 
     @LocalServerPort
     private int port;
@@ -45,12 +58,6 @@ public class DogServiceApiTest {
     @Autowired
     private WebApplicationContext context;
 
-    @MockBean
-    DogService mockdogService;
-
-    @MockBean
-    DogRepository mockdogRepsitory;
-
 //    @After
 //    public void tearDown() throws Exception {
 //        postsRepository.deleteAll();
@@ -59,11 +66,7 @@ public class DogServiceApiTest {
 //    @MockBean
 //    EnableJpaAuditing enableJpaAuditing;
 
-    @Autowired
-    DogService dogService;
 
-    @Autowired
-    DogRepository dogRepository;
 
     @Autowired
     MemberService memberService;
@@ -107,7 +110,6 @@ public class DogServiceApiTest {
     @Test//조회
     public void 반려견조회() throws Exception{
 
-     ;
 
     }
     @Test //수정
@@ -116,6 +118,14 @@ public class DogServiceApiTest {
     }
     @Test //삭제
     public void 반려견삭제() throws Exception{
+
+    }
+
+    @Test //카운팅
+    public void 반려견카운팅() throws Exception{
+
+      dogService.DogCount();
+
 
     }
 
