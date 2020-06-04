@@ -25,7 +25,7 @@
 
 
                 <tr th:each="reserve : ${reserves}">
-                    <td><a th:href="@{/reserves/settings/{id}(id = ${reserve.id})}" th:text="${reserve.name}"></a></td>
+                    <td><a th:href="@{/admin/reserves/settings/{id}(id = ${reserve.id})}" th:text="${reserve.name}"></a></td>
                     <td th:text="${reserve.date}"></td>
                     <td th:text="${reserve.address}"></td>
                     <td th:text="${reserve.tel}"></td>
