@@ -11,29 +11,14 @@
 
                     <div class="col-lg-6" id="diseaseInfo" style="width: 900px; height: 500px;"></div>
 
-                    <script>
-                        document.write('<table>');
-                        for(let i = 0; i < 2; i++) {
-                            document.write('<tr th:each="disease : ${diseases}">');
-                                document.write('<td th:text="${disease.type}" id="diseaseType' + i +' "</td>');
-                                document.write('<td th:text="${disease.count}" id="diseaseType' + i +' "</td>');
-
-                                let diType = $("#diseaseType" + i).html();
-                                let typeCount = $("#typeCount" + i).html();
-
-                                console.log("타입1: " + diType);
-                                console.log("빈도1: " + typeCount);
-                            document.write('</tr>');
-                        }
-                        document.write('</table>');
-                    </script>
-
-<!--                    <table>-->
-<!--                        <tr th:each="disease : ${diseases}">-->
-<!--                            <td th:text="${disease.type}" id="diseaseType"></td>-->
-<!--                            <td th:text="${disease.count}" id="typeCount"></td>-->
-<!--                        </tr>-->
-<!--                    </table>-->
+                    <table id="diseaseTable">
+                        <tbody id="diseaseList">
+                            <tr th:each="disease : ${diseases}" hidden="true">
+                                <td th:text="${disease.type}" id="diseaseType"></td>
+                                <td th:text="${disease.count}" id="typeCount"></td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <div class="col-lg-6" id="diagnosisInfo" style="width: 900px; height: 500px;"></div>
                 </div>
             </div>
@@ -69,28 +54,33 @@
 
             function drawChart2() {
 
-                let diType1 = $("#diseaseType1").html();
-                let typeCount1 = $("#typeCount1").html();
+                let diseaseRows = document.getElementsByTagName("tr");
 
-                let diType2 = $("#diseaseType2").html();
-                let typeCount2 = $("#typeCount2").html();
+                let diseaseType = [];
+                let diseaseCount = [];
+                for(let i = 0; i < diseaseRows.length; i++) {
+                    diseaseType.push(diseaseRows[i].children[0].textContent);
+                    diseaseCount.push(parseInt(diseaseRows[i].children[1].textContent));
+                }
 
-                console.log("타입1: " + diType1);
-                console.log("빈도1: " + typeCount1);
-                console.log("타입2: " + diType2);
-                console.log("빈도2: " + typeCount2);
+                console.log(diseaseType);
+                console.log(diseaseCount);
 
-                var data = google.visualization.arrayToDataTable([
-                    ['질병', '빈도'],
-                    ['감기', 11],
-                    ['독감', 2],
-                    ['골절', 2],
-                    ['당뇨', 2],
-                    ['코로나', 7]
-                ]);
+                let diseaseData = [];
+                diseaseData.push(['질병', '빈도']);
+
+                for(let i = 0; i < diseaseRows.length; i++) {
+                    let tempData = [];
+                    tempData.push(diseaseType[i]);
+                    tempData.push(diseaseCount[i]);
+
+                    diseaseData.push(tempData);
+                }
+
+                var data = google.visualization.arrayToDataTable(diseaseData);
 
                 var options = {
-                    title: '전체 질병 정보'
+                    title: '진단 질병 정보'
                 };
 
                 var chart = new google.visualization.PieChart(document.getElementById('diagnosisInfo'));
