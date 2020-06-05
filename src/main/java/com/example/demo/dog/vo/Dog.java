@@ -3,6 +3,8 @@ package com.example.demo.dog.vo;
 
 import com.example.demo.member.vo.Member;
 import lombok.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.web.context.WebApplicationContext;
@@ -14,6 +16,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class Dog {
+
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

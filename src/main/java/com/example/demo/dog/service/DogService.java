@@ -21,11 +21,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public class DogService {
 
-    @Autowired
-    DogRepository dogRepository;
 
-    @PersistenceContext
-    private EntityManager em;
+    private final DogRepository dogRepository;
 
 
     //사용자가 본인의 반려견정보저장
@@ -79,7 +76,8 @@ public class DogService {
         return id;
     }
 
-    @Transactional
+    // 관리자 강아지 등록정보 시각화
+    @Transactional(readOnly = true)
     public void DogCount(){
         List<DogCountDto> l = dogRepository.findCount();
 

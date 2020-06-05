@@ -11,6 +11,7 @@ import com.example.demo.member.service.MemberService;
 import com.example.demo.member.vo.Member;
 import com.example.demo.member.vo.MemberResponseDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.hibernate.annotations.NaturalId;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +21,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -42,6 +44,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //@WebMvcTest
 public class DogServiceApiTest {
 
+
+    @Autowired
+    Environment environment;
+
+    @Test
+    public void contextLoad(){
+        assertThat(environment.getProperty("hyeon.name"))
+                .isEqualTo("hyeonwoo");
+    }
 
     @Autowired
     DogService dogService;

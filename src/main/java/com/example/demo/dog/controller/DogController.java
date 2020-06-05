@@ -1,5 +1,6 @@
 package com.example.demo.dog.controller;
 
+import com.example.demo.dog.vo.Dog;
 import com.example.demo.dog.vo.DogResponseDto;
 import com.example.demo.dog.vo.DogSaveRequestDto;
 import com.example.demo.dog.service.DogService;
@@ -26,6 +27,7 @@ public class DogController {
 
     private final DogService dogService;
     private final MemberRepository memberRepository;
+
 
 
     // 사용자 강아지 정보 입력 홈페이지

@@ -21,9 +21,10 @@ spring:
   jpa:
     database-platform: H2
     show-sql: true
-    hibernate:
-      ddl-auto: update
-#      format_sql: true
+    properties:
+      hibernate:
+        ddl-auto: update
+        format_sql: true
   devtools:
     livereload:
       enabled: true

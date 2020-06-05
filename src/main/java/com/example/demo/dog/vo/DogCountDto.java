@@ -6,6 +6,7 @@ import lombok.Getter;
 @Getter
 public class DogCountDto {
 
+
     private String gender;
     private Long count;
 
