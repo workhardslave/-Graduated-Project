@@ -1,0 +1,188 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/config :: configFragment" />
+
+    <body>
+        <header th:replace="fragments/header :: headerFragment"></header>
+
+        <section class="about_part section_padding">
+            <div class="container">
+                <div class="row align-items-center align-content-between">
+                    <table id="diseaseTable">
+                        <tbody id="diseaseList">
+                            <tr th:each="disease : ${diseases}" hidden="true">
+                                <td th:text="${disease.type}" id="diseaseType"></td>
+                                <td th:text="${disease.count}" id="typeCount"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="col-md-6" id="diagPieChart" style="width: 900px; height: 500px;"></div>
+                    <div class="col-md-6" id="diagHistogram" style="width: 900px; height: 500px;"></div>
+                    <div class="col-md-6" id="diagBarChart" style="width: 900px; height: 500px;"></div>
+                    <div class="col-md-6" id="diagStepChart" style="width: 900px; height: 500px;"></div>
+                </div>
+            </div>
+        </section>
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawPieChart);
+
+            function drawPieChart() {
+
+                let diseaseRows = document.getElementsByTagName("tr");
+
+                let diseaseType = [];
+                let diseaseCount = [];
+                for(let i = 0; i < diseaseRows.length; i++) {
+                    diseaseType.push(diseaseRows[i].children[0].textContent);
+                    diseaseCount.push(parseInt(diseaseRows[i].children[1].textContent));
+                }
+
+                console.log(diseaseType);
+                console.log(diseaseCount);
+
+                let diseaseData = [];
+                diseaseData.push(['질병', '빈도']);
+
+                for(let i = 0; i < diseaseRows.length; i++) {
+                    let tempData = [];
+                    tempData.push(diseaseType[i]);
+                    tempData.push(diseaseCount[i]);
+
+                    diseaseData.push(tempData);
+                }
+
+                var data = google.visualization.arrayToDataTable(diseaseData);
+
+                var options = {
+                    title: '진단 질병 정보 (파이 그래프)'
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('diagPieChart'));
+
+                chart.draw(data, options);
+            }
+
+            google.charts.load("current", {packages:["corechart"]});
+            google.charts.setOnLoadCallback(drawHistogram);
+            function drawHistogram() {
+
+                let diseaseRows = document.getElementsByTagName("tr");
+
+                let diseaseType = [];
+                let diseaseCount = [];
+                for(let i = 0; i < diseaseRows.length; i++) {
+                    diseaseType.push(diseaseRows[i].children[0].textContent);
+                    diseaseCount.push(parseInt(diseaseRows[i].children[1].textContent));
+                }
+
+                let diseaseData = [];
+                diseaseData.push(['질병', '빈도']);
+
+                for(let i = 0; i < diseaseRows.length; i++) {
+                    let tempData = [];
+                    tempData.push(diseaseType[i]);
+                    tempData.push(diseaseCount[i]);
+
+                    diseaseData.push(tempData);
+                }
+
+                var data = google.visualization.arrayToDataTable(diseaseData);
+
+                var options = {
+                    title: '진단 질병 정보 (히스토그램)',
+                    legend: { position: 'none' },
+                    colors: ['navy'],
+                };
+
+                var chart = new google.visualization.Histogram(document.getElementById('diagHistogram'));
+                chart.draw(data, options);
+            }
+
+            google.charts.load('current', {packages: ['corechart', 'bar']});
+            google.charts.setOnLoadCallback(drawBarChart);
+
+            function drawBarChart() {
+
+                let diseaseRows = document.getElementsByTagName("tr");
+
+                let diseaseType = [];
+                let diseaseCount = [];
+                for(let i = 0; i < diseaseRows.length; i++) {
+                    diseaseType.push(diseaseRows[i].children[0].textContent);
+                    diseaseCount.push(parseInt(diseaseRows[i].children[1].textContent));
+                }
+
+                let diseaseData = [];
+                diseaseData.push(['질병', '빈도']);
+
+                for(let i = 0; i < diseaseRows.length; i++) {
+                    let tempData = [];
+                    tempData.push(diseaseType[i]);
+                    tempData.push(diseaseCount[i]);
+
+                    diseaseData.push(tempData);
+                }
+
+                var data = google.visualization.arrayToDataTable(diseaseData);
+
+                var options = {
+                    title: '진단 질병 정보 (막대 그래프)',
+                    chartArea: {width: '50%'},
+                    hAxis: {
+                        title: '빈도',
+                        minValue: 0
+                    },
+                    vAxis: {
+                        title: '질병'
+                    }
+                };
+
+                var chart = new google.visualization.BarChart(document.getElementById('diagBarChart'));
+                chart.draw(data, options);
+            }
+
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawStepChart);
+
+            function drawStepChart() {
+
+                let diseaseRows = document.getElementsByTagName("tr");
+
+                let diseaseType = [];
+                let diseaseCount = [];
+                for(let i = 0; i < diseaseRows.length; i++) {
+                    diseaseType.push(diseaseRows[i].children[0].textContent);
+                    diseaseCount.push(parseInt(diseaseRows[i].children[1].textContent));
+                }
+
+                let diseaseData = [];
+                diseaseData.push(['질병', '빈도']);
+
+                for(let i = 0; i < diseaseRows.length; i++) {
+                    let tempData = [];
+                    tempData.push(diseaseType[i]);
+                    tempData.push(diseaseCount[i]);
+
+                    diseaseData.push(tempData);
+                }
+
+                var data = google.visualization.arrayToDataTable(diseaseData);
+
+                var options = {
+                    title: '진단 질병 정보 (계단 그래프)',
+                    vAxis: {title: '빈도'},
+                    isStacked: true
+                };
+
+                var chart = new google.visualization.SteppedAreaChart(document.getElementById('diagStepChart'));
+
+                chart.draw(data, options);
+            }
+        </script>
+
+        <footer th:replace="fragments/footer :: footerFragment"></footer>
+    </body>
+</html>
