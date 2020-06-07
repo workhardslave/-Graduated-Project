@@ -9,7 +9,6 @@ import java.util.Objects;
 
 @Embeddable //H2 디비
 @Getter
-@Setter
 @RequiredArgsConstructor
 public class Address {
 

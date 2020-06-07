@@ -1,12 +1,10 @@
 package com.example.demo.dog.controller;
 
-import com.example.demo.dog.dao.DogRepository;
-import com.example.demo.dog.dto.DogResponseDto;
-import com.example.demo.dog.dto.DogSaveRequestDto;
+import com.example.demo.dog.vo.DogResponseDto;
+import com.example.demo.dog.vo.DogSaveRequestDto;
 import com.example.demo.dog.service.DogService;
-import com.example.demo.member.dao.MemberRepository;
+import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.vo.Member;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -22,13 +20,13 @@ import java.util.List;
 
 
 @Controller
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Slf4j
 public class DogController {
 
-    DogRepository dogRepository;
-    DogService dogService;
-    MemberRepository memberRepository;
+    private final DogService dogService;
+    private final MemberRepository memberRepository;
+
 
 
     // 사용자 강아지 정보 입력 홈페이지
@@ -46,16 +44,17 @@ public class DogController {
             return "members/dogs/dogSignUp";
         }
 
-        Member member = memberRepository.findEmailCheck(principal.getName());
+        Member member = memberRepository.findEmailCheck(principal.getName()); //추후 ASPECT 적용대상
 
         DogSaveRequestDto dog = new DogSaveRequestDto();
-        dog.setAge(form.getAge());
-        dog.setBirth(form.getBirth());
-        dog.setGender(form.getGender());
-        dog.setName(form.getName());
-        dog.setType(form.getType());
-        dog.setMember(member);
-        dogService.dog_SignUp(dog);
+        dogService.dog_SignUp(dog.builder()
+                .member(member)
+                .name(form.getName())
+                .type(form.getType())
+                .age(form.getAge())
+                .birth(form.getBirth())
+                .gender(form.getGender())
+                .build());
 
         List<DogResponseDto> Dogs = dogService.findAllDesc(member);
 
@@ -65,8 +64,8 @@ public class DogController {
 
     // 사용자 자신의 강아지 정보 조회 홈페이지
     @GetMapping("/member/dogs")
-    public String DogInfo(Model model, Principal principal) {                   // principle: session DB에 저장되어 있는 값 가져옴
-        Member member = memberRepository.findEmailCheck(principal.getName());
+    public String DogInfo(Model model, Principal principal) {
+        Member member = memberRepository.findEmailCheck(principal.getName());//추후 ASPECT 적용대상
         List<DogResponseDto> Dogs = dogService.findAllDesc(member);
 
         model.addAttribute("dogs", Dogs);

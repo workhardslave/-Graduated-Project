@@ -1,15 +1,14 @@
 //package com.example.demo.APITest;
 //
-//
-//import com.example.demo.member.dao.MemberRepository;
+//import com.example.demo.member.repository.MemberRepository;
 //import com.example.demo.member.vo.*;
 //import com.example.demo.member.service.MemberService;
 //import com.example.demo.overlap.Address;
-//import com.fasterxml.jackson.databind.ObjectMapper;
-//import org.junit.Before;
+//
 //import org.junit.Test;
 //import org.junit.runner.RunWith;
 //import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 //import org.springframework.boot.test.context.SpringBootTest;
 //import org.springframework.boot.test.web.client.TestRestTemplate;
 //import org.springframework.boot.web.server.LocalServerPort;
@@ -25,15 +24,14 @@
 //
 //import javax.persistence.EntityManager;
 //
-//import static org.assertj.core.api.Assertions.assertThat;
 //import static org.junit.Assert.assertEquals;
 //import static org.junit.Assert.fail;
-//import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 //
 //
 //@RunWith(SpringRunner.class)
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 //@Transactional
+////@WebMvcTest
 //public class MemberServiceApiTest {
 //
 //
@@ -54,13 +52,13 @@
 //    @Autowired
 //    private WebApplicationContext context;
 //
-//    private MockMvc mvc;
+////    private MockMvc mvc;
 //
 //
 //    /**
 //     * 중복 확인
 //     */
-//    @Test
+//    @Test(expected = IllegalStateException.class)
 //    public void 회원가입() throws Exception {
 //        //given
 //        Member member = new Member();
@@ -87,13 +85,15 @@
 //    @Test(expected = IllegalStateException.class)
 //    public void 중복회원가입() throws Exception {
 //        //given
-//        Member member = new Member();
-//        member.setEmail("abcdef@naver.com");
-//        //when
+//        MemberSaveRequestDto member = new MemberSaveRequestDto();
 //
-////        memberService.SingUp(member);
+//        //given + when
+//        memberService.SignUp(member.builder()
+//                .email("test@gmail.com")
+//                .build());
 //
-//        em.flush();
+//
+////        em.flush();
 //        //then
 //        fail("예외가 발생해야 한다");
 //    }
@@ -115,7 +115,3 @@
 //
 //    }
 //}
-////
-////    @Test
-////    @Rollback(false)
-////    public void 회원삭제() throws Exception {

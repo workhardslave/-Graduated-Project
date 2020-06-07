@@ -1,11 +1,8 @@
 package com.example.demo.dog.service;
 
 
-import com.example.demo.dog.dto.Dog;
-import com.example.demo.dog.dao.DogRepository;
-import com.example.demo.dog.dto.DogResponseDto;
-import com.example.demo.dog.dto.DogSaveRequestDto;
-import com.example.demo.dog.dto.DogUpdateRequestDto;
+import com.example.demo.dog.vo.*;
+import com.example.demo.dog.repository.DogRepository;
 import com.example.demo.member.vo.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public class DogService {
 
-    @Autowired
-    DogRepository dogRepository;
+
+    private final DogRepository dogRepository;
 
 
     //사용자가 본인의 반려견정보저장
@@ -76,5 +76,16 @@ public class DogService {
         return id;
     }
 
+    // 관리자 강아지 등록정보 시각화
+    @Transactional(readOnly = true)
+    public void DogCount(){
+        List<DogCountDto> l = dogRepository.findCount();
+
+        for(DogCountDto p : l){
+            System.out.println(p.getCount());
+            System.out.println(p.getGender());
+
+        }
+    }
 }
 

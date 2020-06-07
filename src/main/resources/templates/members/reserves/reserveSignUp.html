@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/config :: configFragment"/>
+<body>
+<header th:replace="fragments/header :: headerFragment"></header>
+
+<div class="limiter">
+    <div class="container-login100" style="background-image: url('../../../static/images/bg-01.jpg');">
+        <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+            <!--/*@thymesVar id="memberForm" type=""*/-->
+            <form class="login100-form validate-form" action="/api/member/reserve/save" th:object="${reserveForm}" method="post">
+                <span class="login100-form-title p-b-49">반려견 정보 입력</span>
+
+
+                <div>
+                    <label th:for="name">병원이름</label>
+                </div>
+                <div class="form-option">
+                    <select th:field="*{name}">
+                        <option th:value="'생후 12개월 미만'">현우병원</option>
+                        <option th:value="'1~3세미만'">현우2병원</option>
+                        <option th:value="'3~7세미만'">현우3병원</option>
+                        <option th:value="'7~10세미만'">현우4병원</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label th:for="date">방문일</label>
+                    <input type="date" th:field="*{date}" class="form-control"
+                           placeholder="방문일을 입력해주세요" required>
+                </div>
+
+                <div>
+                    <label th:for="name">반려견명</label>
+                </div>
+                <div class="form-option">
+                    <select th:field="*{dog_name}">
+                        <option th:value="'생후 12개월 미만'">댕댕이1</option>
+                        <option th:value="'1~3세미만'">댕댕이2</option>
+                        <option th:value="'3~7세미만'">댕댕이3</option>
+                        <option th:value="'7~10세미만'">댕댕이4</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label th:for="explain">설명</label>
+                    <input type="text" th:field="*{description}" class="form-control"
+                           placeholder="예약정보를 입력해주세요"
+                           th:class="${#fields.hasErrors('name')}? 'form-control fieldError' : 'form-control'" required>
+                </div>
+
+
+
+                <div class="container-login100-form-btn">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn"></div>
+                        <button  class="login100-form-btn" type="submit">
+                            예약 등록
+                        </button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div id="dropDownSelect1"></div>
+
+
+<!--===============================================================================================-->
+<script src="../../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="../../../static/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+<script src="../../../static/vendor/bootstrap/js/popper.js"></script>
+<script src="../../../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="../../../static/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="../../../static/vendor/daterangepicker/moment.min.js"></script>
+<script src="../../../static/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+<script src="../../../static/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+<script src="../../../static/js/main.js"></script>
+
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="../../static/js/postcode-api.js"></script>
+
+<footer th:replace="fragments/footer :: footerFragment"></footer>
+</body>
+</html>

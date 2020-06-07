@@ -10,7 +10,6 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@Setter
 @RequiredArgsConstructor
 public class Reserve {
 
@@ -23,22 +22,21 @@ public class Reserve {
     @Column(name = "visit_date", nullable = false)
     private String date;
 
-    @Column(name = "description", nullable = false)
+    @Lob
+    @Column(name = "description")
     private String description;
 
-    @Column(name = "hospital_name", nullable = false)
+    @Column(name = "hospital_name")
     private String name;
-
-    @Column(name = "hospital_adrr", nullable = false)
-    private String address;
-
     @Column(nullable = false)
+
     private String tel;
 
+    private String address; //추후 병원에서 가져온다 필요한가 ?
 
 
     @Builder
-    public Reserve(Long id, Member member, String date, String description, String name, String address , String tel, String op_time) {
+    public Reserve(Long id, Member member, String date, String description, String name, String address , String tel) {
         this.id = id;
         this.member = member;
         this.date = date;

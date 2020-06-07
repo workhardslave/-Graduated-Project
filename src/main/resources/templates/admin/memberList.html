@@ -26,7 +26,7 @@
 
 
                         <tr th:each="member : ${members}">
-                            <td th:text="${member.id}"/></td>
+                            <td></td>
                             <td><a th:href = "@{/admin/member/settings/{id}(id = ${member.id})}" th:text="${member.name}"></a></td>
                             <td th:text="${member.email}"></td>
                             <td th:text="${member.address?.city}"></td>
@@ -42,6 +42,16 @@
                 </div>
             </div>
         </div>
+        <script th:inline="javascript">
+            const table = document.getElementsByTagName('tbody')[0],
+                rows = table.getElementsByTagName('tr'),
+                text = 'textContent' in document ? 'textContent' : 'innerText';
+
+            for (let i = 0, len = rows.length; i < len; i++){
+                rows[i].children[0][text] = i ;
+            }
+
+        </script>
         <footer th:replace="fragments/footer :: footerFragment"></footer>
     </body>
 </html>

@@ -1,7 +1,5 @@
 package com.example.demo.hospital.vo;
 
-
-import com.example.demo.member.vo.Member;
 import com.example.demo.overlap.Address;
 import com.example.demo.overlap.HospitalStatus;
 

@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="fragments/config :: configFragment"/>
+    <head th:replace="fragments/config :: configFragment" />
 
     <body>
         <header th:replace="fragments/header :: headerFragment"></header>
@@ -94,10 +94,11 @@
         <!-- contact-us event -->
         <script>
             function fnMove(){
-                var offset = $("#contactus").offset();
+                let offset = $("#contactus").offset();
                 $('html, body').animate({scrollTop : offset.top}, 700);
             }
         </script>
+
         <!-- contact-us event end -->
         <footer th:replace="fragments/footer :: footerFragment"></footer>
     </body>

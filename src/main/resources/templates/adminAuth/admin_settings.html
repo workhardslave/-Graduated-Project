@@ -73,7 +73,7 @@
 
                 $.ajax({
                     type: 'PUT',
-                    url: '/api/admin/settings/' + id,
+                    url: '/api/member/settings/' + id,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(data)
@@ -95,7 +95,7 @@
 
                 $.ajax({
                     type: 'DELETE',
-                    url: '/api/admin/delete/' + id,
+                    url: '/api/member/delete/' + id,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8'
                 }).done(function() {

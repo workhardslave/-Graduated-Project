@@ -1,31 +1,26 @@
 package com.example.demo.member.controller;
 
 
-import com.example.demo.member.dao.MemberRepository;
+
 import com.example.demo.member.service.MemberService;
-import com.example.demo.member.vo.Member;
 import com.example.demo.member.vo.MemberUpdateRequestDto;
-import com.example.demo.overlap.Address;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
+
 import java.security.Principal;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Slf4j
 public class MemberApiController {
 
-    FindByIndexNameSessionRepository sessionRepository;
+    private final FindByIndexNameSessionRepository sessionRepository;
 
-    MemberService memberService;
+    private final  MemberService memberService;
 
-    MemberRepository memberRepository;
-
-    HttpSession session;
 
     // 회원이 직접정보를 수정하는 API
     @PutMapping("/api/member/settings/{id}")
@@ -64,4 +59,5 @@ public class MemberApiController {
 
         return memberService.validateDuplicateMember(user_email);
     }
+
 }
