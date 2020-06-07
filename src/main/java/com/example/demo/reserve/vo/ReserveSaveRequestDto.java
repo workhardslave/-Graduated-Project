@@ -41,10 +41,8 @@ public class ReserveSaveRequestDto {
                 .name(name)
                 .date(date)
                 .address(address)
-                .op_time(op_time)
                 .tel(tel)
                 .description(description)
-                .dog(dog)
                 .build();
     }
 }
