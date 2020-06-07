@@ -1,4 +1,4 @@
-package com.example.demo.reserve.dao;
+package com.example.demo.reserve.repository;
 
 import com.example.demo.member.vo.Member;
 import com.example.demo.reserve.vo.Reserve;

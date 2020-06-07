@@ -1,16 +1,12 @@
 package com.example.demo.reserve.service;
 
 import com.example.demo.member.vo.Member;
-import com.example.demo.member.vo.MemberSaveRequestDto;
-import com.example.demo.member.vo.Role;
-import com.example.demo.reserve.dao.ReserveRepository;
+import com.example.demo.reserve.repository.ReserveRepository;
 import com.example.demo.reserve.vo.Reserve;
 import com.example.demo.reserve.vo.ReserveResponseDto;
 import com.example.demo.reserve.vo.ReserveSaveRequestDto;
 import com.example.demo.reserve.vo.ReserveUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,14 +17,26 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ReserveService {
 
-    @Autowired
-    ReserveRepository reserveRepository;
+    private final ReserveRepository reserveRepository;
 
 
     //사용자가 본인의 병원예약정보조회
     @Transactional(readOnly = true)
     public List<ReserveResponseDto> findAllDesc(Member member) {
         return reserveRepository.findAllDesc(member).stream()
+                .map(ReserveResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public Long save(ReserveSaveRequestDto Dto) {
+        return reserveRepository.save(Dto.toEntity()).getId();
+    }
+
+    //관리자가 모든 예약정보 조회
+    @Transactional(readOnly = true)
+    public List<ReserveResponseDto> findAll() {
+        return reserveRepository.findAll().stream()
                 .map(ReserveResponseDto::new)
                 .collect(Collectors.toList());
     }

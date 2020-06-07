@@ -3,6 +3,7 @@ package com.example.demo.disease.controller;
 import com.example.demo.disease.dto.DiseaseCountDto;
 import com.example.demo.disease.service.DiseaseService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,11 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.*;
 
 @Controller
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Slf4j
 public class DiseaseController {
 
-    DiseaseService diseaseService;
+    private final DiseaseService diseaseService;
     
     // 반려견 질병 정보 조회 페이지
     @GetMapping("/admin/disease/info")

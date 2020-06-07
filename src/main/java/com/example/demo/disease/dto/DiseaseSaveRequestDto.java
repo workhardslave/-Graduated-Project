@@ -4,7 +4,6 @@ import lombok.*;
 
 @NoArgsConstructor
 @Getter
-@Setter
 public class DiseaseSaveRequestDto {
 
     private String name;

@@ -3,7 +3,6 @@ package com.example.demo.disease.dto;
 import lombok.*;
 
 @Getter
-@Setter
 public class DiseaseResponseDto {
 
     private String name;

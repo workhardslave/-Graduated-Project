@@ -1,12 +1,10 @@
-package com.example.demo.dog.dto;
+package com.example.demo.dog.vo;
 
 
 import com.example.demo.member.vo.Member;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class DogResponseDto {
     private Long id;
     private Member member;

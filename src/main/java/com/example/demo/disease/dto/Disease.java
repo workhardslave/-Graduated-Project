@@ -1,7 +1,4 @@
 package com.example.demo.disease.dto;
-
-import com.example.demo.dog.dto.Dog;
-import com.example.demo.overlap.BaseTimeEntity;
 import lombok.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -12,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.*;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 @ToString

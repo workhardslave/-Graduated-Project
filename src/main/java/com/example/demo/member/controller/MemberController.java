@@ -1,47 +1,42 @@
-package com.example.demo.controller;
+package com.example.demo.member.controller;
 
-
-import com.example.demo.admin.dao.AdminRepository;
-import com.example.demo.admin.service.AdminService;
-import com.example.demo.admin.vo.Admin;
-import com.example.demo.admin.vo.AdminResponseDto;
-import com.example.demo.member.controller.MemberForm;
-import com.example.demo.member.dao.MemberRepository;
+import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.member.vo.Member;
 import com.example.demo.member.vo.MemberResponseDto;
 import com.example.demo.member.vo.MemberSaveRequestDto;
 import com.example.demo.overlap.Address;
-
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
-@Controller
+/**
+ * 세션부분 추후 @Aspect 적용하기.
+ * */
 @Slf4j
-@AllArgsConstructor
-public class HomeController {
+@RequiredArgsConstructor
+@Controller
+public class MemberController {
 
-    MemberRepository memberRepository;
-    MemberService memberService;
+    private final MemberRepository memberRepository;
+    private final MemberService memberService;
 
-    AdminRepository adminRepository;
-    AdminService adminService;
 
     // 회원 메인 홈
     @RequestMapping("/")
     public String home(){
         log.info("home logger");
-
         return "home";
     }
 
@@ -63,14 +58,15 @@ public class HomeController {
         Address address = new Address(form.getCity(),
                 form.getZipcode(),form.getStreet());
         MemberSaveRequestDto member = new MemberSaveRequestDto();
-        member.setName(form.getName());
-        member.setAddress(address);
-        member.setBirth(form.getBirth());
-        member.setEmail(form.getEmail());
-        member.setPassword(form.getPassword());
-        member.setPhone(form.getPhone());
 
-        memberService.SignUp(member);
+        memberService.SignUp(member.builder()
+                .name(form.getName())
+                .address(address)
+                .birth(form.getBirth())
+                .email(form.getEmail())
+                .password(form.getPassword())
+                .phone(form.getPhone())
+                .build());
 
         return "memberAuth/signIn";
     }
@@ -86,7 +82,7 @@ public class HomeController {
 
     @GetMapping("/member/mypage")
     public String readMyData(Model model, Principal principal) {
-        Member member = memberRepository.findEmailCheck(principal.getName());
+        Member member = memberRepository.findEmailCheck(principal.getName()); //추후 ASPECT 적용대상
 
         if(member != null) {
             model.addAttribute("member", member);
@@ -100,9 +96,8 @@ public class HomeController {
     public String updateForm(@PathVariable Long id, Model model) {
         log.info("id : " +id);
         MemberResponseDto dto = memberService.findById(id);
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         model.addAttribute("member", dto);
-        System.out.println(dto.getPassword());
+        log.info(dto.getPassword());
 
         return "memberAuth/settings";
     }
@@ -112,10 +107,9 @@ public class HomeController {
     public String detailList(@PathVariable Long id, Model model){
 
         MemberResponseDto dto = memberService.findById(id);
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        model.addAttribute("member", dto);
-        System.out.println(dto.getPassword());
 
+        model.addAttribute("member", dto);
+        log.info(dto.getPassword());
         return "admin/settings";
     }
 
@@ -128,13 +122,16 @@ public class HomeController {
 
     // 회원 로그인 결과
     @GetMapping("/member/login/result")
-    public String dispLoginResult() {
+    public String dispLoginResult()
+    {
         return "home";
     }
 
+
     // 회원 로그아웃
     @GetMapping("/member/logout/result")
-    public String dispLogout() {
+    public String dispLogout()
+    {
 
         return "home";
     }
@@ -143,12 +140,10 @@ public class HomeController {
     @GetMapping("/admin/mypage")
     public String readAdminMyDate(Model model, Principal principal) {
 
-        Member admin = memberRepository.findEmailCheck(principal.getName());
-
+        Member admin = memberRepository.findEmailCheck(principal.getName()); //추후 ASPECT 적용대상E
         if(admin != null) {
             model.addAttribute("admin", admin);
         }
-
         return "adminAuth/admin_myPage";
     }
 
@@ -164,15 +159,4 @@ public class HomeController {
         return "adminAuth/admin_settings";
     }
 
-    // 병원 추천 페이지
-    @GetMapping("/member/recommendation")
-    public String recommendation(Model model, Principal principal) {
-        Member member = memberRepository.findEmailCheck(principal.getName());
-
-        if(member != null) {
-            model.addAttribute("member", member);
-        }
-
-        return "members/recommends/recommendation";
-    }
 }

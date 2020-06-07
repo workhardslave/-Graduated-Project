@@ -1,14 +1,11 @@
-package com.example.demo.dog.dto;
+package com.example.demo.dog.vo;
 
 import com.example.demo.member.vo.Member;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import javax.swing.*;
 
 @Getter
-@Setter
-@NoArgsConstructor
 public class DogUpdateRequestDto {
     private Member member;
     private String name;

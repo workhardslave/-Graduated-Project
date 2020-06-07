@@ -1,6 +1,6 @@
 package com.example.demo.member.service;
 
-import com.example.demo.member.dao.MemberRepository;
+import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.vo.Member;
 import com.example.demo.member.vo.MemberSaveRequestDto;
 import com.example.demo.member.vo.MemberUpdateRequestDto;
@@ -9,11 +9,12 @@ import com.example.demo.member.vo.MemberUpdateRequestDto;
 import com.example.demo.member.vo.MemberResponseDto;
 import com.example.demo.member.vo.Role;
 
-import net.minidev.json.JSONObject;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import lombok.RequiredArgsConstructor;
 
-import org.slf4j.Logger;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -30,10 +31,10 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
-    private Logger logger = LoggerFactory.getLogger(MemberService.class);
 
 
     //회원가입 아이디 중복체크
@@ -45,16 +46,16 @@ public class MemberService implements UserDetailsService {
         HashMap<String, String> hashMap = new HashMap<>();
 
         String[] entry = value.split(":");
-//        System.out.println("키값확인0"+entry[0]);
-//        System.out.println("키값확인1"+entry[1]);
+//        log.info("키값확인0"+entry[0]);
+//        log.info("키값확인1"+entry[1]);
         hashMap.put(entry[0].trim(), entry[1].trim());
-//        System.out.println("맵값확인"+hashMap.values().toString());
+//        log.info("맵값확인"+hashMap.values().toString());
         String value2 = hashMap.values().toString().substring(2, hashMap.values().toString().length()-2);
-//        System.out.println("맵값확인1"+value2);
+//        log.info("맵값확인1"+value2);
 
         Member findMember = memberRepository.findEmailCheck(value2);
 
-//        System.out.println(findMember.getEmail());
+
         if (findMember!=null) {
 //            throw new IllegalStateException("회원가입된 사람입니다.");
             return 1;
@@ -66,18 +67,17 @@ public class MemberService implements UserDetailsService {
     // 회원가입
     @Transactional
     public Long SignUp(MemberSaveRequestDto memberDto) {
-//        validateDuplicateMember(memberDto.toEntity());
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
-        memberDto.setRole(Role.GUEST);
-        //memberDto.setRole(Role.ADMIN);
+        memberDto.SHA256_PassWord(passwordEncoder.encode(memberDto.getPassword()));
+//        memberDto.GIVE_Role(Role.GUEST);
+        memberDto.GIVE_Role(Role.ADMIN);
 
         return memberRepository.save(memberDto.toEntity()).getId();
     }
 
     @Override
     public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
-        Member userEntityWrapper = memberRepository.findEmailCheck(userEmail); //이메일 값 반환
+        Member userEntityWrapper = memberRepository.findEmailCheck(userEmail);
         if(userEntityWrapper == null ){
             throw new UsernameNotFoundException("User not authorized.");
         }
@@ -85,7 +85,7 @@ public class MemberService implements UserDetailsService {
         GrantedAuthority authority = new SimpleGrantedAuthority(userEntityWrapper.getRole().getValue());
         UserDetails userDetails = (UserDetails)new User(userEntityWrapper.getEmail(),
                 userEntityWrapper.getPassword(), Arrays.asList(authority));
-        logger.info(userDetails.getPassword());
+        log.info(userDetails.getPassword());
 
         return userDetails;
     }
@@ -95,12 +95,11 @@ public class MemberService implements UserDetailsService {
     public Long update(Long id, MemberUpdateRequestDto requestDto) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + id));
-
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        System.out.println("입력한 : "+ requestDto.getPassword());
-        System.out.println("본래 : " +member.getPassword());
-        System.out.println(member.getPassword().getClass());
-        System.out.println(requestDto.getPassword().getClass());
+        log.info("입력한 : " + requestDto.getPassword());
+        log.info("본래 : " +member.getPassword());
+        log.info("password : " + member.getPassword().getClass());
+        log.info("dto pwd class : " + requestDto.getPassword().getClass());
 
         if(!requestDto.getPassword().equals(member.getPassword())) {
             System.out.println("패스워드가 다른 경우 암호화 시킨 후 저장한다!!");
@@ -138,7 +137,7 @@ public class MemberService implements UserDetailsService {
     @Transactional(readOnly = true)
     public MemberResponseDto findById(Long id) {
         Member entity = memberRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + id));
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자 or 관리자가 없습니다. id=" + id));
 
         return new MemberResponseDto(entity);
     }
@@ -147,7 +146,7 @@ public class MemberService implements UserDetailsService {
     @Transactional
     public void delete (Long id) {
         Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자 or 관리자가 없습니다. id=" + id));
         memberRepository.delete(member);
     }
 
@@ -157,4 +156,6 @@ public class MemberService implements UserDetailsService {
                 .map(MemberResponseDto::new)
                 .collect(Collectors.toList());
     }
+
+
 }

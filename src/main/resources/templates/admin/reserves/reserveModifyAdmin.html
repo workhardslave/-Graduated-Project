@@ -17,52 +17,54 @@
                     <input type="text" id="hosName" th:field="${reserve.name}" class="form-control" readonly required>
                 </div>
 
-
-
-                <div class="form-option">
-                    <label th:for="date">예약시간</label>
-                    <select id = "hosDate" th:field="${reserve.date}">
-                        <option th:value="'10:00~11:00'">10:00~11:00</option>
-                        <option th:value="'11:00~12:00'">11:00~12:00</option>
-                        <option th:value="'14:00~15:00'">14:00~15:00</option>
-                        <option th:value="'15:00~16:00'">15:00~16:00</option>
-                        <option th:value="'16:00~17:00'">16:00~17:00</option>
-                        <option th:value="'17:00~18:00'">17:00~18:00</option>
-                    </select>
-                </div>
-
-
-                <div class="form-group">
-                    <label th:for="birth">병원주소</label>
-                    <input type="text" id="hosAddr" th:field="${reserve.address}" class="form-control" readonly required>
-                </div>
-
-                <div class="form-group">
-                    <label th:for="phone">전화번호</label>
-                    <input type="text" id="hosTel" th:field="${reserve.tel}" class="form-control"
-                           maxlength="11" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" readonly required>
-                </div>
-
-
-                <div class="form-group">
-                    <label th:for="birth">예약내용</label>
-                    <input type="text" id="hosDesc" th:field="${reserve.description}" class="form-control" required>
-                </div>
-                <br/>
-
-                <div class="container-login100-form-btn">
-                    <div class="wrap-login100-form-btn">
-                        <div class="login100-form-bgbtn"></div>
-                        <a th:href="'javascript:updateReserve()'" class="login100-form-btn">수정하기</a>
+                <div>
+                    <div class="form-option">
+                        <label th:for="date">예약시간</label>
+                        <select id = "hosDate" th:field="${reserve.date}">
+                            <option th:value="'10:00~11:00'">10:00~11:00</option>
+                            <option th:value="'11:00~12:00'">11:00~12:00</option>
+                            <option th:value="'14:00~15:00'">14:00~15:00</option>
+                            <option th:value="'15:00~16:00'">15:00~16:00</option>
+                            <option th:value="'16:00~17:00'">16:00~17:00</option>
+                            <option th:value="'17:00~18:00'">17:00~18:00</option>
+                        </select>
                     </div>
-                </div>
-                <br/>
-                <div class="container-login100-form-btn">
-                    <div class="wrap-login100-form-btn">
-                        <div class="login100-form-bgbtn"></div>
-                        <a th:href="'javascript:deleteReserve()'" class="login100-form-btn">삭제하기</a>
+
+                    <div class="form-group">
+                        <label th:for="birth">병원주소</label>
+                        <input type="text" id="hosAddr" th:field="${reserve.address}" class="form-control" readonly required>
                     </div>
-                </div>
+
+                    <div class="form-group">
+                        <label th:for="phone">전화번호</label>
+                        <input type="text" id="hosTel" th:field="${reserve.tel}" class="form-control"
+                               maxlength="11" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" readonly required>
+                    </div>
+
+<!--                    <div class="form-group">-->
+<!--                        <label th:for="birth">영업시간</label>-->
+<!--                        <input type="text" id="hosOptime" th:field="${reserve.op_time}" class="form-control" readonly required>-->
+<!--                    </div>-->
+
+                    <div class="form-group">
+                        <label th:for="birth">예약내용</label>
+                        <input type="text" id="hosDesc" th:field="${reserve.description}" class="form-control" required>
+                    </div>
+                    <br/>
+
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <a th:href="'javascript:updateReserve()'" class="login100-form-btn">수정하기</a>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <a th:href="'javascript:deleteReserve()'" class="login100-form-btn">삭제하기</a>
+                        </div>
+                    </div>
             </form>
         </div>
     </div>
@@ -84,14 +86,14 @@
 
         $.ajax({
             type: 'PUT',
-            url: '/api/member/reserve/settings/' + id,
+            url: '/api/admin/reserve/settings/' + id,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function() {
             console.log(data);
             alert('정보수정 되었습니다!');
-            window.location.href = "/member/reservesInfo";
+            window.location.href = "/admin/reserves/";
         }).fail(function(request, status, error) {
             alert(JSON.stringify(error));
             window.location.href = "/member/reserves/settings/" + id;
@@ -108,13 +110,13 @@
 
         $.ajax({
             type: 'DELETE',
-            url: '/api/member/reserve/delete/' + id,
+            url: '/api/admin/reserve/delete/' + id,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8'
         }).done(function () {
             console.log(name);
             alert('삭제 되었습니다.');
-            window.location.href = '/member/reservesInfo/';
+            window.location.href = '/admin/reserves/';
         }).fail(function (request, status, error) {
             alert(JSON.stringify(error));
             alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);

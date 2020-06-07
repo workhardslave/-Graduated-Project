@@ -20,7 +20,7 @@ public class ReserveSaveRequestDto implements Serializable {
     }
 
     @Builder
-    public ReserveSaveRequestDto(Member member, String date, String description, String name, String address, String tel) {
+    public ReserveSaveRequestDto(Member member, String date, String description, String name, String address, String tel, String op_time,String dog) {
         this.member = member;
         this.date = date;
         this.description = description;
@@ -32,11 +32,11 @@ public class ReserveSaveRequestDto implements Serializable {
     public Reserve toEntity(){
         return Reserve.builder()
                 .member(member)
-                .date(date)
-                .description(description)
                 .name(name)
+                .date(date)
                 .address(address)
                 .tel(tel)
+                .description(description)
                 .build();
     }
 }

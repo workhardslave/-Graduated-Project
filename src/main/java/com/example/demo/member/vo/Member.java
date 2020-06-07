@@ -1,10 +1,9 @@
 package com.example.demo.member.vo;
 
 
-import com.example.demo.dog.dto.Dog;
+import com.example.demo.dog.vo.Dog;
 import com.example.demo.overlap.Address;
 import com.example.demo.overlap.BaseTimeEntity;
-import com.example.demo.reserve.vo.Reserve;
 import lombok.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -16,11 +15,10 @@ import java.util.List;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
-@ToString
 public class Member extends BaseTimeEntity {
+
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
