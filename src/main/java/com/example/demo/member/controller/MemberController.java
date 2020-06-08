@@ -8,19 +8,22 @@ import com.example.demo.member.vo.MemberSaveRequestDto;
 import com.example.demo.overlap.Address;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.minidev.json.JSONObject;
+import org.springframework.http.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.List;
 
+import java.util.Arrays;
+import java.util.List;
 /**
  * 세션부분 추후 @Aspect 적용하기.
  * */
@@ -32,13 +35,38 @@ public class MemberController {
     private final MemberRepository memberRepository;
     private final MemberService memberService;
 
-
-    // 회원 메인 홈
+//     회원 메인 홈
     @RequestMapping("/")
     public String home(){
         log.info("home logger");
         return "home";
     }
+
+//
+////    @RequestMapping(value = "/post_test2",method = RequestMethod.POST)
+//@RequestMapping(value = "/post_test2",method = RequestMethod.POST)
+//public Object post_test2()
+//{
+//    // url
+//    String url = "http://127.0.0.1:9001/test";
+//    // headers
+//    HttpHeaders headers = new HttpHeaders();
+//
+//    headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+//    // body
+//    MultiValueMap<String, String> postData = new LinkedMultiValueMap<>();
+//    postData.add("data", "I m fine.");
+//    //String postData = "data=I m fine. Are you?";
+//    HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(postData, headers);
+//
+//    //String answer = restTemplate.postForObject(url, entity, String.class);
+//    //postData.put("data", "I m fine. Are you?");
+//    JSONObject json = restTemplate.postForEntity(url, postData, JSONObject.class).getBody();
+//    return json.toJSONString();
+//    //return answer;
+//}
+
+
 
     // 회원가입
     @GetMapping("/member/signup")
@@ -158,5 +186,9 @@ public class MemberController {
 
         return "adminAuth/admin_settings";
     }
+
+
+
+
 
 }
