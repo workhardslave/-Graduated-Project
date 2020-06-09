@@ -17,9 +17,9 @@
                 </div>
 
                 <div class="form-option">
-                    <select id="dogs" th:each="dog : ${dogs}">
-                        <option th:text="${dog.name}"></option>
-                </select>
+                    <td id="dogs" th:each="dog : ${dogs}">
+                        <input type='checkbox' name='gender' value='female' th:text="${dog.name}" />
+                    </td>
                 </div>
 
                 <div>

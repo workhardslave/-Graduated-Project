@@ -1,13 +1,13 @@
-package com.example.demo.member.vo;
+package com.example.demo.disease.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.http.*;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
@@ -15,10 +15,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 
-
 @RestController
-public class controller {
-
+@RequiredArgsConstructor
+public class DiseaseApiController {
 
     @GetMapping("/abc")
     public String callAPI() throws JsonProcessingException {
@@ -35,8 +34,6 @@ public class controller {
             HttpEntity<?> entity = new HttpEntity<>(header); //값받기
 
             String url = "http://localhost:80/test";
-
-//            UriComponents uri = UriComponentsBuilder.fromHttpUrl(url+"?"+"key=430156241533f1d058c603178cc3ca0e&targetDt=20120101").build();
 
             ResponseEntity<Object> resultMap = restTemplate.exchange(url, HttpMethod.GET, entity, Object.class);
             result.put("Statuscode", resultMap.getStatusCodeValue());
@@ -58,23 +55,6 @@ public class controller {
         System.out.println("확인해보기");
         System.out.println(jsonInString);
         return jsonInString;
-
-    }
-
-    @PostMapping("/put")
-    public void callAPI_put() throws JsonProcessingException {
-
-        RestTemplate restTemplate = new RestTemplate();
-        String url = "http://localhost:80/test";
-        String name = "abc";
-        String password="1234";
-
-        MultiValueMap<String,String> parameters = new LinkedMultiValueMap<String, String>();
-        parameters.add("j_username", name);
-        parameters.add("j_password", password);
-        ResponseEntity<String> responseEntity = restTemplate.postForEntity(url,parameters,String.class);
-        System.out.println("--------------------------");
-        System.out.println(responseEntity);
 
     }
 }
