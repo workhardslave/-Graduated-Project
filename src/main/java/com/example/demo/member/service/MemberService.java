@@ -69,8 +69,8 @@ public class MemberService implements UserDetailsService {
     public Long SignUp(MemberSaveRequestDto memberDto) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         memberDto.SHA256_PassWord(passwordEncoder.encode(memberDto.getPassword()));
-//        memberDto.GIVE_Role(Role.GUEST);
-        memberDto.GIVE_Role(Role.ADMIN);
+        memberDto.GIVE_Role(Role.GUEST);
+//        memberDto.GIVE_Role(Role.ADMIN);
 
         return memberRepository.save(memberDto.toEntity()).getId();
     }

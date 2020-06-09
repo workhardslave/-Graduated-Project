@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @RequiredArgsConstructor
-public class Reserve {
+public class Reserve  {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
