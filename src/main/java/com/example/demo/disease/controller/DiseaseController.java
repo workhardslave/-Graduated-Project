@@ -80,6 +80,7 @@ public class DiseaseController {
     @PostMapping("/api/disease/form")
     public String callAPI_put(@Valid DiseaseForm form) throws JsonProcessingException {
 
+        String jsonInString = "";
         RestTemplate restTemplate = new RestTemplate();
         String url = "http://localhost:80/test";
 
@@ -91,10 +92,10 @@ public class DiseaseController {
         parameters.add("증상5", form.getName5());
 
 
+        //플라스크에 값을 던져준다.
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(url,parameters,String.class);
-        System.out.println("--------------------------");
-        System.out.println(responseEntity);
-        return "home";
+
+        return "redirect:/member/recommendation";
 
     }
 

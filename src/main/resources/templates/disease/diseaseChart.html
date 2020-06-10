@@ -18,7 +18,7 @@
 
                 <div class="form-option">
                     <td id="dogs" th:each="dog : ${dogs}">
-                        <input type='checkbox' name='gender' value='female' th:text="${dog.name}" />
+                        <input type='checkbox' th:field="*{choice}" name='gender' th:value="${dog.name}" th:text="${dog.name}" />
                     </td>
                 </div>
 
@@ -29,7 +29,7 @@
                     <select th:field="*{name1}">
                         <option th:value="'아픔'">아픔</option>
                         <option th:value="'아픔1'">아픔1</option>
-                        <option th:value="'설사'">설사</option>
+                        <option th:value="'구토'">구토</option>
                         <option th:value="'아픔3'">아픔3</option>
                         <option th:value="'아픔4'">아픔4</option>
                     </select>
@@ -38,7 +38,7 @@
                 <div class="form-option">
                     <select th:field="*{name2}">
                         <option th:value="'아픔'">아픔</option>
-                        <option th:value="'절름발이'">절름발이</option>
+                        <option th:value="'요실금'">요실금</option>
                         <option th:value="'아픔2'">아픔2</option>
                         <option th:value="'아픔3'">아픔3</option>
                         <option th:value="'아픔4'">아픔4</option>
@@ -58,7 +58,7 @@
                 <div class="form-option">
                     <select th:field="*{name4}">
                         <option th:value="'아픔'">아픔</option>
-                        <option th:value="'열'">열</option>
+                        <option th:value="'발열'">발열</option>
                         <option th:value="'아픔2'">아픔2</option>
                         <option th:value="'아픔3'">아픔3</option>
                         <option th:value="'아픔4'">아픔4</option>
@@ -69,7 +69,7 @@
                     <select th:field="*{name5}">
                         <option th:value="'아픔'">아픔</option>
                         <option th:value="'아픔1'">아픔1</option>
-                        <option th:value="'콧물'">콧물</option>
+                        <option th:value="'난청'">난청</option>
                         <option th:value="'아픔3'">아픔3</option>
                         <option th:value="'아픔4'">아픔4</option>
                     </select>
