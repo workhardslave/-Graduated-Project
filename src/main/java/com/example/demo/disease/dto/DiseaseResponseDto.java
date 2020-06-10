@@ -6,12 +6,12 @@ import lombok.*;
 public class DiseaseResponseDto {
 
     private String name;
-    private String type;
     private String symptom;
+    private String type;
 
     public DiseaseResponseDto(Disease entity) {
         this.name = entity.getName();
-        this.type = entity.getType();
         this.symptom = entity.getSymptom();
+        this.type = entity.getType();
     }
 }

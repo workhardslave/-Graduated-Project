@@ -24,14 +24,14 @@ public class Disease {
 //    private Dog dog;
 
     private String name;            // 질병명
-    private String type;            // 질병종류
     private String symptom;         // 질병증상
+    private String type;            // 질병종류
 
     @Builder
-    public Disease(Long id, String name, String type, String symptom) {
+    public Disease(Long id, String name, String symptom, String type) {
         this.id = id;
         this.name = name;
-        this.type = type;
         this.symptom = symptom;
+        this.type = type;
     }
 }
