@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/config :: configFragment"/>
+<head th:replace="fragments/config :: configFragment">
+</head>
 <body>
 <header th:replace="fragments/header :: headerFragment"></header>
 
@@ -17,71 +18,46 @@
                 </div>
 
                 <div class="form-option">
+                    <select id="dogs" th:field="*{choice}">
+                        <option th:each="dog : ${dogs}" th:value="${dog.name}" th:text="${dog.name}"></option>
+                    </select>
+                </div>
+
+             <!--   <div class="form-option">
                     <td id="dogs" th:each="dog : ${dogs}">
                         <input type='checkbox' th:field="*{choice}" name='gender' th:value="${dog.name}" th:text="${dog.name}" />
                     </td>
-                </div>
+                </div> -->
 
                 <div>
-                    <label th:for="name">증상 5개를 선택해주세요!</label>
+                    <label th:for="symptom">증상 5개를 선택해주세요!</label>
                 </div>
                 <div class="form-option">
-                    <select th:field="*{name1}">
-                        <option th:value="'아픔'">아픔</option>
-                        <option th:value="'아픔1'">아픔1</option>
-                        <option th:value="'구토'">구토</option>
-                        <option th:value="'아픔3'">아픔3</option>
-                        <option th:value="'아픔4'">아픔4</option>
-                    </select>
-                </div>
-
-                <div class="form-option">
-                    <select th:field="*{name2}">
-                        <option th:value="'아픔'">아픔</option>
-                        <option th:value="'요실금'">요실금</option>
-                        <option th:value="'아픔2'">아픔2</option>
-                        <option th:value="'아픔3'">아픔3</option>
-                        <option th:value="'아픔4'">아픔4</option>
-                    </select>
-                </div>
-
-                <div class="form-option">
-                    <select th:field="*{name3}">
-                        <option th:value="'아픔'">아픔</option>
+                    <select id="multi-select" multiple="multiple" th:field="*{symptom}">
+                        <option th:value="'과호흡'">과호흡</option>
+                        <option th:value="'급사'">급사</option>
                         <option th:value="'기침'">기침</option>
-                        <option th:value="'아픔2'">아픔2</option>
-                        <option th:value="'아픔3'">아픔3</option>
-                        <option th:value="'아픔4'">아픔4</option>
-                    </select>
-                </div>
-
-                <div class="form-option">
-                    <select th:field="*{name4}">
-                        <option th:value="'아픔'">아픔</option>
+                        <option th:value="'염증'">염증</option>
+                        <option th:value="'구토'">구토</option>
+                        <option th:value="'탈모'">탈모</option>
+                        <option th:value="'무기력'">무기력</option>
                         <option th:value="'발열'">발열</option>
-                        <option th:value="'아픔2'">아픔2</option>
-                        <option th:value="'아픔3'">아픔3</option>
-                        <option th:value="'아픔4'">아픔4</option>
-                    </select>
-                </div>
-
-                <div class="form-option">
-                    <select th:field="*{name5}">
-                        <option th:value="'아픔'">아픔</option>
-                        <option th:value="'아픔1'">아픔1</option>
+                        <option th:value="'녹내장'">녹내장</option>
+                        <option th:value="'거리감각불능'">거리감각불능</option>
                         <option th:value="'난청'">난청</option>
-                        <option th:value="'아픔3'">아픔3</option>
-                        <option th:value="'아픔4'">아픔4</option>
+                        <option th:value="'요실금'">요실금</option>
+                        <option th:value="'설사'">설사</option>
+                        <option th:value="'식욕부진'">식욕부진</option>
+                        <option th:value="'체중감소'">체중감소</option>
                     </select>
-                </div>
-
+                </div><br/>
 
                 <div class="container-login100-form-btn">
                     <div class="wrap-login100-form-btn">
                         <div class="login100-form-bgbtn"></div>
-                        <button class="login100-form-btn" type="submit">
-                            증상 보내기
-                        </button>
+                            <button class="login100-form-btn" type="submit">
+                                증상 보내기
+                            </button>
                     </div>
                 </div>
             </form>
@@ -91,9 +67,54 @@
 
 
 <div id="dropDownSelect1"></div>
-
 <!--===============================================================================================-->
 <script src="../../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/../../static/js/multiselect.js"></script>
+<script>
+    $('#multi-select').multiselect({width:'250px'});
+</script>
+<!--<script>-->
+<!--    var buttonDiv = document.createElement("div");-->
+<!--    buttonDiv.className = 'container-login100-form-btn';-->
+
+<!--    var buttonDiv2 = document.createElement("div");-->
+<!--    buttonDiv2.className = 'wrap-login100-form-btn';-->
+<!--    buttonDiv.appendChild(buttonDiv2);-->
+
+<!--    var buttonDiv3 = document.createElement("div");-->
+<!--    buttonDiv3.className = 'login100-form-bgbtn';-->
+<!--    buttonDiv2.appendChild(buttonDiv3);-->
+
+<!--    var buttonSubmit = document.createElement("button");-->
+<!--    buttonSubmit.className = 'login100-form-btn';-->
+<!--    buttonSubmit.type = 'submit';-->
+
+<!--    let cnt = 0;-->
+
+<!--    $(function() {-->
+<!--        console.log("먹니?");-->
+
+<!--        $("#add").click(function () {-->
+<!--            $("#symptom option:selected").each(function() {-->
+<!--                $(this).appendTo("#sympmtom2");-->
+<!--                cnt += 1;-->
+<!--            });-->
+
+<!--            alert(cnt);-->
+<!--            if(!(cnt < 3 || cnt > 5)) {-->
+<!--                buttonDiv2.innerHTML = buttonSubmit;-->
+<!--            }-->
+<!--        });-->
+
+<!--        $("#del").click(function() {-->
+<!--            $("#symptom2 option:selected").each(function(){-->
+
+<!--                $(this).appendTo("#symptom");-->
+<!--                cnt -= 1;-->
+<!--            })-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
 <!--===============================================================================================-->
 <script src="../../../static/vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
