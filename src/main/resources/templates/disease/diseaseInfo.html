@@ -10,18 +10,21 @@
                 <div class="row align-items-center align-content-between">
                     <table id="diseaseTable">
                         <tbody id="diseaseList">
-                            <tr th:each="disease : ${diseases}" hidden="true">
-                                <td th:text="${disease.type}" id="diseaseType"></td>
-                                <td th:text="${disease.count}" id="typeCount"></td>
+                            <tr th:each="disease : ${diseases}" class="diseaseTR" hidden="true">
+                                <td th:text="${disease.type}"></td>
+                                <td th:text="${disease.count}"></td>
                             </tr>
 
-                            <tr th:each="disease : ${diseasesAll}">
-
+                            <tr th:each="di : ${dis}" class="diTR" hidden="true">
+                                <td th:text="${di.name}"></td>
+                                <td th:text="${di.type}"></td>
                             </tr>
                         </tbody>
                     </table>
+
+
                     <div class="col-md-6" id="diagPieChart" style="width: 900px; height: 500px;"></div>
-                    <div class="col-md-6" id="diagTreemap" style="width: 900px; height: 500px;"></div>
+                    <div class="col-md-6" id="diagTreeMap" style="width: 900px; height: 500px;"></div>
 <!--                    <div class="col-md-6" id="diagHistogram" style="width: 900px; height: 500px;"></div>-->
                     <div class="col-md-6" id="diagBarChart" style="width: 900px; height: 500px;"></div>
                     <div class="col-md-6" id="diagStepChart" style="width: 900px; height: 500px;"></div>
@@ -36,22 +39,35 @@
 
             function drawPieChart() {
 
-                let diseaseRows = document.getElementsByTagName("tr");
+                // let diseaseRows = document.getElementsByTagName("tr");
+
+                let diseaseBody = document.getElementsByTagName("tbody");
+                console.log(diseaseBody[0].children[0]);
+                console.log(diseaseBody[0].children[1]);
+                console.log(diseaseBody[0].children[4]);
+
+                let diseaseTR = document.getElementsByClassName("diseaseTR");
+                console.log("몇 개: " + diseaseTR.length);
+
+                console.log(diseaseBody[0].children[0].children[0].textContent);
+                console.log(diseaseBody[0].children[0].children[1].textContent);
 
                 let diseaseType = [];
                 let diseaseCount = [];
-                for(let i = 0; i < diseaseRows.length; i++) {
-                    diseaseType.push(diseaseRows[i].children[0].textContent);
-                    diseaseCount.push(parseInt(diseaseRows[i].children[1].textContent));
+                for(let i = 0; i < diseaseTR.length; i++) {
+                    diseaseType.push(diseaseBody[0].children[i].children[0].textContent);
+                    diseaseCount.push(parseInt(diseaseBody[0].children[i].children[1].textContent));
                 }
-
-                console.log(diseaseType);
-                console.log(diseaseCount);
+                //
+                // for(let i = 0; i < diseaseRows.length; i++) {
+                //     diseaseType.push(diseaseRows[i].children[0].textContent);
+                //     diseaseCount.push(parseInt(diseaseRows[i].children[1].textContent));
+                // }
 
                 let diseaseData = [];
                 diseaseData.push(['질병', '빈도']);
 
-                for(let i = 0; i < diseaseRows.length; i++) {
+                for(let i = 0; i < diseaseTR.length; i++) {
                     let tempData = [];
                     tempData.push(diseaseType[i]);
                     tempData.push(diseaseCount[i]);
@@ -71,42 +87,77 @@
             }
 
             google.charts.load('current', {'packages':['treemap']});
-            google.charts.setOnLoadCallback(drawTreemap);
+            google.charts.setOnLoadCallback(drawTreeMap);
+            function drawTreeMap() {
 
-            function drawTreemap() {
-                var data = google.visualization.arrayToDataTable([
-                    ['질병명', '질병타입', 'Market trade volume (size)', 'Market increase/decrease (color)'],
-                    ['질병',    null,                 0,                               0],
-                    ['America',   'Global',             0,                               0],
-                    ['Europe',    'Global',             0,                               0],
-                    ['Asia',      'Global',             0,                               0],
-                    ['Australia', 'Global',             0,                               0],
-                    ['Africa',    'Global',             0,                               0],
-                    ['Brazil',    'America',            11,                              10],
-                    ['USA',       'America',            52,                              31],
-                    ['Mexico',    'America',            24,                              12],
-                    ['Canada',    'America',            16,                              -23],
-                    ['France',    'Europe',             42,                              -11],
-                    ['Germany',   'Europe',             31,                              -2],
-                    ['Sweden',    'Europe',             22,                              -13],
-                    ['Italy',     'Europe',             17,                              4],
-                    ['UK',        'Europe',             21,                              -5],
-                    ['China',     'Asia',               36,                              4],
-                    ['Japan',     'Asia',               20,                              -12],
-                    ['India',     'Asia',               40,                              63],
-                    ['Laos',      'Asia',               4,                               34],
-                    ['Mongolia',  'Asia',               1,                               -5],
-                    ['Israel',    'Asia',               12,                              24],
-                    ['Iran',      'Asia',               18,                              13],
-                    ['Pakistan',  'Asia',               11,                              -52],
-                    ['Egypt',     'Africa',             21,                              0],
-                    ['S. Africa', 'Africa',             30,                              43],
-                    ['Sudan',     'Africa',             12,                              2],
-                    ['Congo',     'Africa',             10,                              12],
-                    ['Zaire',     'Africa',             8,                               10]
-                ]);
+                let diseaseBody = document.getElementsByTagName("tbody");
+                let diTR = document.getElementsByClassName("diTR");
 
-                tree = new google.visualization.TreeMap(document.getElementById('diagTreemap'));
+                let diseaseTR = document.getElementsByClassName("diseaseTR");
+
+                let diName = [];
+                let diType = [];
+                for(let i = diseaseTR.length; i < diseaseTR.length + diTR.length; i++) {
+                    diName.push(diseaseBody[0].children[i].children[0].textContent);
+                    diType.push(diseaseBody[0].children[i].children[1].textContent);
+                }
+
+                let diData = [];
+                diData.push(['질병명', '질병타입', '크기', '색깔']);
+
+                for(let i = 0; i < diTR.length + 1; i++) {
+                    let tempData = [];
+                    tempData.push(diName[i]);
+                    tempData.push(diType[i]);
+                    tempData.push(0);
+                    tempData.push(0);
+
+                    diData.push(tempData);
+
+                    console.log(diData[i]);
+                }
+
+                for(let j = 0; j < diTR.length + 1; j++) {
+                    // if(0번 1번 같으면)
+                    // tempData[2] += 1;
+
+
+                }
+
+                var data = google.visualization.arrayToDataTable(diData);
+                // var data = google.visualization.arrayToDataTable([
+                //     ['질병명', '질병타입', 'Market trade volume (size)', 'Market increase/decrease (color)'],
+                //     ['Global',    null,                 0,                               0],
+                //     ['America',   'Global',             0,                               0],
+                //     ['Europe',    'Global',             0,                               0],
+                //     ['Asia',      'Global',             0,                               0],
+                //     ['Australia', 'Global',             0,                               0],
+                //     ['Africa',    'Global',             0,                               0],
+                //     ['Brazil',    'America',            11,                              10],
+                //     ['USA',       'America',            52,                              31],
+                //     ['Mexico',    'America',            24,                              12],
+                //     ['Canada',    'America',            16,                              -23],
+                //     ['France',    'Europe',             42,                              -11],
+                //     ['Germany',   'Europe',             31,                              -2],
+                //     ['Sweden',    'Europe',             22,                              -13],
+                //     ['Italy',     'Europe',             17,                              4],
+                //     ['UK',        'Europe',             21,                              -5],
+                //     ['China',     'Asia',               36,                              4],
+                //     ['Japan',     'Asia',               20,                              -12],
+                //     ['India',     'Asia',               40,                              63],
+                //     ['Laos',      'Asia',               4,                               34],
+                //     ['Mongolia',  'Asia',               1,                               -5],
+                //     ['Israel',    'Asia',               12,                              24],
+                //     ['Iran',      'Asia',               18,                              13],
+                //     ['Pakistan',  'Asia',               11,                              -52],
+                //     ['Egypt',     'Africa',             21,                              0],
+                //     ['S. Africa', 'Africa',             30,                              43],
+                //     ['Sudan',     'Africa',             12,                              2],
+                //     ['Congo',     'Africa',             10,                              12],
+                //     ['Zaire',     'Africa',             8,                               10]
+                // ]);
+
+                tree = new google.visualization.TreeMap(document.getElementById('diagTreeMap'));
 
                 tree.draw(data, {
                     minColor: '#f00',
@@ -116,63 +167,63 @@
                     fontColor: 'black',
                     showScale: true
                 });
-
             }
 
-            // google.charts.load("current", {packages:["corechart"]});
-            // google.charts.setOnLoadCallback(drawHistogram);
-            // function drawHistogram() {
-            //
-            //     let diseaseRows = document.getElementsByTagName("tr");
-            //
-            //     let diseaseType = [];
-            //     let diseaseCount = [];
-            //     for(let i = 0; i < diseaseRows.length; i++) {
-            //         diseaseType.push(diseaseRows[i].children[0].textContent);
-            //         diseaseCount.push(parseInt(diseaseRows[i].children[1].textContent));
-            //     }
-            //
-            //     let diseaseData = [];
-            //     diseaseData.push(['질병', '빈도']);
-            //
-            //     for(let i = 0; i < diseaseRows.length; i++) {
-            //         let tempData = [];
-            //         tempData.push(diseaseType[i]);
-            //         tempData.push(diseaseCount[i]);
-            //
-            //         diseaseData.push(tempData);
-            //     }
-            //
-            //     var data = google.visualization.arrayToDataTable(diseaseData);
-            //
-            //     var options = {
-            //         title: '질병 진단 정보 (히스토그램)',
-            //         legend: { position: 'none' },
-            //         colors: ['navy'],
-            //     };
-            //
-            //     var chart = new google.visualization.Histogram(document.getElementById('diagHistogram'));
-            //     chart.draw(data, options);
-            // }
+             // google.charts.load("current", {packages:["corechart"]});
+             // google.charts.setOnLoadCallback(drawHistogram);
+             // function drawHistogram() {
+             //
+             //     let diseaseRows = document.getElementsByTagName("tr");
+             //
+             //     let diseaseType = [];
+             //     let diseaseCount = [];
+             //     for(let i = 0; i < diseaseRows.length; i++) {
+             //         diseaseType.push(diseaseRows[i].children[0].textContent);
+             //         diseaseCount.push(parseInt(diseaseRows[i].children[1].textContent));
+             //     }
+             //
+             //     let diseaseData = [];
+             //     diseaseData.push(['질병', '빈도']);
+             //
+             //     for(let i = 0; i < diseaseRows.length; i++) {
+             //         let tempData = [];
+             //         tempData.push(diseaseType[i]);
+             //         tempData.push(diseaseCount[i]);
+             //
+             //         diseaseData.push(tempData);
+             //     }
+             //
+             //     var data = google.visualization.arrayToDataTable(diseaseData);
+             //
+             //     var options = {
+             //         title: '질병 진단 정보 (히스토그램)',
+             //         legend: { position: 'none' },
+             //         colors: ['navy'],
+             //     };
+             //
+             //     var chart = new google.visualization.Histogram(document.getElementById('diagHistogram'));
+             //     chart.draw(data, options);
+             // }
 
             google.charts.load('current', {packages: ['corechart', 'bar']});
             google.charts.setOnLoadCallback(drawBarChart);
 
             function drawBarChart() {
 
-                let diseaseRows = document.getElementsByTagName("tr");
+                let diseaseBody = document.getElementsByTagName("tbody");
+                let diseaseTR = document.getElementsByClassName("diseaseTR");
 
                 let diseaseType = [];
                 let diseaseCount = [];
-                for(let i = 0; i < diseaseRows.length; i++) {
-                    diseaseType.push(diseaseRows[i].children[0].textContent);
-                    diseaseCount.push(parseInt(diseaseRows[i].children[1].textContent));
+                for(let i = 0; i < diseaseTR.length; i++) {
+                    diseaseType.push(diseaseBody[0].children[i].children[0].textContent);
+                    diseaseCount.push(parseInt(diseaseBody[0].children[i].children[1].textContent));
                 }
 
                 let diseaseData = [];
                 diseaseData.push(['질병', '빈도']);
 
-                for(let i = 0; i < diseaseRows.length; i++) {
+                for(let i = 0; i < diseaseTR.length; i++) {
                     let tempData = [];
                     tempData.push(diseaseType[i]);
                     tempData.push(diseaseCount[i]);
@@ -203,19 +254,20 @@
 
             function drawStepChart() {
 
-                let diseaseRows = document.getElementsByTagName("tr");
+                let diseaseBody = document.getElementsByTagName("tbody");
+                let diseaseTR = document.getElementsByClassName("diseaseTR");
 
                 let diseaseType = [];
                 let diseaseCount = [];
-                for(let i = 0; i < diseaseRows.length; i++) {
-                    diseaseType.push(diseaseRows[i].children[0].textContent);
-                    diseaseCount.push(parseInt(diseaseRows[i].children[1].textContent));
+                for(let i = 0; i < diseaseTR.length; i++) {
+                    diseaseType.push(diseaseBody[0].children[i].children[0].textContent);
+                    diseaseCount.push(parseInt(diseaseBody[0].children[i].children[1].textContent));
                 }
 
                 let diseaseData = [];
                 diseaseData.push(['질병', '빈도']);
 
-                for(let i = 0; i < diseaseRows.length; i++) {
+                for(let i = 0; i < diseaseTR.length; i++) {
                     let tempData = [];
                     tempData.push(diseaseType[i]);
                     tempData.push(diseaseCount[i]);
