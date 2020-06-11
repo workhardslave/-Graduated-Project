@@ -76,10 +76,11 @@ public class DiseaseController {
 
 
 
-    //flask 에게 데이터 넘겨줌
+    //외부 API와 연동
     @PostMapping("/api/disease/form")
     public String callAPI_put(@Valid DiseaseForm form) throws JsonProcessingException {
 
+        String jsonInString = "";
         RestTemplate restTemplate = new RestTemplate();
         String url = "http://localhost:80/test";
 
@@ -91,10 +92,10 @@ public class DiseaseController {
         parameters.add("증상5", form.getName5());
 
 
+        //플라스크에 증상 값을 POST 매핑으로 던져준다.
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(url,parameters,String.class);
-        System.out.println("--------------------------");
-        System.out.println(responseEntity);
-        return "home";
+
+        return "redirect:/member/recommendation";
 
     }
 
