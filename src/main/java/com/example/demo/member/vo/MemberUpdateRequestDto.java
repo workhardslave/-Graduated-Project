@@ -23,6 +23,7 @@ public class MemberUpdateRequestDto {
 
     @Builder
     public MemberUpdateRequestDto(String name, String password, String street, String zipcode, String city, String phone) {
+        this.name = name;
         this.password = password;
         this.city = city;
         this.zipcode = zipcode;

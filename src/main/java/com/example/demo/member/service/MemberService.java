@@ -1,13 +1,8 @@
 package com.example.demo.member.service;
 
 import com.example.demo.member.repository.MemberRepository;
-import com.example.demo.member.vo.Member;
-import com.example.demo.member.vo.MemberSaveRequestDto;
-import com.example.demo.member.vo.MemberUpdateRequestDto;
+import com.example.demo.member.vo.*;
 
-
-import com.example.demo.member.vo.MemberResponseDto;
-import com.example.demo.member.vo.Role;
 
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -69,8 +64,8 @@ public class MemberService implements UserDetailsService {
     public Long SignUp(MemberSaveRequestDto memberDto) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         memberDto.SHA256_PassWord(passwordEncoder.encode(memberDto.getPassword()));
-        memberDto.GIVE_Role(Role.GUEST);
-//        memberDto.GIVE_Role(Role.ADMIN);
+//        memberDto.GIVE_Role(Role.GUEST);
+        memberDto.GIVE_Role(Role.ADMIN);
 
         return memberRepository.save(memberDto.toEntity()).getId();
     }
@@ -96,25 +91,34 @@ public class MemberService implements UserDetailsService {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + id));
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        member.update(requestDto.getCity(), requestDto.getStreet(), requestDto.getZipcode(), requestDto.getPhone());
+        return id;
+    }
+
+
+    // 회원 패스워드 수정
+    @Transactional
+    public Long updatePwd(Long id, MemberUpdatePwd requestDto) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + id));
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         log.info("입력한 : " + requestDto.getPassword());
         log.info("본래 : " +member.getPassword());
         log.info("password : " + member.getPassword().getClass());
         log.info("dto pwd class : " + requestDto.getPassword().getClass());
 
-        if(!requestDto.getPassword().equals(member.getPassword())) {
-            System.out.println("패스워드가 다른 경우 암호화 시킨 후 저장한다!!");
-            String encodePwd = passwordEncoder.encode(requestDto.getPassword());
-            member.update(encodePwd, requestDto.getCity(), requestDto.getStreet(), requestDto.getZipcode(), requestDto.getPhone());
-        }
-        else {
-            System.out.println("패스워드가 같은 경우!!!");
-            member.update(member.getPassword(), requestDto.getCity(), requestDto.getStreet(), requestDto.getZipcode(), requestDto.getPhone());
-        }
+
+        String encodePwd = passwordEncoder.encode(requestDto.getPassword());
+        member.updatePwd(encodePwd);
+
+
+
 
         return id;
     }
 
-    // 관리자, 회원 정보수정
+    // 관리자 ->회원 정보수정
     @Transactional
     public Long updateMember(Long id, MemberUpdateRequestDto requestDto) {
         Member member = memberRepository.findById(id)

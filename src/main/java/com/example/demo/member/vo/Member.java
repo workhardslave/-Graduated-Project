@@ -60,12 +60,17 @@ public class Member extends BaseTimeEntity {
 
     }
 
-    public Member update(String password, String city, String street, String zipcode, String phone) {
-        this.password = password;
+    public Member update(String city, String street, String zipcode, String phone) {
         this.address = new Address(city, zipcode, street);
         this.phone = phone;
         return this;
     }
+
+    public Member updatePwd(String password) {
+        this.password = password;
+        return this;
+    }
+
 
     public Member updateMember(String name, String password, String city, String street, String zipcode, String phone) {
         this.name = name;

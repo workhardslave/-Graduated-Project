@@ -3,6 +3,7 @@ package com.example.demo.member.controller;
 
 
 import com.example.demo.member.service.MemberService;
+import com.example.demo.member.vo.MemberUpdatePwd;
 import com.example.demo.member.vo.MemberUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,19 @@ public class MemberApiController {
     public Long updateForm(@PathVariable Long id, @RequestBody MemberUpdateRequestDto requestDto) {
 
         return memberService.update(id, requestDto);
+    }
+
+    // 회원 패스워드 변경전용 API
+    @PutMapping("/api/member/settingsPwd/{id}")
+    public Long updatePwd(@PathVariable Long id, @RequestBody MemberUpdatePwd requestDto) {
+        System.out.println(requestDto.getPassword());
+        System.out.println(requestDto.getPassword2())
+        ;
+        if(!requestDto.getPassword().equals(requestDto.getPassword2())) {
+            throw new IllegalStateException("패스워드 확인바람");
+        }
+
+        return memberService.updatePwd(id, requestDto);
     }
 
 
