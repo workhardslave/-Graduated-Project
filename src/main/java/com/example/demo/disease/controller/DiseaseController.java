@@ -1,6 +1,7 @@
 package com.example.demo.disease.controller;
 
 import com.example.demo.disease.dto.DiseaseCountDto;
+import com.example.demo.disease.dto.DiseaseNameCountDto;
 import com.example.demo.disease.dto.DiseaseResponseDto;
 import com.example.demo.disease.service.DiseaseService;
 import com.example.demo.dog.service.DogService;
@@ -48,16 +49,20 @@ public class DiseaseController {
     private final DogService dogService;
 
     // 반려견 질병 정보 조회 페이지
+    // 질병 정보 시각화
     @GetMapping("/admin/disease/info")
-    public String DiseaseInfoPage(Model model, DiseaseCountDto diseaseCountDto) {
+    public String DiseaseInfoPage(Model model) {
         List<DiseaseCountDto> diseases = diseaseService.findCount();
         System.out.println("값확인: " + diseases.get(0).getType());
 
         List<DiseaseResponseDto> diseasesAll = diseaseService.findAllDesc();
         System.out.println(diseasesAll.get(0).getName());
 
+        List<DiseaseNameCountDto> diseaseNames = diseaseService.findNameCount();
+
         model.addAttribute("diseases", diseases);
         model.addAttribute("dis", diseasesAll);
+        model.addAttribute("disName", diseaseNames);
 
         return "disease/diseaseInfo";
     }
@@ -70,7 +75,6 @@ public class DiseaseController {
 
         model.addAttribute("dogs", Dogs);
         model.addAttribute("DiseaseForm", new DiseaseForm());
-
 
         return "disease/diseaseChart";
     }
@@ -90,7 +94,6 @@ public class DiseaseController {
         parameters.add("증상3", form.getName3());
         parameters.add("증상4", form.getName4());
         parameters.add("증상5", form.getName5());
-
 
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(url,parameters,String.class);
         System.out.println("--------------------------");
