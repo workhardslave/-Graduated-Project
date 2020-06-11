@@ -90,15 +90,13 @@ public class ReserveController {
     @GetMapping("/member/recommendation")
     public String recommendation(Model model, Principal principal) throws JsonProcessingException {
 
-        System.out.println("=----------------------------------------");
-
         HashMap<String, Object> result = new HashMap<String, Object>();
 
         String jsonInString = "";
         JsonParser parser = new JsonParser();
 
 
-
+        //FLASK에서 예측값 받아오기
         try {
 
             RestTemplate restTemplate = new RestTemplate();
