@@ -24,12 +24,6 @@
                         </select>
                     </div>
 
-                 <!--   <div class="form-option">
-                        <td id="dogs" th:each="dog : ${dogs}">
-                            <input type='checkbox' th:field="*{choice}" name='gender' th:value="${dog.name}" th:text="${dog.name}" />
-                        </td>
-                    </div> -->
-
                     <div>
                         <label th:for="symptom">증상 3~5개를 선택해주세요!</label>
                     </div>
@@ -55,6 +49,7 @@
                 </div>
                 <div class="my-progress-bar" style=" text-align:center;" id=circleBar></div>
                 <br/>
+
                 <div class="container-login100-form-btn">
                     <span style="cursor: pointer" id="btn_hide"><h5><b>문진표 제출</b></h5></span>
                     <div class="wrap-login100-form-btn">
@@ -79,8 +74,10 @@
 <script>
     $("#multi-select").multiselect({width:'250px'});
     $("#btn_hide").click(function () {
+        // <select>에서 선택된 <option>의 개수를 가져옴
         var cnt = $("#multi-select option:selected").size();
         console.log(cnt);
+
         if (cnt == 0) {
             alert("증상을 입력하세요!");
         } else if ((cnt > 0 && cnt < 3) || cnt > 5) {

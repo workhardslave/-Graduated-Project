@@ -9,6 +9,8 @@ import com.example.demo.overlap.Address;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.minidev.json.JSONObject;
+import org.apache.catalina.startup.UserConfig;
+import org.springframework.boot.context.annotation.UserConfigurations;
 import org.springframework.http.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 
@@ -42,29 +47,6 @@ public class MemberController {
         return "home";
     }
 
-//
-////    @RequestMapping(value = "/post_test2",method = RequestMethod.POST)
-//@RequestMapping(value = "/post_test2",method = RequestMethod.POST)
-//public Object post_test2()
-//{
-//    // url
-//    String url = "http://127.0.0.1:9001/test";
-//    // headers
-//    HttpHeaders headers = new HttpHeaders();
-//
-//    headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-//    // body
-//    MultiValueMap<String, String> postData = new LinkedMultiValueMap<>();
-//    postData.add("data", "I m fine.");
-//    //String postData = "data=I m fine. Are you?";
-//    HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(postData, headers);
-//
-//    //String answer = restTemplate.postForObject(url, entity, String.class);
-//    //postData.put("data", "I m fine. Are you?");
-//    JSONObject json = restTemplate.postForEntity(url, postData, JSONObject.class).getBody();
-//    return json.toJSONString();
-//    //return answer;
-//}
 
 
 
@@ -109,9 +91,13 @@ public class MemberController {
     }
 
     @GetMapping("/member/mypage")
-    public String readMyData(Model model, Principal principal) {
+    public String readMyData(Model model, Principal principal, HttpServletRequest request, HttpSession session) {
         Member member = memberRepository.findEmailCheck(principal.getName()); //추후 ASPECT 적용대상
-
+//        Cookie[] myCookies = request.getCookies();
+//        log.info("쿠키이름" +myCookies[0].getName());
+//        log.info("쿠키값" +myCookies[0].getValue());
+//        session.setAttribute(UserCon, userDTO.getId());
+//        Object userID = session.getAttribute(UserConfig.)
         if(member != null) {
             model.addAttribute("member", member);
         }

@@ -74,8 +74,6 @@ public class DiseaseController {
         return "disease/diseaseChart";
     }
 
-
-
     //외부 API와 연동
     @PostMapping("/api/disease/form")
     public String callAPI_put(@Valid DiseaseForm form) throws JsonProcessingException {
