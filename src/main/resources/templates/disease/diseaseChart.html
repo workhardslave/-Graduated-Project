@@ -11,58 +11,64 @@
             <!--/*@thymesVar id="memberForm" type=""*/-->
             <form class="login100-form validate-form" action="/api/disease/form" th:object="${DiseaseForm}" method="post">
                 <!--                  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
-                <span class="login100-form-title p-b-49">증상등록</span>
+                <span class="login100-form-title p-b-49">문진표 작성</span>
 
-                <div>
-                    <label th:for="gender">치료할 반려견을 선택해주세요!</label>
+                <div id="hideForm">
+                    <div>
+                        <label th:for="gender">치료 할 반려견을 선택해주세요!</label>
+                    </div>
+
+                    <div class="form-option">
+                        <select id="dogs" th:field="*{choice}">
+                            <option th:each="dog : ${dogs}" th:value="${dog.name}" th:text="${dog.name}"></option>
+                        </select>
+                    </div>
+
+                 <!--   <div class="form-option">
+                        <td id="dogs" th:each="dog : ${dogs}">
+                            <input type='checkbox' th:field="*{choice}" name='gender' th:value="${dog.name}" th:text="${dog.name}" />
+                        </td>
+                    </div> -->
+
+                    <div>
+                        <label th:for="symptom">증상 3~5개를 선택해주세요!</label>
+                    </div>
+                    <div class="form-option">
+                        <select id="multi-select" multiple="multiple" th:field="*{symptom}">
+                            <option th:value="'과호흡'">과호흡</option>
+                            <option th:value="'급사'">급사</option>
+                            <option th:value="'기침'">기침</option>
+                            <option th:value="'염증'">염증</option>
+                            <option th:value="'구토'">구토</option>
+                            <option th:value="'탈모'">탈모</option>
+                            <option th:value="'무기력'">무기력</option>
+                            <option th:value="'발열'">발열</option>
+                            <option th:value="'녹내장'">녹내장</option>
+                            <option th:value="'거리감각불능'">거리감각불능</option>
+                            <option th:value="'난청'">난청</option>
+                            <option th:value="'요실금'">요실금</option>
+                            <option th:value="'설사'">설사</option>
+                            <option th:value="'식욕부진'">식욕부진</option>
+                            <option th:value="'체중감소'">체중감소</option>
+                        </select>
+                    </div><br/>
                 </div>
-
-                <div class="form-option">
-                    <select id="dogs" th:field="*{choice}">
-                        <option th:each="dog : ${dogs}" th:value="${dog.name}" th:text="${dog.name}"></option>
-                    </select>
-                </div>
-
-             <!--   <div class="form-option">
-                    <td id="dogs" th:each="dog : ${dogs}">
-                        <input type='checkbox' th:field="*{choice}" name='gender' th:value="${dog.name}" th:text="${dog.name}" />
-                    </td>
-                </div> -->
-
-                <div>
-                    <label th:for="symptom">증상 5개를 선택해주세요!</label>
-                </div>
-                <div class="form-option">
-                    <select id="multi-select" multiple="multiple" th:field="*{symptom}">
-                        <option th:value="'과호흡'">과호흡</option>
-                        <option th:value="'급사'">급사</option>
-                        <option th:value="'기침'">기침</option>
-                        <option th:value="'염증'">염증</option>
-                        <option th:value="'구토'">구토</option>
-                        <option th:value="'탈모'">탈모</option>
-                        <option th:value="'무기력'">무기력</option>
-                        <option th:value="'발열'">발열</option>
-                        <option th:value="'녹내장'">녹내장</option>
-                        <option th:value="'거리감각불능'">거리감각불능</option>
-                        <option th:value="'난청'">난청</option>
-                        <option th:value="'요실금'">요실금</option>
-                        <option th:value="'설사'">설사</option>
-                        <option th:value="'식욕부진'">식욕부진</option>
-                        <option th:value="'체중감소'">체중감소</option>
-                    </select>
-                </div><br/>
-
+                <div class="my-progress-bar" style=" text-align:center;" id=circleBar></div>
+                <br/>
                 <div class="container-login100-form-btn">
+                    <span style="cursor: pointer" id="btn_hide"><h5><b>문진표 제출</b></h5></span>
                     <div class="wrap-login100-form-btn">
                         <div class="login100-form-bgbtn"></div>
-                            <button class="login100-form-btn" type="submit">
-                                증상 보내기
+                            <button class="login100-form-btn" type="submit" id="btn_show" style="display: none">
+                                진단 결과 확인하기
                             </button>
                     </div>
                 </div>
+
             </form>
         </div>
     </div>
+
 </div>
 
 
@@ -71,50 +77,29 @@
 <script src="../../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="/../../static/js/multiselect.js"></script>
 <script>
-    $('#multi-select').multiselect({width:'250px'});
+    $("#multi-select").multiselect({width:'250px'});
+    $("#btn_hide").click(function () {
+        var cnt = $("#multi-select option:selected").size();
+        console.log(cnt);
+        if (cnt == 0) {
+            alert("증상을 입력하세요!");
+        } else if ((cnt > 0 && cnt < 3) || cnt > 5) {
+            alert("입력한 증상 갯수를 확인해주세요! ("+ cnt + "개 입력됨)");
+        } else{
+            $(this).css("display","none");
+            $("#hideForm").css("display","none");
+            $(".my-progress-bar").circularProgress({
+                line_width: 10,
+                color: "#673ab7",
+                starting_position: 0, // 12.00 o' clock position, 25 stands for 3.00 o'clock (clock-wise)
+                percent: 0, // percent starts from
+                percentage: true,
+                text: "현재 진단중...",
+            }).circularProgress('animate', 100, 5000);
+            $("#btn_show").delay("5350").fadeIn();
+        }
+    });
 </script>
-<!--<script>-->
-<!--    var buttonDiv = document.createElement("div");-->
-<!--    buttonDiv.className = 'container-login100-form-btn';-->
-
-<!--    var buttonDiv2 = document.createElement("div");-->
-<!--    buttonDiv2.className = 'wrap-login100-form-btn';-->
-<!--    buttonDiv.appendChild(buttonDiv2);-->
-
-<!--    var buttonDiv3 = document.createElement("div");-->
-<!--    buttonDiv3.className = 'login100-form-bgbtn';-->
-<!--    buttonDiv2.appendChild(buttonDiv3);-->
-
-<!--    var buttonSubmit = document.createElement("button");-->
-<!--    buttonSubmit.className = 'login100-form-btn';-->
-<!--    buttonSubmit.type = 'submit';-->
-
-<!--    let cnt = 0;-->
-
-<!--    $(function() {-->
-<!--        console.log("먹니?");-->
-
-<!--        $("#add").click(function () {-->
-<!--            $("#symptom option:selected").each(function() {-->
-<!--                $(this).appendTo("#sympmtom2");-->
-<!--                cnt += 1;-->
-<!--            });-->
-
-<!--            alert(cnt);-->
-<!--            if(!(cnt < 3 || cnt > 5)) {-->
-<!--                buttonDiv2.innerHTML = buttonSubmit;-->
-<!--            }-->
-<!--        });-->
-
-<!--        $("#del").click(function() {-->
-<!--            $("#symptom2 option:selected").each(function(){-->
-
-<!--                $(this).appendTo("#symptom");-->
-<!--                cnt -= 1;-->
-<!--            })-->
-<!--        });-->
-<!--    });-->
-<!--</script>-->
 <!--===============================================================================================-->
 <script src="../../../static/vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
@@ -133,6 +118,7 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="../../../static/js/postcode-api.js"></script>
 
+<footer th:replace="fragments/footer :: footerFragment"></footer>
 
 </body>
 </html>

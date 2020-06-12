@@ -79,6 +79,7 @@ public class DiseaseController {
     //외부 API와 연동
     @PostMapping("/api/disease/form")
     public String callAPI_put(@Valid DiseaseForm form) throws JsonProcessingException {
+//        System.out.println("너는 어떤강아지니?------------------------"+form.getChoice());
 //        System.out.println("너는 어케 나오니--------------------------"+form.getSymptom());
 //        System.out.println("너는 크기가 몇이니?---------------"+form.getSymptom().size());
 //        System.out.println("get으로 꺼내보자--------------------"+form.getSymptom().get(0));
@@ -102,5 +103,4 @@ public class DiseaseController {
         return "redirect:/member/recommendation";
 
     }
-
 }
