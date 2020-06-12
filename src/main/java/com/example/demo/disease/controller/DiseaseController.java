@@ -85,6 +85,9 @@ public class DiseaseController {
         String url = "http://localhost:80/test";
 
         MultiValueMap<String,String> parameters = new LinkedMultiValueMap<String,String>();
+
+
+//        if(form.getName4() )
         parameters.add("증상1", form.getName1());
         parameters.add("증상2", form.getName2());
         parameters.add("증상3", form.getName3());

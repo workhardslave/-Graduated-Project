@@ -33,10 +33,12 @@ public class MemberApiController {
     // 회원 패스워드 변경전용 API
     @PutMapping("/api/member/settingsPwd/{id}")
     public Long updatePwd(@PathVariable Long id, @RequestBody MemberUpdatePwd requestDto) {
-        System.out.println(requestDto.getPassword());
-        System.out.println(requestDto.getPassword2())
-        ;
+        System.out.println(requestDto.getPassword().isEmpty());
+        System.out.println(requestDto.getPassword2().isEmpty());
         if(!requestDto.getPassword().equals(requestDto.getPassword2())) {
+            throw new IllegalStateException("패스워드 확인바람");
+        }
+        else if(requestDto.getPassword2().isEmpty()){
             throw new IllegalStateException("패스워드 확인바람");
         }
 

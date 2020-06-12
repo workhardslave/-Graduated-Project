@@ -90,7 +90,6 @@ public class MemberService implements UserDetailsService {
     public Long update(Long id, MemberUpdateRequestDto requestDto) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + id));
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
         member.update(requestDto.getCity(), requestDto.getStreet(), requestDto.getZipcode(), requestDto.getPhone());
         return id;
@@ -124,15 +123,7 @@ public class MemberService implements UserDetailsService {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + id));
 
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-        if(!requestDto.getPassword().equals(member.getPassword())) {
-            String encodePwd = passwordEncoder.encode(requestDto.getPassword());
-            member.updateMember(requestDto.getName(), encodePwd, requestDto.getCity(), requestDto.getStreet(), requestDto.getZipcode(), requestDto.getPhone());
-        }
-        else {
-            member.updateMember(requestDto.getName(), requestDto.getPassword(), requestDto.getCity(), requestDto.getStreet(), requestDto.getZipcode(), requestDto.getPhone());
-        }
+        member.updateMember(requestDto.getName(), requestDto.getCity(), requestDto.getStreet(), requestDto.getZipcode(), requestDto.getPhone());
 
         return id;
     }

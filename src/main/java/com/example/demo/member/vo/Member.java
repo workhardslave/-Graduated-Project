@@ -72,9 +72,8 @@ public class Member extends BaseTimeEntity {
     }
 
 
-    public Member updateMember(String name, String password, String city, String street, String zipcode, String phone) {
+    public Member updateMember(String name, String city, String street, String zipcode, String phone) {
         this.name = name;
-        this.password = password;
         this.address = new Address(city, zipcode, street);
         this.phone = phone;
         return this;
