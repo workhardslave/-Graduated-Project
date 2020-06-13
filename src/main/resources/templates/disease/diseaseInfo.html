@@ -5,7 +5,9 @@
     <body>
         <header th:replace="fragments/header :: headerFragment"></header>
 
-        <section class="about_part section_padding">
+        <section>
+            <h3 style="padding-top: 50px; padding-left: 130px"><b>전체 질병 정보</b></h3>
+
             <div class="container col-lg-12">
                 <div class="align-items-center align-content-between">
                     <table id="diseaseTable">
@@ -37,6 +39,41 @@
 <!--                        <div class="col-lg-6" id="disBarChart" style="width: 900px; height: 500px;"></div>-->
 <!--                        <div class="col-lg-6" id="disStepChart" style="width: 900px; height: 500px;"></div>-->
 <!--                    </div>-->
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h3 style="padding-top: 30px; padding-left: 130px"><b>동물병원 예약 내역</b></h3>
+            <br/>
+
+            <div class="col-md-12">
+                <div class="container">
+                    <div>
+                        <table class="table table-horizontal table-striped table-bordered">
+                            <thead class="thead-strong">
+                                <tr>
+                                    <th>병원이름</th>
+                                    <th>방문날짜</th>
+                                    <th>병원주소</th>
+                                    <th>전화번호</th>
+                                    <th>예약내용</th>
+                                    <th>사용자명</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="tbody">
+                                <tr th:each="reserve : ${reserves}">
+                                    <td><a th:href="@{/admin/reserves/settings/{id}(id = ${reserve.id})}" th:text="${reserve.name}"></a></td>
+                                    <td th:text="${reserve.date}"></td>
+                                    <td th:text="${reserve.address}"></td>
+                                    <td th:text="${reserve.tel}"></td>
+                                    <td th:text="${reserve.description}"></td>
+                                    <td th:text="${reserve.member.getName()}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>
@@ -87,7 +124,7 @@
                 var data = google.visualization.arrayToDataTable(diseaseData);
 
                 var options = {
-                    title: '질병 진단 정보 (질병 타입별)'
+                    title: '질병 종류별 정보'
                 };
 
                 var chart = new google.visualization.PieChart(document.getElementById('disPieChart'));
@@ -133,7 +170,7 @@
                 var data = google.visualization.arrayToDataTable(diseaseData);
 
                 var options = {
-                    title: '질병 진단 정보 (질병 이름별)',
+                    title: '질병 이름별 정보',
                     slices: {
                         0: { color: 'yellowgreen' },
                         1: { color: 'pink' },

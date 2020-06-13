@@ -11,6 +11,8 @@ import com.example.demo.dog.service.DogService;
 import com.example.demo.dog.vo.DogResponseDto;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.vo.Member;
+import com.example.demo.reserve.service.ReserveService;
+import com.example.demo.reserve.vo.ReserveResponseDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonElement;
@@ -44,11 +46,11 @@ public class DiseaseController {
     private final DiseaseService diseaseService;
     private final MemberRepository memberRepository;
     private final DogService dogService;
+    private final ReserveService reserveService;
     private final DiagnosisService diagnosisService;
 
-    // 반려견 질병 정보 조회 페이지
-    // 질병 정보 시각화
-    @GetMapping("/admin/disease/info")
+    // 전체 질병 정보 시각화
+    @GetMapping("/admin/diseases")
     public String DiseaseInfoPage(Model model) {
         List<DiseaseCountDto> diseases = diseaseService.findCount();
         System.out.println("값확인: " + diseases.get(0).getType());
@@ -58,14 +60,17 @@ public class DiseaseController {
 
         List<DiseaseNameCountDto> diseaseNames = diseaseService.findNameCount();
 
+        List<ReserveResponseDto> reservations = reserveService.findAll();
+
         model.addAttribute("diseases", diseases);
         model.addAttribute("dis", diseasesAll);
         model.addAttribute("disName", diseaseNames);
+        model.addAttribute("reserves", reservations);
 
         return "disease/diseaseInfo";
     }
 
-    // 진료차트 홈페이지
+    // 질병 진단 문진표
     @GetMapping("/member/disease/chart")
     public String DiseaseForm(Model model, Principal principal) {
         Member member = memberRepository.findEmailCheck(principal.getName());//추후 ASPECT 적용대상
