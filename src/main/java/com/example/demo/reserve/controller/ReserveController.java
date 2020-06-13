@@ -1,7 +1,11 @@
 package com.example.demo.reserve.controller;
 
+import com.example.demo.collection.Air;
+import com.example.demo.collection.Corna;
+import com.example.demo.collection.Macak;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.vo.Member;
+import com.example.demo.overlap.*;
 import com.example.demo.reserve.service.ReserveService;
 import com.example.demo.reserve.vo.ReserveResponseDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -40,6 +44,10 @@ public class ReserveController {
 
     private final ReserveService reserveService;
     private final MemberRepository memberRepository;
+    private final ResultRepository resultRepository;
+    private final MacakRepository macakRepository;
+    private final CornaRepository cornaRepository;
+    private final AirRepository airRepository;
 
 
     // 사용자 자신의 예약 정보 조회 홈페이지
@@ -136,6 +144,42 @@ public class ReserveController {
 
         Member member = memberRepository.findEmailCheck(principal.getName());
 
+
+
+        Corna corna = Corna.builder()
+                .percent(jsonObj.get("코로나바이러스").toString())
+                .build();
+
+        Macak macak = Macak.builder()
+                .percent(jsonObj.get("마카다미아너트중독증").toString())
+                .build();
+
+        Air air = Air.builder()
+                .percent(jsonObj.get("기관지확장증").toString())
+                .build();
+
+        Result re = new Result();
+
+
+
+
+        cornaRepository.save(corna);
+        macakRepository.save(macak);
+        airRepository.save(air);
+
+        re.setAir(air);
+        re.setCorna(corna);
+        re.setMacak(macak);
+
+        re.setMember(member);
+        re.setName(jsonObj.get("data").toString());
+        resultRepository.save(re);
+
+
+        System.out.println("봐바!"+re.getAir().getPercent());
+
+
+
         if(member != null) {
             model.addAttribute("member", member);
             model.addAttribute("Diagnosis", jsonObj.get("data"));
@@ -143,6 +187,7 @@ public class ReserveController {
             model.addAttribute("Makana", jsonObj.get("마카다미아너트중독증"));
             model.addAttribute("Bronchus", jsonObj.get("기관지확장증"));
         }
+
 
 
         return "members/recommends/recommendation";
