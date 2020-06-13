@@ -2,6 +2,7 @@ package com.example.demo.disease.service;
 
 import com.example.demo.disease.dao.DiseaseRepository;
 import com.example.demo.disease.dto.DiseaseCountDto;
+import com.example.demo.disease.dto.DiseaseNameCountDto;
 import com.example.demo.disease.dto.DiseaseResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,11 @@ public class DiseaseService {
     public List<DiseaseCountDto> findCount() {
         List<DiseaseCountDto> d = diseaseRepository.findCount();
         return d;
+    }
 
+    @Transactional
+    public List<DiseaseNameCountDto> findNameCount() {
+        List<DiseaseNameCountDto> dname = diseaseRepository.findNameCount();
+        return dname;
     }
 }
