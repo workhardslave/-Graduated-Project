@@ -14,9 +14,9 @@
                             <tr>
                                 <th>반려견</th>
                                 <th>질병명</th>
-                                <th>기관지 확장증</th>
-                                <th>코로나 바이러스 감염증</th>
                                 <th>마카다미아너트 중독증</th>
+                                <th>코로나 바이러스 감염증</th>
+                                <th>기관지 확장증</th>
                             </tr>
                         </thead>
 
@@ -24,8 +24,8 @@
                             <tr th:each="dia : ${dias}">
                                 <td><a th:href = "@{/member/chart/recod/{id}(id = ${dia.id})}" th:text="${dia.dog}"></a></td>
                                 <td th:text="${dia.name}"></td>
-                                <td th:text="${dia.corna.getPercent()}"></td>
                                 <td th:text="${dia.macak.getPercent()}"></td>
+                                <td th:text="${dia.corna.getPercent()}"></td>
                                 <td th:text="${dia.air.getPercent()}"></td>
                             </tr>
                         </tbody>
