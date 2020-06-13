@@ -20,7 +20,6 @@ public class Diagnosis {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;            // 진단 질병명
     private String symptom;         // 사용자가 입력한 증상
     private String type;            // 진단 질병타입
