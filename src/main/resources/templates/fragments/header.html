@@ -41,16 +41,17 @@
                                     </li>
                                     <li class="nav-item">
                                         <a sec:authorize="hasRole('ROLE_MEMBER')" class="nav-link" th:href="@{/member/reservesInfo}">동물병원 예약 조회</a>
+                                        <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" th:href="@{/admin/diseases}">질병 관리</a>
                                     </li>
 
-                                    <li class="nav-item dropdown">
-                                        <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">질병 관리</a>
+<!--                                    <li class="nav-item dropdown">-->
+<!--                                        <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">질병 관리</a>-->
 
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" href="/admin/reserves">동물병원 예약 조회</a>
-                                            <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{/admin/disease/info}">질병 진단 정보 조회</a>
-                                        </div>
-                                    </li>
+<!--                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+<!--                                            <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" href="/admin/reserves">동물병원 예약 조회</a>-->
+<!--                                            <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{/admin/disease/info}">질병 진단 정보 조회</a>-->
+<!--                                        </div>-->
+<!--                                    </li>-->
 
                                     <li class="nav-item dropdown">
                                         <a sec:authorize="hasRole('ROLE_MEMBER')" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이페이지</a>
