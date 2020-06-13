@@ -1,19 +1,12 @@
-package com.example.demo.collection.vo;
+package com.example.demo.diagnosis.vo;
 
-import com.example.demo.collection.domain.Air;
-import com.example.demo.collection.domain.Corna;
-import com.example.demo.collection.domain.Diagnosis;
-import com.example.demo.collection.domain.Macak;
+import com.example.demo.diagnosis.domain.Air;
+import com.example.demo.diagnosis.domain.Corna;
+import com.example.demo.diagnosis.domain.Diagnosis;
+import com.example.demo.diagnosis.domain.Macak;
 import com.example.demo.member.vo.Member;
 import lombok.Builder;
 import lombok.Getter;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
-import static javax.persistence.FetchType.LAZY;
 
 @Getter
 public class DiagnosisDto {

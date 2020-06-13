@@ -1,6 +1,6 @@
-package com.example.demo.collection.repository;
+package com.example.demo.diagnosis.repository;
 
-import com.example.demo.collection.domain.Diagnosis;
+import com.example.demo.diagnosis.domain.Diagnosis;
 import com.example.demo.member.vo.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

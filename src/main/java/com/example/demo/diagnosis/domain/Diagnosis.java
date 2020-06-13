@@ -1,9 +1,6 @@
-package com.example.demo.collection.domain;
+package com.example.demo.diagnosis.domain;
 
 
-import com.example.demo.collection.domain.Air;
-import com.example.demo.collection.domain.Corna;
-import com.example.demo.collection.domain.Macak;
 import com.example.demo.member.vo.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +16,7 @@ import static javax.persistence.FetchType.LAZY;
 @Setter
 @NoArgsConstructor
 public class Diagnosis {
+
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

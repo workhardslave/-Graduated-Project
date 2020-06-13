@@ -1,4 +1,4 @@
-package com.example.demo.collection.domain;
+package com.example.demo.diagnosis.domain;
 
 
 import lombok.Builder;
@@ -7,19 +7,17 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-
 @Entity
 @Getter
-
 @NoArgsConstructor
-public class Corna  {
+public class Macak {
 
-    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String percent;
 
     @Builder
-    public Corna(String percent) {
+    public Macak(String percent) {
         this.percent = percent;
     }
 }

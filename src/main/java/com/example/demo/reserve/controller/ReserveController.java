@@ -1,41 +1,20 @@
 package com.example.demo.reserve.controller;
 
-import com.example.demo.collection.domain.Air;
-import com.example.demo.collection.domain.Corna;
-import com.example.demo.collection.domain.Diagnosis;
-import com.example.demo.collection.domain.Macak;
-import com.example.demo.collection.repository.AirRepository;
-import com.example.demo.collection.repository.CornaRepository;
-import com.example.demo.collection.repository.DiagnosisRepository;
-import com.example.demo.collection.repository.MacakRepository;
-import com.example.demo.collection.service.DiagnosisService;
+import com.example.demo.diagnosis.service.DiagnosisService;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.vo.Member;
 import com.example.demo.reserve.service.ReserveService;
 import com.example.demo.reserve.vo.ReserveResponseDto;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.client.RestTemplate;
 
 import java.security.Principal;
-import java.util.HashMap;
 import java.util.List;
 
 @Controller
