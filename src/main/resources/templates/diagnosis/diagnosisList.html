@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/config :: configFragment">
+<body>
+<header th:replace="fragments/header :: headerFragment"></header>
+<div class="col-md-12"></div>
+<div class="col-md-12"></div>
+<div class="col-md-12">
+    <div class="container">
+
+        <div>
+            <table class="table table-horizontal table-striped table-bordered">
+                <thead class="thead-strong">
+                <tr>
+                    <th>몽몽이</th>
+                    <th>병명</th>
+                    <th>코로나</th>
+                    <th>마카디미아너트</th>
+                    <th>기관지염</th>
+                </tr>
+                </thead>
+                <tbody id="tbody">
+                <tr th:each="dia : ${dias}">
+                    <td><a th:href = "@{/member/chart/recod/{id}(id = ${dia.id})}" th:text="${dia.dog}"></a></td>
+                    <td th:text="${dia.name}"></td>
+                    <td th:text="${dia.corna.getPercent()}"></td>
+                    <td th:text="${dia.macak.getPercent()}"></td>
+                    <td th:text="${dia.air.getPercent()}"></td>
+                </tr>
+                </a>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<footer th:replace="fragments/footer :: footerFragment"></footer>
+</body>
+</html>

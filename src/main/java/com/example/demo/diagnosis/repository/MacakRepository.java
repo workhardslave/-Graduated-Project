@@ -1,6 +1,6 @@
-package com.example.demo.overlap;
+package com.example.demo.diagnosis.repository;
 
-import com.example.demo.collection.Macak;
+import com.example.demo.diagnosis.domain.Macak;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
