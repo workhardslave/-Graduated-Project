@@ -5,6 +5,14 @@
     <body>
         <header th:replace="fragments/header :: headerFragment"></header>
 
+        <div class="form-group">
+
+            <h2 th:text = "${Diagnosis}">: 병명</h2>
+            <h2 th:text="${Corna}">: 코로나확률</h2>
+            <h2 th:text="${Bronchus}">: 기관지염확률</h2>
+            <h2 th:text="${Makana}">: 마카다미아확률</h2>
+        </div>
+
         <!-- 예약하기 모달창 양식 구현-->
         <div class="modal fade" id="modal_div">
             <div class="modal-dialog">
@@ -12,9 +20,9 @@
                     <!-- header -->
                     <div class="modal-header">
                         <!-- 닫기(x) 버튼 -->
-                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">×</button>
                         <!-- header title -->
-                        <h4 class="modal-title"><b>예약하기</b></h4>
+                        <!--<h4 class="modal-title"><b>예약하기</b></h4>-->
                     </div>
                     <!-- body -->
                     <div class="modal-body">
@@ -34,7 +42,7 @@
                         </p>
                         <p>
                             <b>상세내용 :  </b>
-                            <input type="text" id="description"></p>
+                             <input type="text" id="description" class="form-control"></p>
                     </div>
                     <br/>
 

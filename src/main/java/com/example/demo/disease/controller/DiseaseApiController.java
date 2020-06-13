@@ -19,6 +19,7 @@ import java.util.HashMap;
 @RequiredArgsConstructor
 public class DiseaseApiController {
 
+    //필요없다
     @GetMapping("/abc")
     public String callAPI() throws JsonProcessingException {
 

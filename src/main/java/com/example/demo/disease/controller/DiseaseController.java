@@ -79,27 +79,31 @@ public class DiseaseController {
         return "disease/diseaseChart";
     }
 
-
-
-    //flask 에게 데이터 넘겨줌
+    //외부 API와 연동
     @PostMapping("/api/disease/form")
     public String callAPI_put(@Valid DiseaseForm form) throws JsonProcessingException {
-
+//        System.out.println("너는 어떤강아지니?------------------------"+form.getChoice());
+//        System.out.println("너는 어케 나오니--------------------------"+form.getSymptom());
+//        System.out.println("너는 크기가 몇이니?---------------"+form.getSymptom().size());
+//        System.out.println("get으로 꺼내보자--------------------"+form.getSymptom().get(0));
+//        System.out.println("get으로 꺼내보자--------------------"+form.getSymptom().get(1));
+//        System.out.println("get으로 꺼내보자--------------------"+form.getSymptom().get(2));
+//        System.out.println("get으로 꺼내보자--------------------"+form.getSymptom().get(3));
+//        System.out.println("get으로 꺼내보자--------------------"+form.getSymptom().get(4));
+        String jsonInString = "";
         RestTemplate restTemplate = new RestTemplate();
         String url = "http://localhost:80/test";
 
         MultiValueMap<String,String> parameters = new LinkedMultiValueMap<String,String>();
-        parameters.add("증상1", form.getName1());
-        parameters.add("증상2", form.getName2());
-        parameters.add("증상3", form.getName3());
-        parameters.add("증상4", form.getName4());
-        parameters.add("증상5", form.getName5());
 
+        for(int i=0;i<form.getSymptom().size();i++) {
+            parameters.add("증상"+i, form.getSymptom().get(i));
+        }
+
+        //플라스크에 증상 값을 POST 매핑으로 던져준다.
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(url,parameters,String.class);
-        System.out.println("--------------------------");
-        System.out.println(responseEntity);
-        return "home";
+
+        return "redirect:/member/recommendation";
 
     }
-
 }

@@ -15,15 +15,14 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class MemberUpdateRequestDto {
     private String name;
-    private String password;
     private String city;
     private String zipcode;
     private String street;
     private String phone;
 
     @Builder
-    public MemberUpdateRequestDto(String name, String password, String street, String zipcode, String city, String phone) {
-        this.password = password;
+    public MemberUpdateRequestDto(String name,  String street, String zipcode, String city, String phone) {
+        this.name = name;
         this.city = city;
         this.zipcode = zipcode;
         this.street = street;
