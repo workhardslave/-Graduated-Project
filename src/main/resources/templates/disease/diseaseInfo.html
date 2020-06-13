@@ -28,12 +28,12 @@
                     </table>
 
 
-                    <div class="col-md-6" id="diagPieChart" style="width: 900px; height: 500px;"></div>
-                    <div class="col-md-6" id="diagDonutChart" style="width: 900px; height: 500px;"></div>
-<!--                    <div class="col-md-6" id="diagTreeMap" style="width: 900px; height: 500px;"></div>-->
-<!--                    <div class="col-md-6" id="diagHistogram" style="width: 900px; height: 500px;"></div>-->
-                    <div class="col-md-6" id="diagBarChart" style="width: 900px; height: 500px;"></div>
-                    <div class="col-md-6" id="diagStepChart" style="width: 900px; height: 500px;"></div>
+                    <div class="col-md-6" id="disPieChart" style="width: 900px; height: 500px;"></div>
+                    <div class="col-md-6" id="disDonutChart" style="width: 900px; height: 500px;"></div>
+<!--                    <div class="col-md-6" id="disTreeMap" style="width: 900px; height: 500px;"></div>-->
+<!--                    <div class="col-md-6" id="disHistogram" style="width: 900px; height: 500px;"></div>-->
+                    <div class="col-md-6" id="disBarChart" style="width: 900px; height: 500px;"></div>
+                    <div class="col-md-6" id="disStepChart" style="width: 900px; height: 500px;"></div>
                 </div>
             </div>
         </section>
@@ -87,7 +87,7 @@
                     title: '질병 진단 정보 (질병 타입별)'
                 };
 
-                var chart = new google.visualization.PieChart(document.getElementById('diagPieChart'));
+                var chart = new google.visualization.PieChart(document.getElementById('disPieChart'));
 
                 chart.draw(data, options);
             }
@@ -134,7 +134,7 @@
                     pieHole: 0.4,
                 };
 
-                var chart = new google.visualization.PieChart(document.getElementById('diagDonutChart'));
+                var chart = new google.visualization.PieChart(document.getElementById('disDonutChart'));
                 chart.draw(data, options);
             }
 
@@ -209,7 +209,7 @@
             //     //     ['Zaire',     'Africa',             8,                               10]
             //     // ]);
             //
-            //     tree = new google.visualization.TreeMap(document.getElementById('diagTreeMap'));
+            //     tree = new google.visualization.TreeMap(document.getElementById('disTreeMap'));
             //
             //     tree.draw(data, {
             //         minColor: '#f00',
@@ -253,7 +253,7 @@
              //         colors: ['navy'],
              //     };
              //
-             //     var chart = new google.visualization.Histogram(document.getElementById('diagHistogram'));
+             //     var chart = new google.visualization.Histogram(document.getElementById('disHistogram'));
              //     chart.draw(data, options);
              // }
 
@@ -297,7 +297,7 @@
                     }
                 };
 
-                var chart = new google.visualization.BarChart(document.getElementById('diagBarChart'));
+                var chart = new google.visualization.BarChart(document.getElementById('disBarChart'));
                 chart.draw(data, options);
             }
 
@@ -335,7 +335,7 @@
                     isStacked: true
                 };
 
-                var chart = new google.visualization.SteppedAreaChart(document.getElementById('diagStepChart'));
+                var chart = new google.visualization.SteppedAreaChart(document.getElementById('disStepChart'));
 
                 chart.draw(data, options);
             }
