@@ -3,8 +3,7 @@ package com.example.demo.disease.controller;
 import com.example.demo.diagnosis.domain.Diagnosis;
 import com.example.demo.diagnosis.service.DiagnosisService;
 import com.example.demo.diagnosis.vo.DiagnosisDto;
-import com.example.demo.disease.dao.DiseaseRepository;
-import com.example.demo.disease.dto.DiseaseCountDto;
+import com.example.demo.diagnosis.vo.DiagnosisNameCountDto;
 import com.example.demo.disease.dto.DiseaseNameCountDto;
 import com.example.demo.disease.dto.DiseaseResponseDto;
 import com.example.demo.disease.service.DiseaseService;
@@ -53,8 +52,6 @@ public class DiseaseController {
     // 전체 질병 정보 시각화
     @GetMapping("/admin/diseases")
     public String DiseaseInfoPage(Model model) {
-        List<DiseaseCountDto> diseases = diseaseService.findCount();
-        System.out.println("값확인: " + diseases.get(0).getType());
 
         List<DiseaseResponseDto> diseasesAll = diseaseService.findAllDesc();
         System.out.println(diseasesAll.get(0).getName());
@@ -63,10 +60,12 @@ public class DiseaseController {
 
         List<ReserveResponseDto> reservations = reserveService.findAll();
 
-        model.addAttribute("diseases", diseases);
+        List<DiagnosisNameCountDto> diagnosisNames = diagnosisService.findNameCount();
+
         model.addAttribute("dis", diseasesAll);
         model.addAttribute("disName", diseaseNames);
         model.addAttribute("reserves", reservations);
+        model.addAttribute("diagName", diagnosisNames);
 
         return "disease/diseaseInfo";
     }

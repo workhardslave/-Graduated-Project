@@ -10,6 +10,7 @@ import com.example.demo.diagnosis.repository.CornaRepository;
 import com.example.demo.diagnosis.repository.DiagnosisRepository;
 import com.example.demo.diagnosis.repository.MacakRepository;
 import com.example.demo.diagnosis.vo.DiagnosisDto;
+import com.example.demo.diagnosis.vo.DiagnosisNameCountDto;
 import com.example.demo.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -82,4 +83,9 @@ public class DiagnosisService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
+    public List<DiagnosisNameCountDto> findNameCount() {
+        List<DiagnosisNameCountDto> diagName = diagnosisRepository.findNameCount();
+        return diagName;
+    }
 }
