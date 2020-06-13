@@ -1,12 +1,9 @@
-package com.example.demo.collection;
+package com.example.demo.collection.domain;
 
 
-import com.example.demo.member.vo.Member;
-import com.example.demo.overlap.Result;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 

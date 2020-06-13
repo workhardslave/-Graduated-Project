@@ -1,11 +1,10 @@
-package com.example.demo.overlap;
+package com.example.demo.collection.domain;
 
 
-import com.example.demo.collection.Air;
-import com.example.demo.collection.Corna;
-import com.example.demo.collection.Macak;
+import com.example.demo.collection.domain.Air;
+import com.example.demo.collection.domain.Corna;
+import com.example.demo.collection.domain.Macak;
 import com.example.demo.member.vo.Member;
-import com.google.gson.JsonElement;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,7 +18,7 @@ import static javax.persistence.FetchType.LAZY;
 @Embeddable
 @Setter
 @NoArgsConstructor
-public class Result {
+public class Diagnosis {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,7 +26,7 @@ public class Result {
     private Member member;
     private String name; //진단질병명
 
-
+    private String dog;
     @ManyToOne
     private Corna corna;
 
