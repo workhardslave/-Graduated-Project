@@ -72,6 +72,18 @@
 <script src="../../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="/../../static/js/multiselect.js"></script>
 <script>
+
+    // 페이지가 로드될 때 바로 실행
+    $(document).ready(function(){
+        var dogCount = $("#dogs option").size();
+        if(dogCount == 0){
+            location.href = "/member/dog/save";
+            alert("등록된 반려견이 존재하지 않습니다!");
+
+        }
+        console.log(dogCount);
+    });
+
     $("#multi-select").multiselect({width:'250px'});
     $("#btn_hide").click(function () {
         // <select>에서 선택된 <option>의 개수를 가져옴

@@ -132,11 +132,12 @@
                                         $('#email_check').text('이메일을 입력해주세요. :)');
                                         $('#email_check').css('color', 'red');
                                         $("#user_email").focus();
-                                // 이메일 형식이 아닐 때('@'가 없는 경우)
-                                } else if($('#user_email').val().indexOf("@") == -1){
-                                    $("#email_check").text("이메일 형식이 아닙니다. :(");
-                                    $("#email_check").css("color", "red");
-                                    $("#user_email").focus();
+                                // 이메일 형식이 아닐 때('@' 또는 '.' 가 없는 경우)
+                                } else if($('#user_email').val().indexOf("@") == -1 ||
+                                    $('#user_email').val().indexOf(".") == -1){
+                                        $("#email_check").text("이메일 형식이 아닙니다. :(");
+                                        $("#email_check").css("color", "red");
+                                        $("#user_email").focus();
                                 // 이메일이 사용가능한 문구
                                 } else{
                                     $("#email_check").text("사용가능한 이메일입니다. :p");
