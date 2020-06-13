@@ -82,7 +82,7 @@ public class DiseaseController {
         return "disease/diseaseChart";
     }
 
-    //외부 API와 연동
+    // 외부 API와 연동
     @PostMapping("/api/disease/form")
     public String callAPI_put(@Valid DiseaseForm form, Model model, Principal principal) throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
@@ -91,29 +91,22 @@ public class DiseaseController {
         MultiValueMap<String,String> parameters = new LinkedMultiValueMap<String,String>();
         Diagnosis diagnosis = new Diagnosis();
 
-        for(int i=0;i<form.getSymptom().size();i++) {
-            parameters.add("증상"+i, form.getSymptom().get(i));
+        for(int i=0; i < form.getSymptom().size(); i++) {
+            parameters.add("증상" + i, form.getSymptom().get(i));
         }
 
-
-        //플라스크에 증상 값을 POST 매핑으로 던져준다.
+        // 플라스크에 증상 값을 POST 매핑으로 던져준다.
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(url,parameters,String.class);
-
-//        ///////////////////////////////////////////////////////////////
 
         HashMap<String, Object> result = new HashMap<String, Object>();
 
         String jsonInString = "";
         JsonParser parser = new JsonParser();
 
-
-        //FLASK에서 예측값 받아오기
+        // FLASK에서 예측 값 받아오기
         try {
-
-//            RestTemplate restTemplate = new RestTemplate();
-
             HttpHeaders header = new HttpHeaders();
-            HttpEntity<?> entity = new HttpEntity<>(header); //값받기
+            HttpEntity<?> entity = new HttpEntity<>(header); // 값 받기
 
             String url2 = "http://localhost:80/test";
             ResponseEntity<Object> resultMap = restTemplate.exchange(url2, HttpMethod.POST,entity, Object.class);
@@ -126,7 +119,6 @@ public class DiseaseController {
 
             jsonInString = mapper.writeValueAsString(resultMap.getBody());
 
-
         } catch (HttpClientErrorException | HttpServerErrorException e) {
             result.put("statusCode", e.getRawStatusCode());
             result.put("body", e.getStatusText());
@@ -134,44 +126,40 @@ public class DiseaseController {
             System.out.println(e.toString());
         } catch (Exception e) {
             result.put("statusCode", "999");
-            result.put("body", "excpetion오류");
+            result.put("body", "excpetion 오류");
             System.out.println(e.toString());
         }
 
-
         Object obj = parser.parse(jsonInString);
         JsonObject jsonObj = (JsonObject) obj;
-        JsonElement k = jsonObj.get("코로나바이러스");
+        JsonElement k = jsonObj.get("코로나 바이러스");
 
         Member member = memberRepository.findEmailCheck(principal.getName());
-        //setting
-        diagnosisService.DiagnosisSetting(jsonObj.get("data").toString(),jsonObj.get("코로나바이러스").toString(),
-                jsonObj.get("마카다미아너트중독증").toString(), jsonObj.get("기관지확장증").toString(), form.getChoice(),member);
 
+        // setting
+        diagnosisService.DiagnosisSetting(jsonObj.get("data").toString(), jsonObj.get("코로나 바이러스").toString(),
+                jsonObj.get("마카다미아너트 중독증").toString(), jsonObj.get("기관지 확장증").toString(), form.getChoice(), member);
 
         if(member != null) {
             model.addAttribute("member", member);
             model.addAttribute("Diagnosis", jsonObj.get("data"));
-            model.addAttribute("Corna", jsonObj.get("코로나바이러스"));
-            model.addAttribute("Makana", jsonObj.get("마카다미아너트중독증"));
-            model.addAttribute("Bronchus", jsonObj.get("기관지확장증"));
+            model.addAttribute("Corna", jsonObj.get("코로나 바이러스"));
+            model.addAttribute("Makana", jsonObj.get("마카다미아너트 중독증"));
+            model.addAttribute("Bronchus", jsonObj.get("기관지 확장증"));
         }
 
         return "members/recommends/recommendation";
-
     }
 
-    //회원이 보는 진단기록리스트
+    // 회원이 보는 진단기록리스트
     @GetMapping(value = "/member/chart/record")
     public String list(Model model, Principal principal) {
-        Member member = memberRepository.findEmailCheck(principal.getName());//추후 ASPECT 적용대상
+        Member member = memberRepository.findEmailCheck(principal.getName()); // 추후 ASPECT 적용대상
         List<DiagnosisDto> diagnosis = diagnosisService.findAllDesc(member);
         model.addAttribute("dias", diagnosis);
 
-
         return "diagnosis/diagnosisList";
     }
-
 
     // 진단 시각화 페이지
     @GetMapping("/member/chart/record/{id}")

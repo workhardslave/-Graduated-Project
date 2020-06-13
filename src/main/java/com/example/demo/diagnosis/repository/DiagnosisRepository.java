@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface DiagnosisRepository extends JpaRepository<Diagnosis, Long> {
 
-    //증상 시각화
+    // 증상 시각화
     @Query("SELECT m FROM Diagnosis m where m.member = :member")
     Diagnosis findOne(Member member);
 
