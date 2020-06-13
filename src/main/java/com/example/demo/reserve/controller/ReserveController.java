@@ -49,7 +49,6 @@ public class ReserveController {
     private final CornaRepository cornaRepository;
     private final AirRepository airRepository;
 
-
     // 사용자 자신의 예약 정보 조회 홈페이지
     @GetMapping("/member/reservesInfo")
     public String ReserveInfo(Model model, Principal principal) {                   // principle: session DB에 저장되어 있는 값 가져옴
@@ -71,19 +70,6 @@ public class ReserveController {
         return "members/reserves/reserveModify";
     }
 
-
-
-
-    // 관리자 -> 사용자 예약 정보 조회 홈페이지
-    @GetMapping("/admin/reserves")
-    public String ReserveInfoAdmin(Model model) {                   // principle: session DB에 저장되어 있는 값 가져옴
-        List<ReserveResponseDto> Reserves = reserveService.findAll(); //모든예약정보확인
-        model.addAttribute("reserves", Reserves);
-
-        return "admin/reserves/reserveInfoAdmin";
-    }
-
-
     // 관리자 -> 사용자 병원 예약 수정 및 삭제 홈페이지
     @GetMapping(value = "/admin/reserves/settings/{id}")
     public String updateFormAdmin(@PathVariable Long id, Model model) {
@@ -94,8 +80,6 @@ public class ReserveController {
         return "admin/reserves/reserveModifyAdmin";
     }
 
-
-
     // 병원 추천 페이지
     @GetMapping("/member/recommendation")
     public String recommendation(Model model, Principal principal) throws JsonProcessingException {
@@ -105,8 +89,7 @@ public class ReserveController {
         String jsonInString = "";
         JsonParser parser = new JsonParser();
 
-
-        //FLASK에서 예측값 받아오기
+        // FLASK에서 예측값 받아오기
         try {
 
             RestTemplate restTemplate = new RestTemplate();
@@ -125,7 +108,6 @@ public class ReserveController {
 
             jsonInString = mapper.writeValueAsString(resultMap.getBody());
 
-
         } catch (HttpClientErrorException | HttpServerErrorException e) {
             result.put("statusCode", e.getRawStatusCode());
             result.put("body", e.getStatusText());
@@ -137,14 +119,11 @@ public class ReserveController {
             System.out.println(e.toString());
         }
 
-
         Object obj = parser.parse(jsonInString);
         JsonObject jsonObj = (JsonObject) obj;
         JsonElement k = jsonObj.get("코로나바이러스");
 
         Member member = memberRepository.findEmailCheck(principal.getName());
-
-
 
         Corna corna = Corna.builder()
                 .percent(jsonObj.get("코로나바이러스").toString())
@@ -160,9 +139,6 @@ public class ReserveController {
 
         Result re = new Result();
 
-
-
-
         cornaRepository.save(corna);
         macakRepository.save(macak);
         airRepository.save(air);
@@ -175,10 +151,7 @@ public class ReserveController {
         re.setName(jsonObj.get("data").toString());
         resultRepository.save(re);
 
-
         System.out.println("봐바!"+re.getAir().getPercent());
-
-
 
         if(member != null) {
             model.addAttribute("member", member);
@@ -188,9 +161,6 @@ public class ReserveController {
             model.addAttribute("Bronchus", jsonObj.get("기관지확장증"));
         }
 
-
-
         return "members/recommends/recommendation";
     }
-
 }
