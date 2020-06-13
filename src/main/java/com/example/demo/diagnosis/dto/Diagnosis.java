@@ -24,14 +24,12 @@ public class Diagnosis {
     private String name;            // 진단 질병명
     private String symptom;         // 사용자가 입력한 증상
     private String type;            // 진단 질병타입
-    private String description;     // 진단 질병설명
 
     @Builder
-    public Diagnosis(Long id, String name, String symptom, String type, String description) {
+    public Diagnosis(Long id, String name, String symptom, String type) {
         this.id = id;
         this.name = name;
         this.symptom = symptom;
         this.type = type;
-        this.description = description;
     }
 }

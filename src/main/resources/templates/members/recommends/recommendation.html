@@ -47,14 +47,29 @@
         <!-- 반려견 질병 진단 결과 시각화 -->
         <table id="diagnosisTable">
             <tbody id="diagnosisList">
-                <tr>
+                <tr hidden="true">
 
                 </tr>
             </tbody>
         </table>
 
-        <div id="diagDonutChart" style="width: 900px; height: 500px;"></div>
+        <div class="row">
+            <div class="col-lg-7" id="diagDonutChart" style="width: 900px; height: 500px; padding-left: 70px; display: inline-block"></div>
+            <div class="col-lg-5" id="result" style="display: inline-block; padding-top: 150px; padding-right: 200px; text-align: center;">
+                <h3>
+                    멍멍이 질병 진단 결과,
+                    <br/>
+                    " <b>마카다미아너트 중독증</b> " 질병일 확률이 가장 높습니다.
+                </h3>
+                <br/>
+                " 마카다미아 중독증 " 은(는)
+                상업적으로 가능한 마카다미아너트를 섭취한 경우 나타나며, 증상은 섭취후 12시간 정도에 일어나고 증상은 24시간 지속되는 질병 입니다.
+            </div>
+        </div>
+        <br/>
 
+        <h3 style="padding-left: 30px"><b>동물병원 예약하기</b></h3>
+        <br/>
         <div class="map_wrap">
             <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
 
@@ -363,14 +378,13 @@
         <script type="text/javascript">
             google.charts.load("current", {packages:["corechart"]});
             google.charts.setOnLoadCallback(drawDonutChart);
+
             function drawDonutChart() {
                 var data = google.visualization.arrayToDataTable([
-                    ['Task', 'Hours per Day'],
-                    ['Work',     11],
-                    ['Eat',      2],
-                    ['Commute',  2],
-                    ['Watch TV', 2],
-                    ['Sleep',    7]
+                    ['질병 진단', '빈도'],
+                    ['마카다미아너트 중독증', 0.6],
+                    ['코로나 바이러스', 0.3],
+                    ['기관지 확장증', 0.1]
                 ]);
 
                 var options = {
