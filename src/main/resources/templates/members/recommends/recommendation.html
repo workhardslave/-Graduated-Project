@@ -12,6 +12,7 @@
             <h2 th:text="${Bronchus}">: 기관지염확률</h2>
             <h2 th:text="${Makana}">: 마카다미아확률</h2>
         </div>
+
         <!-- 예약하기 모달창 양식 구현-->
         <div class="modal fade" id="modal_div">
             <div class="modal-dialog">
@@ -50,6 +51,33 @@
                 </div>
             </div>
         </div>
+
+        <!-- 반려견 질병 진단 결과 시각화 -->
+        <table id="diagnosisTable">
+            <tbody id="diagnosisList">
+                <tr hidden="true">
+
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="row">
+            <div class="col-lg-7" id="diagDonutChart" style="width: 900px; height: 500px; padding-left: 70px; display: inline-block"></div>
+            <div class="col-lg-5" id="result" style="display: inline-block; padding-top: 150px; padding-right: 200px; text-align: center;">
+                <h3>
+                    멍멍이 질병 진단 결과,
+                    <br/>
+                    " <b>마카다미아너트 중독증</b> " 질병일 확률이 가장 높습니다.
+                </h3>
+                <br/>
+                " 마카다미아 중독증 " 은(는)
+                상업적으로 가능한 마카다미아너트를 섭취한 경우 나타나며, 증상은 섭취후 12시간 정도에 일어나고 증상은 24시간 지속되는 질병 입니다.
+            </div>
+        </div>
+        <br/>
+
+        <h3 style="padding-left: 30px"><b>동물병원 예약하기</b></h3>
+        <br/>
         <div class="map_wrap">
             <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
 
@@ -349,13 +377,33 @@
                 });
 
             }
-
-
-
-
         </script>
 
         <div id="dropDownSelect1"></div>
+
+        <!-- 반려견 질병 진단 시각화 API -->
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load("current", {packages:["corechart"]});
+            google.charts.setOnLoadCallback(drawDonutChart);
+
+            function drawDonutChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['질병 진단', '빈도'],
+                    ['마카다미아너트 중독증', 0.6],
+                    ['코로나 바이러스', 0.3],
+                    ['기관지 확장증', 0.1]
+                ]);
+
+                var options = {
+                    title: '질병 진단 결과',
+                    pieHole: 0.4,
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('diagDonutChart'));
+                chart.draw(data, options);
+            }
+        </script>
 
 
         <!--===============================================================================================-->

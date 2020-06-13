@@ -7,11 +7,11 @@ public class DiseaseResponseDto {
 
     private String name;
     private String type;
-    private String symptom;
+    private String description;
 
     public DiseaseResponseDto(Disease entity) {
         this.name = entity.getName();
         this.type = entity.getType();
-        this.symptom = entity.getSymptom();
+        this.description = entity.getDescription();
     }
 }
