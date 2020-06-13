@@ -3,6 +3,7 @@ package com.example.demo.disease.controller;
 import com.example.demo.diagnosis.domain.Diagnosis;
 import com.example.demo.diagnosis.service.DiagnosisService;
 import com.example.demo.diagnosis.vo.DiagnosisDto;
+import com.example.demo.disease.dao.DiseaseRepository;
 import com.example.demo.disease.dto.DiseaseCountDto;
 import com.example.demo.disease.dto.DiseaseNameCountDto;
 import com.example.demo.disease.dto.DiseaseResponseDto;
@@ -140,12 +141,15 @@ public class DiseaseController {
         diagnosisService.DiagnosisSetting(jsonObj.get("data").toString(), jsonObj.get("코로나 바이러스").toString(),
                 jsonObj.get("마카다미아너트 중독증").toString(), jsonObj.get("기관지 확장증").toString(), form.getChoice(), member);
 
+        List<DiseaseResponseDto> diseaseAll = diseaseService.findAllDesc();
+
         if(member != null) {
             model.addAttribute("member", member);
-            model.addAttribute("Diagnosis", jsonObj.get("data"));
-            model.addAttribute("Corna", jsonObj.get("코로나 바이러스"));
-            model.addAttribute("Makana", jsonObj.get("마카다미아너트 중독증"));
-            model.addAttribute("Bronchus", jsonObj.get("기관지 확장증"));
+            model.addAttribute("diagnosis", jsonObj.get("data"));
+            model.addAttribute("macak", jsonObj.get("마카다미아너트 중독증"));
+            model.addAttribute("corna", jsonObj.get("코로나 바이러스"));
+            model.addAttribute("bronchus", jsonObj.get("기관지 확장증"));
+            model.addAttribute("diseases", diseaseAll);
         }
 
         return "members/recommends/recommendation";
