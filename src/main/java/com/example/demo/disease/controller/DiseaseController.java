@@ -92,7 +92,7 @@ public class DiseaseController {
         MultiValueMap<String,String> parameters = new LinkedMultiValueMap<String,String>();
 
         for(int i=0;i<form.getSymptom().size();i++) {
-            parameters.add("증상"+i+1, form.getSymptom().get(i));
+            parameters.add("증상"+i, form.getSymptom().get(i));
         }
 
         //플라스크에 증상 값을 POST 매핑으로 던져준다.
