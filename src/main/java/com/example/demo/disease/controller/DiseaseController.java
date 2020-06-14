@@ -167,9 +167,16 @@ public class DiseaseController {
     // 진단 시각화 페이지
     @GetMapping("/member/chart/record/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
-        DiagnosisDto dto  = diagnosisService.findById(id);
-        model.addAttribute("member", dto);
+        DiagnosisDto diagnosisInfo = diagnosisService.findById(id);
 
-        return "home";
+        log.info(diagnosisInfo.getId().toString());
+        log.info(diagnosisInfo.getDog());
+        log.info(diagnosisInfo.getMacak().getPercent());
+        log.info(diagnosisInfo.getCorna().getPercent());
+        log.info(diagnosisInfo.getAir().getPercent());
+
+        model.addAttribute("diagInfo", diagnosisInfo);
+
+        return "diagnosis/diagnosisInfo";
     }
 }

@@ -33,12 +33,7 @@ public class DiagnosisService {
     @Transactional
     public void DiagnosisSetting(String data, String cor, String ma, String ar, String dog, Member member ) {
 
-        log.info("data 값: " + data);
-        log.info("data 값2: " + data.length());
-
         int dataLen = data.length();
-        log.info("data 값3: " + data.substring(1, dataLen-1));
-
         String name = data.substring(1, dataLen-1);
 
         Corna corna = Corna.builder()
@@ -74,7 +69,7 @@ public class DiagnosisService {
                     .orElseThrow(() -> new IllegalArgumentException("해당 사용자 or 관리자가 없습니다. id=" + id));
 
             return new DiagnosisDto(entity);
-        }
+    }
 
     @Transactional(readOnly = true)
     public List<DiagnosisDto> findAllDesc(Member member) {
