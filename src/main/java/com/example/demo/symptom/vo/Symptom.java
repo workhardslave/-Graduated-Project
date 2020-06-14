@@ -23,8 +23,7 @@ public class Symptom {
     private String name;
 
     @Builder
-    public Symptom(Long id, String name) {
-        this.id = id;
+    public Symptom( String name) {
         this.name = name;
     }
 }
