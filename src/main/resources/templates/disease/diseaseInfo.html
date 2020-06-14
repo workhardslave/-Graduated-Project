@@ -1,10 +1,10 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="fragments/config :: configFragment" />
+    <head th:replace="fragments/config :: configFragment"/>
 
     <body>
         <header th:replace="fragments/header :: headerFragment"></header>
-
+        <div class="loader"></div>
         <section>
             <h3 style="padding-top: 50px; padding-left: 130px"><b>질병 정보 그래프</b></h3>
 
@@ -33,7 +33,31 @@
         </section>
 
         <section>
-            <h3 style="padding-top: 30px; padding-left: 130px"><b>동물병원 예약 내역</b></h3>
+            <h3 style="padding-left: 130px"><b>AI 질병 진단 모델 관리</b></h3>
+            <div class="col-lg-12">
+                <form action="/members/dogs/dogSignUp" method="post" id="modelForm">
+                    <div class="row" style="padding-left: 150px; padding-top:30px;">
+                       다음 사항들을 입력합니다.
+                    </div>
+                    <div class="row" style="padding-left: 150px; padding-top:10px;">
+                        <input type="text" class="form-control" id="model" placeholder="증상 추가" style="width: 330px;"required>
+                        <input type="text" class="form-control" id="test_set" placeholder="test_set" style="width: 110px;" required>
+                        <input type="text" class="form-control" id="random_state" placeholder="random_state" style="width: 158px;" required>
+                    </div>
+                    <div class="container-login100-form-btn" style="padding-left: 200px; padding-top: 30px; width: 350px;">
+                        <div class="wrap-login100-form-btn" >
+                            <div class="login100-form-bgbtn"></div>
+                            <button class="login100-form-btn" type="submit" id="submitModel">
+                                변경완료
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+            <section>
+            <h3 style="padding-top: 40px; padding-left: 130px"><b>동물병원 예약 내역</b></h3>
             <br/>
 
             <div class="col-md-12">
@@ -67,8 +91,23 @@
             </div>
         </section>
 
+        <script src="../../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script type="text/javascript">
+
+            // form - submit delay
+            $('form').submit(function (e) {
+                let form = this;
+                // 로딩바 가져오기
+                $("#submitModel").hide();
+                $(".loader").fadeIn();
+                e.preventDefault();
+                setTimeout(function () {
+                    form.submit();
+                    alert("등록이 완료됐습니다!");
+                }, 5000);
+            });
+
             google.charts.load('current', {'packages':['corechart']});
             google.charts.setOnLoadCallback(drawPieChart);
 

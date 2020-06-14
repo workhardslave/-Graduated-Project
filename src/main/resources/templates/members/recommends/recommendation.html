@@ -33,7 +33,10 @@
                         </p>
                         <p>
                             <b>상세내용 :  </b>
-                            <input type="text" id="description" class="form-control"></p>
+                            <input type="text" id="description" class="form-control">
+                        </p>
+
+                        <input type="text" id="choice" th:field="${forms.choice}" hidden="true">
                     </div>
                     <br/>
 
@@ -100,32 +103,11 @@
 
             function drawDonutChart() {
 
-                // let diseaseBody = document.getElementsByTagName("tbody");
-                // let diseaseTR = document.getElementsByClassName("diseaseTR");
-                //
-                // let diseaseName = [];
-                // for(let i = 1; i < diseaseTR.length + 1; i++) {
-                //     diseaseName.push(diseaseBody[0].children[i].children[0].textContent);
-                // }
-                //
-                // let allProb = [];
-                // allProb.push(parseFloat(document.getElementById("macakProb").textContent));
-                // allProb.push(parseFloat(document.getElementById("cornaProb").textContent));
-                // allProb.push(parseFloat(document.getElementById("brochusProb").textContent));
-
                 let diagnosisData = [];
                 diagnosisData.push(['질병 진단', '빈도']);
                 diagnosisData.push(['마카다미아너트 중독증', parseFloat(document.getElementById("macakProb").textContent)]);
                 diagnosisData.push(['코로나 바이러스 감염증', parseFloat(document.getElementById("cornaProb").textContent)]);
                 diagnosisData.push(['기관지 확장증', parseFloat(document.getElementById("brochusProb").textContent)]);
-
-                // for(let i = 0; i < diseaseTR.length; i++) {
-                //     let tempData = [];
-                //     tempData.push(diseaseName[i]);
-                //     tempData.push(allProb[i]);
-                //
-                //     diagnosisData.push(tempData);
-                // }
 
                 var data = google.visualization.arrayToDataTable(diagnosisData);
 
@@ -168,7 +150,7 @@
                 mapOption = {
                     center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
                     level: 3 // 지도의 확대 레벨
-                };
+            };
 
             // 지도를 생성합니다
             var map = new kakao.maps.Map(mapContainer, mapOption);
@@ -400,14 +382,17 @@
             function completeReserve(){
                 let date = $("#visit_date").val();
                 let description = $("#description").val();
+                let dog = $("#choice").val();
 
                 let data = {
                     address : road,
                     date : date,
                     description : description,
                     name : hospital_name,
-                    tel : tel
+                    tel : tel,
+                    dog : dog
                 };
+
                 console.log(data);
                 $.ajax({
                     type: 'POST',

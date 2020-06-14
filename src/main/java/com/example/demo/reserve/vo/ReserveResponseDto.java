@@ -15,6 +15,7 @@ public class ReserveResponseDto {
     private String name;
     private String address;
     private String tel;
+    private String dog;
     public ReserveResponseDto(Reserve entity) {
         this.id = entity.getId();
         this.member = entity.getMember();
@@ -23,5 +24,6 @@ public class ReserveResponseDto {
         this.name = entity.getName();
         this.address = entity.getAddress();
         this.tel = entity.getTel();
+        this.dog =entity.getDog();
     }
 }

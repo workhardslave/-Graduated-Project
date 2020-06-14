@@ -24,40 +24,24 @@
                     </div>
 
                     <div>
-                        <label th:for="symptom">증상 3~5개를 선택해주세요!</label>
+                        <label th:for="sym">증상 3~5개를 선택해주세요!</label>
                     </div>
                     <div class="form-option">
                         <select id="multi-select" multiple="multiple" th:field="*{symptom}">
-                            <option th:value="'과호흡'">과호흡</option>
-                            <option th:value="'급사'">급사</option>
-                            <option th:value="'기침'">기침</option>
-                            <option th:value="'염증'">염증</option>
-                            <option th:value="'구토'">구토</option>
-                            <option th:value="'탈모'">탈모</option>
-                            <option th:value="'무기력'">무기력</option>
-                            <option th:value="'발열'">발열</option>
-                            <option th:value="'녹내장'">녹내장</option>
-                            <option th:value="'거리감각불능'">거리감각불능</option>
-                            <option th:value="'난청'">난청</option>
-                            <option th:value="'요실금'">요실금</option>
-                            <option th:value="'설사'">설사</option>
-                            <option th:value="'식욕부진'">식욕부진</option>
-                            <option th:value="'체중감소'">체중감소</option>
+                            <option th:each="symp : ${spt}" th:value="${symp.name}" th:text="${symp.name}"></option>
                         </select>
                     </div><br/>
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button class="login100-form-btn" type="submit" id="btn_hide">
+                                문진표 제출
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <div class="my-progress-bar" style=" text-align:center;" id=circleBar></div>
                 <br/>
-
-                <div class="container-login100-form-btn">
-                    <span style="cursor: pointer" id="btn_hide"><h5><b>문진표 제출</b></h5></span>
-                    <div class="wrap-login100-form-btn">
-                        <div class="login100-form-bgbtn"></div>
-                            <button class="login100-form-btn" type="submit" id="btn_show" style="display: none">
-                                진단 결과 확인하기
-                            </button>
-                    </div>
-                </div>
             </form>
         </div>
     </div>
@@ -82,18 +66,19 @@
     });
 
     $("#multi-select").multiselect({width:'250px'});
-    $("#btn_hide").click(function () {
+    // form - submit delay
+    $('form').submit(function (e) {
+        let form = this;
         // <select>에서 선택된 <option>의 개수를 가져옴
         var cnt = $("#multi-select option:selected").size();
-        console.log(cnt);
-
         if (cnt == 0) {
             alert("증상을 입력하세요!");
+            e.preventDefault();
         } else if ((cnt > 0 && cnt < 3) || cnt > 5) {
             alert("입력한 증상 갯수를 확인해주세요! ("+ cnt + "개 입력됨)");
-        } else{
-            $(this).css("display","none");
-            $("#hideForm").css("display","none");
+            e.preventDefault();
+        } else {
+            $("#hideForm").hide();
             $(".my-progress-bar").circularProgress({
                 line_width: 10,
                 color: "#673ab7",
@@ -102,9 +87,35 @@
                 percentage: true,
                 text: "현재 진단중...",
             }).circularProgress('animate', 100, 5000);
-            $("#btn_show").delay("5350").fadeIn();
+            e.preventDefault();
+            setTimeout(function () {
+                form.submit();
+            }, 5100);
         }
     });
+
+    // $("#btn_hide").click(function () {
+    //     // <select>에서 선택된 <option>의 개수를 가져옴
+    //     var cnt = $("#multi-select option:selected").size();
+    //     console.log(cnt);
+    //
+    //     if (cnt == 0) {
+    //         alert("증상을 입력하세요!");
+    //     } else if ((cnt > 0 && cnt < 3) || cnt > 5) {
+    //         alert("입력한 증상 갯수를 확인해주세요! ("+ cnt + "개 입력됨)");
+    //     } else{
+    //         $(this).css("display","none");
+    //         $("#hideForm").css("display","none");
+    //         $(".my-progress-bar").circularProgress({
+    //             line_width: 10,
+    //             color: "#673ab7",
+    //             starting_position: 0, // 12.00 o' clock position, 25 stands for 3.00 o'clock (clock-wise)
+    //             percent: 0, // percent starts from
+    //             percentage: true,
+    //             text: "현재 진단중...",
+    //         }).circularProgress('animate', 100, 5000);
+    //     }
+    // });
 </script>
 <!--===============================================================================================-->
 <script src="../../../static/vendor/animsition/js/animsition.min.js"></script>
