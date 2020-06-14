@@ -1,0 +1,70 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/config :: configFragment" />
+
+    <body>
+        <header th:replace="fragments/header :: headerFragment"></header>
+
+        <table>
+            <tbody>
+                <tr hidden="true">
+                    <td th:text="${diagInfo.macak.getPercent()}"></td>
+                    <td th:text="${diagInfo.corna.getPercent()}"></td>
+                    <td th:text="${diagInfo.air.getPercent()}"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <section>
+            <h3 style="padding-top: 30px; padding-left: 200px; padding-bottom: 20px;"><b id="dogName" th:text="${diagInfo.dog}"></b></h3>
+            <div class="align-content-center" align="center">
+                <div id="diagColumnChart" style="width: 800px; height: 500px;"></div>
+            </div>
+        </section>
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+
+            let dogName = document.getElementById("dogName");
+            dogName.innerHTML = dogName.textContent + "의 질병 진단 결과";
+
+            google.charts.load('current', {'packages':['bar']});
+            google.charts.setOnLoadCallback(drawColumnChart);
+
+            function drawColumnChart() {
+
+                let tbody = document.getElementsByTagName("tbody");
+
+                let diagVisData = [];
+                diagVisData.push(['질병 이름', '비중']);
+
+                let macak = tbody[0].children[0].children[0].textContent;
+                let corna = tbody[0].children[0].children[1].textContent;
+                let respir = tbody[0].children[0].children[2].textContent;
+
+                diagVisData.push(['마카다미아너트 중독증', parseFloat(macak)*100]);
+                diagVisData.push(['코로나 바이러스 감염증', parseFloat(corna)*100]);
+                diagVisData.push(['기관지 확장증', parseFloat(respir)*100]);
+
+                var data = google.visualization.arrayToDataTable(diagVisData);
+
+                var options = {
+                    width: 800,
+                    legend: { position: 'none' },
+                    axes: {
+                        x: {
+                            0: { side: 'top' } // Top x-axis.
+                        }
+                    },
+                    bar: { groupWidth: "90%" }
+                };
+
+                var chart = new google.charts.Bar(document.getElementById('diagColumnChart'));
+
+                chart.draw(data, google.charts.Bar.convertOptions(options));
+            };
+        </script>
+
+        <footer th:replace="fragments/footer :: footerFragment"></footer>
+    </body>
+</html>

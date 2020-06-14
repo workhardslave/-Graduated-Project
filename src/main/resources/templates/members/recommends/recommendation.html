@@ -5,9 +5,6 @@
     <body>
         <header th:replace="fragments/header :: headerFragment"></header>
 
-
-
-
         <!-- 예약하기 모달창 양식 구현-->
         <div class="modal fade" id="modal_div">
             <div class="modal-dialog">
@@ -16,9 +13,8 @@
                     <div class="modal-header">
                         <!-- 닫기(x) 버튼 -->
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">×</button>
-                        <!-- header title -->
-                        <!--<h4 class="modal-title"><b>예약하기</b></h4>-->
                     </div>
+
                     <!-- body -->
                     <div class="modal-body">
                         <p>
@@ -37,7 +33,9 @@
                         </p>
                         <p>
                             <b>상세내용 :  </b>
-                             <input type="text" id="description" class="form-control"></p>
+                            <input type="text" id="description" class="form-control">
+                        </p>
+
                         <input type="text" id="choice" th:field="${forms.choice}" hidden="true">
                     </div>
                     <br/>
@@ -52,37 +50,42 @@
         <table id="diagnosisTable">
             <tbody id="diagnosisList">
                 <tr hidden="true">
+                    <td id="diagName" th:text="${diagnosis}"></td>
+                    <td id="macakProb" th:text="${macak}"></td>
+                    <td id="cornaProb" th:text="${corna}"></td>
+                    <td id="brochusProb" th:text="${bronchus}"></td>
+                </tr>
 
+                <tr th:each="disease : ${diseases}" class="diseaseTR" hidden="true">
+                    <td th:text="${disease.name}"></td>
+                    <td th:text="${disease.description}"></td>
                 </tr>
             </tbody>
         </table>
 
-        <div class="row">
+        <div class="row" style="padding-top: 50px">
             <div class="col-lg-7" id="diagDonutChart" style="width: 900px; height: 500px; padding-left: 70px; display: inline-block"></div>
             <div class="col-lg-5" id="result" style="display: inline-block; padding-top: 150px; padding-right: 200px; text-align: center;">
                 <h3>
-                    멍멍이 질병 진단 결과,
-                    <br/>
-                    " <b>마카다미아너트 중독증</b> " 질병일 확률이 가장 높습니다.
+                    AI 질병 진단 결과, <br/>
+                    <b th:text="${diagnosis}"></b> 질병일 <br/> 확률이 가장 높습니다.
                 </h3>
                 <br/>
-                " 마카다미아 중독증 " 은(는)
-                상업적으로 가능한 마카다미아너트를 섭취한 경우 나타나며, 증상은 섭취후 12시간 정도에 일어나고 증상은 24시간 지속되는 질병 입니다.
+                <span th:text="${diagnosis}"></span>은(는) <span id="diagDescript"></span>입니다.
             </div>
         </div>
         <br/>
 
-        <h3 style="padding-left: 30px"><b>동물병원 예약하기</b></h3>
+        <h3 style="padding-top: 20px; padding-left: 30px"><b>동물병원 예약하기</b></h3>
         <br/>
         <div class="map_wrap">
-            <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+            <div id="map" style="width:100%; height:100%; position:relative; overflow:hidden;"></div>
 
             <div id="menu_wrap" class="bg_white">
                 <div class="option">
                     <div>
                         <form onsubmit="searchPlaces(); return false;">
                             키워드 : <input type="text" th:field="${member.address.city}" id="keyword" size="24">
-<!--                            <button type="submit">검색하기</button>-->
                         </form>
                     </div>
                 </div>
@@ -91,6 +94,52 @@
                 <div id="pagination"></div>
             </div>
         </div>
+
+        <!-- 반려견 질병 진단 시각화 API -->
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load("current", {packages:["corechart"]});
+            google.charts.setOnLoadCallback(drawDonutChart);
+
+            function drawDonutChart() {
+
+                let diagnosisData = [];
+                diagnosisData.push(['질병 진단', '빈도']);
+                diagnosisData.push(['마카다미아너트 중독증', parseFloat(document.getElementById("macakProb").textContent)]);
+                diagnosisData.push(['코로나 바이러스 감염증', parseFloat(document.getElementById("cornaProb").textContent)]);
+                diagnosisData.push(['기관지 확장증', parseFloat(document.getElementById("brochusProb").textContent)]);
+
+                var data = google.visualization.arrayToDataTable(diagnosisData);
+
+                var options = {
+                    title: '질병 진단 결과',
+                    pieHole: 0.4,
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('diagDonutChart'));
+                chart.draw(data, options);
+            }
+
+            let diseaseBody = document.getElementsByTagName("tbody");
+            let diseaseTR = document.getElementsByClassName("diseaseTR");
+
+            let disDescript = [];
+            for(let i = 1; i < diseaseTR.length + 1; i++) {
+                disDescript.push(diseaseBody[0].children[i].children[1].textContent);
+            }
+
+            let diagName = document.getElementById("diagName").textContent;
+            let realDiagName = diagName.slice(1, diagName.length-1);
+
+            let realDescript = "";
+            if(realDiagName == "기관지 확장증") { realDescript += disDescript[0] }
+            else if(realDiagName == "코로나 바이러스 감염증") { realDescript += disDescript[1] }
+            else if(realDiagName == "마카다미아너트 중독증") { realDescript += disDescript[2] }
+
+            let diagDescript = document.getElementById("diagDescript");
+            diagDescript.innerHTML = realDescript;
+        </script>
+
         <script src="/../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bebc3bdfe5172384c6bfdf655ad2ce8b&libraries=services"></script>
         <script>
@@ -101,7 +150,7 @@
                 mapOption = {
                     center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
                     level: 3 // 지도의 확대 레벨
-                };
+            };
 
             // 지도를 생성합니다
             var map = new kakao.maps.Map(mapContainer, mapOption);
@@ -236,11 +285,6 @@
                 el.innerHTML = itemStr;
                 el.className = 'item';
 
-                // console.log("name : " + places.place_name);
-                // console.log("road : " +  places.road_address_name);
-                // console.log("jibun : " + places.address_name);
-                // console.log("tel : " + places.phone);
-                // console.log("el.innerHTML -------------- : " + el.innerHTML);
                 return el;
             }
 
@@ -327,13 +371,7 @@
                     hospital_name = $("#hospital_name" + idx).html();
                     road = $("#road" + idx).html();
                     tel = $("#tel" + idx).html();
-                    //
-                    // let data = {
-                    //       hospital_name : hospital_name,
-                    //       hospital_adrr : road,
-                    //       tel : tel
-                    // };
-                    //  console.log(data);
+
                     $("#modal_div").modal();
                 });
 
@@ -342,10 +380,6 @@
 
             // 모달창 예약하기 눌렀을 때 이벤트
             function completeReserve(){
-                // let idx = $(this).attr("data-idx");
-                // let hospital_name = $("#hospital_name" + idx).html();
-                // let road = $("#road" + idx).html();
-                // let tel = $("#tel" + idx).html();
                 let date = $("#visit_date").val();
                 let description = $("#description").val();
                 let dog = $("#choice").val();
@@ -380,35 +414,6 @@
 
         <div id="dropDownSelect1"></div>
 
-        <!-- 반려견 질병 진단 시각화 API -->
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <script type="text/javascript">
-            google.charts.load("current", {packages:["corechart"]});
-            google.charts.setOnLoadCallback(drawDonutChart);
-
-            function drawDonutChart() {
-                var data = google.visualization.arrayToDataTable([
-                    ['질병 진단', '빈도'],
-                    ['마카다미아너트 중독증', 0.6],
-                    ['코로나 바이러스', 0.3],
-                    ['기관지 확장증', 0.1]
-                ]);
-
-                var options = {
-                    title: '질병 진단 결과',
-                    pieHole: 0.4,
-                };
-
-                var chart = new google.visualization.PieChart(document.getElementById('diagDonutChart'));
-                chart.draw(data, options);
-            }
-        </script>
-
-
-        <!--===============================================================================================-->
-
-
-
         <!--===============================================================================================-->
         <script src="/../../static/vendor/animsition/js/animsition.min.js"></script>
         <!--===============================================================================================-->
@@ -427,9 +432,5 @@
         <script src="/../../../static/js/postcode-api.js"></script>
 
         <footer th:replace="fragments/footer :: footerFragment"></footer>
-
-
-
-
     </body>
 </html>

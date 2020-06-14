@@ -6,20 +6,15 @@
         <header th:replace="fragments/header :: headerFragment"></header>
         <div class="loader"></div>
         <section>
-            <h3 style="padding-top: 50px; padding-left: 130px"><b>전체 질병 정보</b></h3>
+            <h3 style="padding-top: 50px; padding-left: 130px"><b>질병 정보 그래프</b></h3>
 
             <div class="container col-lg-12">
                 <div class="align-items-center align-content-between">
                     <table id="diseaseTable">
                         <tbody id="diseaseList">
-                            <tr th:each="disease : ${diseases}" class="diseaseTR" hidden="true">
-                                <td th:text="${disease.type}"></td>
-                                <td th:text="${disease.count}"></td>
-                            </tr>
-
-                            <tr th:each="di : ${dis}" class="diTR" hidden="true">
-                                <td th:text="${di.name}"></td>
-                                <td th:text="${di.type}"></td>
+                            <tr th:each="digName : ${diagName}" class="digNameTR" hidden="true">
+                                <td th:text="${digName.name}"></td>
+                                <td th:text="${digName.count}"></td>
                             </tr>
 
                             <tr th:each="diName : ${disName}" class="diNameTR" hidden="true">
@@ -30,15 +25,9 @@
                     </table>
 
                     <div class="row">
+                        <div class="col-lg-6" id="digPieChart" style="width: 900px; height: 500px;"></div>
                         <div class="col-lg-6" id="disPieChart" style="width: 900px; height: 500px;"></div>
-                        <div class="col-lg-6" id="disDonutChart" style="width: 900px; height: 500px;"></div>
                     </div>
-<!--                    <div class="col-md-6" id="disTreeMap" style="width: 900px; height: 500px;"></div>-->
-<!--                    <div class="col-md-6" id="disHistogram" style="width: 900px; height: 500px;"></div>-->
-<!--                    <div class="row">-->
-<!--                        <div class="col-lg-6" id="disBarChart" style="width: 900px; height: 500px;"></div>-->
-<!--                        <div class="col-lg-6" id="disStepChart" style="width: 900px; height: 500px;"></div>-->
-<!--                    </div>-->
                 </div>
             </div>
         </section>
@@ -74,15 +63,15 @@
             <div class="col-md-12">
                 <div class="container">
                     <div>
-                        <table class="table table-horizontal table-striped table-bordered">
+                        <table class="table table-horizontal table-striped table-hover table-bordered">
                             <thead class="thead-strong">
                                 <tr>
-                                    <th>병원이름</th>
-                                    <th>방문날짜</th>.
-                                    <th>병원주소</th>
-                                    <th>전화번호</th>
-                                    <th>예약내용</th>
-                                    <th>사용자명</th>
+                                    <th>병원 이름</th>
+                                    <th>방문 날짜</th>
+                                    <th>병원 주소</th>
+                                    <th>병원 번호</th>
+                                    <th>예약 내용</th>
+                                    <th>회원 이름</th>
                                 </tr>
                             </thead>
 
@@ -131,17 +120,17 @@
                 console.log(diseaseBody[0].children[1]);
                 console.log(diseaseBody[0].children[4]);
 
-                let diseaseTR = document.getElementsByClassName("diseaseTR");
-                console.log("몇 개: " + diseaseTR.length);
+                let digNameTR = document.getElementsByClassName("digNameTR");
+                console.log("몇 개: " + digNameTR.length);
 
                 console.log(diseaseBody[0].children[0].children[0].textContent);
                 console.log(diseaseBody[0].children[0].children[1].textContent);
 
-                let diseaseType = [];
-                let diseaseCount = [];
-                for(let i = 0; i < diseaseTR.length; i++) {
-                    diseaseType.push(diseaseBody[0].children[i].children[0].textContent);
-                    diseaseCount.push(parseInt(diseaseBody[0].children[i].children[1].textContent));
+                let diagName = [];
+                let diagCount = [];
+                for(let i = 0; i < digNameTR.length; i++) {
+                    diagName.push(diseaseBody[0].children[i].children[0].textContent);
+                    diagCount.push(parseInt(diseaseBody[0].children[i].children[1].textContent));
                 }
                 //
                 // for(let i = 0; i < diseaseRows.length; i++) {
@@ -149,24 +138,29 @@
                 //     diseaseCount.push(parseInt(diseaseRows[i].children[1].textContent));
                 // }
 
-                let diseaseData = [];
-                diseaseData.push(['질병 타입', '빈도']);
+                let diagData = [];
+                diagData.push(['진단 질병 이름', '빈도']);
 
-                for(let i = 0; i < diseaseTR.length; i++) {
+                for(let i = 0; i < digNameTR.length; i++) {
                     let tempData = [];
-                    tempData.push(diseaseType[i]);
-                    tempData.push(diseaseCount[i]);
+                    tempData.push(diagName[i]);
+                    tempData.push(diagCount[i]);
 
-                    diseaseData.push(tempData);
+                    diagData.push(tempData);
                 }
 
-                var data = google.visualization.arrayToDataTable(diseaseData);
+                var data = google.visualization.arrayToDataTable(diagData);
 
                 var options = {
-                    title: '질병 종류별 정보'
+                    title: '진단 질병 이름별 정보',
+                    slices: {
+                        0: { color: 'yellowgreen' },
+                        1: { color: 'pink' },
+                        2: { color: '#F8EB00' }
+                    }
                 };
 
-                var chart = new google.visualization.PieChart(document.getElementById('disPieChart'));
+                var chart = new google.visualization.PieChart(document.getElementById('digPieChart'));
 
                 chart.draw(data, options);
             }
@@ -178,10 +172,10 @@
                 let diseaseBody = document.getElementsByTagName("tbody");
                 let diNameTR = document.getElementsByClassName("diNameTR");
 
-                let diseaseTR = document.getElementsByClassName("diseaseTR");
+                let digNameTR = document.getElementsByClassName("digNameTR");
                 let diTR = document.getElementsByClassName("diTR");
 
-                let diTRLength = diseaseTR.length + diTR.length;
+                let diTRLength = digNameTR.length + diTR.length;
 
                 let diseaseName = [];
                 let diseaseCount = [];
@@ -209,219 +203,12 @@
                 var data = google.visualization.arrayToDataTable(diseaseData);
 
                 var options = {
-                    title: '질병 이름별 정보',
-                    slices: {
-                        0: { color: 'yellowgreen' },
-                        1: { color: 'pink' },
-                        2: { color: '#F8EB00' }
-                    }
+                    title: '전체 질병 이름별 정보'
                 };
 
-                var chart = new google.visualization.PieChart(document.getElementById('disDonutChart'));
+                var chart = new google.visualization.PieChart(document.getElementById('disPieChart'));
                 chart.draw(data, options);
             }
-
-            // google.charts.load('current', {'packages':['treemap']});
-            // google.charts.setOnLoadCallback(drawTreeMap);
-            // function drawTreeMap() {
-            //
-            //     let diseaseBody = document.getElementsByTagName("tbody");
-            //     let diTR = document.getElementsByClassName("diTR");
-            //
-            //     let diseaseTR = document.getElementsByClassName("diseaseTR");
-            //
-            //     let diName = [];
-            //     let diType = [];
-            //     for(let i = diseaseTR.length; i < diseaseTR.length + diTR.length; i++) {
-            //         diName.push(diseaseBody[0].children[i].children[0].textContent);
-            //         diType.push(diseaseBody[0].children[i].children[1].textContent);
-            //     }
-            //
-            //     let diData = [];
-            //     diData.push(['질병명', '질병타입', '크기', '색깔']);
-            //
-            //     for(let i = 0; i < diTR.length + 1; i++) {
-            //         let tempData = [];
-            //         tempData.push(diName[i]);
-            //         tempData.push(diType[i]);
-            //         tempData.push(0);
-            //         tempData.push(0);
-            //
-            //         diData.push(tempData);
-            //
-            //         console.log(diData[i]);
-            //     }
-            //
-            //     for(let j = 0; j < diTR.length + 1; j++) {
-            //         // if(0번 1번 같으면)
-            //         // tempData[2] += 1;
-            //
-            //
-            //     }
-            //
-            //     var data = google.visualization.arrayToDataTable(diData);
-            //     // var data = google.visualization.arrayToDataTable([
-            //     //     ['질병명', '질병타입', 'Market trade volume (size)', 'Market increase/decrease (color)'],
-            //     //     ['Global',    null,                 0,                               0],
-            //     //     ['America',   'Global',             0,                               0],
-            //     //     ['Europe',    'Global',             0,                               0],
-            //     //     ['Asia',      'Global',             0,                               0],
-            //     //     ['Australia', 'Global',             0,                               0],
-            //     //     ['Africa',    'Global',             0,                               0],
-            //     //     ['Brazil',    'America',            11,                              10],
-            //     //     ['USA',       'America',            52,                              31],
-            //     //     ['Mexico',    'America',            24,                              12],
-            //     //     ['Canada',    'America',            16,                              -23],
-            //     //     ['France',    'Europe',             42,                              -11],
-            //     //     ['Germany',   'Europe',             31,                              -2],
-            //     //     ['Sweden',    'Europe',             22,                              -13],
-            //     //     ['Italy',     'Europe',             17,                              4],
-            //     //     ['UK',        'Europe',             21,                              -5],
-            //     //     ['China',     'Asia',               36,                              4],
-            //     //     ['Japan',     'Asia',               20,                              -12],
-            //     //     ['India',     'Asia',               40,                              63],
-            //     //     ['Laos',      'Asia',               4,                               34],
-            //     //     ['Mongolia',  'Asia',               1,                               -5],
-            //     //     ['Israel',    'Asia',               12,                              24],
-            //     //     ['Iran',      'Asia',               18,                              13],
-            //     //     ['Pakistan',  'Asia',               11,                              -52],
-            //     //     ['Egypt',     'Africa',             21,                              0],
-            //     //     ['S. Africa', 'Africa',             30,                              43],
-            //     //     ['Sudan',     'Africa',             12,                              2],
-            //     //     ['Congo',     'Africa',             10,                              12],
-            //     //     ['Zaire',     'Africa',             8,                               10]
-            //     // ]);
-            //
-            //     tree = new google.visualization.TreeMap(document.getElementById('disTreeMap'));
-            //
-            //     tree.draw(data, {
-            //         minColor: '#f00',
-            //         midColor: '#ddd',
-            //         maxColor: '#0d0',
-            //         headerHeight: 15,
-            //         fontColor: 'black',
-            //         showScale: true
-            //     });
-            // }
-
-             // google.charts.load("current", {packages:["corechart"]});
-             // google.charts.setOnLoadCallback(drawHistogram);
-             // function drawHistogram() {
-             //
-             //     let diseaseRows = document.getElementsByTagName("tr");
-             //
-             //     let diseaseType = [];
-             //     let diseaseCount = [];
-             //     for(let i = 0; i < diseaseRows.length; i++) {
-             //         diseaseType.push(diseaseRows[i].children[0].textContent);
-             //         diseaseCount.push(parseInt(diseaseRows[i].children[1].textContent));
-             //     }
-             //
-             //     let diseaseData = [];
-             //     diseaseData.push(['질병', '빈도']);
-             //
-             //     for(let i = 0; i < diseaseRows.length; i++) {
-             //         let tempData = [];
-             //         tempData.push(diseaseType[i]);
-             //         tempData.push(diseaseCount[i]);
-             //
-             //         diseaseData.push(tempData);
-             //     }
-             //
-             //     var data = google.visualization.arrayToDataTable(diseaseData);
-             //
-             //     var options = {
-             //         title: '질병 진단 정보 (히스토그램)',
-             //         legend: { position: 'none' },
-             //         colors: ['navy'],
-             //     };
-             //
-             //     var chart = new google.visualization.Histogram(document.getElementById('disHistogram'));
-             //     chart.draw(data, options);
-             // }
-
-            // google.charts.load('current', {packages: ['corechart', 'bar']});
-            // google.charts.setOnLoadCallback(drawBarChart);
-            //
-            // function drawBarChart() {
-            //
-            //     let diseaseBody = document.getElementsByTagName("tbody");
-            //     let diseaseTR = document.getElementsByClassName("diseaseTR");
-            //
-            //     let diseaseType = [];
-            //     let diseaseCount = [];
-            //     for(let i = 0; i < diseaseTR.length; i++) {
-            //         diseaseType.push(diseaseBody[0].children[i].children[0].textContent);
-            //         diseaseCount.push(parseInt(diseaseBody[0].children[i].children[1].textContent));
-            //     }
-            //
-            //     let diseaseData = [];
-            //     diseaseData.push(['질병', '빈도']);
-            //
-            //     for(let i = 0; i < diseaseTR.length; i++) {
-            //         let tempData = [];
-            //         tempData.push(diseaseType[i]);
-            //         tempData.push(diseaseCount[i]);
-            //
-            //         diseaseData.push(tempData);
-            //     }
-            //
-            //     var data = google.visualization.arrayToDataTable(diseaseData);
-            //
-            //     var options = {
-            //         title: '질병 진단 정보 (막대 그래프)',
-            //         chartArea: {width: '50%'},
-            //         hAxis: {
-            //             title: '빈도',
-            //             minValue: 0
-            //         },
-            //         vAxis: {
-            //             title: '질병'
-            //         }
-            //     };
-            //
-            //     var chart = new google.visualization.BarChart(document.getElementById('disBarChart'));
-            //     chart.draw(data, options);
-            // }
-            //
-            // google.charts.load('current', {'packages':['corechart']});
-            // google.charts.setOnLoadCallback(drawStepChart);
-            //
-            // function drawStepChart() {
-            //
-            //     let diseaseBody = document.getElementsByTagName("tbody");
-            //     let diseaseTR = document.getElementsByClassName("diseaseTR");
-            //
-            //     let diseaseType = [];
-            //     let diseaseCount = [];
-            //     for(let i = 0; i < diseaseTR.length; i++) {
-            //         diseaseType.push(diseaseBody[0].children[i].children[0].textContent);
-            //         diseaseCount.push(parseInt(diseaseBody[0].children[i].children[1].textContent));
-            //     }
-            //
-            //     let diseaseData = [];
-            //     diseaseData.push(['질병', '빈도']);
-            //
-            //     for(let i = 0; i < diseaseTR.length; i++) {
-            //         let tempData = [];
-            //         tempData.push(diseaseType[i]);
-            //         tempData.push(diseaseCount[i]);
-            //
-            //         diseaseData.push(tempData);
-            //     }
-            //
-            //     var data = google.visualization.arrayToDataTable(diseaseData);
-            //
-            //     var options = {
-            //         title: '질병 진단 정보 (계단 그래프)',
-            //         vAxis: {title: '빈도'},
-            //         isStacked: true
-            //     };
-            //
-            //     var chart = new google.visualization.SteppedAreaChart(document.getElementById('disStepChart'));
-            //
-            //     chart.draw(data, options);
-            // }
         </script>
 
         <footer th:replace="fragments/footer :: footerFragment"></footer>
