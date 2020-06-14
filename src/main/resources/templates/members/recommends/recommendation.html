@@ -5,13 +5,8 @@
     <body>
         <header th:replace="fragments/header :: headerFragment"></header>
 
-        <div class="form-group">
 
-            <h2 th:text = "${Diagnosis}">: 병명</h2>
-            <h2 th:text="${Corna}">: 코로나확률</h2>
-            <h2 th:text="${Bronchus}">: 기관지염확률</h2>
-            <h2 th:text="${Makana}">: 마카다미아확률</h2>
-        </div>
+
 
         <!-- 예약하기 모달창 양식 구현-->
         <div class="modal fade" id="modal_div">
@@ -43,6 +38,7 @@
                         <p>
                             <b>상세내용 :  </b>
                              <input type="text" id="description" class="form-control"></p>
+                        <input type="text" id="choice" th:field="${forms.choice}" hidden="true">
                     </div>
                     <br/>
 
@@ -352,14 +348,17 @@
                 // let tel = $("#tel" + idx).html();
                 let date = $("#visit_date").val();
                 let description = $("#description").val();
+                let dog = $("#choice").val();
 
                 let data = {
                     address : road,
                     date : date,
                     description : description,
                     name : hospital_name,
-                    tel : tel
+                    tel : tel,
+                    dog : dog
                 };
+
                 console.log(data);
                 $.ajax({
                     type: 'POST',

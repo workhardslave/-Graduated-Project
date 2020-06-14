@@ -45,10 +45,11 @@ public class ReserveControllerApi {
     @PostMapping("api/member/reserve")
     public Long reserve(@RequestBody ReserveSaveRequestDto requestDto, Principal principal) {
         Member member = memberRepository.findEmailCheck(principal.getName());
+        log.info("강아지확인"+requestDto.getDog());
         return reserveService.Reserve(requestDto, member);
 
-    }
 
+    }
     // 관리자 - > 사용자 병원 예약 정보 삭제 API
     @DeleteMapping("/api/admin/reserve/delete/{id}")
     public Long deleteAdmin(@PathVariable Long id) {
