@@ -3,12 +3,13 @@ package com.example.demo.disease.controller;
 import com.example.demo.diagnosis.domain.Diagnosis;
 import com.example.demo.diagnosis.service.DiagnosisService;
 import com.example.demo.diagnosis.vo.DiagnosisDto;
-import com.example.demo.disease.dto.DiseaseCountDto;
+import com.example.demo.diagnosis.vo.DiagnosisNameCountDto;
 import com.example.demo.disease.dto.DiseaseNameCountDto;
 import com.example.demo.disease.dto.DiseaseResponseDto;
 import com.example.demo.disease.service.DiseaseService;
 import com.example.demo.dog.service.DogService;
 import com.example.demo.dog.vo.DogResponseDto;
+import com.example.demo.member.controller.MemberForm;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.vo.Member;
 import com.example.demo.member.vo.MemberUpdatePwd;
@@ -16,6 +17,7 @@ import com.example.demo.reserve.service.ReserveService;
 import com.example.demo.reserve.vo.ReserveResponseDto;
 import com.example.demo.symptom.service.SymptomService;
 import com.example.demo.symptom.vo.Symptom;
+import com.example.demo.symptom.vo.SymptomForm;
 import com.example.demo.symptom.vo.SymptomResponseDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -57,8 +59,6 @@ public class DiseaseController {
     // 전체 질병 정보 시각화
     @GetMapping("/admin/diseases")
     public String DiseaseInfoPage(Model model) {
-        List<DiseaseCountDto> diseases = diseaseService.findCount();
-        System.out.println("값확인: " + diseases.get(0).getType());
 
         List<DiseaseResponseDto> diseasesAll = diseaseService.findAllDesc();
         System.out.println(diseasesAll.get(0).getName());
@@ -67,10 +67,13 @@ public class DiseaseController {
 
         List<ReserveResponseDto> reservations = reserveService.findAll();
 
-        model.addAttribute("diseases", diseases);
+        List<DiagnosisNameCountDto> diagnosisNames = diagnosisService.findNameCount();
+
         model.addAttribute("dis", diseasesAll);
         model.addAttribute("disName", diseaseNames);
         model.addAttribute("reserves", reservations);
+        model.addAttribute("diagName", diagnosisNames);
+        model.addAttribute("symptomForm", new SymptomForm());
 
         return "disease/diseaseInfo";
     }
@@ -89,7 +92,7 @@ public class DiseaseController {
         return "disease/diseaseChart";
     }
 
-    //외부 API와 연동
+    // 외부 API와 연동
     @PostMapping("/api/disease/form")
     public String callAPI_put(@Valid DiseaseForm form, Model model, Principal principal) throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
@@ -97,29 +100,23 @@ public class DiseaseController {
 
         MultiValueMap<String,String> parameters = new LinkedMultiValueMap<String,String>();
         Diagnosis diagnosis = new Diagnosis();
-        for(int i=0;i<form.getSymptom().size();i++) {
-            parameters.add("증상"+i, form.getSymptom().get(i));
+
+        for(int i = 0; i < form.getSymptom().size(); i++) {
+            parameters.add("증상" + i, form.getSymptom().get(i));
         }
 
-
-        //플라스크에 증상 값을 POST 매핑으로 던져준다.
+        // 플라스크에 증상 값을 POST 매핑으로 던져준다.
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(url,parameters,String.class);
-
-//        ///////////////////////////////////////////////////////////////
 
         HashMap<String, Object> result = new HashMap<String, Object>();
 
         String jsonInString = "";
         JsonParser parser = new JsonParser();
 
-
-        //FLASK에서 예측값 받아오기
+        // FLASK에서 예측 값 받아오기
         try {
-
-//            RestTemplate restTemplate = new RestTemplate();
-
             HttpHeaders header = new HttpHeaders();
-            HttpEntity<?> entity = new HttpEntity<>(header); //값받기
+            HttpEntity<?> entity = new HttpEntity<>(header); // 값 받기
 
             String url2 = "http://192.168.43.33:80/test";
             ResponseEntity<Object> resultMap = restTemplate.exchange(url2, HttpMethod.POST,entity, Object.class);
@@ -132,7 +129,6 @@ public class DiseaseController {
 
             jsonInString = mapper.writeValueAsString(resultMap.getBody());
 
-
         } catch (HttpClientErrorException | HttpServerErrorException e) {
             result.put("statusCode", e.getRawStatusCode());
             result.put("body", e.getStatusText());
@@ -140,60 +136,61 @@ public class DiseaseController {
             System.out.println(e.toString());
         } catch (Exception e) {
             result.put("statusCode", "999");
-            result.put("body", "excpetion오류");
+            result.put("body", "excpetion 오류");
             System.out.println(e.toString());
         }
 
-
         Object obj = parser.parse(jsonInString);
         JsonObject jsonObj = (JsonObject) obj;
-        JsonElement k = jsonObj.get("코로나바이러스");
+        JsonElement k = jsonObj.get("코로나 바이러스");
 
         Member member = memberRepository.findEmailCheck(principal.getName());
-        //setting
-        diagnosisService.DiagnosisSetting(jsonObj.get("data").toString(),jsonObj.get("코로나바이러스").toString(),
-                jsonObj.get("마카다미아너트중독증").toString(), jsonObj.get("기관지확장증").toString(), form.getChoice(),member);
 
+        // setting
+        diagnosisService.DiagnosisSetting(jsonObj.get("data").toString(), jsonObj.get("코로나 바이러스").toString(),
+                jsonObj.get("마카다미아너트 중독증").toString(), jsonObj.get("기관지 확장증").toString(), form.getChoice(), member);
+
+        List<DiseaseResponseDto> diseaseAll = diseaseService.findAllDesc();
 
 
         if(member != null) {
 
             model.addAttribute("member", member);
-            model.addAttribute("Diagnosis", jsonObj.get("data"));
-            model.addAttribute("Corna", jsonObj.get("코로나바이러스"));
-            model.addAttribute("Makana", jsonObj.get("마카다미아너트중독증"));
-            model.addAttribute("Bronchus", jsonObj.get("기관지확장증"));
+            model.addAttribute("diagnosis", jsonObj.get("data"));
+            model.addAttribute("macak", jsonObj.get("마카다미아너트 중독증"));
+            model.addAttribute("corna", jsonObj.get("코로나 바이러스"));
+            model.addAttribute("bronchus", jsonObj.get("기관지 확장증"));
+            model.addAttribute("diseases", diseaseAll);
             model.addAttribute("forms", form);
-
-        }
-
-
-        return "members/recommends/recommendation";
-
     }
 
-    //회원이 보는 진단기록리스트
+        return "members/recommends/recommendation";
+    }
+
+    // 회원이 보는 진단기록리스트
     @GetMapping(value = "/member/chart/record")
     public String list(Model model, Principal principal) {
-        Member member = memberRepository.findEmailCheck(principal.getName());//추후 ASPECT 적용대상
+        Member member = memberRepository.findEmailCheck(principal.getName()); // 추후 ASPECT 적용대상
         List<DiagnosisDto> diagnosis = diagnosisService.findAllDesc(member);
         model.addAttribute("dias", diagnosis);
-
 
         return "diagnosis/diagnosisList";
     }
 
-
     // 진단 시각화 페이지
     @GetMapping("/member/chart/record/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
-        DiagnosisDto dto  = diagnosisService.findById(id);
-        model.addAttribute("member", dto);
+        DiagnosisDto diagnosisInfo = diagnosisService.findById(id);
 
-        return "home";
+        log.info(diagnosisInfo.getId().toString());
+        log.info(diagnosisInfo.getDog());
+        log.info(diagnosisInfo.getMacak().getPercent());
+        log.info(diagnosisInfo.getCorna().getPercent());
+        log.info(diagnosisInfo.getAir().getPercent());
+
+        model.addAttribute("diagInfo", diagnosisInfo);
+
+}
+        return "diagnosis/diagnosisInfo";
     }
-
-
-
-
 }

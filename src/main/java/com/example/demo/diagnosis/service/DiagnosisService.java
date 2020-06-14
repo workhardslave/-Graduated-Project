@@ -10,6 +10,7 @@ import com.example.demo.diagnosis.repository.CornaRepository;
 import com.example.demo.diagnosis.repository.DiagnosisRepository;
 import com.example.demo.diagnosis.repository.MacakRepository;
 import com.example.demo.diagnosis.vo.DiagnosisDto;
+import com.example.demo.diagnosis.vo.DiagnosisNameCountDto;
 import com.example.demo.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +31,11 @@ public class DiagnosisService {
     private final AirRepository airRepository;
 
     @Transactional
-    public void DiagnosisSetting(String data,String cor, String ma, String ar,String dog, Member member ) {
+    public void DiagnosisSetting(String data, String cor, String ma, String ar, String dog, Member member ) {
+
+        int dataLen = data.length();
+        String name = data.substring(1, dataLen-1);
+
         Corna corna = Corna.builder()
                 .percent(cor)
                 .build();
@@ -53,7 +58,7 @@ public class DiagnosisService {
         re.setCorna(corna);
         re.setMacak(macak);
         re.setMember(member);
-        re.setName(data);
+        re.setName(name);
         re.setDog(dog);
         diagnosisRepository.save(re);
     }
@@ -64,7 +69,7 @@ public class DiagnosisService {
                     .orElseThrow(() -> new IllegalArgumentException("해당 사용자 or 관리자가 없습니다. id=" + id));
 
             return new DiagnosisDto(entity);
-        }
+    }
 
     @Transactional(readOnly = true)
     public List<DiagnosisDto> findAllDesc(Member member) {
@@ -73,4 +78,9 @@ public class DiagnosisService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
+    public List<DiagnosisNameCountDto> findNameCount() {
+        List<DiagnosisNameCountDto> diagName = diagnosisRepository.findNameCount();
+        return diagName;
+    }
 }

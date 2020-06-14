@@ -1,7 +1,6 @@
 package com.example.demo.disease.service;
 
 import com.example.demo.disease.dao.DiseaseRepository;
-import com.example.demo.disease.dto.DiseaseCountDto;
 import com.example.demo.disease.dto.DiseaseNameCountDto;
 import com.example.demo.disease.dto.DiseaseResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -22,12 +21,6 @@ public class DiseaseService {
         return diseaseRepository.findAllDesc().stream()
                 .map(DiseaseResponseDto::new)
                 .collect(Collectors.toList());
-    }
-
-    @Transactional
-    public List<DiseaseCountDto> findCount() {
-        List<DiseaseCountDto> d = diseaseRepository.findCount();
-        return d;
     }
 
     @Transactional
