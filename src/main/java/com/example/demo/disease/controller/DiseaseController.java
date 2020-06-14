@@ -93,7 +93,7 @@ public class DiseaseController {
     @PostMapping("/api/disease/form")
     public String callAPI_put(@Valid DiseaseForm form, Model model, Principal principal) throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://localhost:80/test";
+        String url = "http://192.168.43.33:80/test";
 
         MultiValueMap<String,String> parameters = new LinkedMultiValueMap<String,String>();
         Diagnosis diagnosis = new Diagnosis();
@@ -121,7 +121,7 @@ public class DiseaseController {
             HttpHeaders header = new HttpHeaders();
             HttpEntity<?> entity = new HttpEntity<>(header); //값받기
 
-            String url2 = "http://localhost:80/test";
+            String url2 = "http://192.168.43.33:80/test";
             ResponseEntity<Object> resultMap = restTemplate.exchange(url2, HttpMethod.POST,entity, Object.class);
 
             result.put("Statuscode", resultMap.getStatusCodeValue());
