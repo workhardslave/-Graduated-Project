@@ -12,6 +12,7 @@
             <table class="table table-horizontal table-striped table-bordered">
                 <thead class="thead-strong">
                 <tr>
+                    <th>강아지</th>
                     <th>병원이름</th>
                     <th>방문날짜</th>
                     <th>병원주소</th>
@@ -23,7 +24,8 @@
 
 
                 <tr th:each="reserve : ${reserves}">
-                    <td><a th:href="@{/reserves/settings/{id}(id = ${reserve.id})}" th:text="${reserve.name}"></a></td>
+                    <td><a th:href="@{/reserves/settings/{id}(id = ${reserve.id})}" th:text="${reserve.dog}"></a></td>
+                    <td th:text="${reserve.name}"></td>
                     <td th:text="${reserve.date}"></td>
                     <td th:text="${reserve.address}"></td>
                     <td th:text="${reserve.tel}"></td>

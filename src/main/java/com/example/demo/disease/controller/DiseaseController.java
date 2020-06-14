@@ -11,6 +11,7 @@ import com.example.demo.dog.service.DogService;
 import com.example.demo.dog.vo.DogResponseDto;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.vo.Member;
+import com.example.demo.member.vo.MemberUpdatePwd;
 import com.example.demo.reserve.service.ReserveService;
 import com.example.demo.reserve.vo.ReserveResponseDto;
 import com.example.demo.symptom.service.SymptomService;
@@ -96,7 +97,6 @@ public class DiseaseController {
 
         MultiValueMap<String,String> parameters = new LinkedMultiValueMap<String,String>();
         Diagnosis diagnosis = new Diagnosis();
-
         for(int i=0;i<form.getSymptom().size();i++) {
             parameters.add("증상"+i, form.getSymptom().get(i));
         }
@@ -155,13 +155,18 @@ public class DiseaseController {
                 jsonObj.get("마카다미아너트중독증").toString(), jsonObj.get("기관지확장증").toString(), form.getChoice(),member);
 
 
+
         if(member != null) {
+
             model.addAttribute("member", member);
             model.addAttribute("Diagnosis", jsonObj.get("data"));
             model.addAttribute("Corna", jsonObj.get("코로나바이러스"));
             model.addAttribute("Makana", jsonObj.get("마카다미아너트중독증"));
             model.addAttribute("Bronchus", jsonObj.get("기관지확장증"));
+            model.addAttribute("forms", form);
+
         }
+
 
         return "members/recommends/recommendation";
 
@@ -187,4 +192,8 @@ public class DiseaseController {
 
         return "home";
     }
+
+
+
+
 }

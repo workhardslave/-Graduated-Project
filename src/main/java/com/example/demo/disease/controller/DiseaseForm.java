@@ -11,7 +11,7 @@ import java.util.ArrayList;
 @Setter
 public class DiseaseForm {
 
-    @NotEmpty(message = "증상 5개를 선택해주세요")
+
     private String choice;
     private ArrayList<String> symptom; // 증상을 입력받을 배열
 
