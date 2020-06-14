@@ -9,6 +9,7 @@ import com.example.demo.disease.dto.DiseaseResponseDto;
 import com.example.demo.disease.service.DiseaseService;
 import com.example.demo.dog.service.DogService;
 import com.example.demo.dog.vo.DogResponseDto;
+import com.example.demo.member.controller.MemberForm;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.vo.Member;
 import com.example.demo.member.vo.MemberUpdatePwd;
@@ -16,6 +17,7 @@ import com.example.demo.reserve.service.ReserveService;
 import com.example.demo.reserve.vo.ReserveResponseDto;
 import com.example.demo.symptom.service.SymptomService;
 import com.example.demo.symptom.vo.Symptom;
+import com.example.demo.symptom.vo.SymptomForm;
 import com.example.demo.symptom.vo.SymptomResponseDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -71,6 +73,7 @@ public class DiseaseController {
         model.addAttribute("dis", diseasesAll);
         model.addAttribute("disName", diseaseNames);
         model.addAttribute("reserves", reservations);
+        model.addAttribute("symptomForm", new SymptomForm());
 
         return "disease/diseaseInfo";
     }
