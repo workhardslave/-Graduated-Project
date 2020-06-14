@@ -14,6 +14,9 @@ import com.example.demo.member.vo.Member;
 import com.example.demo.member.vo.MemberUpdatePwd;
 import com.example.demo.reserve.service.ReserveService;
 import com.example.demo.reserve.vo.ReserveResponseDto;
+import com.example.demo.symptom.service.SymptomService;
+import com.example.demo.symptom.vo.Symptom;
+import com.example.demo.symptom.vo.SymptomResponseDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonElement;
@@ -49,6 +52,7 @@ public class DiseaseController {
     private final DogService dogService;
     private final ReserveService reserveService;
     private final DiagnosisService diagnosisService;
+    private final SymptomService symptomService;
 
     // 전체 질병 정보 시각화
     @GetMapping("/admin/diseases")
@@ -76,9 +80,11 @@ public class DiseaseController {
     public String DiseaseForm(Model model, Principal principal) {
         Member member = memberRepository.findEmailCheck(principal.getName());//추후 ASPECT 적용대상
         List<DogResponseDto> Dogs = dogService.findAllDesc(member);
+        List<SymptomResponseDto> Symptoms = symptomService.findAllDesc();
 
         model.addAttribute("dogs", Dogs);
         model.addAttribute("DiseaseForm", new DiseaseForm());
+        model.addAttribute("spt", Symptoms);
 
         return "disease/diseaseChart";
     }
