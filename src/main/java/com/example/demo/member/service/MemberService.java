@@ -3,12 +3,8 @@ package com.example.demo.member.service;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.vo.*;
 
-
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import lombok.RequiredArgsConstructor;
-
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -31,28 +26,23 @@ public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
-
-    //회원가입 아이디 중복체크
+    // 회원가입 아이디 중복체크
     @Transactional
     public int validateDuplicateMember(String user_email) {
-//        String st = user_email.substring()
+
         String value = user_email;
         value = value.substring(1,value.length()-1);
         HashMap<String, String> hashMap = new HashMap<>();
 
         String[] entry = value.split(":");
-//        log.info("키값확인0"+entry[0]);
-//        log.info("키값확인1"+entry[1]);
+
         hashMap.put(entry[0].trim(), entry[1].trim());
-//        log.info("맵값확인"+hashMap.values().toString());
+
         String value2 = hashMap.values().toString().substring(2, hashMap.values().toString().length()-2);
-//        log.info("맵값확인1"+value2);
 
         Member findMember = memberRepository.findEmailCheck(value2);
 
-
         if (findMember!=null) {
-//            throw new IllegalStateException("회원가입된 사람입니다.");
             return 1;
         }else{
             return 0;
@@ -95,7 +85,6 @@ public class MemberService implements UserDetailsService {
         return id;
     }
 
-
     // 회원 패스워드 수정
     @Transactional
     public Long updatePwd(Long id, MemberUpdatePwd requestDto) {
@@ -107,12 +96,8 @@ public class MemberService implements UserDetailsService {
         log.info("password : " + member.getPassword().getClass());
         log.info("dto pwd class : " + requestDto.getPassword().getClass());
 
-
         String encodePwd = passwordEncoder.encode(requestDto.getPassword());
         member.updatePwd(encodePwd);
-
-
-
 
         return id;
     }
@@ -152,6 +137,4 @@ public class MemberService implements UserDetailsService {
                 .map(MemberResponseDto::new)
                 .collect(Collectors.toList());
     }
-
-
 }
