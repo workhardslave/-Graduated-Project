@@ -67,6 +67,14 @@ public class ReserveService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 예약이 없습니다. id=" + id));
         reserveRepository.delete(reserve);
     }
+    @Transactional
+    public void delete_member(Member member) {
+        List<Reserve> reserve = reserveRepository.findAllDesc(member);
+
+        for(Reserve re : reserve){
+            reserveRepository.delete(re);
+        }
+    }
 
     // 사용자 병원예약 POST
     @Transactional
