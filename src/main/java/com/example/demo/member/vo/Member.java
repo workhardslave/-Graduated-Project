@@ -3,6 +3,7 @@ package com.example.demo.member.vo;
 
 import com.example.demo.diagnosis.domain.Diagnosis;
 import com.example.demo.dog.vo.Dog;
+import com.example.demo.hospital.vo.Hospital;
 import com.example.demo.overlap.Address;
 import com.example.demo.overlap.BaseTimeEntity;
 import lombok.*;
@@ -22,6 +23,7 @@ public class Member extends BaseTimeEntity {
 
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     private String name;
@@ -37,7 +39,6 @@ public class Member extends BaseTimeEntity {
     @Embedded
     private Address address;
 
-
     @OneToMany(mappedBy="member", orphanRemoval = true)
     List<Diagnosis> diList = new ArrayList<>();
 
@@ -47,9 +48,11 @@ public class Member extends BaseTimeEntity {
 //    @OneToMany(mappedBy="member", orphanRemoval = true)
 //    List<Reserve> reserveList = new ArrayList<>();
 
+    @OneToOne(orphanRemoval = true)
+    private Hospital hospital;
+
     @Enumerated(EnumType.STRING)
     private Role role;
-
 
     @Builder
     public Member(Long id, String name, Address address, Role role,String email ,String password, String birth, String phone) {
