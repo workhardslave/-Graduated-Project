@@ -1,6 +1,7 @@
 package com.example.demo.reserve.vo;
 
 import com.example.demo.diagnosis.domain.Diagnosis;
+import com.example.demo.hospital.vo.Hospital;
 import com.example.demo.member.vo.Member;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,13 +18,15 @@ import static javax.persistence.FetchType.LAZY;
 @RequiredArgsConstructor
 public class Reserve  {
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Hospital hospital;
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reserve_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
-
 
     private String dog;
 

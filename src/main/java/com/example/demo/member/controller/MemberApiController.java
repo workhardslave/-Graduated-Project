@@ -1,23 +1,24 @@
 package com.example.demo.member.controller;
 
-
-
 import com.example.demo.diagnosis.domain.Diagnosis;
+import com.example.demo.diagnosis.repository.AirRepository;
+import com.example.demo.diagnosis.repository.CornaRepository;
+import com.example.demo.diagnosis.repository.DiagnosisRepository;
+import com.example.demo.diagnosis.repository.MacakRepository;
 import com.example.demo.diagnosis.service.DiagnosisService;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.member.vo.Member;
 import com.example.demo.member.vo.MemberUpdatePwd;
 import com.example.demo.member.vo.MemberUpdateRequestDto;
-import com.example.demo.reserve.repository.ReserveRepository;
 import com.example.demo.reserve.service.ReserveService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.web.bind.annotation.*;
 
-
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,11 +27,14 @@ public class MemberApiController {
 
     private final FindByIndexNameSessionRepository sessionRepository;
 
+    private final DiagnosisRepository diagnosisRepository;
     private final MemberRepository memberRepository;
     private final  MemberService memberService;
     private final DiagnosisService diagnosisService;
     private final ReserveService    reserveService;
-
+    private final AirRepository airRepository;
+    private final CornaRepository   cornaRepository;
+    private final MacakRepository   macakRepository;
 
     // 회원이 직접정보를 수정하는 API
     @PutMapping("/api/member/settings/{id}")
@@ -54,12 +58,18 @@ public class MemberApiController {
         return memberService.updatePwd(id, requestDto);
     }
 
-
-    //회원이 직접정보를 삭제하는 api
+    // 회원이 직접정보를 삭제하는 api
     @DeleteMapping("/api/member/delete/{id}")
     public Long delete(@PathVariable Long id, Principal principal) {
         sessionRepository.findByIndexNameAndIndexValue(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME,
                 principal.getName()).keySet().forEach(session -> sessionRepository.deleteById((String) session));
+
+        Member member = memberRepository.findOne(id);
+        log.info(member.getClass().getName());
+        log.info(member.getEmail());
+        reserveService.delete_member(member);
+        List<Diagnosis> diagnosis = diagnosisRepository.findAllDesc(member);
+        diagnosisService.delete(diagnosis);
         memberService.delete(id);
 
         return id;
@@ -71,25 +81,25 @@ public class MemberApiController {
         return memberService.updateMember(id, requestDto);
     }
 
-
-    //관리자가 회원정보를 삭제하는 api
+    // 관리자가 회원정보를 삭제하는 api
     @DeleteMapping("/api/admin/member/delete/{id}")
     public Long deleteMember(@PathVariable Long id) {
         Member member = memberRepository.findOne(id);
 
+        List<Diagnosis> diagnosis = diagnosisRepository.findAllDesc(member);
+
         reserveService.delete_member(member);
-        diagnosisService.delete(member);
+        diagnosisService.delete(diagnosis);
+
         memberService.delete(id);
-        log.info("제발!!");
-        log.info("??:");
 
         return id;
     }
 
     @PostMapping("/api/checkEmail")
     public int checkEmail(@RequestBody String user_email){
-
+        log.info("/api/checkemail enter");
+        log.info(user_email);
         return memberService.validateDuplicateMember(user_email);
     }
-
 }

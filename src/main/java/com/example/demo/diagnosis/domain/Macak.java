@@ -18,8 +18,6 @@ public class Macak {
     private Long id;
     private String percent;
 
-    @OneToMany(mappedBy="air", orphanRemoval = true)
-    List<Diagnosis> diList = new ArrayList<>();
 
 
     @Builder
