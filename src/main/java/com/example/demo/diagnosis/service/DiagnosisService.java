@@ -86,11 +86,14 @@ public class DiagnosisService {
 
     //삭제 api
     @Transactional
-    public void delete ( Member member) {
+    public void delete (List<Diagnosis> diagnosis) {
 
-        List<Diagnosis> diagnosis = diagnosisRepository.findAllDesc(member);
         for(Diagnosis d : diagnosis){
             diagnosisRepository.delete(d);
+            cornaRepository.delete(d.getCorna());
+            macakRepository.delete(d.getMacak());
+            airRepository.delete(d.getAir());
         }
+
     }
 }
