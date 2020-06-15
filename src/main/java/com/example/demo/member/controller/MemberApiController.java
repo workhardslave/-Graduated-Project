@@ -2,9 +2,15 @@ package com.example.demo.member.controller;
 
 
 
+import com.example.demo.diagnosis.domain.Diagnosis;
+import com.example.demo.diagnosis.service.DiagnosisService;
+import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.service.MemberService;
+import com.example.demo.member.vo.Member;
 import com.example.demo.member.vo.MemberUpdatePwd;
 import com.example.demo.member.vo.MemberUpdateRequestDto;
+import com.example.demo.reserve.repository.ReserveRepository;
+import com.example.demo.reserve.service.ReserveService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.session.FindByIndexNameSessionRepository;
@@ -20,7 +26,10 @@ public class MemberApiController {
 
     private final FindByIndexNameSessionRepository sessionRepository;
 
+    private final MemberRepository memberRepository;
     private final  MemberService memberService;
+    private final DiagnosisService diagnosisService;
+    private final ReserveService    reserveService;
 
 
     // 회원이 직접정보를 수정하는 API
@@ -66,7 +75,14 @@ public class MemberApiController {
     //관리자가 회원정보를 삭제하는 api
     @DeleteMapping("/api/admin/member/delete/{id}")
     public Long deleteMember(@PathVariable Long id) {
+        Member member = memberRepository.findOne(id);
+
+        reserveService.delete_member(member);
+        diagnosisService.delete(member);
         memberService.delete(id);
+        log.info("제발!!");
+        log.info("??:");
+
         return id;
     }
 

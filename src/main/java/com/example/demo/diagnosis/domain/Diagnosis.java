@@ -25,9 +25,9 @@ public class Diagnosis {
     @ManyToOne(fetch = LAZY)
     private Member member;
 
-    @OneToOne
-    @JoinColumn(name = "reserve_id")
-    private Reserve reserve;
+//    @OneToOne
+//    @JoinColumn(name = "reserve_id")
+//    private Reserve reserve;
 
     private String name; //진단질병명
 
