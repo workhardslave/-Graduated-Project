@@ -12,7 +12,7 @@ public interface DiagnosisRepository extends JpaRepository<Diagnosis, Long> {
 
     // 증상 시각화
     @Query("SELECT diag FROM Diagnosis diag where diag.member = :member")
-    Diagnosis findOne(Member member);
+    Diagnosis findMember(Member member);
 
     @Query("SELECT diag FROM Diagnosis diag where diag.member =:member ORDER BY diag.id DESC ")
     List<Diagnosis> findAllDesc(Member member);

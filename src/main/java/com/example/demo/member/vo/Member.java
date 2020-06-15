@@ -1,6 +1,7 @@
 package com.example.demo.member.vo;
 
 
+import com.example.demo.diagnosis.domain.Diagnosis;
 import com.example.demo.dog.vo.Dog;
 import com.example.demo.overlap.Address;
 import com.example.demo.overlap.BaseTimeEntity;
@@ -36,6 +37,9 @@ public class Member extends BaseTimeEntity {
     @Embedded
     private Address address;
 
+
+    @OneToMany(mappedBy="member", orphanRemoval = true)
+    List<Diagnosis> diList = new ArrayList<>();
 
     @OneToMany(mappedBy="member", orphanRemoval = true)
     List<Dog> dogList = new ArrayList<>();

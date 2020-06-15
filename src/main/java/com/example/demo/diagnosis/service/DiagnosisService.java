@@ -83,4 +83,14 @@ public class DiagnosisService {
         List<DiagnosisNameCountDto> diagName = diagnosisRepository.findNameCount();
         return diagName;
     }
+
+    //삭제 api
+    @Transactional
+    public void delete ( Member member) {
+
+        List<Diagnosis> diagnosis = diagnosisRepository.findAllDesc(member);
+        for(Diagnosis d : diagnosis){
+            diagnosisRepository.delete(d);
+        }
+    }
 }

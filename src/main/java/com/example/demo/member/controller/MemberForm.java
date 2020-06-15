@@ -1,18 +1,17 @@
 package com.example.demo.member.controller;
 
-import com.example.demo.member.vo.Role;
-import com.example.demo.overlap.Address;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+
 import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter
+
 public class MemberForm {
 
-//        @NotEmpty(message = "이름 입력은 필수입니다")
+        @NotEmpty(message = "이름 입력은 필수입니다")
         private String name;
         @NotEmpty(message = "이메일 입력은 필수입니다")
         private String email;
