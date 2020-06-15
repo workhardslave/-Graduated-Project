@@ -271,7 +271,7 @@
 
                     itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
                         '<div class="info">' +
-                        '   <h5 id="hospital_name' + (index+1) + '" data-idx="' + (index+1) + '">' + places.place_name + '</h5></span>';
+                        '   <h5 id="hospital_name' + (index+1) + '" data-idx="' + (index+1) + '">' + places.place_name + '</h5>';
 
                 if (places.road_address_name) {
                     itemStr += '    <span id="road' + (index+1) + '">' + places.road_address_name + '</span>' +
@@ -374,7 +374,6 @@
 
                     $("#modal_div").modal();
                 });
-
             });
             // 이벤트 끝
 

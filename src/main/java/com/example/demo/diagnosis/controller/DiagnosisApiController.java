@@ -60,7 +60,8 @@ public class DiagnosisApiController {
 
 
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://192.168.43.33:80/reset";
+//        String url = "http://192.168.43.33:80/reset";
+        String url = "http://localhost:80/reset";
 
         MultiValueMap<String,String> parameters = new LinkedMultiValueMap<String,String>();
 
