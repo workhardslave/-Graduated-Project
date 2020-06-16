@@ -50,7 +50,20 @@
                             <input type="text" id="sample6_extraAddress" class="form-control" placeholder="참고항목" required></br>
                             -->
                         </div>
-                        <br/>
+
+                        <div class="row" style="padding-left: 15px; padding-bottom: 15px;">
+                            <span>
+                                <input type="radio" id="GUEST" name="role" value="GUEST"
+                                       th:attr="checked=${member.role.toString() == 'GUEST' ? 'true' : 'false'}" disabled>
+                                <label for="GUEST" style="padding-right: 10px">사용자</label>
+                            </span>
+
+                            <span>
+                                <input type="radio" id="VET" name="role" value="VET"
+                                       th:attr="checked=${member.role.toString() == 'VET' ? 'true' : 'false'}" disabled>
+                                <label for="VET" style="padding-right: 10px">수의사</label>
+                            </span>
+                        </div>
 
                         <div class="container-login100-form-btn">
                             <div class="wrap-login100-form-btn">
