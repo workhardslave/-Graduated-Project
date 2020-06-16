@@ -123,8 +123,6 @@
 
         <script src="/../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
         <script th:inline="javascript">
-
-
             function update() {
                 var data = {                                  // 이름, 이메일, 생일 변경 불가
                     password: $("#memberPassword").val(),     // 비밀번호, 전화번호, 주소, 상세주소, 참고항목 변경 가능
@@ -177,7 +175,6 @@
                 console.log(data);
             }
 
-
             // 비밀번호 변경버튼 클릭시 모달창을 띄우는 이벤트
             $(function() {
                 $("[id^=memberPassword]").click(function () {
@@ -221,26 +218,6 @@
                 });
 
             }
-
-            // 비빌번호, 비빌번호 확인 라벨 비교 구문
-            // $("#user2_password").blur(function(){
-            //
-            //     const pw1 = $('#user_password').val();
-            //     const pw2 = $('#user2_password').val();
-            //     if(pw1 === pw2){
-            //         console.log("true")
-            //         $("#pwd_check").text("패스워드가 일치합니다 :) ");
-            //         $("#pwd_check").css("color", "blue");
-            //     }
-            //     else if(pw2 == null){
-            //         console.log("넑값 잡히니?")
-            //     }
-            //     else{
-            //         $("#pwd_check").text("패스워드가 일치하지 않습니다 :p ");
-            //         $("#pwd_check").css("color", "red");
-            //         $("#user_password").focus();
-            //     }
-            // });
         </script>
 
         <div id="dropDownSelect1"></div>
