@@ -41,7 +41,21 @@ public class HospitalService {
     //병원삭제
     @Transactional
     public void delete(Long id) {
-        Hospital hospital = hospitalRepository.findOne(id);
+        Hospital hospital = hospitalRepository.findById(id)
+                .orElseThrow(()-> new IllegalArgumentException("병원이 이미 삭제되어 있습니다. id=" +id));
         hospitalRepository.delete(hospital);
+    }
+
+    /**
+     * https://advenoh.tistory.com/15 : Optional 이해
+     */
+
+    //수정페이지
+    @Transactional
+    public HospitalResponseDto findById(Long id) {
+        Hospital hospital = hospitalRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 병원이 없습니다. id=" + id)); //null일경우
+        return new HospitalResponseDto(hospital);
+
     }
 }

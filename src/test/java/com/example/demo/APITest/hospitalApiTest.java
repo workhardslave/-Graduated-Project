@@ -51,7 +51,6 @@ public class hospitalApiTest {
                 .phone("101")
                 .email("yusa2@naver.com")
                 .birth("1995")
-                .address("동네")
                 .password("12345")
                 .build());
 
@@ -74,10 +73,10 @@ public class hospitalApiTest {
 
     @Test
     public void 병원삭제() throws Exception{
-        Hospital hospital = hospitalRepository.findOne(1L);
+        Hospital hospital = hospitalRepository.findById(1L)
+                .orElseThrow(()-> new IllegalArgumentException("병원정보 없음"));
 
         System.out.println(hospital.getName());
-
         //지울경우!
         hospitalRepository.delete(hospital);
     }
