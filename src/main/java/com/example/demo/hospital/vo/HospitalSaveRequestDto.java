@@ -11,23 +11,20 @@ import lombok.RequiredArgsConstructor;
 public class HospitalSaveRequestDto {
     private String name;
     private String address;
-    private Member member;
     private String tel;
 
 
     @Builder
-    public HospitalSaveRequestDto(String name, String address, Member member, String tel) {
+    public HospitalSaveRequestDto(String name, String address,  String tel) {
         this.name = name;
         this.tel =tel;
         this.address = address;
-        this.member =member;
     }
 
 
     public Hospital toEntity(){
         return Hospital.builder()
                 .name(name)
-                .member(member)
                 .address(address)
                 .tel(tel)
                 .build();

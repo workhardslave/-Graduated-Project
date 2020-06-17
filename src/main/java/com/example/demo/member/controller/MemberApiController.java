@@ -6,11 +6,13 @@ import com.example.demo.diagnosis.repository.CornaRepository;
 import com.example.demo.diagnosis.repository.DiagnosisRepository;
 import com.example.demo.diagnosis.repository.MacakRepository;
 import com.example.demo.diagnosis.service.DiagnosisService;
+import com.example.demo.hospital.service.HospitalService;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.member.vo.Member;
 import com.example.demo.member.vo.MemberUpdatePwd;
 import com.example.demo.member.vo.MemberUpdateRequestDto;
+import com.example.demo.member.vo.Role;
 import com.example.demo.reserve.service.ReserveService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,15 +28,7 @@ import java.util.List;
 public class MemberApiController {
 
     private final FindByIndexNameSessionRepository sessionRepository;
-
-    private final DiagnosisRepository diagnosisRepository;
-    private final MemberRepository memberRepository;
     private final  MemberService memberService;
-    private final DiagnosisService diagnosisService;
-    private final ReserveService    reserveService;
-    private final AirRepository airRepository;
-    private final CornaRepository   cornaRepository;
-    private final MacakRepository   macakRepository;
 
     // 회원이 직접정보를 수정하는 API
     @PutMapping("/api/member/settings/{id}")
@@ -64,13 +58,20 @@ public class MemberApiController {
         sessionRepository.findByIndexNameAndIndexValue(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME,
                 principal.getName()).keySet().forEach(session -> sessionRepository.deleteById((String) session));
 
-        Member member = memberRepository.findOne(id);
-        log.info(member.getClass().getName());
-        log.info(member.getEmail());
-        reserveService.delete_member(member);
-        List<Diagnosis> diagnosis = diagnosisRepository.findAllDesc(member);
-        diagnosisService.delete(diagnosis);
-        memberService.delete(id);
+//        Member member = memberRepository.findOne(id);
+//
+//
+//
+//        log.info(member.getClass().getName());
+//        log.info(member.getEmail());
+//        //병원관리자일 경우 병원정보도 삭제한다.
+//        if(member.getRole().equals(Role.VET)){
+//            hospitalService.delete(member.getHospital().getId());
+//        }
+//        reserveService.delete_member(member); //예약정보 같이삭제
+//        List<Diagnosis> diagnosis = diagnosisRepository.findAllDesc(member); //진단정보 같이삭제
+//        diagnosisService.delete(diagnosis);
+        memberService.delete(id); // 회원정보삭제 (회원이 만약 병원관리자라면?)
 
         return id;
     }
@@ -84,13 +85,15 @@ public class MemberApiController {
     // 관리자가 회원정보를 삭제하는 api
     @DeleteMapping("/api/admin/member/delete/{id}")
     public Long deleteMember(@PathVariable Long id) {
-        Member member = memberRepository.findOne(id);
-
-        List<Diagnosis> diagnosis = diagnosisRepository.findAllDesc(member);
-
-        reserveService.delete_member(member);
-        diagnosisService.delete(diagnosis);
-
+//        Member member = memberRepository.findOne(id);
+//        List<Diagnosis> diagnosis = diagnosisRepository.findAllDesc(member);
+//
+//        //병원관리자일 경우 병원정보도 삭제한다.
+//        if(member.getRole().equals(Role.VET)){
+//            hospitalService.delete(member.getHospital().getId());
+//        }
+//        reserveService.delete_member(member);
+//        diagnosisService.delete(diagnosis);
         memberService.delete(id);
 
         return id;
@@ -98,8 +101,6 @@ public class MemberApiController {
 
     @PostMapping("/api/checkEmail")
     public int checkEmail(@RequestBody String user_email){
-        log.info("/api/checkemail enter");
-        log.info(user_email);
         return memberService.validateDuplicateMember(user_email);
     }
 }

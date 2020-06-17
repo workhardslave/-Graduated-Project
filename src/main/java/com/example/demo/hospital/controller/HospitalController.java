@@ -29,7 +29,6 @@ public class HospitalController {
 
     private final HospitalService hospitalService;
     private final MemberRepository memberRepository;
-    private final HospitalRepository hospitalRepository;
 
     // 병원등록 API
     @PostMapping(value = "/api/hospital/signup")
@@ -37,23 +36,20 @@ public class HospitalController {
         if (result.hasErrors()) {
             return "home";
         }
+
         Member member = memberRepository.findEmailCheck(principal.getName());
-        List<Hospital> hospitals = hospitalRepository.findAllDesc();
 
-        for(Hospital hs : hospitals){
-            if(hs.getMember() == member){
-                throw new IllegalStateException("병원등록은 하나만 됩니다.");
-            }
+        if(member.getHospital() != null){
+            throw new IllegalStateException("병원등록은 하나만 됩니다.");
         }
-        HospitalSaveRequestDto hospital = new HospitalSaveRequestDto();
 
+        HospitalSaveRequestDto hospital = new HospitalSaveRequestDto();
 
         hospitalService.reg(hospital.builder()
                 .name(Dto.getName())
                 .address(Dto.getAddress())
                 .tel(Dto.getTel())
-                .member(member)
-                .build());
+                .build(), member.getId());
 
         return "";
     }
@@ -69,13 +65,14 @@ public class HospitalController {
     }
 
     //수의사 내 병원정보 페이지
-    @GetMapping("/member/mypage")
+    @GetMapping("/member/myhospital")
     public String readHospitalData(Model model, Principal principal) {
         Member member = memberRepository.findEmailCheck(principal.getName()); //추후 ASPECT 적용대상
-        Hospital hos = hospitalRepository.findMember(member);
-        if(member != null) {
-            model.addAttribute("hospital", hos);
-        }
+
+        HospitalResponseDto hos = hospitalService.findById(member.getHospital().getId());
+
+        model.addAttribute("hospital", hos);
+
 
         return "";
     }
@@ -83,7 +80,7 @@ public class HospitalController {
 
 
     // 병원 정보수정 페이지(관리자, 수의사 공통)
-    @GetMapping("/member/settings/{id}")
+    @GetMapping("/member/hospital/settings/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
         HospitalResponseDto dto = hospitalService.findById(id);
         model.addAttribute("hospital", dto);

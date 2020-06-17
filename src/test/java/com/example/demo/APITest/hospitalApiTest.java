@@ -61,7 +61,6 @@ public class hospitalApiTest {
                 .address("동네")
                 .name("나는야의사")
                 .tel("010")
-                .member(member2)
                 .build());
 //        assertThat(hospital.getName(), "나는야의사");
 

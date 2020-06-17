@@ -3,10 +3,7 @@ package com.example.demo.reserve.vo;
 import com.example.demo.diagnosis.domain.Diagnosis;
 import com.example.demo.hospital.vo.Hospital;
 import com.example.demo.member.vo.Member;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -15,17 +12,20 @@ import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class Reserve  {
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Hospital hospital;
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reserve_id")
     private Long id;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "hospital_id")
+    private Hospital hospital;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
     private Member member;
 
     private String dog;
