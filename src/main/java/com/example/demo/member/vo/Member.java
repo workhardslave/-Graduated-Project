@@ -21,7 +21,6 @@ import java.util.List;
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class Member extends BaseTimeEntity {
 
-
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
@@ -49,10 +48,6 @@ public class Member extends BaseTimeEntity {
 
     @OneToMany(mappedBy="member", orphanRemoval = true)
     List<Dog> dogList = new ArrayList<>();
-
-//    @OneToMany(mappedBy="member", orphanRemoval = true)
-//    List<Reserve> reserveList = new ArrayList<>();
-    
 
     @Enumerated(EnumType.STRING)
     private Role role;
