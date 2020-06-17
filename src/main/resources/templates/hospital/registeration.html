@@ -74,7 +74,7 @@
                         data: JSON.stringify(data)
                     }).done(function () {
                         alert('등록완료 되었습니다!');
-                        window.location.href = "/member/reservesInfo";
+                        window.location.href = "/member/hospital/mypage";
                     }).fail(function (request, status, error) {
                         alert(JSON.stringify(error));
                         window.location.href = "/hospital/registeration";
