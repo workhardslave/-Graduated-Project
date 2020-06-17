@@ -64,15 +64,9 @@ public class HospitalController {
         return "";
     }
 
-<<<<<<< HEAD
-    //수의사 내 병원정보 페이지
-    @GetMapping("/member/myhospital")
-    public String readHospitalData(Model model, Principal principal) {
-=======
     // 수의사 내 병원정보 페이지
     @GetMapping("/member/hospital/mypage")
     public String readHospital(Model model, Principal principal) {
->>>>>>> 19081d2a718f0299655464add2f628e80bb263f4
         Member member = memberRepository.findEmailCheck(principal.getName()); //추후 ASPECT 적용대상
 
         HospitalResponseDto hos = hospitalService.findById(member.getHospital().getId());
@@ -83,33 +77,4 @@ public class HospitalController {
         return "";
     }
 
-    // 수의사, 자신의 동물병원 조회
-    @GetMapping("/member/myhospital")
-    public String readMyHospital(Model model, Principal principal) {
-
-        Member member = memberRepository.findEmailCheck(principal.getName());
-
-<<<<<<< HEAD
-    // 병원 정보수정 페이지(관리자, 수의사 공통)
-    @GetMapping("/member/hospital/settings/{id}")
-    public String updateForm(@PathVariable Long id, Model model) {
-        HospitalResponseDto dto = hospitalService.findById(id);
-        model.addAttribute("hospital", dto);
-        return "";
-    }
-
-
-
-
-
-=======
-        if(member != null) {
-            Hospital hospital = hospitalRepository.findMember(member);
->>>>>>> 19081d2a718f0299655464add2f628e80bb263f4
-
-            model.addAttribute("myHospital", hospital);
-        }
-
-        return "hospital/myHospital";
-    }
 }
