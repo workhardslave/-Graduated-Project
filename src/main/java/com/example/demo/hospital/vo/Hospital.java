@@ -23,16 +23,16 @@ public class Hospital {
     private Member member;
 
     @Id @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    @Column(nullable = false)
+    @Column(name = "hospital_id", nullable = false)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "hospital_name", nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(name = "hospital_tel", nullable = false)
     private String tel;
 
-    @Column(nullable = false)
+    @Column(name = "hospital_address", nullable = false)
     private String address;
 
 

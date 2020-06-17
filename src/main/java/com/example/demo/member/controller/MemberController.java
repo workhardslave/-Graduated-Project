@@ -64,6 +64,7 @@ public class MemberController {
                 .email(form.getEmail())
                 .password(form.getPassword())
                 .phone(form.getPhone())
+                .role(form.getRole())
                 .build());
 
         return "memberAuth/signIn";

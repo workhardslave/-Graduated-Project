@@ -14,6 +14,7 @@ public class MemberResponseDto {
     private Address address;
     private String phone;
     private String birth;
+    private Role role;
 
 
     public MemberResponseDto(Member entity) {
@@ -24,5 +25,6 @@ public class MemberResponseDto {
         this.address = entity.getAddress();
         this.phone = entity.getPhone();
         this.birth = entity.getBirth();
+        this.role = entity.getRole();
     }
 }

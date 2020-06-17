@@ -1,6 +1,5 @@
 package com.example.demo.hospital.controller;
 
-
 import com.example.demo.hospital.repository.HospitalRepository;
 import com.example.demo.hospital.service.HospitalService;
 import com.example.demo.hospital.vo.Hospital;
@@ -30,6 +29,13 @@ public class HospitalController {
 
     private final HospitalService hospitalService;
     private final MemberRepository memberRepository;
+
+    // 병원 등록 페이지
+    @GetMapping("/hospital/registeration")
+    public String registeration() {
+
+        return "hospital/registeration";
+    }
 
     // 병원등록 API
     @PostMapping(value = "/api/hospital/signup")
@@ -64,9 +70,11 @@ public class HospitalController {
         return "";
     }
 
+
     // 수의사 내 병원정보 페이지
     @GetMapping("/member/hospital/mypage")
     public String readHospital(Model model, Principal principal) {
+
         Member member = memberRepository.findEmailCheck(principal.getName()); //추후 ASPECT 적용대상
 
         HospitalResponseDto hos = hospitalService.findById(member.getHospital().getId());
@@ -74,6 +82,16 @@ public class HospitalController {
         model.addAttribute("hospital", hos);
 
 
+        return "";
+    }
+
+
+
+    // 병원 정보수정 페이지(관리자, 수의사 공통)
+    @GetMapping("/member/hospital/settings/{id}")
+    public String updateForm(@PathVariable Long id, Model model) {
+        HospitalResponseDto dto = hospitalService.findById(id);
+        model.addAttribute("hospital", dto);
         return "";
     }
 
