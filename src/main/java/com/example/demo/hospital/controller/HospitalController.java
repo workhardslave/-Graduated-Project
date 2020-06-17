@@ -9,6 +9,7 @@ import com.example.demo.hospital.vo.HospitalSaveRequestDto;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.vo.Member;
 import com.example.demo.member.vo.MemberResponseDto;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -79,11 +80,18 @@ public class HospitalController {
         return "";
     }
 
-    // 병원 정보수정 페이지(관리자, 수의사 공통)
-    @GetMapping("/member/hospital/settings/{id}")
-    public String updateHospital(@PathVariable Long id, Model model) {
-        HospitalResponseDto dto = hospitalService.findById(id);
-        model.addAttribute("hospital", dto);
-        return "";
+    // 수의사, 자신의 동물병원 조회
+    @GetMapping("/member/myhospital")
+    public String readMyHospital(Model model, Principal principal) {
+
+        Member member = memberRepository.findEmailCheck(principal.getName());
+
+        if(member != null) {
+            Hospital hospital = hospitalRepository.findMember(member);
+
+            model.addAttribute("myHospital", hospital);
+        }
+
+        return "hospital/myHospital";
     }
 }
