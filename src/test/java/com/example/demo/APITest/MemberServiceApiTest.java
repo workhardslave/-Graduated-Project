@@ -75,6 +75,7 @@
 //                .role(Role.GUEST)
 //                .build();
 //        //when
+
 //        Member TestMember = memberRepository.save(member);
 //
 //        em.flush();

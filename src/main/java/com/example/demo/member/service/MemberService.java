@@ -54,6 +54,7 @@ public class MemberService implements UserDetailsService {
     public Long SignUp(MemberSaveRequestDto memberDto) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         memberDto.SHA256_PassWord(passwordEncoder.encode(memberDto.getPassword()));
+
 //        memberDto.GIVE_Role(Role.ADMIN);
 
         if(memberDto.getRole() == Role.GUEST) {
@@ -118,6 +119,7 @@ public class MemberService implements UserDetailsService {
         return id;
     }
 
+
     //수정 페이지
     @Transactional(readOnly = true)
     public MemberResponseDto findById(Long id) {
@@ -142,4 +144,6 @@ public class MemberService implements UserDetailsService {
                 .map(MemberResponseDto::new)
                 .collect(Collectors.toList());
     }
+
+
 }

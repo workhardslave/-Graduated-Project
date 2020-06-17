@@ -23,7 +23,7 @@ public class Member extends BaseTimeEntity {
 
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "member_id")
     private Long id;
 
     private String name;
@@ -47,9 +47,7 @@ public class Member extends BaseTimeEntity {
 
 //    @OneToMany(mappedBy="member", orphanRemoval = true)
 //    List<Reserve> reserveList = new ArrayList<>();
-
-    @OneToOne(orphanRemoval = true)
-    private Hospital hospital;
+    
 
     @Enumerated(EnumType.STRING)
     private Role role;
