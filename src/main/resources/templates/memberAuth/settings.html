@@ -176,7 +176,7 @@
                     console.log(name);
                     alert('탈퇴 되었습니다.');
                     window.location.href = '/';
-                }).fail(function (request,status,error) {
+                }).fail(function(request, status, error) {
                     alert(JSON.stringify(error));
                     alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
                 });

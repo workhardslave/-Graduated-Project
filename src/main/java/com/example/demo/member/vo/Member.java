@@ -42,7 +42,6 @@ public class Member extends BaseTimeEntity {
     @JoinColumn(name = "hospital_id")
     private Hospital hospital;
 
-
     @OneToMany(mappedBy="member", orphanRemoval = true)
     List<Diagnosis> diList = new ArrayList<>();
 
@@ -62,7 +61,6 @@ public class Member extends BaseTimeEntity {
         this.password = password;
         this.birth = birth;
         this.phone = phone;
-
     }
 
     public Member update(String city, String street, String zipcode, String phone) {
@@ -75,7 +73,6 @@ public class Member extends BaseTimeEntity {
         this.password = password;
         return this;
     }
-
 
     public Member updateMember(String name, String city, String street, String zipcode, String phone) {
         this.name = name;

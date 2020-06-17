@@ -33,10 +33,9 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
      * @param hospital
      * @return member에 존재하는 hospital FK에 hospital을 등록합니다.
      */
-    @Query("UPDATE Member m SET m.hospital = :hospital   where m.id = :id")
+    @Query("UPDATE Member m SET m.hospital = :hospital where m.id = :id")
     void InsertUpdateHospital(HospitalSaveRequestDto hospital, Long id);
 
-    @Query("UPDATE Member m SET m.hospital = :null where m.id = :id")
-    void DeleteHospital(Long id);
-
+    @Query("UPDATE Member m SET m.hospital.id = :null where m.id = :id")
+    void deleteMemberHospital(Long id);
 }

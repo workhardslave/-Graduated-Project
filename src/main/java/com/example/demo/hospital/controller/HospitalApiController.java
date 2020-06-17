@@ -20,29 +20,29 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class HospitalApiController {
 
-
     private final HospitalService hospitalService;
     private final MemberRepository memberRepository;
     private final MemberService memberService;
-    // 병원관리자 병원 삭제하는 api
-    @DeleteMapping("/api/member/hospital/delete/{id}")
-    public Long delete(@PathVariable Long id, Principal principal) {
-    Member member =  memberRepository.findEmailCheck(principal.getName());
-    memberService.hos_delete(member.getId());
-    hospitalService.delete(id);
 
-    return id;
+    // 수의사, 병원 삭제하는 api
+    @DeleteMapping("/api/vet/hospital/delete/{hospital_id}")
+    public Long deleteVetHospital(@PathVariable Long hospital_id) {
+
+        memberService.deleteMemHospital(hospital_id);
+        hospitalService.deleteHospital(hospital_id);
+
+        return hospital_id;
     }
 
-    // 홈페이지관리자가  병원 삭제하는 api
-    @DeleteMapping("/api/admin/hospital/delete/{id}")
-    public Long Admin_delete(@PathVariable Long id, Principal principal) {
+    // 관리자, 병원 삭제하는 api
+    @DeleteMapping("/api/admin/hospital/delete/{hospital_id}")
+    public Long deleteAdminHospital(@PathVariable Long hospital_id) {
 
-        HospitalResponseDto dto = hospitalService.findById(id);
-        memberService.hos_delete(dto.getMember().getId()); //해당부분 테스트필요
-        hospitalService.delete(id);
+        HospitalResponseDto hospitalDto = hospitalService.findById(hospital_id);
 
-        return id;
+        memberService.deleteMemHospital(hospitalDto.getId()); // 해당 부분 테스트 필요
+        hospitalService.deleteHospital(hospital_id);
+
+        return hospital_id;
     }
-
 }
