@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
     <head th:replace="fragments/config :: configFragment" />
+
         <link rel="stylesheet" href="/../../../static/css/kakao.css">
     <body>
         <header th:replace="fragments/header :: headerFragment"></header>
-        <h3 style="padding-top: 30px; padding-bottom: 30px; padding-left: 30px;"><b>동물병원 등록하기</b></h3>
-        <span style="padding-left: 30px;">
-            <b>본인의 병원 이름을 검색창에 입력한 후 해당하는 병원의 이름을 클릭해주세요.</b>
-        </span>
+        <h3 style="padding-top: 30px; padding-bottom: 20px; padding-left: 30px;"><b>동물병원 등록하기</b></h3>
         <br/>
+        <input type="hidden" id="hos_name" th:value="${hos_name}">
         <div class="map_wrap" style="padding-top: 30px;">
             <div id="map" style="width:100%; height:100%; position:relative; overflow:hidden;"></div>
 
@@ -16,7 +15,7 @@
                 <div class="option">
                     <div>
                         <form onsubmit="searchPlaces(); return false;">
-                            <input type="text" value="강남구 동물병원" id="keyword" size="24">
+                            <input type="text" id="keyword" value="" size="20">
                             <button type="submit">검색완료</button>
                         </form>
                     </div>
@@ -30,6 +29,62 @@
         <script src="/../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bebc3bdfe5172384c6bfdf655ad2ce8b&libraries=services"></script>
         <script>
+            // 병원 등록 페이지 로드 됐을때 자동으로 시작
+            $(document).ready(function(){
+
+                var result = prompt("본인의 병원 이름을 입력하세요.");
+
+                if(result == "" || result == null) {
+                    alert("다시 입력해주세요.");
+                    location.reload();
+                }else {
+                    $("#keyword").val(result); // 입력 받은 값을 키워드 value로 설정
+                    searchPlaces(); // 그 후 장소를 찾는다.
+                }
+            });
+
+            // 병원을 눌렀을 때 이벤트
+            function registerHospital(id){
+
+                console.log("id값 넘어오나 확인 로그------------------------" + id);
+
+                hospital_name = $(".hospital_name" + id).html();
+                road = $("#road" + id).html();
+                tel = $("#tel" + id).html();
+                console.log("먹히는중?");
+
+                let data = {
+                    name : hospital_name,
+                    address : road,
+                    tel : tel,
+                };
+
+                console.log(data);
+
+                // confirm 창 생성
+                var result2 = confirm("등록하려는 병원이 " + hospital_name + "이(가) 맞습니까?");
+
+                // 나중에 API와 매칭하기
+                if(result2) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/api/hospital/register/', // 임의로 지정
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(data)
+                    }).done(function () {
+                        alert('등록완료 되었습니다!');
+                        window.location.href = "/member/reservesInfo";
+                    }).fail(function (request, status, error) {
+                        alert(JSON.stringify(error));
+                        window.location.href = "/member/recommendation";
+                        alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+                    });
+                }else {
+                    // 변화없음;;
+                }
+            }
+
             // 마커를 담을 배열입니다
             var markers = [];
 
@@ -49,14 +104,19 @@
             var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
             // 키워드로 장소를 검색합니다
-            searchPlaces();
+            // if(check == true){
+            //     console.log("프롬프트 후 : check " + check);
+            //     searchPlaces();
+            // }
 
             // 키워드 검색을 요청하는 함수입니다
             function searchPlaces() {
 
                 var keyword = document.getElementById('keyword').value;
+                console.log("확인----------------------- "+keyword);
 
                 if (!keyword.replace(/^\s+|\s+$/g, '')) {
+                    console.log("이게 먼저나오나??");
                     alert('키워드를 입력해주세요!');
                     return false;
                 }
@@ -138,8 +198,6 @@
                     })(marker, places[i].place_name);
 
                     fragment.appendChild(itemEl);
-                    // console.log( fragment.appendChild(itemEl));
-                    console.log(itemEl);
                 }
 
                 // 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다
@@ -156,7 +214,8 @@
 
                     itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
                         '<div class="info">' +
-                        '   <h5 id="hospital_name' + (index+1) + '" data-idx="' + (index+1) + '">' + places.place_name + '</h5>';
+                        '   <h5 class="hospital_name' + (index+1) + '" id="' + (index+1) + '" ' +
+                        ' onclick="registerHospital(this.id)">' + places.place_name + '</h5>';
 
                 if (places.road_address_name) {
                     itemStr += '    <span id="road' + (index+1) + '">' + places.road_address_name + '</span>' +
@@ -270,6 +329,8 @@
         <script src="/../../../static/js/postcode-api.js"></script>
 
         <footer th:replace="fragments/footer :: footerFragment"></footer>
+
+
 
     </body>
 </html>

@@ -42,7 +42,7 @@
 
                                     <li class="nav-item">
                                         <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" th:href="@{/admin/diseases}">질병 관리</a>
-                                        <a sec:authorize="hasRole('ROLE_VET')" class="nav-link" href="#">동물병원 예약 관리</a>
+                                        <a sec:authorize="hasRole('ROLE_VET')" class="nav-link" th:href="@{/hospital/registeration/}">동물병원 예약 관리</a>
                                     </li>
 
                                     <li class="nav-item dropdown">

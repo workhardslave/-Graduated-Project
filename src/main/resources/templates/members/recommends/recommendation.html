@@ -271,7 +271,8 @@
 
                     itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
                         '<div class="info">' +
-                        '   <h5 id="hospital_name' + (index+1) + '" data-idx="' + (index+1) + '">' + places.place_name + '</h5>';
+                        '   <h5 class="hospital_name' + (index+1) + '" id="' + (index+1) + '" ' +
+                        ' onclick="openModal(this.id)">' + places.place_name + '</h5>';
 
                 if (places.road_address_name) {
                     itemStr += '    <span id="road' + (index+1) + '">' + places.road_address_name + '</span>' +
@@ -365,16 +366,19 @@
             }
 
             // 병원이름 클릭시 모달창을 띄우는 이벤트
-            $(function(){
-                $("[id^=hospital_name]").click(function() {
-                    idx = $(this).attr("data-idx");
-                    hospital_name = $("#hospital_name" + idx).html();
-                    road = $("#road" + idx).html();
-                    tel = $("#tel" + idx).html();
+            function openModal(id){
+                console.log("id값 넘어오나 확인 로그------------------------" + id);
 
-                    $("#modal_div").modal();
-                });
-            });
+                hospital_name = $(".hospital_name" + id).html();
+                road = $("#road" + id).html();
+                tel = $("#tel" + id).html();
+
+                console.log("병원이름----------------" + hospital_name);
+                console.log("주소----------------" + road);
+                console.log("전화번호----------------" + tel);
+
+                $("#modal_div").modal();
+            }
             // 이벤트 끝
 
             // 모달창 예약하기 눌렀을 때 이벤트
