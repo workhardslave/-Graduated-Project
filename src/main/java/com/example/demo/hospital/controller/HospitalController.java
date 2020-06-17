@@ -86,6 +86,7 @@ public class HospitalController {
     }
 
 
+
     // 병원 정보수정 페이지(관리자, 수의사 공통)
     @GetMapping("/member/hospital/settings/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
