@@ -40,7 +40,7 @@ public class MemberController {
 
     // 회원가입
     @GetMapping("/member/signup")
-    public String createForm(Model model) {
+    public String createMember(Model model) {
         model.addAttribute("memberForm", new MemberForm());
 
         return "memberAuth/signUp";
@@ -48,7 +48,7 @@ public class MemberController {
 
     // 회원가입 API
     @PostMapping(value = "/api/member/signup")
-    public String create(@Valid MemberForm form, BindingResult result) {
+    public String createMemberApi(@Valid MemberForm form, BindingResult result) {
         if (result.hasErrors()) {
             return "memberAuth/signUp";
         }
@@ -71,7 +71,7 @@ public class MemberController {
 
     //회원정보 리스트
     @GetMapping(value = "/admin/members")
-    public String list(Model model) {
+    public String readAllMemberAdmin(Model model) {
         List<MemberResponseDto> members = memberService.findAllDesc();
         model.addAttribute("members", members);
 
@@ -79,7 +79,7 @@ public class MemberController {
     }
 
     @GetMapping("/member/mypage")
-    public String readMyData(Model model, Principal principal, HttpServletRequest request, HttpSession session) {
+    public String readMember(Model model, Principal principal, HttpServletRequest request, HttpSession session) {
         Member member = memberRepository.findEmailCheck(principal.getName()); //추후 ASPECT 적용대상
 
         if(member != null) {
@@ -91,23 +91,23 @@ public class MemberController {
 
     // 회원 정보수정 페이지
     @GetMapping("/member/settings/{id}")
-    public String updateForm(@PathVariable Long id, Model model) {
-        log.info("id : " +id);
+    public String updateMember(@PathVariable Long id, Model model) {
+
         MemberResponseDto dto = memberService.findById(id);
         model.addAttribute("member", dto);
-        log.info(dto.getPassword());
 
         return "memberAuth/settings";
     }
 
     // 관리자 회원정보 수정페이지
     @GetMapping("/admin/member/settings/{id}")
-    public String detailList(@PathVariable Long id, Model model){
+    public String updateMemberAdmin(@PathVariable Long id, Model model){
 
         MemberResponseDto dto = memberService.findById(id);
 
         model.addAttribute("member", dto);
         log.info(dto.getPassword());
+
         return "admin/settings";
     }
 
@@ -130,13 +130,12 @@ public class MemberController {
     @GetMapping("/member/logout/result")
     public String dispLogout()
     {
-
         return "home";
     }
 
     // 관리자 정보조회
     @GetMapping("/admin/mypage")
-    public String readAdminMyDate(Model model, Principal principal) {
+    public String readAdmin(Model model, Principal principal) {
 
         Member admin = memberRepository.findEmailCheck(principal.getName()); //추후 ASPECT 적용대상E
         if(admin != null) {
@@ -147,7 +146,7 @@ public class MemberController {
 
     // 관리자 정보수정
     @GetMapping("/admin/settings/{id}")
-    public String updateAdminForm(@PathVariable Long id, Model model) {
+    public String updateAdmin(@PathVariable Long id, Model model) {
 
         MemberResponseDto adminDto = memberService.findById(id);
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();

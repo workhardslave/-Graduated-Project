@@ -9,6 +9,7 @@ import com.example.demo.hospital.vo.HospitalSaveRequestDto;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.vo.Member;
 import com.example.demo.member.vo.MemberResponseDto;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +34,7 @@ public class HospitalController {
 
     // 병원등록 API
     @PostMapping(value = "/api/hospital/signup")
-    public String create(@RequestBody HospitalSaveRequestDto Dto, BindingResult result, Principal principal) {
+    public String createHospital(@RequestBody HospitalSaveRequestDto Dto, BindingResult result, Principal principal) {
         if (result.hasErrors()) {
             return "home";
         }
@@ -58,19 +59,18 @@ public class HospitalController {
         return "";
     }
 
-
-    //관리자 -> 병원 전체목록 조회
+    // 관리자 -> 병원 전체목록 조회
     @GetMapping(value = "/admin/hospitalList")
-    public String list(Model model) {
+    public String allHospital(Model model) {
         List<HospitalResponseDto> Dto = hospitalService.findAllDesc();
         model.addAttribute("hospital",Dto);
 
         return "";
     }
 
-    //수의사 내 병원정보 페이지
-    @GetMapping("/member/mypage")
-    public String readHospitalData(Model model, Principal principal) {
+    // 수의사 내 병원정보 페이지
+    @GetMapping("/member/hospital/mypage")
+    public String readHospital(Model model, Principal principal) {
         Member member = memberRepository.findEmailCheck(principal.getName()); //추후 ASPECT 적용대상
         Hospital hos = hospitalRepository.findMember(member);
         if(member != null) {
@@ -80,20 +80,18 @@ public class HospitalController {
         return "";
     }
 
+    // 수의사, 자신의 동물병원 조회
+    @GetMapping("/member/myhospital")
+    public String readMyHospital(Model model, Principal principal) {
 
+        Member member = memberRepository.findEmailCheck(principal.getName());
 
-    // 병원 정보수정 페이지(관리자, 수의사 공통)
-    @GetMapping("/member/settings/{id}")
-    public String updateForm(@PathVariable Long id, Model model) {
-        HospitalResponseDto dto = hospitalService.findById(id);
-        model.addAttribute("hospital", dto);
-        return "";
+        if(member != null) {
+            Hospital hospital = hospitalRepository.findMember(member);
+
+            model.addAttribute("myHospital", hospital);
+        }
+
+        return "hospital/myHospital";
     }
-
-
-
-
-
-
-
 }

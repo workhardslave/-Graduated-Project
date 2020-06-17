@@ -8,54 +8,31 @@
             <div class="container-login100" style="background-image: url('/../../static/images/bg-01.jpg');">
                 <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
                     <form class="login100-form validate-form">
-                        <span class="login100-form-title p-b-49">정보조회</span>
+                        <span class="login100-form-title p-b-49">내 병원 조회</span>
+
+                        <input type="text" id="hospID" th:field="${myHospital.id}" hidden="true">
 
                         <div class="form-group">
                             <label th:for="name">이름</label>
-                            <input type="text" id="name" placeholder="회원이름" th:field="${member.name}" class="form-control" readonly required>
-                        </div>
-
-                        <div class="form-group">
-                            <label th:for="email">이메일</label>
-                            <input type="email" th:field="${member.email}" class="form-control" readonly required>
-                        </div>
-
-                        <div class="form-group">
-                            <label th:for="password">비밀번호</label>
-                            <input type="password" th:value="${member.password}" class="form-control" readonly required>
+                            <input type="text" id="hospName" placeholder="병원 이름" th:field="${myHospital.name}" class="form-control" readonly required>
                         </div>
 
                         <div class="form-group">
                             <label th:for="phone">전화번호</label>
-                            <input type="text" th:field="${member.phone}" class="form-control"
+                            <input type="text" id="hospTel" placeholder="병원 전화번호" th:field="${myHospital.tel}" class="form-control"
                                    maxlength="11" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" readonly required>
                         </div>
 
                         <div class="form-group">
-                            <label th:for="birth">생일</label>
-                            <input type="date" th:field="${member.birth}" class="form-control" readonly required>
-                        </div>
-
-                        <div class="form-group">
-                            <label th:for="zipcode">우편번호</label>
-                            <input type="text" th:field="${member.address.zipcode}" class="form-control" id="sample6_postcode" placeholder="우편번호" readonly required>
-                        </div>
-
-                        <div class="form-group">
-                            <label th:for="city">주소</label>
-                            <input type="text" th:field="${member.address.city}" class="form-control" id="sample6_address" placeholder="주소" readonly required><br>
-                            <label th:for="street">상세주소</label>
-                            <input type="text" th:field="${member.address.street}" class="form-control" id="sample6_detailAddress" placeholder="상세주소" readonly required>
-                            <!--
-                            <input type="text" id="sample6_extraAddress" class="form-control" placeholder="참고항목" required></br>
-                            -->
+                            <label th:for="zipcode">주소</label>
+                            <input type="text" id="hospAddr" placeholder="병원 주소" th:field="${myHospital.address}" class="form-control" readonly required>
                         </div>
                         <br/>
 
                         <div class="container-login100-form-btn">
                             <div class="wrap-login100-form-btn">
                                 <div class="login100-form-bgbtn"></div>
-                                <a th:href = "@{/member/settings/{id}(id = ${member.id})}" class="login100-form-btn" role="button">정보수정</a>
+                                <a th:href="'javascript:deleteHospital()'" class="login100-form-btn">삭제하기</a>
                             </div>
                         </div>
                     </form>
@@ -63,6 +40,12 @@
             </div>
         </div>
 
+        <script src="/../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+        <script th:inline="javascript">
+            function deleteHospital() {
+                return 0;
+            }
+        </script>
 
         <div id="dropDownSelect1"></div>
 
