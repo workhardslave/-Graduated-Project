@@ -13,7 +13,6 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
-
 public class Corna  {
 
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)

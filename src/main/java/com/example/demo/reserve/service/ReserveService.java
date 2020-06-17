@@ -70,9 +70,10 @@ public class ReserveService {
     @Transactional
     public void delete_member(Member member) {
         List<Reserve> reserve = reserveRepository.findAllDesc(member);
-
-        for(Reserve re : reserve){
-            reserveRepository.delete(re);
+        if(reserve != null) {
+            for (Reserve re : reserve) {
+                reserveRepository.delete(re);
+            }
         }
     }
 

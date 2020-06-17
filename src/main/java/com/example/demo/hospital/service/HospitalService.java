@@ -5,6 +5,7 @@ import com.example.demo.hospital.repository.HospitalRepository;
 import com.example.demo.hospital.vo.Hospital;
 import com.example.demo.hospital.vo.HospitalResponseDto;
 import com.example.demo.hospital.vo.HospitalSaveRequestDto;
+import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.vo.Member;
 import com.example.demo.member.vo.MemberResponseDto;
 import com.example.demo.member.vo.MemberSaveRequestDto;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 public class HospitalService {
 
     private final HospitalRepository hospitalRepository;
+    private final MemberRepository memberRepository;
 
     //관리자 전체병원조회
     @Transactional(readOnly = true)
@@ -33,8 +35,8 @@ public class HospitalService {
 
     //병원등록
     @Transactional
-    public Long reg(HospitalSaveRequestDto hosDto) {
-
+    public Long reg(HospitalSaveRequestDto hosDto, Long id) {
+        memberRepository.InsertUpdateHospital(hosDto, id);
         return hospitalRepository.save(hosDto.toEntity()).getId();
     }
 
@@ -43,19 +45,20 @@ public class HospitalService {
     public void delete(Long id) {
         Hospital hospital = hospitalRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException("병원이 이미 삭제되어 있습니다. id=" +id));
+
         hospitalRepository.delete(hospital);
+    }
+
+    public HospitalResponseDto findById(Long id) {
+
+        Hospital entity = hospitalRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자 or 관리자가 없습니다. id=" + id));
+
+        return new HospitalResponseDto(entity);
     }
 
     /**
      * https://advenoh.tistory.com/15 : Optional 이해
      */
 
-    //수정페이지
-    @Transactional
-    public HospitalResponseDto findById(Long id) {
-        Hospital hospital = hospitalRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 병원이 없습니다. id=" + id)); //null일경우
-        return new HospitalResponseDto(hospital);
-
-    }
 }

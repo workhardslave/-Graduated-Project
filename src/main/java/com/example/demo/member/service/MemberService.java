@@ -1,13 +1,19 @@
 package com.example.demo.member.service;
 
+import com.example.demo.diagnosis.domain.Diagnosis;
+import com.example.demo.diagnosis.repository.DiagnosisRepository;
+import com.example.demo.diagnosis.service.DiagnosisService;
+import com.example.demo.hospital.service.HospitalService;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.vo.*;
 
+import com.example.demo.reserve.service.ReserveService;
 import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,7 +30,11 @@ import java.util.stream.Collectors;
 @Slf4j
 public class MemberService implements UserDetailsService {
 
+    private final DiagnosisRepository diagnosisRepository;
     private final MemberRepository memberRepository;
+    private final DiagnosisService diagnosisService;
+    private final ReserveService reserveService;
+    private final HospitalService hospitalService;
 
     // 회원가입 아이디 중복체크
     @Transactional
@@ -134,8 +144,20 @@ public class MemberService implements UserDetailsService {
     public void delete (Long id) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자 or 관리자가 없습니다. id=" + id));
+
+        if(member.getRole().equals(Role.VET)){
+            hospitalService.delete(member.getHospital().getId());
+        }
+        reserveService.delete_member(member);
+        List<Diagnosis> diagnosis = diagnosisRepository.findAllDesc(member);
+        diagnosisService.delete(diagnosis);
         memberRepository.delete(member);
 
+    }
+
+    @Transactional
+    public void hos_delete (Long id) {
+        memberRepository.DeleteHospital(id);
     }
 
     @Transactional(readOnly = true)
@@ -144,6 +166,10 @@ public class MemberService implements UserDetailsService {
                 .map(MemberResponseDto::new)
                 .collect(Collectors.toList());
     }
+
+
+
+
 
 
 }

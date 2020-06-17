@@ -1,5 +1,7 @@
 package com.example.demo.member.repository;
 
+import com.example.demo.hospital.vo.Hospital;
+import com.example.demo.hospital.vo.HospitalSaveRequestDto;
 import com.example.demo.member.vo.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -27,11 +29,14 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     Member findOne(Long id);
 
     /**
-     *
-     * @param email
-     * @param password
-     * @return 이메일과 패스워드를 확인해주세요.
+     * @param id
+     * @param hospital
+     * @return member에 존재하는 hospital FK에 hospital을 등록합니다.
      */
-    @Query("SELECT m FROM Member m where m.email = :email AND m.password = :password")
-    Member findByEmailPassword(Object email, Object password);
+    @Query("UPDATE Member m SET m.hospital = :hospital   where m.id = :id")
+    void InsertUpdateHospital(HospitalSaveRequestDto hospital, Long id);
+
+    @Query("UPDATE Member m SET m.hospital = :null where m.id = :id")
+    void DeleteHospital(Long id);
+
 }

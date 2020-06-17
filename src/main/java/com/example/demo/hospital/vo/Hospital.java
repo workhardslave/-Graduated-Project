@@ -18,9 +18,6 @@ import java.util.*;
 @NoArgsConstructor
 public class Hospital {
 
-//    @OneToMany(fetch = FetchType.LAZY)
-//    List<Reserve> reserveList = new ArrayList<>();
-
     @OneToOne
     @JoinColumn(name = "member_id")
     private Member member;
@@ -38,11 +35,11 @@ public class Hospital {
     @Column(name = "hospital_address", nullable = false)
     private String address;
 
+
     @Builder
-    public Hospital(String name, String tel, String address,Member member) {
+    public Hospital(String name, String tel, String address) {
         this.name = name;
         this.tel = tel;
         this.address = address;
-        this.member = member;
     }
 }
