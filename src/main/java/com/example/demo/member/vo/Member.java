@@ -40,7 +40,7 @@ public class Member extends BaseTimeEntity {
     private Address address;
 
     @OneToOne
-    @JoinColumn(name = "hospital_id")
+    @JoinColumn(name ="hospital_id")
     private Hospital hospital;
 
     @OneToMany(mappedBy="member", orphanRemoval = true)
@@ -67,6 +67,11 @@ public class Member extends BaseTimeEntity {
     public Member update(String city, String street, String zipcode, String phone) {
         this.address = new Address(city, zipcode, street);
         this.phone = phone;
+        return this;
+    }
+
+    public Member regHospital(Hospital hospital){
+        this.hospital = hospital;
         return this;
     }
 

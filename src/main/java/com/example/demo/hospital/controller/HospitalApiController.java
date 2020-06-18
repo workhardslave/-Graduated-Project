@@ -27,7 +27,8 @@ public class HospitalApiController {
 
         Member member = memberRepository.findEmailCheck(principal.getName());
 
-        member.setHospital(null);                       // JPA에서 알아서 감지해서 null 값 세팅
+        member.regHospital(null);
+//        member.setHospital(null);                       // JPA에서 알아서 감지해서 null 값 세팅
         hospitalService.deleteHospital(hospital_id);
 
         return hospital_id;

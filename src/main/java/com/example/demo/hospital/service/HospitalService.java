@@ -1,12 +1,13 @@
 package com.example.demo.hospital.service;
 
-
 import com.example.demo.hospital.repository.HospitalRepository;
 import com.example.demo.hospital.vo.Hospital;
 import com.example.demo.hospital.vo.HospitalResponseDto;
 import com.example.demo.hospital.vo.HospitalSaveRequestDto;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.reserve.repository.ReserveRepository;
+
+import com.example.demo.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,10 +33,10 @@ public class HospitalService {
 
     // 수의사, 동물병원 등록
     @Transactional
-    public Long regHospital(HospitalSaveRequestDto hosDto, Long id) {
-        memberRepository.InsertUpdateHospital(hosDto, id);
-
-        return hospitalRepository.save(hosDto.toEntity()).getId();
+    public Long reg(HospitalSaveRequestDto hosDto, Member member) {
+        Hospital hospital = hospitalRepository.save(hosDto.toEntity());
+        member.regHospital(hospital);
+        return hospital.getId();
     }
 
     // 수의사, 동물병원 삭제

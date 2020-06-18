@@ -47,6 +47,11 @@ public class HospitalController {
         if (result.hasErrors()) {
             return "home";
         }
+        log.info("병원등록 백앤드 값확인");
+        log.info(Dto.getAddress());
+        log.info(Dto.getName());
+        log.info(Dto.getTel());
+
 
         Member member = memberRepository.findEmailCheck(principal.getName());
 
@@ -56,13 +61,14 @@ public class HospitalController {
 
         HospitalSaveRequestDto hospital = new HospitalSaveRequestDto();
 
-        hospitalService.regHospital(hospital.builder()
+        hospitalService.reg(hospital.builder()
                 .name(Dto.getName())
                 .address(Dto.getAddress())
                 .tel(Dto.getTel())
-                .build(), member.getId());
+                .member(member)
+                .build(), member);
 
-        return "home";
+        return "redirect:/hospital/myHospital";
     }
 
     // 관리자, 전체 동물병원 조회
@@ -88,7 +94,6 @@ public class HospitalController {
         HospitalResponseDto hospitalDto = hospitalService.findById(member.getHospital().getId());
 
         model.addAttribute("myHospital", hospitalDto);
-        model.addAttribute("memHospital", member);
 
         return "hospital/myHospital";
     }
@@ -116,6 +121,4 @@ public class HospitalController {
 
         return "hospital/reservationSettings";
     }
-
-    // 수의사, 동물병원 예약 삭제
 }

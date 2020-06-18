@@ -145,7 +145,7 @@ public class MemberService implements UserDetailsService {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원/수의사/관리자가 없습니다. id=" + id));
 
-        if(member.getRole().equals(Role.VET)){
+        if(member.getHospital() != null ){
             hospitalService.deleteHospital(member.getHospital().getId());
         }
 
@@ -153,11 +153,6 @@ public class MemberService implements UserDetailsService {
         List<Diagnosis> diagnosis = diagnosisRepository.findAllDesc(member);
         diagnosisService.delete(diagnosis);
         memberRepository.delete(member);
-    }
-
-    @Transactional
-    public void deleteMemHospital(Long id, Long hos_id) {
-        memberRepository.deleteMemberHospital(id, hos_id);
     }
 
     @Transactional(readOnly = true)
