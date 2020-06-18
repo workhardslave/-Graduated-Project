@@ -118,7 +118,7 @@ public class MemberService implements UserDetailsService {
         return id;
     }
 
-    // 관리자 ->회원 정보수정
+    // 관리자, 회원 정보수정
     @Transactional
     public Long updateMember(Long id, MemberUpdateRequestDto requestDto) {
         Member member = memberRepository.findById(id)
@@ -130,31 +130,30 @@ public class MemberService implements UserDetailsService {
     }
 
 
-    //수정 페이지
+    // 정보수정
     @Transactional(readOnly = true)
     public MemberResponseDto findById(Long id) {
         Member entity = memberRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 사용자 or 관리자가 없습니다. id=" + id));
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원/수의사/관리자가 없습니다. id=" + id));
 
         return new MemberResponseDto(entity);
     }
 
-    //삭제 api
+    // 삭제 API
     @Transactional
-    public void delete (Long id) {
+    public void delete(Long id) {
         Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 사용자 or 관리자가 없습니다. id=" + id));
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원/수의사/관리자가 없습니다. id=" + id));
 
         if(member.getHospital() != null ){
-            hospitalService.delete(member.getHospital().getId());
+            hospitalService.deleteHospital(member.getHospital().getId());
         }
+
         reserveService.delete_member(member);
         List<Diagnosis> diagnosis = diagnosisRepository.findAllDesc(member);
         diagnosisService.delete(diagnosis);
         memberRepository.delete(member);
-
     }
-
 
     @Transactional(readOnly = true)
     public List<MemberResponseDto> findAllDesc() {
@@ -162,10 +161,4 @@ public class MemberService implements UserDetailsService {
                 .map(MemberResponseDto::new)
                 .collect(Collectors.toList());
     }
-
-
-
-
-
-
 }

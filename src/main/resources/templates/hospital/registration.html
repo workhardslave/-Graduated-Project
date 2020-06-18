@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
     <head th:replace="fragments/config :: configFragment" />
+    <link rel="stylesheet" href="/../../../static/css/kakao.css">
 
-        <link rel="stylesheet" href="/../../../static/css/kakao.css">
     <body>
         <header th:replace="fragments/header :: headerFragment"></header>
         <h3 style="padding-top: 30px; padding-bottom: 20px; padding-left: 30px;"><b>동물병원 등록하기</b></h3>
         <br/>
         <input type="hidden" id="hos_name" th:value="${hos_name}">
         <div class="map_wrap" style="padding-top: 30px;">
-            <div id="map" style="width:100%; height:100%; position:relative; overflow:hidden;"></div>
+            <div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
 
             <div id="menu_wrap" class="bg_white">
                 <div class="option">
@@ -32,12 +32,12 @@
             // 병원 등록 페이지 로드 됐을때 자동으로 시작
             $(document).ready(function(){
 
-                var result = prompt("본인의 병원 이름을 입력하세요.");
+                var result = prompt("본인의 동물병원 이름을 입력해주세요.", "동물병원");
 
                 if(result == "" || result == null) {
                     alert("다시 입력해주세요.");
                     location.reload();
-                }else {
+                } else {
                     $("#keyword").val(result); // 입력 받은 값을 키워드 value로 설정
                     searchPlaces(); // 그 후 장소를 찾는다.
                 }
@@ -68,16 +68,16 @@
                 if(result2) {
                     $.ajax({
                         type: 'POST',
-                        url: '/api/hospital/signup',
+                        url: '/api/vet/hospital/register',
                         dataType: 'json',
                         contentType: 'application/json; charset=utf-8',
                         data: JSON.stringify(data)
                     }).done(function () {
                         alert('등록완료 되었습니다!');
-                        window.location.href = "/member/hospital/mypage";
+                        window.location.href = "/hospital/myHospital";
                     }).fail(function (request, status, error) {
                         alert(JSON.stringify(error));
-                        window.location.href = "/hospital/registeration";
+                        window.location.href = "/vet/hospital/registration";
                         alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
                     });
                 }else {
@@ -113,11 +113,9 @@
             function searchPlaces() {
 
                 var keyword = document.getElementById('keyword').value;
-                console.log("확인----------------------- "+keyword);
 
                 if (!keyword.replace(/^\s+|\s+$/g, '')) {
-                    console.log("이게 먼저나오나??");
-                    alert('키워드를 입력해주세요!');
+                    alert('다시 입력해주세요.');
                     return false;
                 }
 
@@ -329,8 +327,5 @@
         <script src="/../../../static/js/postcode-api.js"></script>
 
         <footer th:replace="fragments/footer :: footerFragment"></footer>
-
-
-
     </body>
 </html>

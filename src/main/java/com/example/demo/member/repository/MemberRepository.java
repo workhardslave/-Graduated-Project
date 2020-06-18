@@ -3,6 +3,7 @@ package com.example.demo.member.repository;
 import com.example.demo.hospital.vo.Hospital;
 import com.example.demo.hospital.vo.HospitalSaveRequestDto;
 import com.example.demo.member.vo.Member;
+import com.sun.org.apache.xpath.internal.objects.XNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -27,7 +28,4 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
      */
     @Query("SELECT m FROM Member m where m.id = :id")
     Member findOne(Long id);
-
-
-
 }

@@ -27,8 +27,6 @@ public class DogController {
     private final DogService dogService;
     private final MemberRepository memberRepository;
 
-
-
     // 사용자 강아지 정보 입력 홈페이지
     @GetMapping("/member/dog/save")
     public String DogcreateForm(Model model) {

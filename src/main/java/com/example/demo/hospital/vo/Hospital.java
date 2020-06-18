@@ -18,8 +18,6 @@ import java.util.*;
 @NoArgsConstructor
 public class Hospital {
 
-
-
     @Id @GeneratedValue(strategy =  GenerationType.IDENTITY)
     @Column(name = "hospital_id", nullable = false)
     private Long id;
@@ -36,7 +34,6 @@ public class Hospital {
     @OneToOne
     @JoinColumn(name ="member_id")
     private Member member;
-
 
     @Builder
     public Hospital(String name, String tel, String address, Member member) {
