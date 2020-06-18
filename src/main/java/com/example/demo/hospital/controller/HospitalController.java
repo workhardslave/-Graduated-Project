@@ -89,7 +89,7 @@ public class HospitalController {
 
         HospitalResponseDto hos = hospitalService.findById(member.getHospital().getId());
 
-        model.addAttribute("hospital", hos);
+        model.addAttribute("myHospital", hos);
 
 
         return "hospital/myHospital";
