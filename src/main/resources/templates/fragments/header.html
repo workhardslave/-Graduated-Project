@@ -66,10 +66,6 @@
                                     </li>
 
                                     <li class="nav-item">
-                                        <a sec:authorize="hasRole('ROLE_VET')" class="nav-link" th:href="@{/vet/hospital/reservationList}">동물병원 예약 조회</a>
-                                    </li>
-
-                                    <li class="nav-item">
                                         <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" th:href="@{/admin/mypage}">정보조회</a>
                                         <a sec:authorize="hasRole('ROLE_VET')" class="nav-link" th:href="@{/member/mypage}">정보조회</a>
                                     </li>

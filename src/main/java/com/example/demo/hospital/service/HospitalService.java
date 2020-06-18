@@ -36,9 +36,9 @@ public class HospitalService {
     public Long reg(HospitalSaveRequestDto hosDto, Member member) {
         Hospital hospital = hospitalRepository.save(hosDto.toEntity());
         member.regHospital(hospital);
+
         return hospital.getId();
     }
-
 
     @Transactional
     public void deleteTest(Member member){

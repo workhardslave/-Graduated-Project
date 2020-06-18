@@ -68,7 +68,7 @@ public class HospitalController {
                 .member(member)
                 .build(), member);
 
-        return "redirect:/hospital/myHospital";
+        return "redirect:/vet/myHospital";
     }
 
     // 관리자, 전체 동물병원 조회

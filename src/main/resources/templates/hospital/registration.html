@@ -65,7 +65,7 @@
                 var result2 = confirm("등록하려는 병원이 " + hospital_name + "이(가) 맞습니까?");
 
                 // 나중에 API와 매칭하기
-                if(result2) {
+                if(result2 == true) {
                     $.ajax({
                         type: 'POST',
                         url: '/api/vet/hospital/register',
@@ -74,7 +74,7 @@
                         data: JSON.stringify(data)
                     }).done(function () {
                         alert('등록완료 되었습니다!');
-                        window.location.href = "/hospital/myHospital";
+                        window.location.href = "/vet/myHospital";
                     }).fail(function (request, status, error) {
                         alert(JSON.stringify(error));
                         window.location.href = "/vet/hospital/registration";
