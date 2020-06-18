@@ -1,6 +1,5 @@
 package com.example.demo.hospital.controller;
 
-
 import com.example.demo.hospital.service.HospitalService;
 import com.example.demo.hospital.vo.HospitalResponseDto;
 import com.example.demo.hospital.vo.HospitalSaveRequestDto;
@@ -26,23 +25,25 @@ public class HospitalApiController {
 
     // 수의사, 병원 삭제하는 api
     @DeleteMapping("/api/vet/hospital/delete/{hospital_id}")
-    public Long deleteVetHospital(@PathVariable Long hospital_id) {
+    public Long deleteVetHospital(@PathVariable Long hospital_id, Principal principal) {
 
-        memberService.deleteMemHospital(hospital_id);
+        Member member = memberRepository.findEmailCheck(principal.getName());
+
+        member.setHospital(null);                       // JPA에서 알아서 감지해서 null 값 세팅
         hospitalService.deleteHospital(hospital_id);
 
         return hospital_id;
     }
 
-    // 관리자, 병원 삭제하는 api
-    @DeleteMapping("/api/admin/hospital/delete/{hospital_id}")
-    public Long deleteAdminHospital(@PathVariable Long hospital_id) {
-
-        HospitalResponseDto hospitalDto = hospitalService.findById(hospital_id);
-
-        memberService.deleteMemHospital(hospitalDto.getId()); // 해당 부분 테스트 필요
-        hospitalService.deleteHospital(hospital_id);
-
-        return hospital_id;
-    }
+//    // 관리자, 병원 삭제하는 api
+//    @DeleteMapping("/api/admin/hospital/delete/{hospital_id}")
+//    public Long deleteAdminHospital(@PathVariable Long hospital_id) {
+//
+//        HospitalResponseDto hospitalDto = hospitalService.findById(hospital_id);
+//
+//        memberService.deleteMemHospital(hospitalDto.getId()); // 해당 부분 테스트 필요
+//        hospitalService.deleteHospital(hospital_id);
+//
+//        return hospital_id;
+//    }
 }

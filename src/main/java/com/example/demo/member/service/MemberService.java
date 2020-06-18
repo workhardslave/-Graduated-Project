@@ -156,8 +156,8 @@ public class MemberService implements UserDetailsService {
     }
 
     @Transactional
-    public void deleteMemHospital(Long id) {
-        memberRepository.deleteMemberHospital(id);
+    public void deleteMemHospital(Long id, Long hos_id) {
+        memberRepository.deleteMemberHospital(id, hos_id);
     }
 
     @Transactional(readOnly = true)

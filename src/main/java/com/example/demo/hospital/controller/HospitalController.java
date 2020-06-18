@@ -73,13 +73,14 @@ public class HospitalController {
 
         Member member = memberRepository.findEmailCheck(principal.getName());
 
-        if(member.getHospital().getId() == null) {
-            throw new IllegalStateException("동물병원 등록을 먼저 해주세요!");
+        if(member.getHospital() == null) {
+            return "home";      // 동물병원 등록 페이지 redirect
         }
 
         HospitalResponseDto hospitalDto = hospitalService.findById(member.getHospital().getId());
 
         model.addAttribute("myHospital", hospitalDto);
+        model.addAttribute("memHospital", member);
 
         return "hospital/myHospital";
     }

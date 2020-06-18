@@ -3,6 +3,7 @@ package com.example.demo.member.repository;
 import com.example.demo.hospital.vo.Hospital;
 import com.example.demo.hospital.vo.HospitalSaveRequestDto;
 import com.example.demo.member.vo.Member;
+import com.sun.org.apache.xpath.internal.objects.XNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -36,6 +37,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("UPDATE Member m SET m.hospital = :hospital where m.id = :id")
     void InsertUpdateHospital(HospitalSaveRequestDto hospital, Long id);
 
-    @Query("UPDATE Member m SET m.hospital.id = :null where m.id = :id")
-    void deleteMemberHospital(Long id);
+    @Query("UPDATE Member m SET m.hospital = :hos_id WHERE m.id = :id")
+    void deleteMemberHospital(Long id, Long hos_id);
 }
