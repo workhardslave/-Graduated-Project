@@ -28,10 +28,4 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
      */
     @Query("SELECT m FROM Member m where m.id = :id")
     Member findOne(Long id);
-
-    /**
-     * @param id
-     * @param hospital
-     * @return member에 존재하는 hospital FK에 hospital을 등록합니다.
-     */
 }

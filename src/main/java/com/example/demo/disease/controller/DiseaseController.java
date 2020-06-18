@@ -9,6 +9,9 @@ import com.example.demo.disease.dto.DiseaseResponseDto;
 import com.example.demo.disease.service.DiseaseService;
 import com.example.demo.dog.service.DogService;
 import com.example.demo.dog.vo.DogResponseDto;
+import com.example.demo.hospital.service.HospitalService;
+import com.example.demo.hospital.vo.Hospital;
+import com.example.demo.hospital.vo.HospitalResponseDto;
 import com.example.demo.member.controller.MemberForm;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.vo.Member;
@@ -55,6 +58,7 @@ public class DiseaseController {
     private final ReserveService reserveService;
     private final DiagnosisService diagnosisService;
     private final SymptomService symptomService;
+    private final HospitalService hospitalService;
 
     // 전체 질병 정보 시각화
     @GetMapping("/admin/diseases")
@@ -153,7 +157,12 @@ public class DiseaseController {
                 jsonObj.get("마카다미아너트 중독증").toString(), jsonObj.get("기관지 확장증").toString(), form.getChoice(), member);
 
         List<DiseaseResponseDto> diseaseAll = diseaseService.findAllDesc();
+        List<HospitalResponseDto> hospitalList = hospitalService.findAllDesc();
 
+        ArrayList<String> hospital_name = new ArrayList<>();
+        for(HospitalResponseDto ho : hospitalList ){
+                    hospital_name.add(ho.getName());
+        }
 
         if(member != null) {
 
@@ -164,6 +173,7 @@ public class DiseaseController {
             model.addAttribute("bronchus", jsonObj.get("기관지 확장증"));
             model.addAttribute("diseases", diseaseAll);
             model.addAttribute("forms", form);
+            model.addAttribute("hospital_name",hospital_name);
     }
 
         return "members/recommends/recommendation";
