@@ -39,6 +39,9 @@ public class Member extends BaseTimeEntity {
     @Embedded
     private Address address;
 
+    @OneToOne
+    @JoinColumn(name ="hospital_id")
+    private Hospital hospital;
 
     @OneToMany(mappedBy="member", orphanRemoval = true)
     List<Diagnosis> diList = new ArrayList<>();

@@ -145,7 +145,7 @@ public class MemberService implements UserDetailsService {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자 or 관리자가 없습니다. id=" + id));
 
-        if(member.getRole().equals(Role.VET)){
+        if(member.getHospital() != null ){
             hospitalService.delete(member.getHospital().getId());
         }
         reserveService.delete_member(member);

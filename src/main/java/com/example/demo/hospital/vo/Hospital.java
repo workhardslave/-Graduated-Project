@@ -18,9 +18,7 @@ import java.util.*;
 @NoArgsConstructor
 public class Hospital {
 
-    @OneToOne
-    @JoinColumn(name = "member_id")
-    private Member member;
+
 
     @Id @GeneratedValue(strategy =  GenerationType.IDENTITY)
     @Column(name = "hospital_id", nullable = false)
