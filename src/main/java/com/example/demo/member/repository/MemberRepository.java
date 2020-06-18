@@ -30,7 +30,4 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
 
 
-    @Query("UPDATE Member m SET m.hospital = :null where m.id = :id")
-    void DeleteHospital(Long id);
-
 }
