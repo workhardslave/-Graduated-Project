@@ -1,17 +1,14 @@
 package com.example.demo.hospital.controller;
 
 import com.example.demo.hospital.service.HospitalService;
-import com.example.demo.hospital.vo.HospitalResponseDto;
-import com.example.demo.hospital.vo.HospitalSaveRequestDto;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.member.vo.Member;
+import com.example.demo.reserve.repository.ReserveRepository;
+import com.example.demo.reserve.service.ReserveService;
+import com.example.demo.reserve.vo.ReserveUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.session.FindByIndexNameSessionRepository;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -20,10 +17,11 @@ import java.security.Principal;
 public class HospitalApiController {
 
     private final HospitalService hospitalService;
-    private final MemberRepository memberRepository;
-    private final MemberService memberService;
+    private final ReserveService reserveService;
 
-    // 수의사, 병원 삭제하는 api
+    private final MemberRepository memberRepository;
+
+    // 수의사, 동물병원 삭제 API
     @DeleteMapping("/api/vet/hospital/delete/{hospital_id}")
     public Long deleteVetHospital(@PathVariable Long hospital_id, Principal principal) {
 
@@ -35,15 +33,16 @@ public class HospitalApiController {
         return hospital_id;
     }
 
-//    // 관리자, 병원 삭제하는 api
-//    @DeleteMapping("/api/admin/hospital/delete/{hospital_id}")
-//    public Long deleteAdminHospital(@PathVariable Long hospital_id) {
-//
-//        HospitalResponseDto hospitalDto = hospitalService.findById(hospital_id);
-//
-//        memberService.deleteMemHospital(hospitalDto.getId()); // 해당 부분 테스트 필요
-//        hospitalService.deleteHospital(hospital_id);
-//
-//        return hospital_id;
-//    }
+    // 수의사, 동물병원 예약 수정 API
+    @PutMapping("/api/vet/hospital/reservation/{reserve_id}")
+    public Long updateVetHospitalReserve(@PathVariable Long reserve_id, @RequestBody ReserveUpdateRequestDto requestDto) {
+        return reserveService.update(reserve_id, requestDto);
+    }
+
+    // 수의사, 동물병원 예약 삭제 API
+    @DeleteMapping("/api/vet/hospital/reservation/delete/{id}")
+    public Long delete(@PathVariable Long id) {
+        reserveService.delete(id);
+        return id;
+    }
 }

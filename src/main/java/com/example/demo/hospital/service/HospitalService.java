@@ -6,12 +6,8 @@ import com.example.demo.hospital.vo.Hospital;
 import com.example.demo.hospital.vo.HospitalResponseDto;
 import com.example.demo.hospital.vo.HospitalSaveRequestDto;
 import com.example.demo.member.repository.MemberRepository;
-import com.example.demo.member.vo.Member;
-import com.example.demo.member.vo.MemberResponseDto;
-import com.example.demo.member.vo.MemberSaveRequestDto;
-import com.example.demo.member.vo.Role;
+import com.example.demo.reserve.repository.ReserveRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,8 +20,9 @@ public class HospitalService {
 
     private final HospitalRepository hospitalRepository;
     private final MemberRepository memberRepository;
+    private final ReserveRepository reserveRepository;
 
-    // 관리자, 전체 병원 조회
+    // 관리자, 전체 동물병원 조회
     @Transactional(readOnly = true)
     public List<HospitalResponseDto> findAllDesc() {
         return hospitalRepository.findAllDesc().stream()
@@ -33,7 +30,7 @@ public class HospitalService {
                 .collect(Collectors.toList());
     }
 
-    // 수의사, 병원 등록
+    // 수의사, 동물병원 등록
     @Transactional
     public Long regHospital(HospitalSaveRequestDto hosDto, Long id) {
         memberRepository.InsertUpdateHospital(hosDto, id);
@@ -41,7 +38,7 @@ public class HospitalService {
         return hospitalRepository.save(hosDto.toEntity()).getId();
     }
 
-    // 수의사, 병원 삭제
+    // 수의사, 동물병원 삭제
     @Transactional
     public void deleteHospital(Long id) {
         Hospital hospital = hospitalRepository.findById(id)

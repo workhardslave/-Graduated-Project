@@ -1,16 +1,21 @@
 package com.example.demo.hospital.controller;
 
+import com.example.demo.hospital.repository.HospitalRepository;
 import com.example.demo.hospital.service.HospitalService;
+import com.example.demo.hospital.vo.Hospital;
 import com.example.demo.hospital.vo.HospitalResponseDto;
 import com.example.demo.hospital.vo.HospitalSaveRequestDto;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.vo.Member;
+import com.example.demo.reserve.service.ReserveService;
+import com.example.demo.reserve.vo.ReserveResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -23,7 +28,10 @@ import java.util.List;
 public class HospitalController {
 
     private final HospitalService hospitalService;
+    private final ReserveService reserveService;
+
     private final MemberRepository memberRepository;
+    private final HospitalRepository hospitalRepository;
 
     // 동물병원 등록 페이지
     @GetMapping("/vet/hospital/registration")
@@ -84,4 +92,30 @@ public class HospitalController {
 
         return "hospital/myHospital";
     }
+
+    // 수의사, 동물병원 예약 조회
+    @GetMapping("/vet/hospital/reservationList")
+    public String readMyReservation(Model model, Principal principal) {
+
+        Member member = memberRepository.findEmailCheck(principal.getName());
+        Hospital hospital = hospitalRepository.findOne(member.getHospital().getId());
+        List<ReserveResponseDto> Reserves = reserveService.findAllHospital(hospital);
+
+        model.addAttribute("reserves", Reserves);
+
+        return "hospital/reservationList";
+    }
+
+    // 수의사, 동물병원 예약 수정
+    @GetMapping("/vet/hospital/reservation/{id}")
+    public String updateEachReservation(@PathVariable Long id, Model model) {
+
+        ReserveResponseDto reserveDto = reserveService.findById(id);
+
+        model.addAttribute("reserves", reserveDto);
+
+        return "hospital/reservationSettings";
+    }
+
+    // 수의사, 동물병원 예약 삭제
 }
