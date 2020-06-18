@@ -33,6 +33,10 @@ public class Hospital {
     @Column(name = "hospital_address", nullable = false)
     private String address;
 
+    @OneToOne
+    @JoinColumn(name ="member_id")
+    private Member member;
+
 
     @Builder
     public Hospital(String name, String tel, String address) {
