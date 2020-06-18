@@ -12,13 +12,15 @@ public class HospitalSaveRequestDto {
     private String name;
     private String address;
     private String tel;
+    private Member member;
 
 
     @Builder
-    public HospitalSaveRequestDto(String name, String address,  String tel) {
+    public HospitalSaveRequestDto(String name, String address,  String tel, Member member) {
         this.name = name;
         this.tel =tel;
         this.address = address;
+        this.member = member;
     }
 
 
@@ -27,6 +29,7 @@ public class HospitalSaveRequestDto {
                 .name(name)
                 .address(address)
                 .tel(tel)
+                .member(member)
                 .build();
     }
 }

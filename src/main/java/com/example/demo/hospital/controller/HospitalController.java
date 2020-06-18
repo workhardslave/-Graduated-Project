@@ -10,6 +10,7 @@ import com.example.demo.member.vo.Member;
 import com.example.demo.member.vo.MemberResponseDto;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +26,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class HospitalController {
 
     private final HospitalService hospitalService;
@@ -43,6 +45,11 @@ public class HospitalController {
         if (result.hasErrors()) {
             return "home";
         }
+        log.info("병원등록 백앤드 값확인");
+        log.info(Dto.getAddress());
+        log.info(Dto.getName());
+        log.info(Dto.getTel());
+
 
         Member member = memberRepository.findEmailCheck(principal.getName());
 
@@ -56,9 +63,12 @@ public class HospitalController {
                 .name(Dto.getName())
                 .address(Dto.getAddress())
                 .tel(Dto.getTel())
-                .build(), member.getId());
+                .member(member)
+                .build(), member);
 
-        return "";
+        System.out.println("저장됫니?");
+
+        return "redirect:/member/hospital/mypage";
     }
 
     // 관리자 -> 병원 전체목록 조회
@@ -82,7 +92,7 @@ public class HospitalController {
         model.addAttribute("hospital", hos);
 
 
-        return "";
+        return "hospital/myHospital";
     }
 
 

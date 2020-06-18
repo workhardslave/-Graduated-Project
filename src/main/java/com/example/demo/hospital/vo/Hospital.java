@@ -39,9 +39,10 @@ public class Hospital {
 
 
     @Builder
-    public Hospital(String name, String tel, String address) {
+    public Hospital(String name, String tel, String address, Member member) {
         this.name = name;
         this.tel = tel;
         this.address = address;
+        this.member = member;
     }
 }

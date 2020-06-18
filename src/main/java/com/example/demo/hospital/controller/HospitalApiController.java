@@ -28,7 +28,7 @@ public class HospitalApiController {
     @DeleteMapping("/api/member/hospital/delete/{id}")
     public Long delete(@PathVariable Long id, Principal principal) {
     Member member =  memberRepository.findEmailCheck(principal.getName());
-    memberService.hos_delete(member.getId());
+    member.regHospital(null);
     hospitalService.delete(id);
 
     return id;
@@ -38,8 +38,8 @@ public class HospitalApiController {
     @DeleteMapping("/api/admin/hospital/delete/{id}")
     public Long Admin_delete(@PathVariable Long id, Principal principal) {
 
-        HospitalResponseDto dto = hospitalService.findById(id);
-        memberService.hos_delete(dto.getMember().getId()); //해당부분 테스트필요
+        Member member = memberRepository.findEmailCheck(principal.getName());
+        member.regHospital(null);
         hospitalService.delete(id);
 
         return id;

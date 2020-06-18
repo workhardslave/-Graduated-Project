@@ -7,6 +7,7 @@ import com.example.demo.hospital.vo.HospitalResponseDto;
 import com.example.demo.hospital.vo.HospitalSaveRequestDto;
 import com.example.demo.member.repository.MemberRepository;
 
+import com.example.demo.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -32,9 +33,10 @@ public class HospitalService {
 
     //병원등록
     @Transactional
-    public Long reg(HospitalSaveRequestDto hosDto, Long id) {
-        memberRepository.InsertUpdateHospital(hosDto, id);
-        return hospitalRepository.save(hosDto.toEntity()).getId();
+    public Long reg(HospitalSaveRequestDto hosDto, Member member) {
+        Hospital hospital =  hospitalRepository.save(hosDto.toEntity());
+        member.regHospital(hospital);
+        return hospital.getId();
     }
 
     //병원삭제
