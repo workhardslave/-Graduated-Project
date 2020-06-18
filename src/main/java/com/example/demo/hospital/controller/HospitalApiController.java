@@ -7,6 +7,7 @@ import com.example.demo.hospital.vo.HospitalSaveRequestDto;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.member.vo.Member;
+import com.example.demo.member.vo.MemberResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.session.FindByIndexNameSessionRepository;
@@ -28,7 +29,7 @@ public class HospitalApiController {
     @DeleteMapping("/api/member/hospital/delete/{id}")
     public Long delete(@PathVariable Long id, Principal principal) {
     Member member =  memberRepository.findEmailCheck(principal.getName());
-    memberService.hos_delete(member.getId());
+
     hospitalService.delete(id);
 
     return id;
@@ -39,7 +40,8 @@ public class HospitalApiController {
     public Long Admin_delete(@PathVariable Long id, Principal principal) {
 
         HospitalResponseDto dto = hospitalService.findById(id);
-        memberService.hos_delete(dto.getMember().getId()); //해당부분 테스트필요
+        Member member = memberRepository.findEmailCheck(dto.getMember().getEmail());
+        member.setHospital(null);
         hospitalService.delete(id);
 
         return id;

@@ -52,7 +52,7 @@ public class DiseaseController {
     private final DiseaseService diseaseService;
     private final MemberRepository memberRepository;
     private final DogService dogService;
-    private final ReserveService reserveService;
+//    private final ReserveService reserveService;
     private final DiagnosisService diagnosisService;
     private final SymptomService symptomService;
 
@@ -65,13 +65,13 @@ public class DiseaseController {
 
         List<DiseaseNameCountDto> diseaseNames = diseaseService.findNameCount();
 
-        List<ReserveResponseDto> reservations = reserveService.findAll();
+//        List<ReserveResponseDto> reservations = reserveService.findAll();
 
         List<DiagnosisNameCountDto> diagnosisNames = diagnosisService.findNameCount();
 
         model.addAttribute("dis", diseasesAll);
         model.addAttribute("disName", diseaseNames);
-        model.addAttribute("reserves", reservations);
+//        model.addAttribute("reserves", reservations);
         model.addAttribute("diagName", diagnosisNames);
         model.addAttribute("symptomForm", new SymptomForm());
 

@@ -91,7 +91,7 @@
                 }).done(function() {
                     console.log(data);
                     alert('정보수정 되었습니다!');
-                    window.location.href = "/admin/diseases/";
+                    window.location.href = "/admin/reserveList";
                 }).fail(function(request, status, error) {
                     alert(JSON.stringify(error));
                     window.location.href = "/admin/reserves/settings/" + id;

@@ -56,7 +56,7 @@ public class HospitalController {
                 .name(Dto.getName())
                 .address(Dto.getAddress())
                 .tel(Dto.getTel())
-                .build(), member.getId());
+                .build(), member);
 
         return "";
     }
@@ -67,7 +67,7 @@ public class HospitalController {
         List<HospitalResponseDto> Dto = hospitalService.findAllDesc();
         model.addAttribute("hospital",Dto);
 
-        return "";
+        return "admin/hospital/hospitalList";
     }
 
 
@@ -90,8 +90,8 @@ public class HospitalController {
     @GetMapping("/member/hospital/settings/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
         HospitalResponseDto dto = hospitalService.findById(id);
-        model.addAttribute("hospital", dto);
-        return "";
+        model.addAttribute("hos", dto);
+        return "admin/hospital/hospitalDetail";
     }
 
 }

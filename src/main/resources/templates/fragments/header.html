@@ -40,11 +40,18 @@
                                         <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" th:href="@{/admin/members}">회원 관리</a>
                                     </li>
 
+                                    <li class="nav-item dropdown">
+                                        <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">서비스 관리</a>
+
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{/admin/diseases}">질병 관리</a>
+                                            <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{/admin/hospitalList}">병원 관리</a>
+                                            <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{/admin/reserveList}">예약 관리</a>
+                                        </div>
+                                    </li>
                                     <li class="nav-item">
-                                        <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" th:href="@{/admin/diseases}">질병 관리</a>
                                         <a sec:authorize="hasRole('ROLE_VET')" class="nav-link" th:href="@{/hospital/registeration/}">동물병원 예약 관리</a>
                                     </li>
-
                                     <li class="nav-item dropdown">
                                         <a sec:authorize="hasRole('ROLE_MEMBER')" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">반려견 관리</a>
 

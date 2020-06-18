@@ -155,10 +155,6 @@ public class MemberService implements UserDetailsService {
 
     }
 
-    @Transactional
-    public void hos_delete (Long id) {
-        memberRepository.DeleteHospital(id);
-    }
 
     @Transactional(readOnly = true)
     public List<MemberResponseDto> findAllDesc() {

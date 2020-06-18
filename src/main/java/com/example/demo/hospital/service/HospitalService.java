@@ -35,9 +35,11 @@ public class HospitalService {
 
     //병원등록
     @Transactional
-    public Long reg(HospitalSaveRequestDto hosDto, Long id) {
-        memberRepository.InsertUpdateHospital(hosDto, id);
-        return hospitalRepository.save(hosDto.toEntity()).getId();
+    public Long reg(HospitalSaveRequestDto hosDto, Member member) {
+
+        Hospital hospital = hospitalRepository.save(hosDto.toEntity());
+        member.setHospital(hospital);
+        return hospital.getId();
     }
 
     //병원삭제
