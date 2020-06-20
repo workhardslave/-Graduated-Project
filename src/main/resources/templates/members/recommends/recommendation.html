@@ -75,6 +75,17 @@
 
         <h3 style="padding-top: 20px; padding-left: 30px"><b>동물병원 예약하기</b></h3>
         <br/>
+
+        <!-- 동물병원 리스트 -->
+        <table id="hospitalTable">
+            <tbody id="hospitalBody">
+                <tr th:each="hospitals : ${hosList}" class="hospitalTR" hidden="true">
+                    <td th:text="${hospitals.name}"></td>
+                    <td th:text="${hospitals.address}"></td>
+                </tr>
+            </tbody>
+        </table>
+
         <div class="map_wrap">
             <div id="map" style="width:100%; height:100%; position:relative; overflow:hidden;"></div>
 
@@ -83,7 +94,6 @@
                     <div>
                         <form onsubmit="searchPlaces(); return false;">
                             키워드 : <input type="text" th:field="${member.address.city}" id="keyword" size="24">
-
                         </form>
                     </div>
                 </div>
@@ -92,8 +102,6 @@
                 <div id="pagination"></div>
             </div>
         </div>
-
-
 
         <!-- 반려견 질병 진단 시각화 API -->
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -140,6 +148,7 @@
             diagDescript.innerHTML = realDescript;
         </script>
 
+        <!-- 카카오 지도 API -->
         <script src="/../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bebc3bdfe5172384c6bfdf655ad2ce8b&libraries=services"></script>
         <script>
@@ -169,7 +178,6 @@
 
                 var keyword = document.getElementById('keyword').value;
                 keyword = keyword + " 동물병원";
-                console.log(keyword);
 
                 if (!keyword.replace(/^\s+|\s+$/g, '')) {
                     alert('키워드를 입력해주세요!');
@@ -182,8 +190,7 @@
 
             // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
             function placesSearchCB(data, status, pagination) {
-                console.log("--------------data---------")
-                console.log(data);
+
                 if (status === kakao.maps.services.Status.OK) {
 
                     // 정상적으로 검색이 완료됐으면
@@ -209,8 +216,7 @@
 
             // 검색 결과 목록과 마커를 표출하는 함수입니다
             function displayPlaces(places) {
-                console.log("장소제공==="+places);
-                // places///////////////////////////////
+                // places
                 var listEl = document.getElementById('placesList'),
                     menuEl = document.getElementById('menu_wrap'),
                     fragment = document.createDocumentFragment(),
@@ -229,7 +235,6 @@
                     var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
                         marker = addMarker(placePosition, i),
                         itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
-                        // console.log(itemEl);
 
                     // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
                     // LatLngBounds 객체에 좌표를 추가합니다
@@ -271,10 +276,20 @@
 
             // 검색결과 항목을 Element로 반환하는 함수입니다
             function getListItem(index, places) {
+                let hospitalBody = document.getElementsByTagName("tbody");
+                let hospitalTR = document.getElementsByClassName("hospitalTR");
+
+                let hosName = [];
+                let hosAddr = [];
+                for(let i = 0; i < hospitalTR.length; i++) {
+                    hosName.push(hospitalBody[1].children[i].children[0].textContent);
+                    hosAddr.push(hospitalBody[1].children[i].children[1].textContent);
+                }
+
                 var el = document.createElement('li'),
 
                     itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
-                        '<div class="info">' +
+                        '<div class="info" id="hosInfo' + (index+1) + '">' +
                         '   <h5 class="hospital_name' + (index+1) + '" id="' + (index+1) + '" ' +
                         ' onclick="openModal(this.id)">' + places.place_name + '</h5>';
 
@@ -289,6 +304,16 @@
                     '</div>';
                 el.innerHTML = itemStr;
                 el.className = 'item';
+
+                if(hosName.includes(places.place_name) && hosAddr.includes(places.road_address_name)) {
+                    // el.style.backgroundColor = "rgb(137,207,240)";
+                    el.children[1].children[0].style.color = "blue";
+                }
+                else {
+                    el.children[1].children[0].onclick = null;
+                    // el.children[1].children[0].style.cursor = "default"
+                    el.style.cursor = "default";
+                }
 
                 return el;
             }
@@ -371,15 +396,10 @@
 
             // 병원이름 클릭시 모달창을 띄우는 이벤트
             function openModal(id){
-                console.log("id값 넘어오나 확인 로그------------------------" + id);
 
                 hospital_name = $(".hospital_name" + id).html();
                 road = $("#road" + id).html();
                 tel = $("#tel" + id).html();
-
-                console.log("병원이름----------------" + hospital_name);
-                console.log("주소----------------" + road);
-                console.log("전화번호----------------" + tel);
 
                 $("#modal_div").modal();
             }
