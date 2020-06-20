@@ -311,9 +311,19 @@
                 }
                 else {
                     el.children[1].children[0].onclick = null;
-                    // el.children[1].children[0].style.cursor = "default"
                     el.style.cursor = "default";
+
+                    let idxDiv = 4;
+                    if(!places.road_address_name) {
+                        idxDiv = 3;
+                    }
+
+                    for(let j = 0; j < idxDiv; j++) {
+                        el.children[1].children[j].style.color = "#D3D3D3";
+                    }
                 }
+
+                console.log(el.children[1].children[2]);
 
                 return el;
             }
