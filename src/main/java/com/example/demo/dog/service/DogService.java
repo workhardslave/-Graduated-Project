@@ -1,6 +1,7 @@
 package com.example.demo.dog.service;
 
 
+import com.example.demo.diagnosis.vo.DiagnosisNameCountDto;
 import com.example.demo.dog.vo.*;
 import com.example.demo.dog.repository.DogRepository;
 import com.example.demo.member.vo.*;
@@ -78,14 +79,14 @@ public class DogService {
 
     // 관리자 강아지 등록정보 시각화
     @Transactional(readOnly = true)
-    public void DogCount(){
-        List<DogCountDto> l = dogRepository.findCount();
-
-        for(DogCountDto p : l){
+    public List<DogCountDto> DogCount(){
+        List<DogCountDto> dogName = dogRepository.findCount();
+        for(DogCountDto p : dogName){
             System.out.println(p.getCount());
             System.out.println(p.getGender());
-
         }
+        return dogName;
+
     }
 }
 

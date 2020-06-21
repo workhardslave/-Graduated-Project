@@ -36,7 +36,7 @@
 
                 if(result == "" || result == null) {
                     alert("다시 입력해주세요.");
-                    location.reload();
+                    location.href = "/";
                 } else {
                     $("#keyword").val(result); // 입력 받은 값을 키워드 value로 설정
                     searchPlaces(); // 그 후 장소를 찾는다.
@@ -63,7 +63,7 @@
 
                 // confirm 창 생성
                 var result2 = confirm("등록하려는 병원이 " + hospital_name + "이(가) 맞습니까?");
-
+                console.log(result2);
                 // 나중에 API와 매칭하기
                 if(result2) {
                     $.ajax({
@@ -76,9 +76,8 @@
                         alert('등록완료 되었습니다!');
                         window.location.href = "/vet/myHospital";
                     }).fail(function (request, status, error) {
-                        alert(JSON.stringify(error));
-                        window.location.href = "/vet/hospital/registration";
-                        alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+                        alert('병원은 두개이상 등록이 불가능합니다.');
+                        window.location.href = "/";
                     });
                 }else {
                     // 변화없음;;

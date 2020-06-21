@@ -41,28 +41,7 @@ public class HospitalController {
         return "hospital/registration";
     }
 
-    // 동물병원 등록 API
-    @PostMapping(value = "/api/vet/hospital/register")
-    public Long createHospital(@RequestBody HospitalSaveRequestDto Dto, BindingResult result, Principal principal) {
 
-
-        Member member = memberRepository.findEmailCheck(principal.getName());
-
-        if(member.getHospital() != null){
-            throw new IllegalStateException("동물병원 등록은 하나만 됩니다.");
-        }
-
-        HospitalSaveRequestDto hospital = new HospitalSaveRequestDto();
-
-        Long id = hospitalService.reg(hospital.builder()
-                .name(Dto.getName())
-                .address(Dto.getAddress())
-                .tel(Dto.getTel())
-                .member(member)
-                .build(), member);
-
-        return id;
-    }
 
     // 관리자, 전체 동물병원 조회
     @GetMapping(value = "/admin/hospitalList")

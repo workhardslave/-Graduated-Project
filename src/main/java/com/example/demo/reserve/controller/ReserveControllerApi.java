@@ -27,12 +27,12 @@ public class ReserveControllerApi {
         return reserveService.update(id, requestDto);
     }
 
-//    // 관리자 -> 사용자 병원 예약 정보 수정 API
-//    @PutMapping("/api/admin/reserve/settings/{id}")
-//    public Long ReserveUpdateFormAdmin(@PathVariable Long id, @RequestBody ReserveUpdateRequestDto requestDto) {
-//
-//        return reserveService.update(id, requestDto);
-//    }
+    // 관리자 -> 사용자 병원 예약 정보 수정 API
+    @PutMapping("/api/admin/reserve/settings/{id}")
+    public Long ReserveUpdateFormAdmin(@PathVariable Long id, @RequestBody ReserveUpdateRequestDto requestDto) {
+
+        return reserveService.update(id, requestDto);
+    }
 
     // 사용자 병원 예약 정보 삭제 API
     @DeleteMapping("/api/member/reserve/delete/{id}")
