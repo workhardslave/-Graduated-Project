@@ -25,7 +25,7 @@
 
                     <tbody id="tbody">
                     <tr th:each="hos : ${hospital}">
-                        <td th:text="${hos.id}"></td>
+                        <td></td>
                         <td><a th:href="@{/member/hospital/settings/{id} (id = ${hos.id})}" th:text="${hos.name}"></a></td>
                         <td th:text="${hos.address}"></td>
                         <td th:text="${hos.tel}"></td>
