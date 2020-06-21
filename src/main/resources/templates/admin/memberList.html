@@ -19,6 +19,7 @@
                                 <th>우편번호</th>
                                 <th>폰번호</th>
                                 <th>생일</th>
+                                <th>구분</th>
                             </tr>
                         </thead>
 
@@ -32,6 +33,7 @@
                                 <td th:text="${member.address?.zipcode}"></td>
                                 <td th:text="${member.phone}"></td>
                                 <td th:text="${member.birth}"></td>
+                                <td th:text="${member.role.toString()} == 'GUEST' ? '사용자' : '수의사'"></td>
                             </tr>
                         </tbody>
                     </table>

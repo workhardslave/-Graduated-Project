@@ -75,6 +75,11 @@ public class Member extends BaseTimeEntity {
         return this;
     }
 
+    public Member deleteHospital(){
+        this.hospital = null;
+        return this;
+    }
+
     public Member updatePwd(String password) {
         this.password = password;
         return this;

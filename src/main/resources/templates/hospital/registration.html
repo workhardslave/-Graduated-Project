@@ -36,7 +36,7 @@
 
                 if(result == "" || result == null) {
                     alert("다시 입력해주세요.");
-                    location.reload();
+                    location.href = "/";
                 } else {
                     $("#keyword").val(result); // 입력 받은 값을 키워드 value로 설정
                     searchPlaces(); // 그 후 장소를 찾는다.
@@ -56,7 +56,7 @@
                 let data = {
                     name : hospital_name,
                     address : road,
-                    tel : tel,
+                    tel : tel
                 };
 
                 console.log(data);

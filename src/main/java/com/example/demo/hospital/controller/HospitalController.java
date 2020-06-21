@@ -42,6 +42,7 @@ public class HospitalController {
     }
 
 
+
     // 관리자, 전체 동물병원 조회
     @GetMapping(value = "/admin/hospitalList")
     public String allHospital(Model model) {
@@ -49,7 +50,15 @@ public class HospitalController {
 
         model.addAttribute("hospital", Dto);
 
-        return "";
+        return "admin/hospital/hospitalList";
+    }
+
+    // 관리자, 동물병원 조회
+    @GetMapping("/member/hospital/settings/{id}")
+    public String updateForm(@PathVariable Long id, Model model) {
+        HospitalResponseDto dto = hospitalService.findById(id);
+        model.addAttribute("hos", dto);
+        return "admin/hospital/hospitalDetail";
     }
 
     // 수의사, 동물병원 조회
