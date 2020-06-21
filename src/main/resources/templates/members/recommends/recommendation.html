@@ -306,8 +306,14 @@
                 el.className = 'item';
 
                 if(hosName.includes(places.place_name) && hosAddr.includes(places.road_address_name)) {
-                    // el.style.backgroundColor = "rgb(137,207,240)";
-                    el.children[1].children[0].style.color = "blue";
+                    // el.children[1].children[0].style.color = "blue";
+
+                    el.children[1].onmouseover = function(e) {
+                        e.currentTarget.children[0].style.color = "blue";
+                    }
+                    el.children[1].onmouseout = function(e) {
+                        e.currentTarget.children[0].style.color = "black";
+                    }
                 }
                 else {
                     el.children[1].children[0].onclick = null;
@@ -322,8 +328,6 @@
                         el.children[1].children[j].style.color = "#D3D3D3";
                     }
                 }
-
-                console.log(el.children[1].children[2]);
 
                 return el;
             }

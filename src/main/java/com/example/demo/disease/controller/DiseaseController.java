@@ -159,13 +159,6 @@ public class DiseaseController {
         List<DiseaseResponseDto> diseaseAll = diseaseService.findAllDesc();
         List<HospitalResponseDto> hospitalList = hospitalService.findAllDesc();
 
-//        ArrayList<String> hospital_name = new ArrayList<>();
-//        ArrayList<String> hospital_addr = new ArrayList<>();
-//        for(HospitalResponseDto ho : hospitalList ){
-//            hospital_name.add(ho.getName());
-//            hospital_addr.add(ho.getAddress());
-//        }
-
         if(member != null) {
 
             model.addAttribute("member", member);
@@ -175,8 +168,6 @@ public class DiseaseController {
             model.addAttribute("bronchus", jsonObj.get("기관지 확장증"));
             model.addAttribute("diseases", diseaseAll);
             model.addAttribute("forms", form);
-//            model.addAttribute("hospitals_name", hospital_name);
-//            model.addAttribute("hospitals_addr", hospital_addr);
             model.addAttribute("hosList", hospitalList);
     }
 
