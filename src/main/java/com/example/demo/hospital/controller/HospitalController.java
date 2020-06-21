@@ -41,7 +41,6 @@ public class HospitalController {
         return "hospital/registration";
     }
 
-
     // 관리자, 전체 동물병원 조회
     @GetMapping(value = "/admin/hospitalList")
     public String allHospital(Model model) {

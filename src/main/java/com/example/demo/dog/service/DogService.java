@@ -77,16 +77,10 @@ public class DogService {
         return id;
     }
 
-    // 관리자 강아지 등록정보 시각화
-    @Transactional(readOnly = true)
-    public List<DogCountDto> DogCount(){
-        List<DogCountDto> dogName = dogRepository.findCount();
-        for(DogCountDto p : dogName){
-            System.out.println(p.getCount());
-            System.out.println(p.getGender());
-        }
-        return dogName;
+    @Transactional
+    public List<DogTypeCountDto> findDogCount() {
+        List<DogTypeCountDto> dogCount = dogRepository.findDogCount();
 
+        return dogCount;
     }
 }
-

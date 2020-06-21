@@ -24,6 +24,7 @@
             </div>
         </div>
 
+        <!-- 회원 -->
         <div class="main_menu" sec:authorize="hasRole('ROLE_MEMBER')" id="main_menu" >
             <div class="container">
                 <div class="row">
@@ -65,6 +66,7 @@
             </div>
         </div>
 
+        <!-- 수의사 -->
         <div class="main_menu" sec:authorize="hasRole('ROLE_VET')" id="main_menu2" >
             <div class="container">
                 <div class="row">
@@ -85,10 +87,6 @@
                                     </li>
 
                                     <li class="nav-item">
-                                        <a sec:authorize="hasRole('ROLE_VET')" class="nav-link" th:href="@{/vet/hospital/reservationList}">동물병원 예약 조회</a>
-                                    </li>
-
-                                    <li class="nav-item">
                                         <a sec:authorize="hasRole('ROLE_VET')" class="nav-link" th:href="@{/member/mypage}">정보조회</a>
                                     </li>
                                 </ul>
@@ -99,6 +97,7 @@
             </div>
         </div>
 
+        <!-- 관리자 -->
         <div class="main_menu"  sec:authroize="hasRole('ROLE_ADMIN')" id="main_menu3">
             <div class="container">
                 <div class="row">

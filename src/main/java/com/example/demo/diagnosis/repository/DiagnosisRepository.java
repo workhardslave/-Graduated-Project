@@ -2,6 +2,7 @@ package com.example.demo.diagnosis.repository;
 
 import com.example.demo.diagnosis.domain.Diagnosis;
 import com.example.demo.diagnosis.vo.DiagnosisNameCountDto;
+import com.example.demo.dog.vo.DogTypeCountDto;
 import com.example.demo.member.vo.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
