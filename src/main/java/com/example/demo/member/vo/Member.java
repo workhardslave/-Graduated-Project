@@ -3,6 +3,7 @@ package com.example.demo.member.vo;
 
 import com.example.demo.diagnosis.domain.Diagnosis;
 import com.example.demo.dog.vo.Dog;
+import com.example.demo.hospital.vo.Hospital;
 import com.example.demo.overlap.Address;
 import com.example.demo.overlap.BaseTimeEntity;
 import lombok.*;
@@ -16,12 +17,13 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class Member extends BaseTimeEntity {
 
-
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_id")
     private Long id;
 
     private String name;
@@ -37,6 +39,9 @@ public class Member extends BaseTimeEntity {
     @Embedded
     private Address address;
 
+    @OneToOne
+    @JoinColumn(name ="hospital_id")
+    private Hospital hospital;
 
     @OneToMany(mappedBy="member", orphanRemoval = true)
     List<Diagnosis> diList = new ArrayList<>();
@@ -44,12 +49,8 @@ public class Member extends BaseTimeEntity {
     @OneToMany(mappedBy="member", orphanRemoval = true)
     List<Dog> dogList = new ArrayList<>();
 
-//    @OneToMany(mappedBy="member", orphanRemoval = true)
-//    List<Reserve> reserveList = new ArrayList<>();
-
     @Enumerated(EnumType.STRING)
     private Role role;
-
 
     @Builder
     public Member(Long id, String name, Address address, Role role,String email ,String password, String birth, String phone) {
@@ -61,7 +62,6 @@ public class Member extends BaseTimeEntity {
         this.password = password;
         this.birth = birth;
         this.phone = phone;
-
     }
 
     public Member update(String city, String street, String zipcode, String phone) {
@@ -70,11 +70,20 @@ public class Member extends BaseTimeEntity {
         return this;
     }
 
+    public Member regHospital(Hospital hospital){
+        this.hospital = hospital;
+        return this;
+    }
+
+    public Member deleteHospital(){
+        this.hospital = null;
+        return this;
+    }
+
     public Member updatePwd(String password) {
         this.password = password;
         return this;
     }
-
 
     public Member updateMember(String name, String city, String street, String zipcode, String phone) {
         this.name = name;

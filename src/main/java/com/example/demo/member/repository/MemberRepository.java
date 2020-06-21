@@ -1,6 +1,9 @@
 package com.example.demo.member.repository;
 
+import com.example.demo.hospital.vo.Hospital;
+import com.example.demo.hospital.vo.HospitalSaveRequestDto;
 import com.example.demo.member.vo.Member;
+import com.sun.org.apache.xpath.internal.objects.XNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -9,7 +12,7 @@ import java.util.*;
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
 
-    @Query("SELECT m FROM Member m WHERE m.role ='GUEST' ORDER BY m.id DESC ")
+    @Query("SELECT m FROM Member m WHERE m.role ='GUEST' OR m.role = 'VET' ORDER BY m.id DESC ")
     List<Member> findAllDesc();
     /**
      *
@@ -25,20 +28,4 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
      */
     @Query("SELECT m FROM Member m where m.id = :id")
     Member findOne(Long id);
-
-    /**
-     *
-     * @param email
-     * @param password
-     * @return 이메일과 패스워드를 확인해주세요.
-     */
-    @Query("SELECT m FROM Member m where m.email = :email AND m.password = :password")
-    Member findByEmailPassword(Object email, Object password);
-
-
-
-
-
-
-
 }

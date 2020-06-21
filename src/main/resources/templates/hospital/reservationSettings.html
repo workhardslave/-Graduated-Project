@@ -1,0 +1,137 @@
+<!-- 수의사, 동물병원 예약 수정 -->
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/config :: configFragment" />
+    <body>
+        <header th:replace="fragments/header :: headerFragment"></header>
+
+        <div class="limiter">
+            <div class="container-login100" style="background-image: url('/../../static/images/bg-01.jpg');">
+                <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+                    <form class="login100-form validate-form">
+                        <span class="login100-form-title p-b-49">동물병원 예약 수정</span>
+
+                        <input type="text" id="reserveID" th:field="${reserves.id}" hidden="true">
+
+                        <div class="form-group">
+                            <label th:for="memberName">회원 이름</label>
+                            <input type="text" id="memName" th:field="${reserves.name}" class="form-control" readonly required>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label th:for="dogName">반려견 이름</label>
+                            <input type="text" id="dName" th:field="${reserves.dog}" class="form-control" readonly required>
+                        </div>
+
+                        <div>
+                            <div class="form-option">
+                                <label th:for="reservationVisitDate">방문 시간</label>
+                                <select id = "reserveVisitDate" th:field="${reserves.date}">
+                                    <option th:value="'10:00~11:00'">10:00~11:00</option>
+                                    <option th:value="'11:00~12:00'">11:00~12:00</option>
+                                    <option th:value="'14:00~15:00'">14:00~15:00</option>
+                                    <option th:value="'15:00~16:00'">15:00~16:00</option>
+                                    <option th:value="'16:00~17:00'">16:00~17:00</option>
+                                    <option th:value="'17:00~18:00'">17:00~18:00</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="reservationContent">예약 내용</label>
+                            <input type="text" id="reserveContent" th:field="${reserves.description}" class="form-control" required>
+                        </div>
+                        <br/>
+
+                        <div class="container-login100-form-btn">
+                            <div class="wrap-login100-form-btn">
+                                <div class="login100-form-bgbtn"></div>
+                                <a th:href="'javascript:updateReserve()'" class="login100-form-btn">수정하기</a>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="container-login100-form-btn">
+                            <div class="wrap-login100-form-btn">
+                                <div class="login100-form-bgbtn"></div>
+                                <a th:href="'javascript:deleteReserve()'" class="login100-form-btn">삭제하기</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script src="/../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+        <script th:inline="javascript">
+            function updateReserve() {
+
+                let data = {
+                    date: $("#reserveVisitDate").val(),
+                    description: $("#reserveContent").val()
+                };
+
+                let id = $("#reserveID").val();
+
+                $.ajax({
+                    type: 'PUT',
+                    url: '/api/vet/hospital/reservation/' + id,
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data)
+                }).done(function() {
+                    alert('정보수정 되었습니다!');
+                    window.location.href = "/vet/hospital/reservationList";
+                }).fail(function(request, status, error) {
+                    alert(JSON.stringify(error));
+                    window.location.href = "/vet/hospital/reservation/" + id;
+                    alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+                });
+            }
+
+            function deleteReserve() {
+
+                let id = $("#reserveID").val();
+
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/api/vet/hospital/reservation/delete/' + id,
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8'
+                }).done(function() {
+                    alert('삭제 되었습니다.');
+                    window.location.href = "/vet/hospital/reservationList";
+                }).fail(function (request,status,error) {
+                    alert(JSON.stringify(error));
+                    window.location.href = "/vet/hospital/reservation/" + id;
+                    alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+                });
+            }
+        </script>
+
+        <div id="dropDownSelect1"></div>
+
+        <!--===============================================================================================-->
+        <script src="../../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="../../../static/vendor/animsition/js/animsition.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="../../../static/vendor/bootstrap/js/popper.js"></script>
+        <script src="../../../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="../../../static/vendor/select2/select2.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="../../../static/vendor/daterangepicker/moment.min.js"></script>
+        <script src="../../../static/vendor/daterangepicker/daterangepicker.js"></script>
+        <!--===============================================================================================-->
+        <script src="../../../static/vendor/countdowntime/countdowntime.js"></script>
+        <!--===============================================================================================-->
+        <script src="../../../static/js/main.js"></script>
+
+        <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+        <script src="../../../static/js/postcode-api.js"></script>
+
+        <footer th:replace="fragments/footer :: footerFragment"></footer>
+    </body>
+</html>

@@ -13,15 +13,11 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
-
 public class Corna  {
 
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String percent;
-
-    @OneToMany(mappedBy="corna", orphanRemoval = true)
-    List<Diagnosis> diList = new ArrayList<>();
 
 
 

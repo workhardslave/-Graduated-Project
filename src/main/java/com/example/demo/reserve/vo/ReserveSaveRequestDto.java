@@ -1,5 +1,6 @@
 package com.example.demo.reserve.vo;
 
+import com.example.demo.hospital.vo.Hospital;
 import com.example.demo.member.vo.Member;
 import lombok.*;
 
@@ -15,9 +16,13 @@ public class ReserveSaveRequestDto implements Serializable {
     private String address;
     private String tel;
     private String dog;
-
+    private Hospital hospital;
     public void Reserve_Member(Member member){
         this.member = member;
+    }
+
+    public void Reserve_Hospital(Hospital hospital){
+        this.hospital = hospital;
     }
 
     @Builder
@@ -40,6 +45,7 @@ public class ReserveSaveRequestDto implements Serializable {
                 .tel(tel)
                 .description(description)
                 .dog(dog)
+                .hospital(hospital)
                 .build();
     }
 }

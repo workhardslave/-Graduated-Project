@@ -1,17 +1,19 @@
 package com.example.demo.member.service;
 
+import com.example.demo.diagnosis.domain.Diagnosis;
+import com.example.demo.diagnosis.repository.DiagnosisRepository;
+import com.example.demo.diagnosis.service.DiagnosisService;
+import com.example.demo.hospital.service.HospitalService;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.vo.*;
 
-
+import com.example.demo.reserve.service.ReserveService;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import lombok.RequiredArgsConstructor;
-
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,36 +25,34 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class MemberService implements UserDetailsService {
 
+    private final DiagnosisRepository diagnosisRepository;
     private final MemberRepository memberRepository;
+    private final DiagnosisService diagnosisService;
+    private final ReserveService reserveService;
+    private final HospitalService hospitalService;
 
-
-    //회원가입 아이디 중복체크
+    // 회원가입 아이디 중복체크
     @Transactional
     public int validateDuplicateMember(String user_email) {
-//        String st = user_email.substring()
+
         String value = user_email;
         value = value.substring(1,value.length()-1);
         HashMap<String, String> hashMap = new HashMap<>();
 
         String[] entry = value.split(":");
-//        log.info("키값확인0"+entry[0]);
-//        log.info("키값확인1"+entry[1]);
+
         hashMap.put(entry[0].trim(), entry[1].trim());
-//        log.info("맵값확인"+hashMap.values().toString());
+
         String value2 = hashMap.values().toString().substring(2, hashMap.values().toString().length()-2);
-//        log.info("맵값확인1"+value2);
 
         Member findMember = memberRepository.findEmailCheck(value2);
 
-
         if (findMember!=null) {
-//            throw new IllegalStateException("회원가입된 사람입니다.");
             return 1;
         }else{
             return 0;
@@ -64,8 +64,14 @@ public class MemberService implements UserDetailsService {
     public Long SignUp(MemberSaveRequestDto memberDto) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         memberDto.SHA256_PassWord(passwordEncoder.encode(memberDto.getPassword()));
-        memberDto.GIVE_Role(Role.GUEST);
+
 //        memberDto.GIVE_Role(Role.ADMIN);
+
+        if(memberDto.getRole() == Role.GUEST) {
+            memberDto.GIVE_Role(Role.GUEST);
+        } else if(memberDto.getRole() == Role.VET) {
+            memberDto.GIVE_Role(Role.VET);
+        }
 
         return memberRepository.save(memberDto.toEntity()).getId();
     }
@@ -95,7 +101,6 @@ public class MemberService implements UserDetailsService {
         return id;
     }
 
-
     // 회원 패스워드 수정
     @Transactional
     public Long updatePwd(Long id, MemberUpdatePwd requestDto) {
@@ -107,17 +112,13 @@ public class MemberService implements UserDetailsService {
         log.info("password : " + member.getPassword().getClass());
         log.info("dto pwd class : " + requestDto.getPassword().getClass());
 
-
         String encodePwd = passwordEncoder.encode(requestDto.getPassword());
         member.updatePwd(encodePwd);
-
-
-
 
         return id;
     }
 
-    // 관리자 ->회원 정보수정
+    // 관리자, 회원 정보수정
     @Transactional
     public Long updateMember(Long id, MemberUpdateRequestDto requestDto) {
         Member member = memberRepository.findById(id)
@@ -128,22 +129,30 @@ public class MemberService implements UserDetailsService {
         return id;
     }
 
-    //수정 페이지
+
+    // 정보수정
     @Transactional(readOnly = true)
     public MemberResponseDto findById(Long id) {
         Member entity = memberRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 사용자 or 관리자가 없습니다. id=" + id));
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원/수의사/관리자가 없습니다. id=" + id));
 
         return new MemberResponseDto(entity);
     }
 
-    //삭제 api
+    // 삭제 API
     @Transactional
-    public void delete (Long id) {
+    public void delete(Long id) {
         Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 사용자 or 관리자가 없습니다. id=" + id));
-        memberRepository.delete(member);
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원/수의사/관리자가 없습니다. id=" + id));
 
+        if(member.getHospital() != null ){
+            hospitalService.deleteHospital(member.getHospital().getId());
+        }
+
+        reserveService.delete_member(member);
+        List<Diagnosis> diagnosis = diagnosisRepository.findAllDesc(member);
+        diagnosisService.delete(diagnosis);
+        memberRepository.delete(member);
     }
 
     @Transactional(readOnly = true)
@@ -152,6 +161,4 @@ public class MemberService implements UserDetailsService {
                 .map(MemberResponseDto::new)
                 .collect(Collectors.toList());
     }
-
-
 }

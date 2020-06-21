@@ -1,5 +1,6 @@
 package com.example.demo.member.controller;
 
+import com.example.demo.member.vo.Role;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,5 +30,7 @@ public class MemberForm {
         private String city;
         @NotEmpty(message = "상세주소 입력은 필수입니다")
         private String street;
+//        @NotEmpty(message = "구분 입력은 필수입니다")
+        private Role role;
 
 }

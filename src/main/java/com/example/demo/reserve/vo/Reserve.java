@@ -1,20 +1,14 @@
 package com.example.demo.reserve.vo;
 
-import com.example.demo.diagnosis.domain.Diagnosis;
+import com.example.demo.hospital.vo.Hospital;
 import com.example.demo.member.vo.Member;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
-import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.FetchType.LAZY;
-
 @Entity
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class Reserve  {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,8 +16,12 @@ public class Reserve  {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Member member;
+    @JoinColumn(name = "hospital_id")
+    private Hospital hospital;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     private String dog;
 
@@ -41,9 +39,8 @@ public class Reserve  {
 
     private String address; //추후 병원에서 가져온다 필요한가 ?
 
-
     @Builder
-    public Reserve(Long id, Member member, String date, String description, String name, String address , String tel, String dog) {
+    public Reserve(Long id, Member member, String date, String description, String name, String address , String tel, String dog, Hospital hospital) {
         this.id = id;
         this.member = member;
         this.date = date;
@@ -52,6 +49,7 @@ public class Reserve  {
         this.address = address;
         this.tel = tel;
         this.dog = dog;
+        this.hospital = hospital;
     }
 
     public Reserve update(String date, String description) {
@@ -60,4 +58,3 @@ public class Reserve  {
         return this;
     }
 }
-

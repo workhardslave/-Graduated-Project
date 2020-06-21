@@ -1,15 +1,12 @@
 package com.example.demo.diagnosis.domain;
 
-
 import com.example.demo.member.vo.Member;
-import com.example.demo.reserve.vo.Reserve;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
-import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.FetchType.LAZY;
 
 @Getter
@@ -19,26 +16,22 @@ import static javax.persistence.FetchType.LAZY;
 @NoArgsConstructor
 public class Diagnosis {
 
-
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "member_id")
     private Member member;
 
-//    @OneToOne
-//    @JoinColumn(name = "reserve_id")
-//    private Reserve reserve;
-
-    private String name; //진단질병명
+    private String name; // 진단 질병명
 
     private String dog;
-    @ManyToOne
+    private String type;
+
+    @OneToOne
     private Corna corna;
-
-    @ManyToOne
+    @OneToOne
     private Macak macak;
-
-    @ManyToOne
+    @OneToOne
     private Air air;
 
 

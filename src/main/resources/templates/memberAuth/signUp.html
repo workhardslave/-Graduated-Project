@@ -67,7 +67,18 @@
                             <label th:for="street">상세주소</label>
                             <input type="text" th:field="*{street}" class="form-control" id="sample6_detailAddress" placeholder="상세주소" required>
                         </div>
-                        <br/>
+
+                        <div class="row" style="padding-left: 15px; padding-bottom: 15px;">
+                            <span>
+                                <input type="radio" id="GUEST" value="GUEST" th:field="*{role}" required>
+                                <label for="GUEST" style="padding-right: 10px">사용자</label>
+                            </span>
+
+                            <span>
+                                <input type="radio" id="VET" value="VET" th:field="*{role}" required>
+                                <label for="VET" style="padding-right: 10px">수의사</label>
+                            </span>
+                        </div>
 
                         <div class="container-login100-form-btn">
                             <div class="wrap-login100-form-btn">
@@ -153,6 +164,7 @@
             // 비빌번호, 비빌번호 확인 라벨 비교 구문
                 $("#user_password2").blur(function(){
 
+
                     const pw1 = $('#user_password').val();
                     const pw2 = $('#user_password2').val();
                     if(pw1 === pw2){
@@ -170,6 +182,7 @@
                     }
                 });
             });
+
         </script>
     </body>
 </html>

@@ -1,0 +1,57 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/config :: configFragment"/>
+
+<body>
+<header th:replace="fragments/header :: headerFragment"></header>
+
+<section>
+    <h3 style="padding-top: 50px; padding-left: 130px"><b>동물병원 등록 내역</b></h3>
+    <br/>
+
+    <div class="col-md-12">
+        <div class="container">
+            <div>
+                <table class="table table-horizontal table-striped table-hover table-bordered">
+                    <thead class="thead-strong">
+                    <tr>
+                        <th>#</th>
+                        <th>병원 이름</th>
+                        <th>방문 주소</th>
+                        <th>병원 번호</th>
+                        <th>회원 이름</th>
+                    </tr>
+                    </thead>
+
+                    <tbody id="tbody">
+                    <tr th:each="hos : ${hospital}">
+                        <td></td>
+                        <td><a th:href="@{/member/hospital/settings/{id} (id = ${hos.id})}" th:text="${hos.name}"></a></td>
+                        <td th:text="${hos.address}"></td>
+                        <td th:text="${hos.tel}"></td>
+                        <td th:text="${hos.member.getName()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        const table = document.getElementsByTagName('tbody')[0],
+            rows = table.getElementsByTagName('tr'),
+            text = 'textContent' in document ? 'textContent' : 'innerText';
+
+        let idx = rows.length;
+        for (let i = 0; i < rows.length; i++){
+            rows[i].children[0][text] = idx;
+            idx -= 1;
+        }
+    </script>
+</section>
+
+<script src="../../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+
+
+<footer th:replace="fragments/footer :: footerFragment"></footer>
+</body>
+</html>

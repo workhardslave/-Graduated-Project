@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/config :: configFragment" />
+    <body>
+        <header th:replace="fragments/header :: headerFragment"></header>
+
+        <div class="limiter">
+            <div class="container-login100" style="background-image: url('/../../static/images/bg-01.jpg');">
+                <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+                    <form class="login100-form validate-form">
+                        <span class="login100-form-title p-b-49">동물병원 조회</span>
+
+                        <input type="text" id="hospID" th:field="${myHospital.id}" hidden="true">
+
+                        <div class="form-group">
+                            <label th:for="name">이름</label>
+                            <input type="text" id="hospName" placeholder="병원 이름" th:field="${myHospital.name}" class="form-control" readonly required>
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="phone">전화번호</label>
+                            <input type="text" id="hospTel" placeholder="병원 전화번호" th:field="${myHospital.tel}" class="form-control"
+                                   maxlength="11" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" readonly required>
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="zipcode">주소</label>
+                            <input type="text" id="hospAddr" placeholder="병원 주소" th:field="${myHospital.address}" class="form-control" readonly required>
+                        </div>
+                        <br/>
+
+                        <div class="container-login100-form-btn">
+                            <div class="wrap-login100-form-btn">
+                                <div class="login100-form-bgbtn"></div>
+                                <a th:href="@{/vet/hospital/reservationList}" class="login100-form-btn">예약보기</a>
+                            </div>
+                        </div>
+                        <br/>
+
+                        <div class="container-login100-form-btn">
+                            <div class="wrap-login100-form-btn">
+                                <div class="login100-form-bgbtn"></div>
+                                <a th:href="'javascript:deleteHospital()'" class="login100-form-btn">삭제하기</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script src="/../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+        <script th:inline="javascript">
+            function deleteHospital() {
+
+                let hospital_id = [[ ${myHospital.id} ]];
+
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/api/vet/hospital/delete/' + hospital_id,
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8'
+                }).done(function() {
+                    alert('삭제 되었습니다.');
+                    window.location.href = '/';
+                }).fail(function(request, status, error) {
+                    alert(JSON.stringify(error));
+                    alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+                });
+            }
+        </script>
+
+        <div id="dropDownSelect1"></div>
+
+        <!--===============================================================================================-->
+        <script src="/../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="/../../static/vendor/animsition/js/animsition.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="/../../static/vendor/bootstrap/js/popper.js"></script>
+        <script src="/../../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="/../../static/vendor/select2/select2.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="/../../static/vendor/daterangepicker/moment.min.js"></script>
+        <script src="/../../static/vendor/daterangepicker/daterangepicker.js"></script>
+        <!--===============================================================================================-->
+        <script src="/../../static/vendor/countdowntime/countdowntime.js"></script>
+        <!--===============================================================================================-->
+        <script src="/../../static/js/main.js"></script>
+        <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+        <script src="/../static/js/postcode-api.js"></script>
+
+        <footer th:replace="fragments/footer :: footerFragment"></footer>
+    </body>
+</html>

@@ -1,6 +1,5 @@
 package com.example.demo.diagnosis.service;
 
-
 import com.example.demo.diagnosis.domain.Air;
 import com.example.demo.diagnosis.domain.Corna;
 import com.example.demo.diagnosis.domain.Diagnosis;
@@ -11,9 +10,12 @@ import com.example.demo.diagnosis.repository.DiagnosisRepository;
 import com.example.demo.diagnosis.repository.MacakRepository;
 import com.example.demo.diagnosis.vo.DiagnosisDto;
 import com.example.demo.diagnosis.vo.DiagnosisNameCountDto;
+import com.example.demo.dog.repository.DogRepository;
 import com.example.demo.member.vo.Member;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,7 +33,7 @@ public class DiagnosisService {
     private final AirRepository airRepository;
 
     @Transactional
-    public void DiagnosisSetting(String data, String cor, String ma, String ar, String dog, Member member ) {
+    public void DiagnosisSetting(String data, String cor, String ma, String ar, String dog, Member member) {
 
         int dataLen = data.length();
         String name = data.substring(1, dataLen-1);
@@ -86,11 +88,13 @@ public class DiagnosisService {
 
     //삭제 api
     @Transactional
-    public void delete ( Member member) {
+    public void delete (List<Diagnosis> diagnosis) {
 
-        List<Diagnosis> diagnosis = diagnosisRepository.findAllDesc(member);
         for(Diagnosis d : diagnosis){
             diagnosisRepository.delete(d);
+            cornaRepository.delete(d.getCorna());
+            macakRepository.delete(d.getMacak());
+            airRepository.delete(d.getAir());
         }
     }
 }
