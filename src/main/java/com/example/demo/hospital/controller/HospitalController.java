@@ -41,36 +41,6 @@ public class HospitalController {
         return "hospital/registration";
     }
 
-    // 동물병원 등록 API
-    @PostMapping(value = "/api/vet/hospital/register")
-    public String createHospital(@RequestBody HospitalSaveRequestDto Dto, BindingResult result, Principal principal) {
-        if (result.hasErrors()) {
-            return "home";
-        }
-        log.info("병원등록 백앤드 값확인");
-        log.info(Dto.getAddress());
-        log.info(Dto.getName());
-        log.info(Dto.getTel());
-
-
-        Member member = memberRepository.findEmailCheck(principal.getName());
-
-        if(member.getHospital() != null){
-            throw new IllegalStateException("동물병원 등록은 하나만 됩니다.");
-        }
-
-        HospitalSaveRequestDto hospital = new HospitalSaveRequestDto();
-
-        hospitalService.reg(hospital.builder()
-                .name(Dto.getName())
-                .address(Dto.getAddress())
-                .tel(Dto.getTel())
-                .member(member)
-                .build(), member);
-
-        return "redirect:/vet/myHospital";
-    }
-
     // 관리자, 전체 동물병원 조회
     @GetMapping(value = "/admin/hospitalList")
     public String allHospital(Model model) {
@@ -78,7 +48,15 @@ public class HospitalController {
 
         model.addAttribute("hospital", Dto);
 
-        return "";
+        return "admin/hospital/hospitalList";
+    }
+
+    // 관리자, 동물병원 조회
+    @GetMapping("/member/hospital/settings/{id}")
+    public String updateForm(@PathVariable Long id, Model model) {
+        HospitalResponseDto dto = hospitalService.findById(id);
+        model.addAttribute("hos", dto);
+        return "admin/hospital/hospitalDetail";
     }
 
     // 수의사, 동물병원 조회

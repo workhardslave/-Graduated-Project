@@ -193,6 +193,7 @@
 
                 if (status === kakao.maps.services.Status.OK) {
 
+                    console.log("뭐니 넌-----------------------"+data);
                     // 정상적으로 검색이 완료됐으면
                     // 검색 목록과 마커를 표출합니다
 
@@ -260,11 +261,11 @@
                             infowindow.close();
                         };
                     })(marker, places[i].place_name);
+                    console.log("places[i]--------------: "+places[i].place_name);
 
                     fragment.appendChild(itemEl);
                     // console.log( fragment.appendChild(itemEl));
-                    console.log(itemEl);
-                }
+                    console.log(itemEl);                }
 
                 // 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다
                 listEl.appendChild(fragment);

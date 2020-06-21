@@ -34,7 +34,6 @@ public class DiagnosisApiController {
 
     private final SymptomRepository symptomRepository;
     private final DiseaseService diseaseService;
-    private final ReserveService reserveService;
     private final DiagnosisService diagnosisService;
     private final DogService dogService;
 
@@ -64,14 +63,10 @@ public class DiagnosisApiController {
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(url,parameters,String.class);
 
         List<DiseaseResponseDto> diseasesAll = diseaseService.findAllDesc();
-//        List<DiseaseNameCountDto> diseaseNames = diseaseService.findNameCount();
-        List<ReserveResponseDto> reservations = reserveService.findAll();
         List<DiagnosisNameCountDto> diagnosisNames = diagnosisService.findNameCount();
         List<DogTypeCountDto> dogCouts = dogService.findDogCount();
 
         model.addAttribute("dis", diseasesAll);
-//        model.addAttribute("disName", diseaseNames);
-        model.addAttribute("reserves", reservations);
         model.addAttribute("diagName", diagnosisNames);
         model.addAttribute("symptomForm", new SymptomForm());
         model.addAttribute("dogCount", dogCouts);
