@@ -9,6 +9,7 @@ import com.example.demo.disease.dto.DiseaseResponseDto;
 import com.example.demo.disease.service.DiseaseService;
 import com.example.demo.dog.service.DogService;
 import com.example.demo.dog.vo.DogResponseDto;
+import com.example.demo.dog.vo.DogTypeCountDto;
 import com.example.demo.hospital.service.HospitalService;
 import com.example.demo.hospital.vo.Hospital;
 import com.example.demo.hospital.vo.HospitalResponseDto;
@@ -52,8 +53,9 @@ import java.util.*;
 @Controller
 public class DiseaseController {
 
-    private final DiseaseService diseaseService;
     private final MemberRepository memberRepository;
+
+    private final DiseaseService diseaseService;
     private final DogService dogService;
     private final ReserveService reserveService;
     private final DiagnosisService diagnosisService;
@@ -65,19 +67,17 @@ public class DiseaseController {
     public String DiseaseInfoPage(Model model) {
 
         List<DiseaseResponseDto> diseasesAll = diseaseService.findAllDesc();
-        System.out.println(diseasesAll.get(0).getName());
-
-        List<DiseaseNameCountDto> diseaseNames = diseaseService.findNameCount();
-
+//        List<DiseaseNameCountDto> diseaseNames = diseaseService.findNameCount();
         List<ReserveResponseDto> reservations = reserveService.findAll();
-
         List<DiagnosisNameCountDto> diagnosisNames = diagnosisService.findNameCount();
+        List<DogTypeCountDto> dogCounts = dogService.findDogCount();
 
         model.addAttribute("dis", diseasesAll);
-        model.addAttribute("disName", diseaseNames);
+//        model.addAttribute("disName", diseaseNames);
         model.addAttribute("reserves", reservations);
         model.addAttribute("diagName", diagnosisNames);
         model.addAttribute("symptomForm", new SymptomForm());
+        model.addAttribute("dogCount", dogCounts);
 
         return "disease/diseaseInfo";
     }

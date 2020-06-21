@@ -76,16 +76,22 @@ public class DogService {
         return id;
     }
 
-    // 관리자 강아지 등록정보 시각화
-    @Transactional(readOnly = true)
-    public void DogCount(){
-        List<DogCountDto> l = dogRepository.findCount();
+//    // 관리자 강아지 등록정보 시각화
+//    @Transactional(readOnly = true)
+//    public void DogCount(){
+//        List<DogCountDto> l = dogRepository.findCount();
+//
+//        for(DogCountDto p : l){
+//            System.out.println(p.getCount());
+//            System.out.println(p.getGender());
+//        }
+//    }
 
-        for(DogCountDto p : l){
-            System.out.println(p.getCount());
-            System.out.println(p.getGender());
+    @Transactional
+    public List<DogTypeCountDto> findDogCount() {
+        List<DogTypeCountDto> dogCount = dogRepository.findDogCount();
 
-        }
+        return dogCount;
     }
 }
 

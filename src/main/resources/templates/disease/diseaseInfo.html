@@ -17,16 +17,17 @@
                                 <td th:text="${digName.count}"></td>
                             </tr>
 
-                            <tr th:each="diName : ${disName}" class="diNameTR" hidden="true">
-                                <td th:text="${diName.name}"></td>
-                                <td th:text="${diName.count}"></td>
+                            <tr th:each="dCount : ${dogCount}" class="dCountTR" hidden="ture">
+                                <td th:text="${dCount.gender}"></td>
+                                <td th:text="${dCount.type}"></td>
+                                <td th:text="${dCount.count}"></td>
                             </tr>
                         </tbody>
                     </table>
 
                     <div class="row">
                         <div class="col-lg-6" id="digPieChart" style="width: 900px; height: 500px;"></div>
-                        <div class="col-lg-6" id="disPieChart" style="width: 900px; height: 500px;"></div>
+                        <div class="col-lg-6" id="dogBarChart"></div>
                     </div>
                 </div>
             </div>
@@ -114,18 +115,8 @@
 
             function drawPieChart() {
 
-                // let diseaseRows = document.getElementsByTagName("tr");
-
                 let diseaseBody = document.getElementsByTagName("tbody");
-                console.log(diseaseBody[0].children[0]);
-                console.log(diseaseBody[0].children[1]);
-                console.log(diseaseBody[0].children[4]);
-
                 let digNameTR = document.getElementsByClassName("digNameTR");
-                console.log("몇 개: " + digNameTR.length);
-
-                console.log(diseaseBody[0].children[0].children[0].textContent);
-                console.log(diseaseBody[0].children[0].children[1].textContent);
 
                 let diagName = [];
                 let diagCount = [];
@@ -133,11 +124,6 @@
                     diagName.push(diseaseBody[0].children[i].children[0].textContent);
                     diagCount.push(parseInt(diseaseBody[0].children[i].children[1].textContent));
                 }
-                //
-                // for(let i = 0; i < diseaseRows.length; i++) {
-                //     diseaseType.push(diseaseRows[i].children[0].textContent);
-                //     diseaseCount.push(parseInt(diseaseRows[i].children[1].textContent));
-                // }
 
                 let diagData = [];
                 diagData.push(['진단 질병 이름', '빈도']);
@@ -153,11 +139,11 @@
                 var data = google.visualization.arrayToDataTable(diagData);
 
                 var options = {
-                    title: '진단 질병 이름별 정보',
+                    title: '질병 이름에 따른 질병 진단 정보',
                     slices: {
-                        0: { color: 'yellowgreen' },
-                        1: { color: 'pink' },
-                        2: { color: '#F8EB00' }
+                        0: { color: '#3399FF' },
+                        1: { color: 'orange' },
+                        2: { color: '#9933CC' }
                     }
                 };
 
@@ -166,48 +152,87 @@
                 chart.draw(data, options);
             }
 
-            google.charts.load("current", {packages:["corechart"]});
-            google.charts.setOnLoadCallback(drawDonutChart);
+            google.charts.load('current', {packages: ['corechart', 'bar']});
+            google.charts.setOnLoadCallback(drawDogBarChart);
 
-            function drawDonutChart() {
-                let diseaseBody = document.getElementsByTagName("tbody");
-                let diNameTR = document.getElementsByClassName("diNameTR");
+            function drawDogBarChart() {
 
+                let dogBody = document.getElementsByTagName("tbody");
+                let dCountTR = document.getElementsByClassName("dCountTR");
                 let digNameTR = document.getElementsByClassName("digNameTR");
-                let diTR = document.getElementsByClassName("diTR");
 
-                let diTRLength = digNameTR.length + diTR.length;
+                let digNameLen = digNameTR.length;
 
-                let diseaseName = [];
-                let diseaseCount = [];
-                for(let i = diTRLength; i < diTRLength + diNameTR.length; i++) {
-                    diseaseName.push(diseaseBody[0].children[i].children[0].textContent);
-                    diseaseCount.push(parseInt(diseaseBody[0].children[i].children[1].textContent));
+                let dType = [];
+                for(let i = digNameLen; i < digNameLen + dCountTR.length; i++) {
+                    let dtype = dogBody[0].children[i].children[1].textContent;
+                    if(!dType.includes(dtype)) {
+                        dType.push(dtype);
+                    }
                 }
 
-                let diseaseData = [];
-                diseaseData.push(['질병 이름', '빈도']);
-
-                console.log(diseaseName);
-                console.log(diseaseCount);
-
-                for(let i = 0; i < diNameTR.length; i++) {
-                    let tempData = [];
-                    tempData.push(diseaseName[i]);
-                    tempData.push(diseaseCount[i]);
-
-                    diseaseData.push(tempData);
+                let dGenger = [];
+                for(let i = 0; i <dType.length; i++) {
+                    dGenger.push([dType[i], 0, 0])
                 }
 
-                console.log(diseaseData);
+                for(let i = 0; i < dType.length; i++) {
+                    for(let j = digNameLen; j < digNameLen + dCountTR.length; j++) {
+                        let dtype = dogBody[0].children[j].children[1].textContent;
+                        let dgender = dogBody[0].children[j].children[0].textContent;
+                        let dcount = parseInt(dogBody[0].children[j].children[2].textContent);
 
-                var data = google.visualization.arrayToDataTable(diseaseData);
+                        if(dtype == dGenger[i][0]) {
+                            if(dgender == "수컷") {
+                                dGenger[i][1] = dcount;
+                            }
+                            else if(dgender == "암컷") {
+                                dGenger[i][2] = dcount;
+                            }
+                        }
+                    }
+                }
+
+                let dData = [];
+                dData.push(['반려견 종류', '수컷', '암컷']);
+                for(let i = 0; i < dGenger.length; i++) {
+                    dData.push([dGenger[i][0], dGenger[i][1], dGenger[i][2]]);
+                }
+
+                var data = google.visualization.arrayToDataTable(dData);
 
                 var options = {
-                    title: '전체 질병 이름별 정보'
+                    title: '성별에 따른 반려견 종류 정보',
+                    chartArea: {width: '50%'},
+                    annotations: {
+                        alwaysOutside: true,
+                        textStyle: {
+                            fontSize: 12,
+                            auraColor: 'none',
+                            color: '#555'
+                        },
+                        boxStyle: {
+                            stroke: '#ccc',
+                            strokeWidth: 1,
+                            gradient: {
+                                color1: '#f3e5f5',
+                                color2: '#f3e5f5',
+                                x1: '0%', y1: '0%',
+                                x2: '100%', y2: '100%'
+                            }
+                        }
+                    },
+                    hAxis: {
+                        title: '빈도',
+                        minValue: 0,
+                    },
+                    vAxis: {
+                        title: '반려견 종류'
+                    }
                 };
 
-                var chart = new google.visualization.PieChart(document.getElementById('disPieChart'));
+                var chart = new google.visualization.BarChart(document.getElementById('dogBarChart'));
+
                 chart.draw(data, options);
             }
         </script>
