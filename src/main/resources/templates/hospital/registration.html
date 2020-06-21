@@ -66,32 +66,18 @@
                 console.log(result2);
                 // 나중에 API와 매칭하기
                 if(result2) {
-                    console.log("?????");
                     $.ajax({
                         type: 'POST',
-<<<<<<< HEAD:src/main/resources/templates/hospital/registeration.html
-                        url: '/api/hospital/signup',
-                        dataType: 'text',
-=======
                         url: '/api/vet/hospital/register',
                         dataType: 'json',
->>>>>>> 1d7194144d484389004dbc8c2475dc55d4916830:src/main/resources/templates/hospital/registration.html
                         contentType: 'application/json; charset=utf-8',
                         data: JSON.stringify(data)
                     }).done(function () {
                         alert('등록완료 되었습니다!');
-                        window.location.href = "/hospital/myHospital";
+                        window.location.href = "/vet/myHospital";
                     }).fail(function (request, status, error) {
-<<<<<<< HEAD:src/main/resources/templates/hospital/registeration.html
                         alert('병원은 두개이상 등록이 불가능합니다.');
-                        window.location.href = "/hospital/registeration";
-
-                        // alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
-=======
-                        alert(JSON.stringify(error));
-                        window.location.href = "/vet/hospital/registration";
-                        alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
->>>>>>> 1d7194144d484389004dbc8c2475dc55d4916830:src/main/resources/templates/hospital/registration.html
+                        window.location.href = "/";
                     });
                 }else {
                     // 변화없음;;
