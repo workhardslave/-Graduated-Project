@@ -1,14 +1,10 @@
 package com.example.demo.reserve.vo;
 
-import com.example.demo.diagnosis.domain.Diagnosis;
 import com.example.demo.hospital.vo.Hospital;
 import com.example.demo.member.vo.Member;
 import lombok.*;
 
 import javax.persistence.*;
-
-import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
@@ -18,7 +14,6 @@ public class Reserve  {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reserve_id")
     private Long id;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hospital_id")
@@ -44,7 +39,6 @@ public class Reserve  {
 
     private String address; //추후 병원에서 가져온다 필요한가 ?
 
-
     @Builder
     public Reserve(Long id, Member member, String date, String description, String name, String address , String tel, String dog) {
         this.id = id;
@@ -63,4 +57,3 @@ public class Reserve  {
         return this;
     }
 }
-

@@ -38,11 +38,12 @@
                                     <li class="nav-item">
                                         <a sec:authorize="hasRole('ROLE_MEMBER')" class="nav-link" th:href="@{/member/disease/chart}">질병 진단 서비스</a>
                                         <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" th:href="@{/admin/members}">회원 관리</a>
+                                        <a sec:authorize="hasRole('ROLE_VET')" class="nav-link" th:href="@{/vet/hospital/registration}">동물병원 등록</a>
                                     </li>
 
                                     <li class="nav-item">
                                         <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" th:href="@{/admin/diseases}">질병 관리</a>
-                                        <a sec:authorize="hasRole('ROLE_VET')" class="nav-link" th:href="@{/hospital/registeration/}">동물병원 예약 관리</a>
+                                        <a sec:authorize="hasRole('ROLE_VET')" class="nav-link" th:href="@{/vet/myHospital}">동물병원 조회</a>
                                     </li>
 
                                     <li class="nav-item dropdown">
@@ -62,6 +63,10 @@
                                             <a sec:authorize="hasRole('ROLE_MEMBER')" class="dropdown-item" href="/member/chart/record">질병 진단 결과 조회</a>
                                             <a sec:authorize="hasRole('ROLE_MEMBER')" class="dropdown-item" th:href="@{/member/reservesInfo}">동물병원 예약 조회</a>
                                         </div>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a sec:authorize="hasRole('ROLE_VET')" class="nav-link" th:href="@{/vet/hospital/reservationList}">동물병원 예약 조회</a>
                                     </li>
 
                                     <li class="nav-item">

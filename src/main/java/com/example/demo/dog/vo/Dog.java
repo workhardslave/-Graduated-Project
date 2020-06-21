@@ -37,7 +37,6 @@ public class Dog {
 //    @OneToMany(mappedBy = "dog", orphanRemoval = true)
 //    List<Disease> diseaseList = new ArrayList<>();
 
-
     @Builder
     public Dog(Long id, Member member, String name, String age, String gender, String birth, String type) {
         this.id = id;
@@ -48,6 +47,7 @@ public class Dog {
         this.birth=birth;
         this.type=type;
     }
+
     public Dog update(String age, String gender, String name) {
         this.age = age;
         this.gender = gender;

@@ -8,7 +8,7 @@
             <div class="container-login100" style="background-image: url('/../../static/images/bg-01.jpg');">
                 <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
                     <form class="login100-form validate-form">
-                        <span class="login100-form-title p-b-49">내 병원 조회</span>
+                        <span class="login100-form-title p-b-49">동물병원 조회</span>
 
                         <input type="text" id="hospID" th:field="${myHospital.id}" hidden="true">
 
@@ -43,7 +43,21 @@
         <script src="/../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
         <script th:inline="javascript">
             function deleteHospital() {
-                return 0;
+
+                let hospital_id = [[ ${myHospital.id} ]];
+
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/api/vet/hospital/delete/' + hospital_id,
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8'
+                }).done(function() {
+                    alert('삭제 되었습니다.');
+                    window.location.href = '/';
+                }).fail(function(request, status, error) {
+                    alert(JSON.stringify(error));
+                    alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+                });
             }
         </script>
 

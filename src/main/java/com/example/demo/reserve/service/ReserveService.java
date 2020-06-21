@@ -1,5 +1,6 @@
 package com.example.demo.reserve.service;
 
+import com.example.demo.hospital.vo.Hospital;
 import com.example.demo.member.vo.Member;
 import com.example.demo.reserve.repository.ReserveRepository;
 import com.example.demo.reserve.vo.Reserve;
@@ -41,6 +42,13 @@ public class ReserveService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public List<ReserveResponseDto> findAllHospital(Hospital hospital) {
+        return reserveRepository.findAllReserveDesc(hospital).stream()
+                .map(ReserveResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
     //사용자가 본인의 병원예약정보수정 홈페이지 GET
     @Transactional(readOnly = true)
     public ReserveResponseDto findById(Long id) {
@@ -55,7 +63,7 @@ public class ReserveService {
         Reserve reserve = reserveRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 예약이 없습니다. id=" + id));
 
-        reserve.update(requestDto.getDate(),requestDto.getDescription());
+        reserve.update(requestDto.getDate(), requestDto.getDescription());
 
         return id;
     }
