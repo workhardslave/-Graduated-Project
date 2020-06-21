@@ -126,7 +126,6 @@ public class MemberController {
         return "home";
     }
 
-
     // 회원 로그아웃
     @GetMapping("/member/logout/result")
     public String dispLogout()

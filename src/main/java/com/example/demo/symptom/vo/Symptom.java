@@ -23,7 +23,7 @@ public class Symptom {
     private String name;
 
     @Builder
-    public Symptom( String name) {
+    public Symptom(String name) {
         this.name = name;
     }
 }

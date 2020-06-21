@@ -40,8 +40,10 @@
                 rows = table.getElementsByTagName('tr'),
                 text = 'textContent' in document ? 'textContent' : 'innerText';
 
+            let idx = rows.length;
             for (let i = 0, len = rows.length; i < len; i++){
-                rows[i].children[0][text] = i ;
+                rows[i].children[0][text] = idx;
+                idx -= 1;
             }
 
         </script>

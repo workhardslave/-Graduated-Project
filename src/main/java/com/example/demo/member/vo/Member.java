@@ -22,7 +22,6 @@ import java.util.List;
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class Member extends BaseTimeEntity {
 
-
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
@@ -41,19 +40,14 @@ public class Member extends BaseTimeEntity {
     private Address address;
 
     @OneToOne
-    @JoinColumn(name = "hospital_id")
+    @JoinColumn(name ="hospital_id")
     private Hospital hospital;
-
 
     @OneToMany(mappedBy="member", orphanRemoval = true)
     List<Diagnosis> diList = new ArrayList<>();
 
     @OneToMany(mappedBy="member", orphanRemoval = true)
     List<Dog> dogList = new ArrayList<>();
-
-//    @OneToMany(mappedBy="member", orphanRemoval = true)
-//    List<Reserve> reserveList = new ArrayList<>();
-    
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -68,7 +62,6 @@ public class Member extends BaseTimeEntity {
         this.password = password;
         this.birth = birth;
         this.phone = phone;
-
     }
 
     public Member update(String city, String street, String zipcode, String phone) {
@@ -77,11 +70,20 @@ public class Member extends BaseTimeEntity {
         return this;
     }
 
+    public Member regHospital(Hospital hospital){
+        this.hospital = hospital;
+        return this;
+    }
+
+    public Member deleteHospital(){
+        this.hospital = null;
+        return this;
+    }
+
     public Member updatePwd(String password) {
         this.password = password;
         return this;
     }
-
 
     public Member updateMember(String name, String city, String street, String zipcode, String phone) {
         this.name = name;

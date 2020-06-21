@@ -20,9 +20,6 @@ public class Disease {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private Dog dog;
-
     private String name;            // 질병명
     private String description;     // 질병설명
 

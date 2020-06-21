@@ -1,19 +1,17 @@
 package com.example.demo.hospital.controller;
 
-
+import com.example.demo.hospital.repository.HospitalRepository;
 import com.example.demo.hospital.service.HospitalService;
+import com.example.demo.hospital.vo.Hospital;
 import com.example.demo.hospital.vo.HospitalResponseDto;
-import com.example.demo.hospital.vo.HospitalSaveRequestDto;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.member.vo.Member;
-import com.example.demo.member.vo.MemberResponseDto;
+import com.example.demo.reserve.service.ReserveService;
+import com.example.demo.reserve.vo.ReserveUpdateRequestDto;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.session.FindByIndexNameSessionRepository;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -21,30 +19,46 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class HospitalApiController {
 
-
     private final HospitalService hospitalService;
+    private final ReserveService reserveService;
+    private final HospitalRepository hospitalRepository;
     private final MemberRepository memberRepository;
-    private final MemberService memberService;
-    // 병원관리자 병원 삭제하는 api
-    @DeleteMapping("/api/member/hospital/delete/{id}")
-    public Long delete(@PathVariable Long id, Principal principal) {
-    Member member =  memberRepository.findEmailCheck(principal.getName());
 
-    hospitalService.delete(id);
+    // 수의사, 동물병원 삭제 API
+    @DeleteMapping("/api/vet/hospital/delete/{hospital_id}")
+    public Long deleteVetHospital(@PathVariable Long hospital_id, Principal principal) {
 
-    return id;
+        Member member = memberRepository.findEmailCheck(principal.getName());
+
+        member.deleteHospital();
+//        member.setHospital(null);                       // JPA에서 알아서 감지해서 null 값 세팅
+        hospitalService.deleteHospital(hospital_id);
+
+        return hospital_id;
     }
 
-    // 홈페이지관리자가  병원 삭제하는 api
-    @DeleteMapping("/api/admin/hospital/delete/{id}")
-    public Long Admin_delete(@PathVariable Long id, Principal principal) {
+    // 관리자, 동물병원 삭제 API
+    @DeleteMapping("/api/admin/hospital/delete/{hospital_id}")
+    public Long deleteAdminHospital(@PathVariable Long hospital_id) {
+        Hospital hospital = hospitalRepository.findOne(hospital_id);
 
-        HospitalResponseDto dto = hospitalService.findById(id);
-        Member member = memberRepository.findEmailCheck(dto.getMember().getEmail());
-        member.setHospital(null);
-        hospitalService.delete(id);
+        Member member = memberRepository.findOne(hospital.getMember().getId());
+        member.deleteHospital();
+        hospitalService.deleteHospital(hospital_id);
 
+        return hospital_id;
+    }
+
+    // 수의사, 동물병원 예약 수정 API
+    @PutMapping("/api/vet/hospital/reservation/{reserve_id}")
+    public Long updateVetHospitalReserve(@PathVariable Long reserve_id, @RequestBody ReserveUpdateRequestDto requestDto) {
+        return reserveService.update(reserve_id, requestDto);
+    }
+
+    // 수의사, 동물병원 예약 삭제 API
+    @DeleteMapping("/api/vet/hospital/reservation/delete/{id}")
+    public Long delete(@PathVariable Long id) {
+        reserveService.delete(id);
         return id;
     }
-
 }

@@ -28,7 +28,6 @@
                             </div>
                         </div>
 
-
                         <!--  비번변경 모달창 양식 구현  -->
                         <div class="modal fade" id="modal_div">
                             <div class="modal-dialog">
@@ -71,9 +70,6 @@
                             <label th:for="email">이메일</label>
                             <input type="email" id="memberEmail" th:field="${member.email}" class="form-control" readonly required>
                         </div>
-
-
-
 
                         <div class="form-group">
                             <label th:for="phone">전화번호</label>
@@ -127,6 +123,7 @@
                 </div>
             </div>
         </div>
+
         <script src="/../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
         <script th:inline="javascript">
             function update() {
@@ -186,7 +183,6 @@
             $(function() {
                 $("[id^=memberPassword]").click(function () {
 
-
                     // idx = $(this).attr("data-idx");
                     // hospital_name = $("#hospital_name" + idx).html();
                     // road = $("#road" + idx).html();
@@ -224,10 +220,8 @@
                     alert("패스워드를 다시 확인해 주세요!");
                     window.location.href = "/member/settings/"+id;
                 });
-
             }
         </script>
-
 
         <div id="dropDownSelect1"></div>
 
