@@ -45,23 +45,17 @@ public class HospitalService {
         return hospital.getId();
     }
 
-    @Transactional
-    public void deleteTest(Member member){
-        member.deleteHospital();
-    }
-
     // 수의사, 동물병원 삭제
     @Transactional
     public void deleteHospital(Long id) {
         Hospital hospital = hospitalRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException("해당 동물병원이 이미 삭제되어 있습니다. id=" +id));
-        List<Reserve> reserves = reserveRepository.findAllReserveDesc(hospital);
+        List<Reserve> reserves = reserveRepository.findAllHospitalDesc(hospital);
+
         for(Reserve re : reserves){
-            log.info("삭제확인");
             reserveRepository.delete(re);
         }
-
-        hospitalRepository.delete(hospital);
+        hospitalRepository.delete(hospital); //병원 delete쿼리
     }
 
     public HospitalResponseDto findById(Long id) {

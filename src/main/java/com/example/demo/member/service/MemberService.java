@@ -3,11 +3,15 @@ package com.example.demo.member.service;
 import com.example.demo.diagnosis.domain.Diagnosis;
 import com.example.demo.diagnosis.repository.DiagnosisRepository;
 import com.example.demo.diagnosis.service.DiagnosisService;
+import com.example.demo.hospital.repository.HospitalRepository;
 import com.example.demo.hospital.service.HospitalService;
+import com.example.demo.hospital.vo.Hospital;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.vo.*;
 
+import com.example.demo.reserve.repository.ReserveRepository;
 import com.example.demo.reserve.service.ReserveService;
+import com.example.demo.reserve.vo.Reserve;
 import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +26,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -144,15 +149,17 @@ public class MemberService implements UserDetailsService {
     public void delete(Long id) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원/수의사/관리자가 없습니다. id=" + id));
-
-        if(member.getHospital() != null ){
-            hospitalService.deleteHospital(member.getHospital().getId());
+        if(member.getHospital() != null){ //수의사인데 병원을 가지고있는경우
+            hospitalService.deleteHospital(member.getHospital().getId()); //예약정보 전부삭제
         }
 
-        reserveService.delete_member(member);
-        List<Diagnosis> diagnosis = diagnosisRepository.findAllDesc(member);
-        diagnosisService.delete(diagnosis);
-        memberRepository.delete(member);
+        else if(member.getHospital() == null) { //수의사인데 병원이 없거나, 일반 사용자일경우
+            reserveService.delete_member(member);
+            List<Diagnosis> diagnosis = diagnosisRepository.findAllDesc(member);
+            diagnosisService.delete(diagnosis);
+            memberRepository.delete(member);
+        }
+
     }
 
     @Transactional(readOnly = true)
