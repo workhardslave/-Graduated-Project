@@ -41,6 +41,11 @@ public class HospitalService {
         return hospital.getId();
     }
 
+    @Transactional
+    public void deleteTest(Member member){
+        member.deleteHospital();
+    }
+
     // 수의사, 동물병원 삭제
     @Transactional
     public void deleteHospital(Long id) {

@@ -4,22 +4,16 @@ import com.example.demo.diagnosis.domain.Diagnosis;
 import com.example.demo.diagnosis.service.DiagnosisService;
 import com.example.demo.diagnosis.vo.DiagnosisDto;
 import com.example.demo.diagnosis.vo.DiagnosisNameCountDto;
-import com.example.demo.disease.dto.DiseaseNameCountDto;
 import com.example.demo.disease.dto.DiseaseResponseDto;
 import com.example.demo.disease.service.DiseaseService;
 import com.example.demo.dog.service.DogService;
 import com.example.demo.dog.vo.DogResponseDto;
+import com.example.demo.dog.vo.DogTypeCountDto;
 import com.example.demo.hospital.service.HospitalService;
-import com.example.demo.hospital.vo.Hospital;
 import com.example.demo.hospital.vo.HospitalResponseDto;
-import com.example.demo.member.controller.MemberForm;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.vo.Member;
-import com.example.demo.member.vo.MemberUpdatePwd;
-import com.example.demo.reserve.service.ReserveService;
-import com.example.demo.reserve.vo.ReserveResponseDto;
 import com.example.demo.symptom.service.SymptomService;
-import com.example.demo.symptom.vo.Symptom;
 import com.example.demo.symptom.vo.SymptomForm;
 import com.example.demo.symptom.vo.SymptomResponseDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -46,16 +40,15 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.*;
 
-
 @RequiredArgsConstructor
 @Slf4j
 @Controller
 public class DiseaseController {
 
-    private final DiseaseService diseaseService;
     private final MemberRepository memberRepository;
+
+    private final DiseaseService diseaseService;
     private final DogService dogService;
-//    private final ReserveService reserveService;
     private final DiagnosisService diagnosisService;
     private final SymptomService symptomService;
     private final HospitalService hospitalService;
@@ -65,19 +58,13 @@ public class DiseaseController {
     public String DiseaseInfoPage(Model model) {
 
         List<DiseaseResponseDto> diseasesAll = diseaseService.findAllDesc();
-        System.out.println(diseasesAll.get(0).getName());
-
-        List<DiseaseNameCountDto> diseaseNames = diseaseService.findNameCount();
-
-//        List<ReserveResponseDto> reservations = reserveService.findAll();
-
         List<DiagnosisNameCountDto> diagnosisNames = diagnosisService.findNameCount();
+        List<DogTypeCountDto> dogCounts = dogService.findDogCount();
 
         model.addAttribute("dis", diseasesAll);
-        model.addAttribute("disName", diseaseNames);
-//        model.addAttribute("reserves", reservations);
         model.addAttribute("diagName", diagnosisNames);
         model.addAttribute("symptomForm", new SymptomForm());
+        model.addAttribute("dogCount", dogCounts);
 
         return "disease/diseaseInfo";
     }
@@ -159,11 +146,6 @@ public class DiseaseController {
         List<DiseaseResponseDto> diseaseAll = diseaseService.findAllDesc();
         List<HospitalResponseDto> hospitalList = hospitalService.findAllDesc();
 
-        ArrayList<String> hospital_name = new ArrayList<>();
-        for(HospitalResponseDto ho : hospitalList ){
-                    hospital_name.add(ho.getName());
-        }
-
         if(member != null) {
 
             model.addAttribute("member", member);
@@ -173,7 +155,7 @@ public class DiseaseController {
             model.addAttribute("bronchus", jsonObj.get("기관지 확장증"));
             model.addAttribute("diseases", diseaseAll);
             model.addAttribute("forms", form);
-            model.addAttribute("hospital_name",hospital_name);
+            model.addAttribute("hosList", hospitalList);
     }
 
         return "members/recommends/recommendation";
