@@ -58,19 +58,6 @@ public class MemberApiController {
         sessionRepository.findByIndexNameAndIndexValue(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME,
                 principal.getName()).keySet().forEach(session -> sessionRepository.deleteById((String) session));
 
-//        Member member = memberRepository.findOne(id);
-//
-//
-//
-//        log.info(member.getClass().getName());
-//        log.info(member.getEmail());
-//        //병원관리자일 경우 병원정보도 삭제한다.
-//        if(member.getRole().equals(Role.VET)){
-//            hospitalService.delete(member.getHospital().getId());
-//        }
-//        reserveService.delete_member(member); //예약정보 같이삭제
-//        List<Diagnosis> diagnosis = diagnosisRepository.findAllDesc(member); //진단정보 같이삭제
-//        diagnosisService.delete(diagnosis);
         memberService.delete(id); // 회원정보삭제 (회원이 만약 병원관리자라면?)
 
         return id;
@@ -85,15 +72,6 @@ public class MemberApiController {
     // 관리자가 회원정보를 삭제하는 api
     @DeleteMapping("/api/admin/member/delete/{id}")
     public Long deleteMember(@PathVariable Long id) {
-//        Member member = memberRepository.findOne(id);
-//        List<Diagnosis> diagnosis = diagnosisRepository.findAllDesc(member);
-//
-//        //병원관리자일 경우 병원정보도 삭제한다.
-//        if(member.getRole().equals(Role.VET)){
-//            hospitalService.delete(member.getHospital().getId());
-//        }
-//        reserveService.delete_member(member);
-//        diagnosisService.delete(diagnosis);
         memberService.delete(id);
 
         return id;
