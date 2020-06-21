@@ -8,7 +8,10 @@ import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.reserve.repository.ReserveRepository;
 
 import com.example.demo.member.vo.Member;
+import com.example.demo.reserve.vo.Reserve;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +20,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class HospitalService {
 
     private final HospitalRepository hospitalRepository;
@@ -51,6 +55,11 @@ public class HospitalService {
     public void deleteHospital(Long id) {
         Hospital hospital = hospitalRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException("해당 동물병원이 이미 삭제되어 있습니다. id=" +id));
+        List<Reserve> reserves = reserveRepository.findAllReserveDesc(hospital);
+        for(Reserve re : reserves){
+            log.info("삭제확인");
+            reserveRepository.delete(re);
+        }
 
         hospitalRepository.delete(hospital);
     }

@@ -1,5 +1,6 @@
 package com.example.demo.reserve.service;
 
+import com.example.demo.hospital.repository.HospitalRepository;
 import com.example.demo.hospital.vo.Hospital;
 import com.example.demo.member.vo.Member;
 import com.example.demo.reserve.repository.ReserveRepository;
@@ -19,12 +20,13 @@ import java.util.stream.Collectors;
 public class ReserveService {
 
     private final ReserveRepository reserveRepository;
+    private final HospitalRepository hospitalRepository;
 
 
     //사용자가 본인의 병원예약정보조회
     @Transactional(readOnly = true)
     public List<ReserveResponseDto> findAllDesc(Member member) {
-        return reserveRepository.findAllDesc(member).stream()
+        return reserveRepository.findAllMemberDesc(member).stream()
                 .map(ReserveResponseDto::new)
                 .collect(Collectors.toList());
     }
@@ -77,7 +79,7 @@ public class ReserveService {
     }
     @Transactional
     public void delete_member(Member member) {
-        List<Reserve> reserve = reserveRepository.findAllDesc(member);
+        List<Reserve> reserve = reserveRepository.findAllMemberDesc(member);
         if(reserve != null) {
             for (Reserve re : reserve) {
                 reserveRepository.delete(re);
@@ -88,6 +90,9 @@ public class ReserveService {
     // 사용자 병원예약 POST
     @Transactional
     public Long Reserve(ReserveSaveRequestDto reserveDto,Member member) {
+        Hospital hospital =  hospitalRepository.findname(reserveDto.getName());
+        System.out.println("정보 들어오는지 확인 " + hospital.getName());
+        reserveDto.Reserve_Hospital(hospital);
         reserveDto.Reserve_Member(member);
         return reserveRepository.save(reserveDto.toEntity()).getId();
     }

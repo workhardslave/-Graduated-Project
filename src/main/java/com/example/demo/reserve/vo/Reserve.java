@@ -40,7 +40,7 @@ public class Reserve  {
     private String address; //추후 병원에서 가져온다 필요한가 ?
 
     @Builder
-    public Reserve(Long id, Member member, String date, String description, String name, String address , String tel, String dog) {
+    public Reserve(Long id, Member member, String date, String description, String name, String address , String tel, String dog, Hospital hospital) {
         this.id = id;
         this.member = member;
         this.date = date;
@@ -49,6 +49,7 @@ public class Reserve  {
         this.address = address;
         this.tel = tel;
         this.dog = dog;
+        this.hospital = hospital;
     }
 
     public Reserve update(String date, String description) {
