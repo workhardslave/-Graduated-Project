@@ -63,22 +63,24 @@
 
                 // confirm 창 생성
                 var result2 = confirm("등록하려는 병원이 " + hospital_name + "이(가) 맞습니까?");
-
+                console.log(result2);
                 // 나중에 API와 매칭하기
                 if(result2) {
+                    console.log("?????");
                     $.ajax({
                         type: 'POST',
                         url: '/api/hospital/signup',
-                        dataType: 'json',
+                        dataType: 'text',
                         contentType: 'application/json; charset=utf-8',
                         data: JSON.stringify(data)
                     }).done(function () {
                         alert('등록완료 되었습니다!');
                         window.location.href = "/member/hospital/mypage";
                     }).fail(function (request, status, error) {
-                        alert(JSON.stringify(error));
+                        alert('병원은 두개이상 등록이 불가능합니다.');
                         window.location.href = "/hospital/registeration";
-                        alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+
+                        // alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
                     });
                 }else {
                     // 변화없음;;

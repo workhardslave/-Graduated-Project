@@ -39,37 +39,7 @@ public class HospitalController {
         return "hospital/registeration";
     }
 
-    // 병원등록 API
-    @PostMapping(value = "/api/hospital/signup")
-    public String createHospital(@RequestBody HospitalSaveRequestDto Dto, BindingResult result, Principal principal) {
-        if (result.hasErrors()) {
-            return "home";
-        }
-        log.info("병원등록 백앤드 값확인");
-        log.info(Dto.getAddress());
-        log.info(Dto.getName());
-        log.info(Dto.getTel());
 
-
-        Member member = memberRepository.findEmailCheck(principal.getName());
-
-        if(member.getHospital() != null){
-            throw new IllegalStateException("병원등록은 하나만 됩니다.");
-        }
-
-        HospitalSaveRequestDto hospital = new HospitalSaveRequestDto();
-
-        hospitalService.reg(hospital.builder()
-                .name(Dto.getName())
-                .address(Dto.getAddress())
-                .tel(Dto.getTel())
-                .member(member)
-                .build(), member);
-
-        System.out.println("저장됫니?");
-
-        return "redirect:/member/hospital/mypage";
-    }
 
     // 관리자 -> 병원 전체목록 조회
     @GetMapping(value = "/admin/hospitalList")
