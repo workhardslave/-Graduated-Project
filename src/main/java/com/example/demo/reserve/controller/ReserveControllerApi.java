@@ -47,8 +47,6 @@ public class ReserveControllerApi {
         Member member = memberRepository.findEmailCheck(principal.getName());
         log.info("강아지확인"+requestDto.getDog());
         return reserveService.Reserve(requestDto, member);
-
-
     }
     // 관리자 - > 사용자 병원 예약 정보 삭제 API
     @DeleteMapping("/api/admin/reserve/delete/{id}")
