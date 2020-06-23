@@ -80,7 +80,7 @@ public class MemberController {
     }
 
     @GetMapping("/member/mypage")
-    public String readMember(Model model, Principal principal, HttpServletRequest request, HttpSession session) {
+    public String readMember(Model model, Principal principal) {
         Member member = memberRepository.findEmailCheck(principal.getName()); //추후 ASPECT 적용대상
 
         if(member != null) {
