@@ -2,20 +2,20 @@ package com.example.demo.disease.controller;
 
 import com.example.demo.diagnosis.domain.Diagnosis;
 import com.example.demo.diagnosis.service.DiagnosisService;
-import com.example.demo.diagnosis.vo.DiagnosisDto;
-import com.example.demo.diagnosis.vo.DiagnosisNameCountDto;
+import com.example.demo.diagnosis.dto.DiagnosisDto;
+import com.example.demo.diagnosis.dto.DiagnosisNameCountDto;
 import com.example.demo.disease.dto.DiseaseResponseDto;
 import com.example.demo.disease.service.DiseaseService;
 import com.example.demo.dog.service.DogService;
-import com.example.demo.dog.vo.DogResponseDto;
-import com.example.demo.dog.vo.DogTypeCountDto;
+import com.example.demo.dog.dto.DogResponseDto;
+import com.example.demo.dog.dto.DogTypeCountDto;
 import com.example.demo.hospital.service.HospitalService;
-import com.example.demo.hospital.vo.HospitalResponseDto;
+import com.example.demo.hospital.dto.HospitalResponseDto;
 import com.example.demo.member.repository.MemberRepository;
-import com.example.demo.member.vo.Member;
+import com.example.demo.member.domain.Member;
 import com.example.demo.symptom.service.SymptomService;
-import com.example.demo.symptom.vo.SymptomForm;
-import com.example.demo.symptom.vo.SymptomResponseDto;
+import com.example.demo.symptom.dto.SymptomForm;
+import com.example.demo.symptom.dto.SymptomResponseDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonElement;
@@ -158,7 +158,7 @@ public class DiseaseController {
             model.addAttribute("hosList", hospitalList);
     }
 
-        return "members/recommends/recommendation";
+        return "member/recommends/recommendation";
     }
 
     // 회원이 보는 진단기록리스트

@@ -1,0 +1,250 @@
+<!--관리자가 회원정보를 수정하는 페이지-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/config :: configFragment" />
+    <body>
+        <header th:replace="fragments/header :: headerFragment"></header>
+
+        <div class="limiter">
+            <div class="container-login100" style="background-image: url('/static/images/bg-01.jpg');">
+                <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+                    <form class="login100-form validate-form">
+                        <span class="login100-form-title p-b-49">회원정보수정</span>
+
+                        <input type="text" id="memberId" th:field="${member.id}" hidden="true">
+
+                        <div class="form-group">
+                            <label th:for="name">이름</label>
+                            <input type="text" id="memberName" th:field="${member.name}" class="form-control" required>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label th:for="zipcode">비밀번호</label>
+                            <div class="form-inline form-group">
+                                <input type="password" th:value="${member.password}" class="form-control" readonly required>
+                                <input type="button" id="memberPassword"
+                                       class="btn btn-info" value="비밀번호 변경"><br>
+                            </div>
+                        </div>
+
+                        <!--  비번변경 모달창 양식 구현  -->
+                        <div class="modal fade" id="modal_div">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <!-- header -->
+                                    <div class ="modal-header">
+                                        <!-- 닫기(X) 버튼-->
+
+                                        <!--  header title   -->
+                                        <!--                                        <h4 class="modal-title"><b>패스워드변경하기</b></h4>-->
+                                    </div>
+                                    <!-- body -->
+                                    <div class="modal-body">
+                                        <p>
+                                            <button type="button" class="close" data-dismiss="modal">x</button>
+                                            <b>변경할 비밀번호</b>
+
+                                        <div class="form-option">
+                                            <input type="password"  class="form-control"
+                                                   id="user_password"   placeholder="비밀번호를 입력해주세요" required>
+                                        </div>
+                                        </p>
+                                        <br/>
+                                        <p>
+                                            <b>변경할 비밀번호 확인</b>
+                                        <div class="form-option">
+                                            <input type="password"  class="form-control"
+                                                   id="user2_password"   placeholder="비밀번호를 입력해주세요" required>
+                                            <div class="check_font" id="pwd_check"></div>
+                                        </div>
+                                        </p>
+                                    </div>
+                                    <br/>
+                                    <button type="button" class="btn btn-info" onclick="completePwdModify()">비밀번호 변경</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="email">이메일</label>
+                            <input type="email" id="memberEmail" th:field="${member.email}" class="form-control" readonly required>
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="phone">전화번호</label>
+                            <input type="text" id="memberPhone" th:field="${member.phone}" class="form-control"
+                                   maxlength="11" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="birth">생일</label>
+                            <input type="date" id="memberBirth" th:field="${member.birth}" class="form-control" readonly required>
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="zipcode">우편번호</label>
+                            <div class="form-inline form-group">
+                                <input type="text" th:field="${member.address.zipcode}" class="form-control" id="sample6_postcode" placeholder="우편번호" required>
+                                <input type="button" onclick="sample6_execDaumPostcode()"
+                                       class="btn btn-info" value="우편번호 검색"><br>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="city">주소</label>
+                            <input type="text" th:field="${member.address.city}" class="form-control" id="sample6_address" placeholder="주소" required><br>
+                            <label th:for="street">상세주소</label>
+                            <input type="text" th:field="${member.address.street}" class="form-control" id="sample6_detailAddress" placeholder="상세주소" required>
+                        </div>
+                        <br/>
+
+                        <div class="container-login100-form-btn">
+                            <div class="wrap-login100-form-btn">
+                                <div class="login100-form-bgbtn"></div>
+                                <a th:href="'javascript:update()'" class="login100-form-btn">수정하기</a>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="container-login100-form-btn">
+                            <div class="wrap-login100-form-btn">
+                                <div class="login100-form-bgbtn"></div>
+                                <a th:href="'javascript:deleteMember()'" class="login100-form-btn">삭제하기</a>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="container-login100-form-btn">
+                            <div class="wrap-login100-form-btn">
+                                <div class="login100-form-bgbtn"></div>
+                                <a th:href="@{/admin/member/{id}/dogs(id = ${member.id})}" class="login100-form-btn">반려견 조회</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script src="/../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+        <script th:inline="javascript">
+            function update() {
+                console.log("넘어는가니?");
+                let data = {
+                    phone: $("#memberPhone").val(),
+                    city: $("#sample6_address").val(),
+                    zipcode: $("#sample6_postcode").val(),
+                    street: $("#sample6_detailAddress").val(),
+                    name: $("#memberName").val()
+                };
+
+                console.log(data);
+
+                let id = $("#memberId").val();
+
+                $.ajax({
+                    type: 'PUT',
+                    url: '/api/admin/member/settings/' + id,
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data)
+                }).done(function() {
+                    alert('정보수정 되었습니다!');
+                    window.location.href = "/admin/member/settings/" + id;
+                }).fail(function(request, status, error) {
+                    alert(JSON.stringify(error));
+                    window.location.href = "/admin/member/settings/" + id;
+                    alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+                });
+            }
+
+            function deleteMember() {
+
+                let id = [[ ${member.id} ]];
+
+                console.log("---------");
+
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/api/admin/member/delete/' + id,
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8'
+                }).done(function() {
+                    console.log(name);
+                    alert('삭제 되었습니다.');
+                    window.location.href = "/admin/members";
+                }).fail(function (request,status,error) {
+                    alert(JSON.stringify(error));
+                    alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+                });
+
+                console.log(data);
+            }
+
+            // 비밀번호 변경버튼 클릭시 모달창을 띄우는 이벤트
+            $(function() {
+                $("[id^=memberPassword]").click(function () {
+
+                    // idx = $(this).attr("data-idx");
+                    // hospital_name = $("#hospital_name" + idx).html();
+                    // road = $("#road" + idx).html();
+                    // tel = $("#tel" + idx).html();
+                    //
+                    // let data = {
+                    //       hospital_name : hospital_name,
+                    //       hospital_adrr : road,
+                    //       tel : tel
+                    // };
+                    //  console.log(data);
+                    $("#modal_div").modal();
+                });
+            });
+
+            //패스워드 변경하기 클릭 -> 백엔드
+            function completePwdModify(){
+                let data = {
+                    password: $("#user_password").val(),
+                    password2: $("#user2_password").val()
+                }
+
+                let id = $("#memberId").val();
+
+                $.ajax({
+                    type: 'PUT',
+                    url: '/api/member/settingsPwd/' + id,
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data)
+                }).done(function() {
+                    alert('패스워드 수정되었습니다!');
+                    window.location.href = "/member/settings/"+id;
+                }).fail(function(request, status, error) {
+                    alert("패스워드를 다시 확인해 주세요!");
+                    window.location.href = "/member/settings/"+id;
+                });
+            }
+        </script>
+
+        <div id="dropDownSelect1"></div>
+
+        <!--===============================================================================================-->
+        <script src="../../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="../../../static/vendor/animsition/js/animsition.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="../../../static/vendor/bootstrap/js/popper.js"></script>
+        <script src="../../../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="../../../static/vendor/select2/select2.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="../../../static/vendor/daterangepicker/moment.min.js"></script>
+        <script src="../../../static/vendor/daterangepicker/daterangepicker.js"></script>
+        <!--===============================================================================================-->
+        <script src="../../../static/vendor/countdowntime/countdowntime.js"></script>
+        <!--===============================================================================================-->
+        <script src="../../../static/js/main.js"></script>
+
+        <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+        <script src="../../../static/js/postcode-api.js"></script>
+
+        <footer th:replace="fragments/footer :: footerFragment"></footer>
+    </body>
+</html>

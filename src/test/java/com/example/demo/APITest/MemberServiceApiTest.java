@@ -3,7 +3,7 @@
 //import com.example.demo.member.repository.MemberRepository;
 //import com.example.demo.member.vo.*;
 //import com.example.demo.member.service.MemberService;
-//import com.example.demo.overlap.Address;
+//import com.example.demo.member.domain.Address;
 //
 //import org.junit.Test;
 //import org.junit.runner.RunWith;

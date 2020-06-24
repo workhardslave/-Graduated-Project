@@ -2,10 +2,9 @@ package com.example.demo.reserve.controller;
 
 import com.example.demo.diagnosis.service.DiagnosisService;
 import com.example.demo.member.repository.MemberRepository;
-import com.example.demo.member.vo.Member;
-import com.example.demo.member.vo.MemberResponseDto;
+import com.example.demo.member.domain.Member;
 import com.example.demo.reserve.service.ReserveService;
-import com.example.demo.reserve.vo.ReserveResponseDto;
+import com.example.demo.reserve.dto.ReserveResponseDto;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +33,7 @@ public class ReserveController {
         List<ReserveResponseDto> Reserves = reserveService.findAllDesc(member);
 
         model.addAttribute("reserves", Reserves);
-        return "members/reserves/reserveInfo";
+        return "member/reserves/reserveInfo";
     }
 
     // 사용자 병원 예약 수정 및 삭제 홈페이지
@@ -45,7 +44,7 @@ public class ReserveController {
         model.addAttribute("reserve", dto);
         log.info(dto.getDate());
 
-        return "members/reserves/reserveModify";
+        return "member/reserves/reserveModify";
     }
 
     // 관리자 -> 사용자 병원 예약 수정 및 삭제 홈페이지
