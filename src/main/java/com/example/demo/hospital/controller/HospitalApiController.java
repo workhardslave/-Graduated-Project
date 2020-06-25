@@ -2,15 +2,14 @@ package com.example.demo.hospital.controller;
 
 import com.example.demo.hospital.repository.HospitalRepository;
 import com.example.demo.hospital.service.HospitalService;
-import com.example.demo.hospital.vo.Hospital;
-import com.example.demo.hospital.vo.HospitalSaveRequestDto;
+import com.example.demo.hospital.domain.Hospital;
+import com.example.demo.hospital.dto.HospitalSaveRequestDto;
 import com.example.demo.member.repository.MemberRepository;
-import com.example.demo.member.vo.Member;
+import com.example.demo.member.domain.Member;
 import com.example.demo.reserve.service.ReserveService;
-import com.example.demo.reserve.vo.ReserveUpdateRequestDto;
+import com.example.demo.reserve.dto.ReserveUpdateRequestDto;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;

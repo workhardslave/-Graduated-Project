@@ -2,10 +2,10 @@ package com.example.demo.member.controller;
 
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.service.MemberService;
-import com.example.demo.member.vo.Member;
-import com.example.demo.member.vo.MemberResponseDto;
-import com.example.demo.member.vo.MemberSaveRequestDto;
-import com.example.demo.overlap.Address;
+import com.example.demo.member.domain.Member;
+import com.example.demo.member.dto.MemberResponseDto;
+import com.example.demo.member.dto.MemberSaveRequestDto;
+import com.example.demo.member.domain.Address;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -43,14 +43,14 @@ public class MemberController {
     public String createMember(Model model) {
         model.addAttribute("memberForm", new MemberForm());
 
-        return "memberAuth/signUp";
+        return "member/memberAuth/signUp";
     }
 
     // 회원가입 API
     @PostMapping(value = "/api/member/signup")
     public String createMemberApi(@Valid MemberForm form, BindingResult result) {
         if (result.hasErrors()) {
-            return "memberAuth/signUp";
+            return "member/memberAuth/signUp";
         }
 
         Address address = new Address(form.getCity(),
@@ -67,7 +67,7 @@ public class MemberController {
                 .role(form.getRole())
                 .build());
 
-        return "memberAuth/signIn";
+        return "member/memberAuth/signIn";
     }
 
     //회원정보 리스트
@@ -76,7 +76,7 @@ public class MemberController {
         List<MemberResponseDto> members = memberService.findAllDesc();
         model.addAttribute("members", members);
 
-        return "admin/memberList";
+        return "admin/memberControl/memberList";
     }
 
     @GetMapping("/member/mypage")
@@ -87,7 +87,7 @@ public class MemberController {
             model.addAttribute("member", member);
         }
 
-        return "memberAuth/myPage";
+        return "member/memberAuth/myPage";
     }
 
     // 회원 정보수정 페이지
@@ -97,7 +97,7 @@ public class MemberController {
         MemberResponseDto dto = memberService.findById(id);
         model.addAttribute("member", dto);
 
-        return "memberAuth/settings";
+        return "member/memberAuth/settings";
     }
 
     // 관리자 회원정보 수정페이지
@@ -109,14 +109,14 @@ public class MemberController {
         model.addAttribute("member", dto);
         log.info(dto.getPassword());
 
-        return "admin/settings";
+        return "admin/memberControl/settings";
     }
 
     // 로그인 페이지
     @GetMapping("/member/login")
     public String dispLogin() throws Exception
     {
-        return "memberAuth/signIn";
+        return "member/memberAuth/signIn";
     }
 
     // 회원 로그인 결과
@@ -141,7 +141,7 @@ public class MemberController {
         if(admin != null) {
             model.addAttribute("admin", admin);
         }
-        return "adminAuth/admin_myPage";
+        return "admin/adminAuth/admin_myPage";
     }
 
     // 관리자 정보수정
@@ -153,6 +153,6 @@ public class MemberController {
 
         model.addAttribute("admin", adminDto);
 
-        return "adminAuth/admin_settings";
+        return "admin/adminAuth/admin_settings";
     }
 }

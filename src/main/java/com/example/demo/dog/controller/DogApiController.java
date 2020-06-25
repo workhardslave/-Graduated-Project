@@ -1,6 +1,6 @@
 package com.example.demo.dog.controller;
 
-import com.example.demo.dog.vo.DogUpdateRequestDto;
+import com.example.demo.dog.dto.DogUpdateRequestDto;
 import com.example.demo.dog.service.DogService;
 
 import lombok.RequiredArgsConstructor;

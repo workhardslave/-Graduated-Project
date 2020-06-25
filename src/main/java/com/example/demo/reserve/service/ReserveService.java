@@ -1,15 +1,13 @@
 package com.example.demo.reserve.service;
 
 import com.example.demo.hospital.repository.HospitalRepository;
-import com.example.demo.hospital.vo.Hospital;
-import com.example.demo.member.repository.MemberRepository;
-import com.example.demo.member.service.MemberService;
-import com.example.demo.member.vo.Member;
+import com.example.demo.hospital.domain.Hospital;
+import com.example.demo.member.domain.Member;
 import com.example.demo.reserve.repository.ReserveRepository;
-import com.example.demo.reserve.vo.Reserve;
-import com.example.demo.reserve.vo.ReserveResponseDto;
-import com.example.demo.reserve.vo.ReserveSaveRequestDto;
-import com.example.demo.reserve.vo.ReserveUpdateRequestDto;
+import com.example.demo.reserve.domain.Reserve;
+import com.example.demo.reserve.dto.ReserveResponseDto;
+import com.example.demo.reserve.dto.ReserveSaveRequestDto;
+import com.example.demo.reserve.dto.ReserveUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

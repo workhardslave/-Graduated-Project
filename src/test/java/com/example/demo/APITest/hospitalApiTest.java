@@ -7,7 +7,7 @@
 //import com.example.demo.member.vo.Member;
 //import com.example.demo.member.vo.MemberSaveRequestDto;
 //import com.example.demo.member.vo.Role;
-//import com.example.demo.overlap.Address;
+//import com.example.demo.member.domain.Address;
 //import com.nimbusds.jose.util.JSONObjectUtils;
 //import org.junit.Test;
 //import org.junit.runner.RunWith;

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/config :: configFragment" />
+    <body>
+        <header th:replace="fragments/header :: headerFragment"></header>
+
+        <div class="limiter">
+            <div class="container-login100" style="background-image: url('/static/images/bg-01.jpg');">
+                <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+                    <form class="login100-form validate-form">
+                        <span class="login100-form-title p-b-49">정보조회</span>
+
+                        <div class="form-group">
+                            <label th:for="name">이름</label>
+                            <input type="text" th:field="${admin.name}" class="form-control" readonly required>
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="email">이메일</label>
+                            <input type="email" th:field="${admin.email}" class="form-control" readonly required>
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="password">비밀번호</label>
+                            <input type="password" th:value="${admin.password}" class="form-control" readonly required>
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="phone">전화번호</label>
+                            <input type="text" th:field="${admin.phone}" class="form-control"
+                                   maxlength="11" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" readonly required>
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="birth">생일</label>
+                            <input type="date" th:field="${admin.birth}" class="form-control" readonly required>
+                        </div>
+                        <br/>
+
+                        <div class="container-login100-form-btn">
+                            <div class="wrap-login100-form-btn">
+                                <div class="login100-form-bgbtn"></div>
+                                <a th:href = "@{/admin/settings/{id}(id = ${admin.id})}" class="login100-form-btn" role="button">정보수정</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="dropDownSelect1"></div>
+
+        <!--===============================================================================================-->
+        <script src="/../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="/../../static/vendor/animsition/js/animsition.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="/../../static/vendor/bootstrap/js/popper.js"></script>
+        <script src="/../../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="/../../static/vendor/select2/select2.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="/../../static/vendor/daterangepicker/moment.min.js"></script>
+        <script src="/../../static/vendor/daterangepicker/daterangepicker.js"></script>
+        <!--===============================================================================================-->
+        <script src="/../../static/vendor/countdowntime/countdowntime.js"></script>
+        <!--===============================================================================================-->
+        <script src="/../../static/js/main.js"></script>
+
+        <footer th:replace="fragments/footer :: footerFragment"></footer>
+    </body>
+</html>
