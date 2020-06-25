@@ -4,8 +4,10 @@ import com.example.demo.diagnosis.domain.Diagnosis;
 import com.example.demo.diagnosis.repository.DiagnosisRepository;
 import com.example.demo.diagnosis.service.DiagnosisService;
 import com.example.demo.hospital.service.HospitalService;
+import com.example.demo.member.domain.Member;
+import com.example.demo.config.Role;
 import com.example.demo.member.repository.MemberRepository;
-import com.example.demo.member.vo.*;
+import com.example.demo.member.dto.*;
 
 import com.example.demo.reserve.service.ReserveService;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -65,7 +66,7 @@ public class MemberService implements UserDetailsService {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         memberDto.SHA256_PassWord(passwordEncoder.encode(memberDto.getPassword()));
 
-//        memberDto.GIVE_Role(Role.ADMIN);
+      //  memberDto.GIVE_Role(Role.ADMIN);
 
         if(memberDto.getRole() == Role.GUEST) {
             memberDto.GIVE_Role(Role.GUEST);
@@ -144,15 +145,18 @@ public class MemberService implements UserDetailsService {
     public void delete(Long id) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원/수의사/관리자가 없습니다. id=" + id));
-
-        if(member.getHospital() != null ){
-            hospitalService.deleteHospital(member.getHospital().getId());
+        if(member.getHospital() != null){ //수의사인데 병원을 가지고있는경우
+            hospitalService.deleteHospital(member.getHospital().getId()); //예약정보 전부삭제
+            memberRepository.delete(member);
         }
 
-        reserveService.delete_member(member);
-        List<Diagnosis> diagnosis = diagnosisRepository.findAllDesc(member);
-        diagnosisService.delete(diagnosis);
-        memberRepository.delete(member);
+        else if(member.getHospital() == null) { //수의사인데 병원이 없거나, 일반 사용자일경우
+            reserveService.delete_member(member);
+            List<Diagnosis> diagnosis = diagnosisRepository.findAllDesc(member);
+            diagnosisService.delete(diagnosis);
+            memberRepository.delete(member);
+        }
+
     }
 
     @Transactional(readOnly = true)

@@ -1,10 +1,10 @@
 package com.example.demo.reserve.controller;
 
 import com.example.demo.member.repository.MemberRepository;
-import com.example.demo.member.vo.Member;
+import com.example.demo.member.domain.Member;
 import com.example.demo.reserve.service.ReserveService;
-import com.example.demo.reserve.vo.ReserveSaveRequestDto;
-import com.example.demo.reserve.vo.ReserveUpdateRequestDto;
+import com.example.demo.reserve.dto.ReserveSaveRequestDto;
+import com.example.demo.reserve.dto.ReserveUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -47,8 +47,6 @@ public class ReserveControllerApi {
         Member member = memberRepository.findEmailCheck(principal.getName());
         log.info("강아지확인"+requestDto.getDog());
         return reserveService.Reserve(requestDto, member);
-
-
     }
     // 관리자 - > 사용자 병원 예약 정보 삭제 API
     @DeleteMapping("/api/admin/reserve/delete/{id}")

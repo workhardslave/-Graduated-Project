@@ -4,5 +4,10 @@
       "name": "spring.security.enable-csrf",
       "type": "java.lang.String",
       "description": "Description for spring.security.enable-csrf."
-  }
-] }
+    },
+    {
+      "name": "spring.datasource.data.classpath*",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.data.classpath*."
+    }
+  ] }

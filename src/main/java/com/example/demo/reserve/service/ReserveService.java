@@ -1,13 +1,13 @@
 package com.example.demo.reserve.service;
 
 import com.example.demo.hospital.repository.HospitalRepository;
-import com.example.demo.hospital.vo.Hospital;
-import com.example.demo.member.vo.Member;
+import com.example.demo.hospital.domain.Hospital;
+import com.example.demo.member.domain.Member;
 import com.example.demo.reserve.repository.ReserveRepository;
-import com.example.demo.reserve.vo.Reserve;
-import com.example.demo.reserve.vo.ReserveResponseDto;
-import com.example.demo.reserve.vo.ReserveSaveRequestDto;
-import com.example.demo.reserve.vo.ReserveUpdateRequestDto;
+import com.example.demo.reserve.domain.Reserve;
+import com.example.demo.reserve.dto.ReserveResponseDto;
+import com.example.demo.reserve.dto.ReserveSaveRequestDto;
+import com.example.demo.reserve.dto.ReserveUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +21,6 @@ public class ReserveService {
 
     private final ReserveRepository reserveRepository;
     private final HospitalRepository hospitalRepository;
-
 
     //사용자가 본인의 병원예약정보조회
     @Transactional(readOnly = true)
@@ -46,7 +45,7 @@ public class ReserveService {
 
     @Transactional(readOnly = true)
     public List<ReserveResponseDto> findAllHospital(Hospital hospital) {
-        return reserveRepository.findAllReserveDesc(hospital).stream()
+        return reserveRepository.findAllHospitalDesc(hospital).stream()
                 .map(ReserveResponseDto::new)
                 .collect(Collectors.toList());
     }
@@ -77,9 +76,13 @@ public class ReserveService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 예약이 없습니다. id=" + id));
         reserveRepository.delete(reserve);
     }
+
+
+    //예약테이블 FK 삭제
     @Transactional
     public void delete_member(Member member) {
-        List<Reserve> reserve = reserveRepository.findAllMemberDesc(member);
+        List<Reserve> reserve = reserveRepository.findAllMemberDesc(member); //사용자일경우
+
         if(reserve != null) {
             for (Reserve re : reserve) {
                 reserveRepository.delete(re);

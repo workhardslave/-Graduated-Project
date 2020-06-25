@@ -2,22 +2,18 @@ package com.example.demo.hospital.controller;
 
 import com.example.demo.hospital.repository.HospitalRepository;
 import com.example.demo.hospital.service.HospitalService;
-import com.example.demo.hospital.vo.Hospital;
-import com.example.demo.hospital.vo.HospitalResponseDto;
-import com.example.demo.hospital.vo.HospitalSaveRequestDto;
+import com.example.demo.hospital.domain.Hospital;
+import com.example.demo.hospital.dto.HospitalResponseDto;
 import com.example.demo.member.repository.MemberRepository;
-import com.example.demo.member.vo.Member;
+import com.example.demo.member.domain.Member;
 import com.example.demo.reserve.service.ReserveService;
-import com.example.demo.reserve.vo.ReserveResponseDto;
+import com.example.demo.reserve.dto.ReserveResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.security.Principal;
 import java.util.List;

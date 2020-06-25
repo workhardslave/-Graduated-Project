@@ -1,16 +1,15 @@
 package com.example.demo.hospital.service;
 
 import com.example.demo.hospital.repository.HospitalRepository;
-import com.example.demo.hospital.vo.Hospital;
-import com.example.demo.hospital.vo.HospitalResponseDto;
-import com.example.demo.hospital.vo.HospitalSaveRequestDto;
+import com.example.demo.hospital.domain.Hospital;
+import com.example.demo.hospital.dto.HospitalResponseDto;
+import com.example.demo.hospital.dto.HospitalSaveRequestDto;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.reserve.repository.ReserveRepository;
 
-import com.example.demo.member.vo.Member;
-import com.example.demo.reserve.vo.Reserve;
+import com.example.demo.member.domain.Member;
+import com.example.demo.reserve.domain.Reserve;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,23 +44,17 @@ public class HospitalService {
         return hospital.getId();
     }
 
-    @Transactional
-    public void deleteTest(Member member){
-        member.deleteHospital();
-    }
-
     // 수의사, 동물병원 삭제
     @Transactional
     public void deleteHospital(Long id) {
         Hospital hospital = hospitalRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException("해당 동물병원이 이미 삭제되어 있습니다. id=" +id));
-        List<Reserve> reserves = reserveRepository.findAllReserveDesc(hospital);
+        List<Reserve> reserves = reserveRepository.findAllHospitalDesc(hospital);
+
         for(Reserve re : reserves){
-            log.info("삭제확인");
             reserveRepository.delete(re);
         }
-
-        hospitalRepository.delete(hospital);
+        hospitalRepository.delete(hospital); //병원 delete쿼리
     }
 
     public HospitalResponseDto findById(Long id) {

@@ -2,20 +2,20 @@ package com.example.demo.disease.controller;
 
 import com.example.demo.diagnosis.domain.Diagnosis;
 import com.example.demo.diagnosis.service.DiagnosisService;
-import com.example.demo.diagnosis.vo.DiagnosisDto;
-import com.example.demo.diagnosis.vo.DiagnosisNameCountDto;
+import com.example.demo.diagnosis.dto.DiagnosisDto;
+import com.example.demo.diagnosis.dto.DiagnosisNameCountDto;
 import com.example.demo.disease.dto.DiseaseResponseDto;
 import com.example.demo.disease.service.DiseaseService;
 import com.example.demo.dog.service.DogService;
-import com.example.demo.dog.vo.DogResponseDto;
-import com.example.demo.dog.vo.DogTypeCountDto;
+import com.example.demo.dog.dto.DogResponseDto;
+import com.example.demo.dog.dto.DogTypeCountDto;
 import com.example.demo.hospital.service.HospitalService;
-import com.example.demo.hospital.vo.HospitalResponseDto;
+import com.example.demo.hospital.dto.HospitalResponseDto;
 import com.example.demo.member.repository.MemberRepository;
-import com.example.demo.member.vo.Member;
+import com.example.demo.member.domain.Member;
 import com.example.demo.symptom.service.SymptomService;
-import com.example.demo.symptom.vo.SymptomForm;
-import com.example.demo.symptom.vo.SymptomResponseDto;
+import com.example.demo.symptom.dto.SymptomForm;
+import com.example.demo.symptom.dto.SymptomResponseDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonElement;
@@ -87,8 +87,9 @@ public class DiseaseController {
     @PostMapping("/api/disease/form")
     public String callAPI_put(@Valid DiseaseForm form, Model model, Principal principal) throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
-//        String url = "http://192.168.43.33:80/test";
-        String url = "http://localhost:80/test";
+
+        String url = "http://15.165.169.119:5000/test";
+        //String url = "http://localhost:80/test";
 
         MultiValueMap<String,String> parameters = new LinkedMultiValueMap<String,String>();
         Diagnosis diagnosis = new Diagnosis();
@@ -110,8 +111,8 @@ public class DiseaseController {
             HttpHeaders header = new HttpHeaders();
             HttpEntity<?> entity = new HttpEntity<>(header); // 값 받기
 
-//            String url2 = "http://192.168.43.33:80/test";
-            String url2 = "http://localhost:80/test";
+            String url2 = "http://15.165.169.119:5000/test";
+           // String url2 = "http://localhost:80/test";
             ResponseEntity<Object> resultMap = restTemplate.exchange(url2, HttpMethod.POST,entity, Object.class);
 
             result.put("Statuscode", resultMap.getStatusCodeValue());
@@ -158,7 +159,7 @@ public class DiseaseController {
             model.addAttribute("hosList", hospitalList);
     }
 
-        return "members/recommends/recommendation";
+        return "member/recommends/recommendation";
     }
 
     // 회원이 보는 진단기록리스트
