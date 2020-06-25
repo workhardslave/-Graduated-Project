@@ -18,7 +18,6 @@ public class MemberResponseDto {
     private String birth;
     private Role role;
 
-
     public MemberResponseDto(Member entity) {
         this.id = entity.getId();
         this.name = entity.getName();

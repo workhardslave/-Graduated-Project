@@ -20,6 +20,5 @@ public class HospitalResponseDto {
         this.tel = entity.getTel();
         this.address = entity.getAddress();
         this.member =entity.getMember();
-
     }
 }

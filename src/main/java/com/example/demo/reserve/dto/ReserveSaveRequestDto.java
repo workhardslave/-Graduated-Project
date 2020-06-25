@@ -10,6 +10,7 @@ import java.io.Serializable;
 @Getter
 @RequiredArgsConstructor
 public class ReserveSaveRequestDto implements Serializable {
+
     private Member member;
     private String date;
     private String description;

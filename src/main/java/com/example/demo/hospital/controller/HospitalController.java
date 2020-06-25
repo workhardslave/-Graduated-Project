@@ -25,7 +25,6 @@ public class HospitalController {
 
     private final HospitalService hospitalService;
     private final ReserveService reserveService;
-
     private final MemberRepository memberRepository;
     private final HospitalRepository hospitalRepository;
 
@@ -52,13 +51,13 @@ public class HospitalController {
     public String updateForm(@PathVariable Long id, Model model) {
         HospitalResponseDto dto = hospitalService.findById(id);
         model.addAttribute("hos", dto);
+
         return "admin/hospital/hospitalDetail";
     }
 
     // 수의사, 동물병원 조회
     @GetMapping("/vet/myHospital")
     public String readMyHospital(Model model, Principal principal) {
-
         Member member = memberRepository.findEmailCheck(principal.getName());
 
         if(member.getHospital() == null) {
@@ -75,7 +74,6 @@ public class HospitalController {
     // 수의사, 동물병원 예약 조회
     @GetMapping("/vet/hospital/reservationList")
     public String readMyReservation(Model model, Principal principal) {
-
         Member member = memberRepository.findEmailCheck(principal.getName());
         Hospital hospital = hospitalRepository.findOne(member.getHospital().getId());
         List<ReserveResponseDto> Reserves = reserveService.findAllHospital(hospital);
@@ -88,7 +86,6 @@ public class HospitalController {
     // 수의사, 동물병원 예약 수정
     @GetMapping("/vet/hospital/reservation/{id}")
     public String updateEachReservation(@PathVariable Long id, Model model) {
-
         ReserveResponseDto reserveDto = reserveService.findById(id);
 
         model.addAttribute("reserves", reserveDto);

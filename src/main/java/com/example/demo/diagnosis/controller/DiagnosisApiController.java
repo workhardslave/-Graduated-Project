@@ -28,7 +28,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class DiagnosisApiController {
-
     private final SymptomRepository symptomRepository;
     private final DiseaseService diseaseService;
     private final DiagnosisService diagnosisService;
@@ -37,11 +36,6 @@ public class DiagnosisApiController {
     // AI 모델 변경
     @PostMapping("/api/AIRemodeling")
     public String variable(@Valid SymptomForm form, Model model) {
-
-        log.info("값 확인");
-        log.info("증상" + form.getModel());
-        log.info("test_size" + form.getTest_size());
-        log.info(form.getRandom_state());
 
         symptomRepository.save(Symptom.builder()
                 .name(form.getModel())

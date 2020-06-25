@@ -23,7 +23,6 @@ public class HospitalApiController {
     private final HospitalRepository hospitalRepository;
     private final MemberRepository memberRepository;
 
-
     // 수의사, 동물병원 삭제 API
     @DeleteMapping("/api/vet/hospital/delete/{hospital_id}")
     public Long deleteVetHospital(@PathVariable Long hospital_id, Principal principal) {
@@ -58,7 +57,6 @@ public class HospitalApiController {
     // 병원등록 API
     @PostMapping(value = "/api/vet/hospital/register")
     public Long createHospital(@RequestBody HospitalSaveRequestDto Dto, Principal principal) {
-
         Member member = memberRepository.findEmailCheck(principal.getName());
 
         if(member.getHospital() != null){
@@ -80,6 +78,7 @@ public class HospitalApiController {
     @DeleteMapping("/api/vet/hospital/reservation/delete/{id}")
     public Long delete(@PathVariable Long id) {
         reserveService.delete(id);
+
         return id;
     }
 }
