@@ -32,14 +32,14 @@ public class DogController {
     public String DogcreateForm(Model model) {
         model.addAttribute("flag", true);
         model.addAttribute("dogForm", new DogForm());
-        return "members/dogs/dogSignUp";
+        return "member/dogs/dogSignUp";
     }
 
     // 강아지 정보 저장 API
     @PostMapping(value = "/api/member/dog/save")
     public String Dogcreate(@Valid DogForm form, BindingResult result, Principal principal,Model model) {
         if (result.hasErrors()) {
-            return "members/dogs/dogSignUp";
+            return "member/dogs/dogSignUp";
         }
 
         Member member = memberRepository.findEmailCheck(principal.getName()); //추후 ASPECT 적용대상
@@ -57,7 +57,7 @@ public class DogController {
         List<DogResponseDto> Dogs = dogService.findAllDesc(member);
 
         model.addAttribute("dogs", Dogs);
-        return "members/dogs/dogInfo";
+        return "member/dogs/dogInfo";
     }
 
     // 사용자 자신의 강아지 정보 조회 홈페이지
@@ -67,7 +67,7 @@ public class DogController {
         List<DogResponseDto> Dogs = dogService.findAllDesc(member);
 
         model.addAttribute("dogs", Dogs);
-        return "members/dogs/dogInfo";
+        return "member/dogs/dogInfo";
     }
 
     // 강아지 정보 수정 및 삭제 홈페이지
@@ -77,7 +77,7 @@ public class DogController {
         DogResponseDto dto = dogService.findById(id);
         model.addAttribute("dog", dto);
 
-        return "members/dogs/dogModify";
+        return "member/dogs/dogModify";
     }
 
     // 관리자, 회원별 반려견 정보조회
