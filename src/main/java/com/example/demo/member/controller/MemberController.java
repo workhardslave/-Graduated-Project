@@ -35,6 +35,7 @@ public class MemberController {
     @RequestMapping("/")
     public String home(){
         log.info("home logger");
+
         return "home";
     }
 
@@ -81,7 +82,7 @@ public class MemberController {
 
     @GetMapping("/member/mypage")
     public String readMember(Model model, Principal principal, HttpServletRequest request, HttpSession session) {
-        Member member = memberRepository.findEmailCheck(principal.getName()); //추후 ASPECT 적용대상
+        Member member = memberRepository.findEmailCheck(principal.getName());
 
         if(member != null) {
             model.addAttribute("member", member);
@@ -93,8 +94,8 @@ public class MemberController {
     // 회원 정보수정 페이지
     @GetMapping("/member/settings/{id}")
     public String updateMember(@PathVariable Long id, Model model) {
-
         MemberResponseDto dto = memberService.findById(id);
+
         model.addAttribute("member", dto);
 
         return "member/memberAuth/settings";
@@ -103,11 +104,9 @@ public class MemberController {
     // 관리자 회원정보 수정페이지
     @GetMapping("/admin/member/settings/{id}")
     public String updateMemberAdmin(@PathVariable Long id, Model model){
-
         MemberResponseDto dto = memberService.findById(id);
 
         model.addAttribute("member", dto);
-        log.info(dto.getPassword());
 
         return "admin/memberControl/settings";
     }
@@ -136,18 +135,18 @@ public class MemberController {
     // 관리자 정보조회
     @GetMapping("/admin/mypage")
     public String readAdmin(Model model, Principal principal) {
+        Member admin = memberRepository.findEmailCheck(principal.getName());
 
-        Member admin = memberRepository.findEmailCheck(principal.getName()); //추후 ASPECT 적용대상E
         if(admin != null) {
             model.addAttribute("admin", admin);
         }
+
         return "admin/adminAuth/admin_myPage";
     }
 
     // 관리자 정보수정
     @GetMapping("/admin/settings/{id}")
     public String updateAdmin(@PathVariable Long id, Model model) {
-
         MemberResponseDto adminDto = memberService.findById(id);
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 

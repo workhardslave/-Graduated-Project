@@ -24,7 +24,6 @@ public class ReserveController {
 
     private final ReserveService reserveService;
     private final MemberRepository memberRepository;
-    private final DiagnosisService diagnosisService;
 
     // 사용자 자신의 예약 정보 조회 홈페이지
     @GetMapping("/member/reservesInfo")
@@ -33,16 +32,16 @@ public class ReserveController {
         List<ReserveResponseDto> Reserves = reserveService.findAllDesc(member);
 
         model.addAttribute("reserves", Reserves);
+
         return "member/reserves/reserveInfo";
     }
 
     // 사용자 병원 예약 수정 및 삭제 홈페이지
     @GetMapping(value = "/reserves/settings/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
-
         ReserveResponseDto dto = reserveService.findById(id);
+
         model.addAttribute("reserve", dto);
-        log.info(dto.getDate());
 
         return "member/reserves/reserveModify";
     }
@@ -50,8 +49,8 @@ public class ReserveController {
     // 관리자 -> 사용자 병원 예약 수정 및 삭제 홈페이지
     @GetMapping(value = "/admin/reserves/settings/{id}")
     public String updateFormAdmin(@PathVariable Long id, Model model) {
-
         ReserveResponseDto dto = reserveService.findById(id);
+
         model.addAttribute("reserve", dto);
 
         return "admin/reserves/reserveModifyAdmin";
@@ -60,8 +59,8 @@ public class ReserveController {
     // 관리자 -> 사용자 병원 예약 정보 조회
     @GetMapping(value = "/admin/reserveList")
     public String reserveInfo(Model model) {
-
         List<ReserveResponseDto> reserves = reserveService.findAll();
+
         model.addAttribute("reserves", reserves);
 
         return "admin/reserves/reserveList";

@@ -46,7 +46,6 @@ import java.util.*;
 public class DiseaseController {
 
     private final MemberRepository memberRepository;
-
     private final DiseaseService diseaseService;
     private final DogService dogService;
     private final DiagnosisService diagnosisService;
@@ -56,7 +55,6 @@ public class DiseaseController {
     // 전체 질병 정보 시각화
     @GetMapping("/admin/diseases")
     public String DiseaseInfoPage(Model model) {
-
         List<DiseaseResponseDto> diseasesAll = diseaseService.findAllDesc();
         List<DiagnosisNameCountDto> diagnosisNames = diagnosisService.findNameCount();
         List<DogTypeCountDto> dogCounts = dogService.findDogCount();
@@ -72,7 +70,7 @@ public class DiseaseController {
     // 질병 진단 문진표
     @GetMapping("/member/disease/chart")
     public String DiseaseForm(Model model, Principal principal) {
-        Member member = memberRepository.findEmailCheck(principal.getName());//추후 ASPECT 적용대상
+        Member member = memberRepository.findEmailCheck(principal.getName());
         List<DogResponseDto> Dogs = dogService.findAllDesc(member);
         List<SymptomResponseDto> Symptoms = symptomService.findAllDesc();
 
@@ -98,7 +96,7 @@ public class DiseaseController {
             parameters.add("증상" + i, form.getSymptom().get(i));
         }
 
-        // 플라스크에 증상 값을 POST 매핑으로 던져준다.
+        // Flask에 증상 값을 POST 매핑으로 던져준다.
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(url,parameters,String.class);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
@@ -106,7 +104,7 @@ public class DiseaseController {
         String jsonInString = "";
         JsonParser parser = new JsonParser();
 
-        // FLASK에서 예측 값 받아오기
+        // Flask에서 예측 값 받아오기
         try {
             HttpHeaders header = new HttpHeaders();
             HttpEntity<?> entity = new HttpEntity<>(header); // 값 받기
@@ -126,12 +124,9 @@ public class DiseaseController {
         } catch (HttpClientErrorException | HttpServerErrorException e) {
             result.put("statusCode", e.getRawStatusCode());
             result.put("body", e.getStatusText());
-            System.out.println("dfdfdfdf");
-            System.out.println(e.toString());
         } catch (Exception e) {
             result.put("statusCode", "999");
             result.put("body", "excpetion 오류");
-            System.out.println(e.toString());
         }
 
         Object obj = parser.parse(jsonInString);
@@ -148,7 +143,6 @@ public class DiseaseController {
         List<HospitalResponseDto> hospitalList = hospitalService.findAllDesc();
 
         if(member != null) {
-
             model.addAttribute("member", member);
             model.addAttribute("diagnosis", jsonObj.get("data"));
             model.addAttribute("macak", jsonObj.get("마카다미아너트 중독증"));
@@ -176,12 +170,6 @@ public class DiseaseController {
     @GetMapping("/member/chart/record/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
         DiagnosisDto diagnosisInfo = diagnosisService.findById(id);
-
-        log.info(diagnosisInfo.getId().toString());
-        log.info(diagnosisInfo.getDog());
-        log.info(diagnosisInfo.getMacak().getPercent());
-        log.info(diagnosisInfo.getCorna().getPercent());
-        log.info(diagnosisInfo.getAir().getPercent());
 
         model.addAttribute("diagInfo", diagnosisInfo);
 

@@ -12,8 +12,6 @@ public interface DogRepository extends JpaRepository<Dog, Long> {
     @Query("SELECT d FROM Dog d WHERE d.member = :member")
     List<Dog> findAllDesc(Member member);
 
-
-
     @Query("SELECT " +
             "   new com.example.demo.dog.dto.DogTypeCountDto(d.gender, d.type, COUNT(d))" +
             "FROM " +

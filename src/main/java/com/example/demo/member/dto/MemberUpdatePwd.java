@@ -5,6 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class MemberUpdatePwd {
+
     private String password;
     private String password2;
 

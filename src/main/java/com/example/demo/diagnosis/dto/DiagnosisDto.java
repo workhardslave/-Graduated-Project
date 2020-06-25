@@ -13,7 +13,7 @@ public class DiagnosisDto {
 
     private Long id;
     private Member member;
-    private String name; //진단질병명
+    private String name; // 진단 질병명
     private Corna corna;
     private Macak macak;
     private Air air;

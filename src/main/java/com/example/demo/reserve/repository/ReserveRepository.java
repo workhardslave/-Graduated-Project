@@ -19,6 +19,4 @@ public interface ReserveRepository extends JpaRepository<Reserve, Long> {
 
     @Query("SELECT r FROM Reserve r WHERE r.hospital = :hospital ORDER BY r.id DESC")
     List<Reserve> findAllHospitalDesc(Hospital hospital);
-
-
 }

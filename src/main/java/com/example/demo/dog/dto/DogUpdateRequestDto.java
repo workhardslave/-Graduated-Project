@@ -5,6 +5,7 @@ import lombok.*;
 
 @Getter
 public class DogUpdateRequestDto {
+
     private Member member;
     private String name;
     private String age;
