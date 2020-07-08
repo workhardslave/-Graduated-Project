@@ -1,5 +1,6 @@
 package com.example.demo.reserve.controller;
 
+import com.example.demo.config.auth.LoginFindMember;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.member.vo.Member;
@@ -44,9 +45,8 @@ public class ReserveControllerApi {
 
     // 병원 예약 등록 API
     @PostMapping("api/member/reserve")
-    public Long reserve(@RequestBody ReserveSaveRequestDto requestDto, Principal principal) {
-        Member member = memberService.findMember(principal.getName());
-        log.info("강아지확인"+requestDto.getDog());
+    public Long reserve(@RequestBody ReserveSaveRequestDto requestDto, @LoginFindMember Member member) {
+
         return reserveService.Reserve(requestDto, member);
 
 
@@ -54,7 +54,6 @@ public class ReserveControllerApi {
     // 관리자 - > 사용자 병원 예약 정보 삭제 API
     @DeleteMapping("/api/admin/reserve/delete/{id}")
     public Long deleteAdmin(@PathVariable Long id) {
-
         reserveService.delete(id);
         return id;
     }

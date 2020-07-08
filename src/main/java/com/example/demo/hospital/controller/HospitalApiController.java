@@ -1,5 +1,7 @@
 package com.example.demo.hospital.controller;
 
+import com.example.demo.config.auth.LoginFindMember;
+import com.example.demo.config.auth.LoginUser;
 import com.example.demo.hospital.repository.HospitalRepository;
 import com.example.demo.hospital.service.HospitalService;
 import com.example.demo.hospital.vo.Hospital;
@@ -12,6 +14,7 @@ import com.example.demo.reserve.service.ReserveService;
 import com.example.demo.reserve.vo.ReserveUpdateRequestDto;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,8 +30,8 @@ public class HospitalApiController {
 
     // 수의사, 동물병원 삭제 API
     @DeleteMapping("/api/vet/hospital/delete/{hospital_id}")
-    public Long deleteVetHospital(@PathVariable Long hospital_id, Principal principal) {
-        Member member = memberService.findMember(principal.getName());
+    public Long deleteVetHospital(@PathVariable Long hospital_id, @LoginFindMember Member member) {
+
         member.deleteHospital();
         hospitalService.deleteHospital(hospital_id);
 
@@ -57,9 +60,7 @@ public class HospitalApiController {
 
     // 병원등록 API
     @PostMapping(value = "/api/vet/hospital/register")
-    public Long createHospital(@RequestBody HospitalSaveRequestDto Dto, Principal principal) {
-
-        Member member = memberService.findMember(principal.getName());
+    public Long createHospital(@RequestBody HospitalSaveRequestDto Dto, @LoginFindMember Member member) {
 
         if(member.getHospital() != null){
             throw new IllegalStateException("병원등록은 하나만 됩니다.");

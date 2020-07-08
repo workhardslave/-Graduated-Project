@@ -1,4 +1,4 @@
-package com.example.demo.config;
+package com.example.demo.config.auth;
 
 
 import java.lang.annotation.ElementType;

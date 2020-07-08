@@ -1,25 +1,22 @@
 package com.example.demo.hospital.controller;
 
-import com.example.demo.config.LogExecutionTime;
-import com.example.demo.hospital.repository.HospitalRepository;
+import com.example.demo.config.auth.LogExecutionTime;
+import com.example.demo.config.auth.LoginFindMember;
+import com.example.demo.config.auth.LoginUser;
 import com.example.demo.hospital.service.HospitalService;
 import com.example.demo.hospital.vo.Hospital;
 import com.example.demo.hospital.vo.HospitalResponseDto;
-import com.example.demo.hospital.vo.HospitalSaveRequestDto;
-import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.member.vo.Member;
 import com.example.demo.reserve.service.ReserveService;
 import com.example.demo.reserve.vo.ReserveResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.security.Principal;
 import java.util.List;
@@ -31,7 +28,7 @@ public class HospitalController {
 
     private final HospitalService hospitalService;
     private final ReserveService reserveService;
-    private final MemberService memberService;
+
 
     // 동물병원 등록 페이지
     @GetMapping("/vet/hospital/registration")
@@ -64,9 +61,8 @@ public class HospitalController {
     // 수의사, 동물병원 조회
     @GetMapping("/vet/myHospital")
     @LogExecutionTime
-    public String readMyHospital(Model model, Principal principal) {
+    public String readMyHospital(Model model, @LoginFindMember Member member) {
 
-        Member member = memberService.findMember(principal.getName());
 
         if(member.getHospital() == null) {
             return "home";      // 동물병원 등록 페이지 redirect
@@ -82,9 +78,8 @@ public class HospitalController {
     // 수의사, 동물병원 예약 조회
     @GetMapping("/vet/hospital/reservationList")
     @LogExecutionTime
-    public String readMyReservation(Model model, Principal principal) {
+    public String readMyReservation(Model model, @LoginFindMember Member member) {
 
-        Member member = memberService.findMember(principal.getName());
         Hospital hospital =  hospitalService.findHospital(member.getHospital().getId());
         List<ReserveResponseDto> Reserves = reserveService.findAllHospital(hospital);
 
@@ -98,9 +93,7 @@ public class HospitalController {
     public String updateEachReservation(@PathVariable Long id, Model model) {
 
         ReserveResponseDto reserveDto = reserveService.findById(id);
-
         model.addAttribute("reserves", reserveDto);
-
         return "hospital/reservationSettings";
     }
 }

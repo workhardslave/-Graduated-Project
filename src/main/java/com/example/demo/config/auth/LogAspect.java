@@ -1,4 +1,4 @@
-package com.example.demo.config;
+package com.example.demo.config.auth;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -16,7 +16,7 @@ public class LogAspect {
 
     //slf4j
     Logger logger  = LoggerFactory.getLogger(LogAspect.class);
-    @Around("@annotation(LogExecutionTime)") //해당어노테이션 주변에다가 밑의코드를 적용한다.
+    @Around("@annotation(com.example.demo.config.auth.LogExecutionTime)") //해당어노테이션 주변에다가 밑의코드를 적용한다.
     //around 어노테이션을 사용함으로써 joinPoint를 받을 수있다. joinpoint -> 애노테이션이 붙여져있는 메소드가 들어옴
     public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable{
         StopWatch stopWatch = new StopWatch();
@@ -25,11 +25,6 @@ public class LogAspect {
         stopWatch.stop();
         logger.info("관리자 조회 서비스 실행시간 측정"+ stopWatch.prettyPrint());
         return proceed; //결과를 리턴하겠다.
-    }
-
-    @After("execution(* com.example.demo.member.controller.MemberController.dispLogout())")
-    public void Test(){
-        logger.info("로그아웃");
     }
 
 }

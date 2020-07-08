@@ -1,8 +1,9 @@
 package com.example.demo.member.controller;
 
-import com.example.demo.config.LogExecutionTime;
+import com.example.demo.config.auth.LogExecutionTime;
+import com.example.demo.config.auth.LoginFindMember;
+import com.example.demo.config.auth.LoginUser;
 import com.example.demo.config.security.Role;
-import com.example.demo.config.security.User;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.member.vo.Member;
 import com.example.demo.member.vo.MemberResponseDto;
@@ -10,7 +11,9 @@ import com.example.demo.member.vo.MemberSaveRequestDto;
 import com.example.demo.overlap.Address;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,14 +36,10 @@ public class MemberController {
 
 
     private final MemberService memberService;
-    private final HttpSession httpSession;
-    // 회원 메인 홈
-    @RequestMapping("/")
+
+    @GetMapping("/")
     public String home(){
 
-//        User user = (User) httpSession.getAttribute("user");
-//        System.out.println(user.getEmail());
-        log.info("세션확인" + httpSession.getAttribute("user").getClass().getName());
         return "home";
     }
 
@@ -87,8 +86,7 @@ public class MemberController {
     }
 
     @GetMapping("/member/mypage")
-    public String readMember(Model model, Principal principal) {
-        Member member = memberService.findMember(principal.getName()); //추후 ASPECT 적용대상
+    public String readMember(Model model, @LoginFindMember Member member) {
 
         if(member != null) {
             model.addAttribute("member", member);
@@ -128,9 +126,8 @@ public class MemberController {
 
     // 관리자 정보조회
     @GetMapping("/admin/mypage")
-    public String readAdmin(Model model, Principal principal) {
+    public String readAdmin(Model model, @LoginFindMember Member admin) {
 
-        Member admin = memberService.findMember(principal.getName()); //추후 ASPECT 적용대상E
         if(admin != null) {
             model.addAttribute("admin", admin);
         }
@@ -141,7 +138,6 @@ public class MemberController {
     @GetMapping("/admin/settings/{id}")
     public String updateAdmin(@PathVariable Long id, Model model) {
 
-        log.info("name찍으면?,,"+ Role.ADMIN.name());
         MemberResponseDto adminDto = memberService.findById(id);
         model.addAttribute("admin", adminDto);
 

@@ -1,13 +1,11 @@
 package com.example.demo.dog.controller;
 
-import com.example.demo.config.LogExecutionTime;
+import com.example.demo.config.auth.LogExecutionTime;
 import com.example.demo.dog.vo.DogResponseDto;
 import com.example.demo.dog.vo.DogSaveRequestDto;
 import com.example.demo.dog.service.DogService;
-import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.member.vo.Member;
-import io.netty.util.concurrent.BlockingOperationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

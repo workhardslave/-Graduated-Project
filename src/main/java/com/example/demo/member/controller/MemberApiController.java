@@ -1,10 +1,12 @@
 package com.example.demo.member.controller;
 
+import com.example.demo.config.auth.LoginUser;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.member.vo.MemberUpdatePwd;
 import com.example.demo.member.vo.MemberUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,10 +44,11 @@ public class MemberApiController {
 
     // 회원이 직접정보를 삭제하는 api
     @DeleteMapping("/api/member/delete/{id}")
-    public Long delete(@PathVariable Long id, Principal principal) {
+    public Long delete(@PathVariable Long id, @LoginUser User user) {
         sessionRepository.findByIndexNameAndIndexValue(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME,
-                principal.getName()).keySet().forEach(session -> sessionRepository.deleteById((String) session));
+                user.getUsername()).keySet().forEach(session -> sessionRepository.deleteById((String) session));
 
+        log.info("삭제완료");
         memberService.delete(id); // 회원정보삭제 (회원이 만약 병원관리자라면?)
 
         return id;
@@ -60,9 +63,7 @@ public class MemberApiController {
     // 관리자가 회원정보를 삭제하는 api
     @DeleteMapping("/api/admin/member/delete/{id}")
     public Long deleteMember(@PathVariable Long id) {
-
         memberService.delete(id);
-
         return id;
     }
 

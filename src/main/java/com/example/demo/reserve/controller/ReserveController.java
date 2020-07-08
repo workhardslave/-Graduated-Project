@@ -1,7 +1,8 @@
 package com.example.demo.reserve.controller;
 
 
-import com.example.demo.config.LogExecutionTime;
+import com.example.demo.config.auth.LogExecutionTime;
+import com.example.demo.config.auth.LoginFindMember;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.member.vo.Member;
 import com.example.demo.reserve.service.ReserveService;
@@ -30,8 +31,8 @@ public class ReserveController {
     // 사용자 자신의 예약 정보 조회 홈페이지
     @GetMapping("/member/reservesInfo")
     @LogExecutionTime
-    public String ReserveInfo(Model model, Principal principal) {                   // principle: session DB에 저장되어 있는 값 가져옴
-        Member member = memberService.findMember(principal.getName());
+    public String ReserveInfo(Model model, @LoginFindMember Member member) {                   // principle: session DB에 저장되어 있는 값 가져옴
+
         List<ReserveResponseDto> Reserves = reserveService.findAllDesc(member);
 
         model.addAttribute("reserves", Reserves);
