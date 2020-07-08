@@ -1,6 +1,8 @@
 package com.example.demo.member.controller;
 
 import com.example.demo.config.LogExecutionTime;
+import com.example.demo.config.security.Role;
+import com.example.demo.config.security.User;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.member.vo.Member;
 import com.example.demo.member.vo.MemberResponseDto;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
@@ -30,10 +33,14 @@ public class MemberController {
 
 
     private final MemberService memberService;
-
+    private final HttpSession httpSession;
     // 회원 메인 홈
     @RequestMapping("/")
     public String home(){
+
+//        User user = (User) httpSession.getAttribute("user");
+//        System.out.println(user.getEmail());
+        log.info("세션확인" + httpSession.getAttribute("user").getClass().getName());
         return "home";
     }
 
@@ -134,6 +141,7 @@ public class MemberController {
     @GetMapping("/admin/settings/{id}")
     public String updateAdmin(@PathVariable Long id, Model model) {
 
+        log.info("name찍으면?,,"+ Role.ADMIN.name());
         MemberResponseDto adminDto = memberService.findById(id);
         model.addAttribute("admin", adminDto);
 

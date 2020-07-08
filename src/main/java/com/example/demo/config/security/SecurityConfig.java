@@ -1,7 +1,6 @@
 package com.example.demo.config.security;
 
 import com.example.demo.member.service.MemberService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,47 +19,49 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final MemberService memberService;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    private final CustomOAuth2UserService customOAuth2UserService;
 
     @Override
-    public void configure(WebSecurity web) throws Exception
-    {
+    public void configure(WebSecurity web) throws Exception {
         // static 디렉터리의 하위 파일 목록은 인증 무시 ( = 항상통과 )
         web.ignoring().antMatchers("/static/**", "/css/**", "/memberAuth/**", "/js/**", "/img/**", "/lib/**");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http
+                .csrf().disable()
+                .headers().frameOptions().disable()
+                .and()
+                .authorizeRequests()
                 // 페이지 권한 설정
-//                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user/myinfo").hasRole("MEMBER")
-//                .antMatchers("/**").permitAll()
-//                .antMatchers("/css/**", "/memberAuth/**", "/js/**", "/images/**").permitAll()
-                .antMatchers("/h2-console/*").permitAll().anyRequest().permitAll()
-                .antMatchers("/resources/**").permitAll().anyRequest().permitAll()
-                .and() //권한 설정
-                    .csrf()
-                    .ignoringAntMatchers("/api/**")
-                    .ignoringAntMatchers("/**")
+                .antMatchers("/admin/**").hasRole(Role.ADMIN.name())
+                .antMatchers("/api/admin/**").hasRole(Role.ADMIN.name())
+                .antMatchers("/h2-console/*").permitAll()
+                .antMatchers("/resources/**").permitAll()
+//                .anyRequest().authenticated()
                 .and()//로그인
+//                .csrf()
+//                .ignoringAntMatchers("/api/member/**")
+//                .and()
                 .formLogin()
                 .loginPage("/member/login")
-                .defaultSuccessUrl("/")
-                .permitAll()
+                .defaultSuccessUrl("/").permitAll()
                 .and() // 로그아웃 설정
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
                 .logoutSuccessUrl("/")
-                .invalidateHttpSession(true)
                 .and()
-                // 403 예외처리 핸들링
-                .exceptionHandling().accessDeniedPage("/member/denied")
-        .and().headers().frameOptions().disable();
+                    .oauth2Login()
+                    .userInfoEndpoint()
+                    .userService(customOAuth2UserService);
+
     }
 
     @Override

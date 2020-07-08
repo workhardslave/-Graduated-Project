@@ -9,11 +9,12 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @AllArgsConstructor
 public enum Role {
-    ADMIN("ROLE_ADMIN"),
-    GUEST("ROLE_MEMBER"),
-    VET("ROLE_VET");
+    ADMIN("ROLE_ADMIN","ADMIN"),
+    GUEST("ROLE_MEMBER","GUEST"),
+    VET("ROLE_VET", "VET");
 
-    private String value;
+    private final String value;
+    private final String title;
 
 }
 
