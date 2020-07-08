@@ -37,7 +37,6 @@ public class DogApiController {
     @DeleteMapping("/api/admin/dogs/delete/{id}")
     public Long adminDogDelete(@PathVariable Long id) {
         dogService.delete(id);
-
         return id;
     }
 }

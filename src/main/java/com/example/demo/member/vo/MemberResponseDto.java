@@ -1,6 +1,7 @@
 package com.example.demo.member.vo;
 
 
+import com.example.demo.config.security.Role;
 import com.example.demo.overlap.Address;
 import lombok.Getter;
 

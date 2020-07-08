@@ -1,9 +1,8 @@
 package com.example.demo.reserve.service;
 
 import com.example.demo.hospital.repository.HospitalRepository;
+import com.example.demo.hospital.service.HospitalService;
 import com.example.demo.hospital.vo.Hospital;
-import com.example.demo.member.repository.MemberRepository;
-import com.example.demo.member.service.MemberService;
 import com.example.demo.member.vo.Member;
 import com.example.demo.reserve.repository.ReserveRepository;
 import com.example.demo.reserve.vo.Reserve;
@@ -23,6 +22,7 @@ public class ReserveService {
 
     private final ReserveRepository reserveRepository;
     private final HospitalRepository hospitalRepository;
+    private final HospitalService hospitalService;
 
     //사용자가 본인의 병원예약정보조회
     @Transactional(readOnly = true)
@@ -30,6 +30,9 @@ public class ReserveService {
         return reserveRepository.findAllMemberDesc(member).stream()
                 .map(ReserveResponseDto::new)
                 .collect(Collectors.toList());
+
+
+
     }
 
     @Transactional
@@ -95,8 +98,7 @@ public class ReserveService {
     // 사용자 병원예약 POST
     @Transactional
     public Long Reserve(ReserveSaveRequestDto reserveDto,Member member) {
-        Hospital hospital =  hospitalRepository.findname(reserveDto.getName());
-        System.out.println("정보 들어오는지 확인 " + hospital.getName());
+        Hospital hospital =  hospitalService.findHospital(reserveDto.getName());
         reserveDto.Reserve_Hospital(hospital);
         reserveDto.Reserve_Member(member);
         return reserveRepository.save(reserveDto.toEntity()).getId();

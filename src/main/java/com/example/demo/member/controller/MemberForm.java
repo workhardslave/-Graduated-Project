@@ -1,15 +1,14 @@
 package com.example.demo.member.controller;
 
-import com.example.demo.member.vo.Role;
+
+import com.example.demo.config.security.Role;
 import lombok.Getter;
 import lombok.Setter;
-
 
 import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter
-
 public class MemberForm {
 
         @NotEmpty(message = "이름 입력은 필수입니다")

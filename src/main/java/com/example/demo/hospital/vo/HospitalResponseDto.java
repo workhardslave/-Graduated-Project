@@ -1,11 +1,9 @@
 package com.example.demo.hospital.vo;
 
 import com.example.demo.member.vo.Member;
-import com.example.demo.overlap.Address;
-import lombok.*;
+import lombok.Getter;
 
 @Getter
-@RequiredArgsConstructor
 public class HospitalResponseDto {
 
     private Long id;

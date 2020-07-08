@@ -1,4 +1,4 @@
-package com.example.demo.member.vo;
+package com.example.demo.config.security;
 
 
 import lombok.AllArgsConstructor;
@@ -14,6 +14,7 @@ public enum Role {
     VET("ROLE_VET");
 
     private String value;
+
 }
 
 

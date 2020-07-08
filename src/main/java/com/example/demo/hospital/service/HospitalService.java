@@ -5,12 +5,10 @@ import com.example.demo.hospital.vo.Hospital;
 import com.example.demo.hospital.vo.HospitalResponseDto;
 import com.example.demo.hospital.vo.HospitalSaveRequestDto;
 import com.example.demo.member.repository.MemberRepository;
-import com.example.demo.reserve.repository.ReserveRepository;
-
 import com.example.demo.member.vo.Member;
+import com.example.demo.reserve.repository.ReserveRepository;
 import com.example.demo.reserve.vo.Reserve;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +22,6 @@ import java.util.stream.Collectors;
 public class HospitalService {
 
     private final HospitalRepository hospitalRepository;
-    private final MemberRepository memberRepository;
     private final ReserveRepository reserveRepository;
 
     // 관리자, 전체 동물병원 조회
@@ -33,6 +30,21 @@ public class HospitalService {
         return hospitalRepository.findAllDesc().stream()
                 .map(HospitalResponseDto::new)
                 .collect(Collectors.toList());
+    }
+    //개인 동물병원 조회
+    @Transactional(readOnly = true)
+    public Hospital findHospital(Object id) {
+
+
+        if(id instanceof Long ){
+            Hospital hospital = hospitalRepository.findById((Long) id)
+                    .orElseThrow(()->new IllegalArgumentException("동물병원이 없습니다 = " + id));
+            return hospital;
+        }
+        else {
+            Hospital hospital = hospitalRepository.findHospital((String) id);
+            return hospital;
+        }
     }
 
     // 수의사, 동물병원 등록
@@ -58,6 +70,9 @@ public class HospitalService {
         hospitalRepository.delete(hospital); //병원 delete쿼리
     }
 
+
+
+    @Transactional(readOnly = true)
     public HospitalResponseDto findById(Long id) {
         Hospital entity = hospitalRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 동물병원이 없습니다. id=" + id));

@@ -1,5 +1,6 @@
 package com.example.demo.disease.controller;
 
+import com.example.demo.config.LogExecutionTime;
 import com.example.demo.diagnosis.domain.Diagnosis;
 import com.example.demo.diagnosis.service.DiagnosisService;
 import com.example.demo.diagnosis.vo.DiagnosisDto;
@@ -12,6 +13,7 @@ import com.example.demo.dog.vo.DogTypeCountDto;
 import com.example.demo.hospital.service.HospitalService;
 import com.example.demo.hospital.vo.HospitalResponseDto;
 import com.example.demo.member.repository.MemberRepository;
+import com.example.demo.member.service.MemberService;
 import com.example.demo.member.vo.Member;
 import com.example.demo.symptom.service.SymptomService;
 import com.example.demo.symptom.vo.SymptomForm;
@@ -22,6 +24,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.flogger.Flogger;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -45,8 +48,7 @@ import java.util.*;
 @Controller
 public class DiseaseController {
 
-    private final MemberRepository memberRepository;
-
+    private final MemberService memberService;
     private final DiseaseService diseaseService;
     private final DogService dogService;
     private final DiagnosisService diagnosisService;
@@ -55,6 +57,7 @@ public class DiseaseController {
 
     // 전체 질병 정보 시각화
     @GetMapping("/admin/diseases")
+    @LogExecutionTime
     public String DiseaseInfoPage(Model model) {
 
         List<DiseaseResponseDto> diseasesAll = diseaseService.findAllDesc();
@@ -71,8 +74,9 @@ public class DiseaseController {
 
     // 질병 진단 문진표
     @GetMapping("/member/disease/chart")
+    @LogExecutionTime
     public String DiseaseForm(Model model, Principal principal) {
-        Member member = memberRepository.findEmailCheck(principal.getName());//추후 ASPECT 적용대상
+        Member member = memberService.findMember(principal.getName());//추후 ASPECT 적용대상
         List<DogResponseDto> Dogs = dogService.findAllDesc(member);
         List<SymptomResponseDto> Symptoms = symptomService.findAllDesc();
 
@@ -85,10 +89,12 @@ public class DiseaseController {
 
     // 외부 API와 연동
     @PostMapping("/api/disease/form")
+    @LogExecutionTime
     public String callAPI_put(@Valid DiseaseForm form, Model model, Principal principal) throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
 //        String url = "http://192.168.43.33:80/test";
         String url = "http://localhost:80/test";
+
 
         MultiValueMap<String,String> parameters = new LinkedMultiValueMap<String,String>();
         Diagnosis diagnosis = new Diagnosis();
@@ -137,7 +143,7 @@ public class DiseaseController {
         JsonObject jsonObj = (JsonObject) obj;
         JsonElement k = jsonObj.get("코로나 바이러스");
 
-        Member member = memberRepository.findEmailCheck(principal.getName());
+        Member member = memberService.findMember(principal.getName());
 
         // setting
         diagnosisService.DiagnosisSetting(jsonObj.get("data").toString(), jsonObj.get("코로나 바이러스").toString(),
@@ -158,13 +164,16 @@ public class DiseaseController {
             model.addAttribute("hosList", hospitalList);
     }
 
+        log.info("--------연동 시간 측정-------");
+
         return "members/recommends/recommendation";
     }
 
     // 회원이 보는 진단기록리스트
     @GetMapping(value = "/member/chart/record")
+    @LogExecutionTime
     public String list(Model model, Principal principal) {
-        Member member = memberRepository.findEmailCheck(principal.getName()); // 추후 ASPECT 적용대상
+        Member member = memberService.findMember(principal.getName()); // 추후 ASPECT 적용대상
         List<DiagnosisDto> diagnosis = diagnosisService.findAllDesc(member);
         model.addAttribute("dias", diagnosis);
 
@@ -173,6 +182,7 @@ public class DiseaseController {
 
     // 진단 시각화 페이지
     @GetMapping("/member/chart/record/{id}")
+    @LogExecutionTime
     public String updateForm(@PathVariable Long id, Model model) {
         DiagnosisDto diagnosisInfo = diagnosisService.findById(id);
 

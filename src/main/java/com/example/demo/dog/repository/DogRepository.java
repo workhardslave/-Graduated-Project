@@ -19,14 +19,6 @@ public interface DogRepository extends JpaRepository<Dog, Long> {
 
 
     @Query("SELECT " +
-            "    new com.example.demo.dog.vo.DogCountDto(d.gender, COUNT(d)) " +
-            "FROM " +
-            "    Dog d " +
-            "GROUP BY " +
-            "    d.gender")
-    List<DogCountDto> findCount();
-
-    @Query("SELECT " +
             "   new com.example.demo.dog.vo.DogTypeCountDto(d.gender, d.type, COUNT(d))" +
             "FROM " +
             "   Dog d " +

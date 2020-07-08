@@ -1,10 +1,13 @@
 package com.example.demo.dog.controller;
 
+import com.example.demo.config.LogExecutionTime;
 import com.example.demo.dog.vo.DogResponseDto;
 import com.example.demo.dog.vo.DogSaveRequestDto;
 import com.example.demo.dog.service.DogService;
 import com.example.demo.member.repository.MemberRepository;
+import com.example.demo.member.service.MemberService;
 import com.example.demo.member.vo.Member;
+import io.netty.util.concurrent.BlockingOperationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -25,7 +28,7 @@ import java.util.List;
 public class DogController {
 
     private final DogService dogService;
-    private final MemberRepository memberRepository;
+    private final MemberService memberService;
 
     // 사용자 강아지 정보 입력 홈페이지
     @GetMapping("/member/dog/save")
@@ -42,7 +45,7 @@ public class DogController {
             return "members/dogs/dogSignUp";
         }
 
-        Member member = memberRepository.findEmailCheck(principal.getName()); //추후 ASPECT 적용대상
+        Member member = memberService.findMember(principal.getName()); //추후 ASPECT 적용대상
 
         DogSaveRequestDto dog = new DogSaveRequestDto();
         dogService.dog_SignUp(dog.builder()
@@ -62,8 +65,9 @@ public class DogController {
 
     // 사용자 자신의 강아지 정보 조회 홈페이지
     @GetMapping("/member/dogs")
+    @LogExecutionTime
     public String DogInfo(Model model, Principal principal) {
-        Member member = memberRepository.findEmailCheck(principal.getName());//추후 ASPECT 적용대상
+        Member member = memberService.findMember(principal.getName());//추후 ASPECT 적용대상
         List<DogResponseDto> Dogs = dogService.findAllDesc(member);
 
         model.addAttribute("dogs", Dogs);
@@ -83,7 +87,9 @@ public class DogController {
     // 관리자, 회원별 반려견 정보조회
     @GetMapping("/admin/member/{id}/dogs")
     public String adminDogInfo(@PathVariable Long id, Model model) {
-        Member member = memberRepository.findOne(id);
+        Member member = memberService.findMember(id);
+
+
         List<DogResponseDto> dogs = dogService.findAllDesc(member);
 
         model.addAttribute("member", member);

@@ -5,7 +5,9 @@ import com.example.demo.hospital.service.HospitalService;
 import com.example.demo.hospital.vo.Hospital;
 import com.example.demo.hospital.vo.HospitalSaveRequestDto;
 import com.example.demo.member.repository.MemberRepository;
+import com.example.demo.member.service.MemberService;
 import com.example.demo.member.vo.Member;
+import com.example.demo.member.vo.MemberResponseDto;
 import com.example.demo.reserve.service.ReserveService;
 import com.example.demo.reserve.vo.ReserveUpdateRequestDto;
 
@@ -21,18 +23,13 @@ public class HospitalApiController {
 
     private final HospitalService hospitalService;
     private final ReserveService reserveService;
-    private final HospitalRepository hospitalRepository;
-    private final MemberRepository memberRepository;
-
+    private final MemberService memberService;
 
     // 수의사, 동물병원 삭제 API
     @DeleteMapping("/api/vet/hospital/delete/{hospital_id}")
     public Long deleteVetHospital(@PathVariable Long hospital_id, Principal principal) {
-
-        Member member = memberRepository.findEmailCheck(principal.getName());
-
+        Member member = memberService.findMember(principal.getName());
         member.deleteHospital();
-
         hospitalService.deleteHospital(hospital_id);
 
         return hospital_id;
@@ -41,9 +38,11 @@ public class HospitalApiController {
     // 관리자, 동물병원 삭제 API
     @DeleteMapping("/api/admin/hospital/delete/{hospital_id}")
     public Long deleteAdminHospital(@PathVariable Long hospital_id) {
-        Hospital hospital = hospitalRepository.findOne(hospital_id);
 
-        Member member = memberRepository.findOne(hospital.getMember().getId());
+        Hospital hospital = hospitalService.findHospital(hospital_id);
+        Member member = memberService.findMember(hospital.getMember().getId());
+
+
         member.deleteHospital();
         hospitalService.deleteHospital(hospital_id);
 
@@ -60,7 +59,7 @@ public class HospitalApiController {
     @PostMapping(value = "/api/vet/hospital/register")
     public Long createHospital(@RequestBody HospitalSaveRequestDto Dto, Principal principal) {
 
-        Member member = memberRepository.findEmailCheck(principal.getName());
+        Member member = memberService.findMember(principal.getName());
 
         if(member.getHospital() != null){
             throw new IllegalStateException("병원등록은 하나만 됩니다.");

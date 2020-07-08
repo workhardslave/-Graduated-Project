@@ -31,7 +31,7 @@ public class Hospital {
     @Column(name = "hospital_address", nullable = false)
     private String address;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToOne
     @JoinColumn(name ="member_id")
     private Member member;
 
