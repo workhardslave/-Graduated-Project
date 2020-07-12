@@ -15,7 +15,6 @@ import javax.persistence.*;
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class Dog {
 
-
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -28,9 +27,6 @@ public class Dog {
     private String gender;
     private String birth;
     private String type;
-
-//    @OneToMany(mappedBy = "dog", orphanRemoval = true)
-//    List<Disease> diseaseList = new ArrayList<>();
 
     @Builder
     public Dog(Long id, Member member, String name, String age, String gender, String birth, String type) {

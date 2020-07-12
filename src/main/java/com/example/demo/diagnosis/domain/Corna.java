@@ -19,8 +19,6 @@ public class Corna  {
     private Long id;
     private String percent;
 
-
-
     @Builder
     public Corna(String percent) {
         this.percent = percent;

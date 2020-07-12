@@ -3,6 +3,7 @@ package com.example.demo.hospital.controller;
 import com.example.demo.config.auth.LoginFindMember;
 import com.example.demo.hospital.domain.Hospital;
 import com.example.demo.hospital.dto.HospitalSaveRequestDto;
+import com.example.demo.hospital.repository.HospitalRepository;
 import com.example.demo.hospital.service.HospitalService;
 import com.example.demo.member.domain.Member;
 import com.example.demo.member.service.MemberService;
@@ -17,7 +18,9 @@ public class HospitalApiController {
 
     private final HospitalService hospitalService;
     private final ReserveService reserveService;
+
     private final MemberService memberService;
+
 
     // 수의사, 동물병원 삭제 API
     @DeleteMapping("/api/vet/hospital/delete/{hospital_id}")
@@ -72,6 +75,7 @@ public class HospitalApiController {
     @DeleteMapping("/api/vet/hospital/reservation/delete/{id}")
     public Long delete(@PathVariable Long id) {
         reserveService.delete(id);
+
         return id;
     }
 }

@@ -28,7 +28,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class DiagnosisApiController {
-
     private final SymptomRepository symptomRepository;
     private final DiseaseService diseaseService;
     private final DiagnosisService diagnosisService;
@@ -38,18 +37,14 @@ public class DiagnosisApiController {
     @PostMapping("/api/AIRemodeling")
     public String variable(@Valid SymptomForm form, Model model) {
 
-        log.info("값 확인");
-        log.info("증상" + form.getModel());
-        log.info("test_size" + form.getTest_size());
-        log.info(form.getRandom_state());
-
         symptomRepository.save(Symptom.builder()
                 .name(form.getModel())
                 .build());
 
         RestTemplate restTemplate = new RestTemplate();
-//        String url = "http://192.168.43.33:80/reset";
-        String url = "http://localhost:80/reset";
+ 
+        String url = "http://15.165.169.119:5000/reset";
+//        String url = "http://localhost:80/reset";
 
         MultiValueMap<String,String> parameters = new LinkedMultiValueMap<String,String>();
 

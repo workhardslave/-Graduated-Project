@@ -37,7 +37,7 @@ public class Reserve  {
     @Column(nullable = false)
     private String tel;
 
-    private String address; //추후 병원에서 가져온다 필요한가 ?
+    private String address;
 
     @Builder
     public Reserve(Long id, Member member, String date, String description, String name, String address , String tel, String dog, Hospital hospital) {

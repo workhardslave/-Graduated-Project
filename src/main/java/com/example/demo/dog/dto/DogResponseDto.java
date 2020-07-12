@@ -7,6 +7,7 @@ import lombok.Getter;
 
 @Getter
 public class DogResponseDto {
+
     private Long id;
     private Member member;
     private String name;

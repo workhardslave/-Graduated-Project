@@ -19,14 +19,12 @@ public class Address {
     @Column(name = "street")
     String street;
 
-
     @Builder
     public Address(String city, String zipcode, String street) {
         this.city = city;
         this.zipcode = zipcode;
         this.street = street;
     }
-
 
     @Override
     public boolean equals(Object o) {

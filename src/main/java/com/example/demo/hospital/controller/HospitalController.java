@@ -25,7 +25,6 @@ public class HospitalController {
     private final HospitalService hospitalService;
     private final ReserveService reserveService;
 
-
     // 동물병원 등록 페이지
     @GetMapping("/vet/hospital/registration")
     public String registerHospital(Model model) {
@@ -51,6 +50,7 @@ public class HospitalController {
     public String updateForm(@PathVariable Long id, Model model) {
         HospitalResponseDto dto = hospitalService.findById(id);
         model.addAttribute("hos", dto);
+
         return "admin/hospital/hospitalDetail";
     }
 
@@ -58,7 +58,6 @@ public class HospitalController {
     @GetMapping("/vet/myHospital")
     @LogExecutionTime
     public String readMyHospital(Model model, @LoginFindMember Member member) {
-
 
         if(member.getHospital() == null) {
             return "home";      // 동물병원 등록 페이지 redirect
@@ -87,7 +86,6 @@ public class HospitalController {
     // 수의사, 동물병원 예약 수정
     @GetMapping("/vet/hospital/reservation/{id}")
     public String updateEachReservation(@PathVariable Long id, Model model) {
-
         ReserveResponseDto reserveDto = reserveService.findById(id);
         model.addAttribute("reserves", reserveDto);
         return "hospital/reservationSettings";

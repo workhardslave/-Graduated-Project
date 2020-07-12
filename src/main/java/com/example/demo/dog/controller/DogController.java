@@ -76,7 +76,6 @@ public class DogController {
     // 강아지 정보 수정 및 삭제 홈페이지
     @GetMapping(value = "/dogs/settings/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
-
         DogResponseDto dto = dogService.findById(id);
         model.addAttribute("dog", dto);
 
@@ -100,7 +99,6 @@ public class DogController {
     // 관리자, 회원 반려견 정보수정
     @GetMapping("/admin/dogs/settings/{id}")
     public String adminDogSettings(@PathVariable Long id, Model model) {
-
         DogResponseDto dto = dogService.findById(id);
         model.addAttribute("dog", dto);
 

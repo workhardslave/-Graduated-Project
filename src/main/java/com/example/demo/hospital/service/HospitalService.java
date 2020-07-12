@@ -49,7 +49,6 @@ public class HospitalService {
     // 수의사, 동물병원 등록
     @Transactional
     public Long reg(HospitalSaveRequestDto hosDto, Member member) {
-
         Hospital hospital = hospitalRepository.save(hosDto.toEntity());
         member.regHospital(hospital);
 
@@ -78,8 +77,4 @@ public class HospitalService {
 
         return new HospitalResponseDto(entity);
     }
-
-    /**
-     * https://advenoh.tistory.com/15 : Optional 이해
-     */
 }
