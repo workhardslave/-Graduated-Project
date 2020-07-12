@@ -66,7 +66,6 @@ public class MemberService implements UserDetailsService {
         memberDto.SHA256_PassWord(passwordEncoder.encode(memberDto.getPassword()));
 
 //        memberDto.GIVE_Role(Role.ADMIN);
-
         if(memberDto.getRole() == Role.GUEST) {
             memberDto.GIVE_Role(Role.GUEST);
         } else if(memberDto.getRole() == Role.VET) {
@@ -84,11 +83,13 @@ public class MemberService implements UserDetailsService {
                     .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + id));
             return member;
         }
+
         else{
             Member member = memberRepository.findEmailCheck((String) id);
 
             return member;
         }
+
     }
 
     @Override
