@@ -1,25 +1,23 @@
 package com.example.demo.member.controller;
 
-import com.example.demo.member.repository.MemberRepository;
-import com.example.demo.member.service.MemberService;
+import com.example.demo.config.auth.LogExecutionTime;
+import com.example.demo.config.auth.LoginFindMember;
+import com.example.demo.member.domain.Address;
 import com.example.demo.member.domain.Member;
 import com.example.demo.member.dto.MemberResponseDto;
 import com.example.demo.member.dto.MemberSaveRequestDto;
-import com.example.demo.member.domain.Address;
+import com.example.demo.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.security.Principal;
-
-import java.util.*;
+import java.util.List;
 /**
  * 세션부분 추후 @Aspect 적용하기.
  * */
@@ -28,13 +26,12 @@ import java.util.*;
 @Controller
 public class MemberController {
 
-    private final MemberRepository memberRepository;
+
     private final MemberService memberService;
 
-    // 회원 메인 홈
-    @RequestMapping("/")
+    @GetMapping("/")
     public String home(){
-        log.info("home logger");
+
         return "home";
     }
 
@@ -72,6 +69,7 @@ public class MemberController {
 
     //회원정보 리스트
     @GetMapping(value = "/admin/members")
+    @LogExecutionTime
     public String readAllMemberAdmin(Model model) {
         List<MemberResponseDto> members = memberService.findAllDesc();
         model.addAttribute("members", members);
@@ -80,8 +78,7 @@ public class MemberController {
     }
 
     @GetMapping("/member/mypage")
-    public String readMember(Model model, Principal principal, HttpServletRequest request, HttpSession session) {
-        Member member = memberRepository.findEmailCheck(principal.getName()); //추후 ASPECT 적용대상
+    public String readMember(Model model, @LoginFindMember Member member) {
 
         if(member != null) {
             model.addAttribute("member", member);
@@ -119,25 +116,10 @@ public class MemberController {
         return "member/memberAuth/signIn";
     }
 
-    // 회원 로그인 결과
-    @GetMapping("/member/login/result")
-    public String dispLoginResult()
-    {
-        return "home";
-    }
-
-    // 회원 로그아웃
-    @GetMapping("/member/logout/result")
-    public String dispLogout()
-    {
-        return "home";
-    }
-
     // 관리자 정보조회
     @GetMapping("/admin/mypage")
-    public String readAdmin(Model model, Principal principal) {
+    public String readAdmin(Model model, @LoginFindMember Member admin) {
 
-        Member admin = memberRepository.findEmailCheck(principal.getName()); //추후 ASPECT 적용대상E
         if(admin != null) {
             model.addAttribute("admin", admin);
         }
@@ -149,8 +131,6 @@ public class MemberController {
     public String updateAdmin(@PathVariable Long id, Model model) {
 
         MemberResponseDto adminDto = memberService.findById(id);
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-
         model.addAttribute("admin", adminDto);
 
         return "admin/adminAuth/admin_settings";

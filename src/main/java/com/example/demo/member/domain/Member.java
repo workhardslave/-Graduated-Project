@@ -1,11 +1,14 @@
 package com.example.demo.member.domain;
 
 
-import com.example.demo.config.Role;
 import com.example.demo.diagnosis.domain.Diagnosis;
 import com.example.demo.dog.domain.Dog;
 import com.example.demo.hospital.domain.Hospital;
-import lombok.*;
+import com.example.demo.config.security.Role;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.web.context.WebApplicationContext;
@@ -99,5 +102,23 @@ public class Member extends BaseTimeEntity {
 
     public String getRoleKey() {
         return this.role.getValue();
+    }
+
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", birth='" + birth + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address=" + address +
+                ", hospital=" + hospital +
+                ", diList=" + diList +
+                ", dogList=" + dogList +
+                ", role=" + role +
+                '}';
     }
 }

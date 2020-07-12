@@ -1,5 +1,4 @@
 package com.example.demo.hospital.dto;
-
 import com.example.demo.hospital.domain.Hospital;
 import com.example.demo.member.domain.Member;
 import lombok.Builder;

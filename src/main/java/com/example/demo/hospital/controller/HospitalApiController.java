@@ -1,18 +1,15 @@
 package com.example.demo.hospital.controller;
 
-import com.example.demo.hospital.repository.HospitalRepository;
-import com.example.demo.hospital.service.HospitalService;
+import com.example.demo.config.auth.LoginFindMember;
 import com.example.demo.hospital.domain.Hospital;
 import com.example.demo.hospital.dto.HospitalSaveRequestDto;
-import com.example.demo.member.repository.MemberRepository;
+import com.example.demo.hospital.service.HospitalService;
 import com.example.demo.member.domain.Member;
-import com.example.demo.reserve.service.ReserveService;
+import com.example.demo.member.service.MemberService;
 import com.example.demo.reserve.dto.ReserveUpdateRequestDto;
-
+import com.example.demo.reserve.service.ReserveService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,18 +17,13 @@ public class HospitalApiController {
 
     private final HospitalService hospitalService;
     private final ReserveService reserveService;
-    private final HospitalRepository hospitalRepository;
-    private final MemberRepository memberRepository;
-
+    private final MemberService memberService;
 
     // 수의사, 동물병원 삭제 API
     @DeleteMapping("/api/vet/hospital/delete/{hospital_id}")
-    public Long deleteVetHospital(@PathVariable Long hospital_id, Principal principal) {
-
-        Member member = memberRepository.findEmailCheck(principal.getName());
+    public Long deleteVetHospital(@PathVariable Long hospital_id, @LoginFindMember Member member) {
 
         member.deleteHospital();
-
         hospitalService.deleteHospital(hospital_id);
 
         return hospital_id;
@@ -40,9 +32,11 @@ public class HospitalApiController {
     // 관리자, 동물병원 삭제 API
     @DeleteMapping("/api/admin/hospital/delete/{hospital_id}")
     public Long deleteAdminHospital(@PathVariable Long hospital_id) {
-        Hospital hospital = hospitalRepository.findOne(hospital_id);
 
-        Member member = memberRepository.findOne(hospital.getMember().getId());
+        Hospital hospital = hospitalService.findHospital(hospital_id);
+        Member member = memberService.findMember(hospital.getMember().getId());
+
+
         member.deleteHospital();
         hospitalService.deleteHospital(hospital_id);
 
@@ -57,9 +51,7 @@ public class HospitalApiController {
 
     // 병원등록 API
     @PostMapping(value = "/api/vet/hospital/register")
-    public Long createHospital(@RequestBody HospitalSaveRequestDto Dto, Principal principal) {
-
-        Member member = memberRepository.findEmailCheck(principal.getName());
+    public Long createHospital(@RequestBody HospitalSaveRequestDto Dto, @LoginFindMember Member member) {
 
         if(member.getHospital() != null){
             throw new IllegalStateException("병원등록은 하나만 됩니다.");

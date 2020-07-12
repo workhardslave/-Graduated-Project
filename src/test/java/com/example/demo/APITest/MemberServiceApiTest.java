@@ -1,4 +1,4 @@
-//package com.example.demo.APITest;
+//`package com.example.demo.APITest;
 //
 //import com.example.demo.member.repository.MemberRepository;
 //import com.example.demo.member.vo.*;
@@ -29,7 +29,8 @@
 //
 //
 //@RunWith(SpringRunner.class)
-//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+////@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+//@SpringBootTest
 //@Transactional
 ////@WebMvcTest
 //public class MemberServiceApiTest {
@@ -42,15 +43,15 @@
 //    @Autowired
 //    EntityManager em;
 //
-//    @LocalServerPort
-//    private int port;
+////    @LocalServerPort
+////    private int port;
 //
-//    @Autowired
-//    private TestRestTemplate restTemplate;
-//
-//
-//    @Autowired
-//    private WebApplicationContext context;
+////    @Autowired
+////    private TestRestTemplate restTemplate;
+////
+////
+////    @Autowired
+////    private WebApplicationContext context;
 //
 ////    private MockMvc mvc;
 //
@@ -58,7 +59,8 @@
 //    /**
 //     * 중복 확인
 //     */
-//    @Test(expected = IllegalStateException.class)
+//
+//    @Test
 //    public void 회원가입() throws Exception {
 //        //given
 //        Member member = new Member();
@@ -75,12 +77,12 @@
 //                .role(Role.GUEST)
 //                .build();
 //        //when
-
+//
 //        Member TestMember = memberRepository.save(member);
 //
-//        em.flush();
+//        Member T = em.find(Member.class, 1L);
 //        //then
-//        assertEquals(member, memberRepository.findOne(TestMember.getId()));
+//        assertEquals(T.getId(), TestMember.getId());
 //    }
 //
 //    @Test(expected = IllegalStateException.class)
@@ -100,19 +102,19 @@
 //    }
 //
 //
-//    @Test
-//    @Rollback(false)
-//    public void 회원수정() throws Exception {
-//
-//        Member member = memberRepository.findOne(10L);
-//
-//        Address address = new Address("abc", "kfc", "def");
-//        MemberUpdateRequestDto requestDto = MemberUpdateRequestDto.builder()
-//                .password("12345")
-//                .build();
-//        memberService.update(10L, requestDto);
-//
-//        String url = "http://localhost:" + port + "/api/member/settings/10";
-//
-//    }
+////    @Test
+////    @Rollback(false)
+////    public void 회원수정() throws Exception {
+////
+////        Member member = memberRepository.findOne(10L);
+////
+////        Address address = new Address("abc", "kfc", "def");
+////        MemberUpdateRequestDto requestDto = MemberUpdateRequestDto.builder()
+////                .password("12345")
+////                .build();
+////        memberService.update(10L, requestDto);
+////
+////        String url = "http://localhost:" + port + "/api/member/settings/10";
+////
+////    }
 //}

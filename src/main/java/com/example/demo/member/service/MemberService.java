@@ -1,18 +1,17 @@
 package com.example.demo.member.service;
 
+import com.example.demo.config.security.Role;
 import com.example.demo.diagnosis.domain.Diagnosis;
 import com.example.demo.diagnosis.repository.DiagnosisRepository;
 import com.example.demo.diagnosis.service.DiagnosisService;
 import com.example.demo.hospital.service.HospitalService;
 import com.example.demo.member.domain.Member;
-import com.example.demo.config.Role;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.dto.*;
 
 import com.example.demo.reserve.service.ReserveService;
 import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -23,7 +22,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -65,9 +66,8 @@ public class MemberService implements UserDetailsService {
     public Long SignUp(MemberSaveRequestDto memberDto) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         memberDto.SHA256_PassWord(passwordEncoder.encode(memberDto.getPassword()));
-
-        memberDto.GIVE_Role(Role.ADMIN);
-
+//        memberDto.GIVE_Role(Role.ADMIN);
+        memberDto.GIVE_Role(Role.GUEST);
         if(memberDto.getRole() == Role.GUEST) {
             memberDto.GIVE_Role(Role.GUEST);
         } else if(memberDto.getRole() == Role.VET) {
@@ -75,6 +75,23 @@ public class MemberService implements UserDetailsService {
         }
 
         return memberRepository.save(memberDto.toEntity()).getId();
+    }
+
+    //회원 조회
+    @Transactional(readOnly = true)
+    public Member findMember(Object id){
+        if(id instanceof Long) {
+            Member member = memberRepository.findById((Long) id)
+                    .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + id));
+            return member;
+        }
+
+        else{
+            Member member = memberRepository.findEmailCheck((String) id);
+
+            return member;
+        }
+
     }
 
     @Override
@@ -97,7 +114,6 @@ public class MemberService implements UserDetailsService {
     public Long update(Long id, MemberUpdateRequestDto requestDto) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + id));
-
         member.update(requestDto.getCity(), requestDto.getStreet(), requestDto.getZipcode(), requestDto.getPhone());
         return id;
     }
@@ -142,10 +158,11 @@ public class MemberService implements UserDetailsService {
 
     // 삭제 API
     @Transactional
-    public void delete(Long id) {
+    public void  delete(Long id) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원/수의사/관리자가 없습니다. id=" + id));
         if(member.getHospital() != null){ //수의사인데 병원을 가지고있는경우
+
             hospitalService.deleteHospital(member.getHospital().getId()); //예약정보 전부삭제
             memberRepository.delete(member);
         }
@@ -165,4 +182,6 @@ public class MemberService implements UserDetailsService {
                 .map(MemberResponseDto::new)
                 .collect(Collectors.toList());
     }
+
+
 }

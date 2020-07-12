@@ -1,13 +1,13 @@
 package com.example.demo.hospital.controller;
 
-import com.example.demo.hospital.repository.HospitalRepository;
-import com.example.demo.hospital.service.HospitalService;
+import com.example.demo.config.auth.LogExecutionTime;
+import com.example.demo.config.auth.LoginFindMember;
 import com.example.demo.hospital.domain.Hospital;
 import com.example.demo.hospital.dto.HospitalResponseDto;
-import com.example.demo.member.repository.MemberRepository;
+import com.example.demo.hospital.service.HospitalService;
 import com.example.demo.member.domain.Member;
-import com.example.demo.reserve.service.ReserveService;
 import com.example.demo.reserve.dto.ReserveResponseDto;
+import com.example.demo.reserve.service.ReserveService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -15,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -26,8 +25,6 @@ public class HospitalController {
     private final HospitalService hospitalService;
     private final ReserveService reserveService;
 
-    private final MemberRepository memberRepository;
-    private final HospitalRepository hospitalRepository;
 
     // 동물병원 등록 페이지
     @GetMapping("/vet/hospital/registration")
@@ -39,6 +36,7 @@ public class HospitalController {
 
     // 관리자, 전체 동물병원 조회
     @GetMapping(value = "/admin/hospitalList")
+    @LogExecutionTime
     public String allHospital(Model model) {
         List<HospitalResponseDto> Dto = hospitalService.findAllDesc();
 
@@ -49,6 +47,7 @@ public class HospitalController {
 
     // 관리자, 동물병원 조회
     @GetMapping("/member/hospital/settings/{id}")
+    @LogExecutionTime
     public String updateForm(@PathVariable Long id, Model model) {
         HospitalResponseDto dto = hospitalService.findById(id);
         model.addAttribute("hos", dto);
@@ -57,9 +56,9 @@ public class HospitalController {
 
     // 수의사, 동물병원 조회
     @GetMapping("/vet/myHospital")
-    public String readMyHospital(Model model, Principal principal) {
+    @LogExecutionTime
+    public String readMyHospital(Model model, @LoginFindMember Member member) {
 
-        Member member = memberRepository.findEmailCheck(principal.getName());
 
         if(member.getHospital() == null) {
             return "home";      // 동물병원 등록 페이지 redirect
@@ -74,10 +73,10 @@ public class HospitalController {
 
     // 수의사, 동물병원 예약 조회
     @GetMapping("/vet/hospital/reservationList")
-    public String readMyReservation(Model model, Principal principal) {
+    @LogExecutionTime
+    public String readMyReservation(Model model, @LoginFindMember Member member) {
 
-        Member member = memberRepository.findEmailCheck(principal.getName());
-        Hospital hospital = hospitalRepository.findOne(member.getHospital().getId());
+        Hospital hospital =  hospitalService.findHospital(member.getHospital().getId());
         List<ReserveResponseDto> Reserves = reserveService.findAllHospital(hospital);
 
         model.addAttribute("reserves", Reserves);
@@ -90,9 +89,7 @@ public class HospitalController {
     public String updateEachReservation(@PathVariable Long id, Model model) {
 
         ReserveResponseDto reserveDto = reserveService.findById(id);
-
         model.addAttribute("reserves", reserveDto);
-
         return "hospital/reservationSettings";
     }
 }
