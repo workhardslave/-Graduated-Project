@@ -20,6 +20,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "orders")
 public class Order extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,12 +29,14 @@ public class Order extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
-    @OneToMany
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "delivery_id")
-    private Delivery delivery; //배송정보
+    private Delivery delivery;
+
+    private LocalDateTime orderDate; //주문시간
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus; //배송상태 [ORDER, CANCEL]
@@ -42,7 +45,7 @@ public class Order extends BaseTimeEntity {
 
     private int quantity;
 
-    private LocalDateTime orderDate; //주문시간
+
 
 
     @Builder

@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+
+@Entity
 @Getter
 @Setter
 public class Delivery {
@@ -18,6 +20,7 @@ public class Delivery {
     private Long id;
 
     @OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
     private Order order;
 
     @Embedded
