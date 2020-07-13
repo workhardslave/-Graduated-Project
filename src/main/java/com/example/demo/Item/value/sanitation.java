@@ -8,9 +8,9 @@ import javax.persistence.Entity;
 
 @Entity
 @Description("S")
-public class senitation extends Item {
+public class sanitation extends Item {
 
     private String value; //밴드 , 먹는약, 바르는약
-    private String deadline; //유통기한
+    private String bestBefore; //유통기한
 
 }

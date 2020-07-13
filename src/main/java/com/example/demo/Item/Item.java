@@ -19,7 +19,7 @@ public abstract class Item extends BaseTimeEntity {
 
     private String name;
     private int price;
-    private int stockQuantity;
+    private int amount;
 
     protected String Description;
 
@@ -27,18 +27,16 @@ public abstract class Item extends BaseTimeEntity {
     private Hospital hospital;
 
     //==비즈니스 로직==//
-    public void addStock(int quantity) {
-        this.stockQuantity += quantity;
+    public void addAmount(int amount) {
+        this.amount += amount;
     }
 
    // 수량이 부족할 경우
-    public void removeStock(int quantity) {
-        int restStock = this.stockQuantity - quantity;
-        if (restStock < 0) {
+    public void removeAmount(int quantity) {
+        int restAmount = this.amount - quantity;
+        if (restAmount < 0) {
             throw new NotEnoughStockException("need more stock");
         }
-        this.stockQuantity = restStock;
+        this.amount = restAmount;
     }
-
-
 }
