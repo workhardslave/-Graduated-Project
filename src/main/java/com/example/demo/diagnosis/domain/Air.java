@@ -17,7 +17,6 @@ public class Air {
     private Long id;
     private String percent;
 
-
     @Builder
     public Air(String percent) {
         this.percent = percent;

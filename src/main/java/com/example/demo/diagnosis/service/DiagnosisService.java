@@ -33,7 +33,6 @@ public class DiagnosisService {
 
     @Transactional
     public void DiagnosisSetting(String data, String cor, String ma, String ar, String dog, Member member) {
-
         int dataLen = data.length();
         String name = data.substring(1, dataLen-1);
 
@@ -88,7 +87,6 @@ public class DiagnosisService {
     //삭제 api
     @Transactional
     public void delete (List<Diagnosis> diagnosis) {
-
         for(Diagnosis d : diagnosis){
             diagnosisRepository.delete(d);
             cornaRepository.delete(d.getCorna());

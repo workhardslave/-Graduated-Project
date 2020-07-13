@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class MemberUpdateRequestDto {
+
     private String name;
     private String city;
     private String zipcode;

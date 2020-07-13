@@ -11,8 +11,6 @@ import java.util.ArrayList;
 @Setter
 public class DiseaseForm {
 
-
     private String choice;
     private ArrayList<String> symptom; // 증상을 입력받을 배열
-
 }

@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public class ReserveResponseDto {
+
     private Long id;
     private Member member;
     private String date;
@@ -16,6 +17,7 @@ public class ReserveResponseDto {
     private String address;
     private String tel;
     private String dog;
+
     public ReserveResponseDto(Reserve entity) {
         this.id = entity.getId();
         this.member = entity.getMember();

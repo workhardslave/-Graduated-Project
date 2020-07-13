@@ -1,13 +1,17 @@
-package com.example.demo.member.dto;
 
+package com.example.demo.member.dto;
+import com.example.demo.config.security.Role;
 import com.example.demo.member.domain.Member;
-import com.example.demo.config.Role;
 import com.example.demo.member.domain.Address;
-import lombok.*;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
 public class MemberSaveRequestDto {
+
     private String name;
     private String email;
     private String password;
@@ -16,17 +20,13 @@ public class MemberSaveRequestDto {
     private String birth;
     private String phone;
 
-
     public void SHA256_PassWord(String password) {
         this.password = password;
     }
 
-
     public void GIVE_Role(Role role) {
         this.role = role;
     }
-
-
 
     @Builder
     public MemberSaveRequestDto(String name, String email, String password, Address address, Role role, String birth, String phone) {
@@ -38,7 +38,6 @@ public class MemberSaveRequestDto {
         this.phone = phone;
         this.birth = birth;
     }
-
 
     public Member toEntity(){
         return Member.builder()
