@@ -2,12 +2,13 @@ package com.example.demo.hospital.controller;
 
 import com.example.demo.config.auth.LoginFindMember;
 import com.example.demo.hospital.domain.Hospital;
+
 import com.example.demo.hospital.dto.HospitalSaveRequestDto;
-import com.example.demo.hospital.repository.HospitalRepository;
 import com.example.demo.hospital.service.HospitalService;
 import com.example.demo.member.domain.Member;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.reserve.dto.ReserveUpdateRequestDto;
+
 import com.example.demo.reserve.service.ReserveService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,6 @@ public class HospitalApiController {
     private final ReserveService reserveService;
 
     private final MemberService memberService;
-
 
     // 수의사, 동물병원 삭제 API
     @DeleteMapping("/api/vet/hospital/delete/{hospital_id}")

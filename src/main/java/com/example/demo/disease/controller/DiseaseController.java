@@ -18,6 +18,7 @@ import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.symptom.dto.SymptomForm;
 import com.example.demo.symptom.dto.SymptomResponseDto;
+
 import com.example.demo.symptom.service.SymptomService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -50,7 +51,6 @@ import java.util.List;
 @Controller
 public class DiseaseController {
 
-    private final MemberRepository memberRepository;
     private final DiseaseService diseaseService;
     private final DogService dogService;
     private final DiagnosisService diagnosisService;
@@ -77,7 +77,6 @@ public class DiseaseController {
     @GetMapping("/member/disease/chart")
     @LogExecutionTime
     public String DiseaseForm(Model model, @LoginFindMember Member member) {
-
         List<DogResponseDto> Dogs = dogService.findAllDesc(member);
         List<SymptomResponseDto> Symptoms = symptomService.findAllDesc();
 
@@ -96,6 +95,7 @@ public class DiseaseController {
 
         String url = "http://15.165.169.119:5000/test";
         //String url = "http://localhost:80/test";
+
 
 
         MultiValueMap<String,String> parameters = new LinkedMultiValueMap<String,String>();
@@ -161,6 +161,7 @@ public class DiseaseController {
             model.addAttribute("hosList", hospitalList);
     }
         return "member/recommends/recommendation";
+
     }
 
     // 회원이 보는 진단기록리스트

@@ -2,6 +2,7 @@ package com.example.demo.hospital.controller;
 
 import com.example.demo.config.auth.LogExecutionTime;
 import com.example.demo.config.auth.LoginFindMember;
+
 import com.example.demo.hospital.domain.Hospital;
 import com.example.demo.hospital.dto.HospitalResponseDto;
 import com.example.demo.hospital.service.HospitalService;
@@ -10,6 +11,7 @@ import com.example.demo.reserve.dto.ReserveResponseDto;
 import com.example.demo.reserve.service.ReserveService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +26,6 @@ public class HospitalController {
 
     private final HospitalService hospitalService;
     private final ReserveService reserveService;
-
     // 동물병원 등록 페이지
     @GetMapping("/vet/hospital/registration")
     public String registerHospital(Model model) {

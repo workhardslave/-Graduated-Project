@@ -1,5 +1,6 @@
 package com.example.demo.reserve.controller;
 
+
 import com.example.demo.member.domain.Member;
 import com.example.demo.config.auth.LogExecutionTime;
 import com.example.demo.config.auth.LoginFindMember;
@@ -24,6 +25,7 @@ import java.util.List;
 public class ReserveController {
 
     private final ReserveService reserveService;
+    private final MemberService memberService;
 
     // 사용자 자신의 예약 정보 조회 홈페이지
     @GetMapping("/member/reservesInfo")

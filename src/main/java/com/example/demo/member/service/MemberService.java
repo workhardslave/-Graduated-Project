@@ -12,6 +12,7 @@ import com.example.demo.member.dto.*;
 import com.example.demo.reserve.service.ReserveService;
 import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -158,7 +159,6 @@ public class MemberService implements UserDetailsService {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원/수의사/관리자가 없습니다. id=" + id));
         if(member.getHospital() != null) { //수의사인데 병원을 가지고있는경우
-
             hospitalService.deleteHospital(member.getHospital().getId()); //예약정보 전부삭제
             memberRepository.delete(member);
         }

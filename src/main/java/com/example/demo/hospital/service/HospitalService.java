@@ -1,9 +1,9 @@
 package com.example.demo.hospital.service;
 
+import com.example.demo.hospital.dto.HospitalSaveRequestDto;
 import com.example.demo.hospital.repository.HospitalRepository;
 import com.example.demo.hospital.domain.Hospital;
 import com.example.demo.hospital.dto.HospitalResponseDto;
-import com.example.demo.hospital.dto.HospitalSaveRequestDto;
 import com.example.demo.reserve.repository.ReserveRepository;
 import com.example.demo.member.domain.Member;
 import com.example.demo.reserve.domain.Reserve;

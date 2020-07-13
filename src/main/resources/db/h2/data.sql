@@ -28,6 +28,11 @@ update member set hospital_id = '1' where member_id = 2;
 update member set hospital_id = '2' where member_id = 3;
 update member set hospital_id = '3' where member_id = 4;
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> f5eae49bfb949152b1906f276c98225fab90a78a
 insert into dog(age, birth,gender, name,type,member_id) values('생후 12개월 미만','2020-06-30','암컷','다은리','포메라니안',1);
 insert into symptom(name) values('발열');
 insert into symptom(name) values('설사');
