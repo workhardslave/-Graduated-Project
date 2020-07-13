@@ -41,20 +41,14 @@ public class Order extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus; //배송상태 [ORDER, CANCEL]
 
-
-
-    private int quantity;
-
-
-
+    private int amount;
 
     @Builder
-    public Order(Member member, int quantity, OrderStatus orderStatus) {
+    public Order(Member member, int amount, OrderStatus orderStatus) {
         this.member = member;
-        this.quantity = quantity;
+        this.amount = amount;
         this.orderStatus= orderStatus;
     }
-
 
    //연관관계 메서드 (양방향)
     public void setMember(Member member) {
@@ -88,7 +82,6 @@ public class Order extends BaseTimeEntity {
         return order;
     }
 
-
     //==비즈니스 로직==//
     /** 주문 취소 */
     public void cancel() {
@@ -110,5 +103,4 @@ public class Order extends BaseTimeEntity {
         }
         return totalPrice;
     }
-
 }

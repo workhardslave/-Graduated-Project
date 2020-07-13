@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 @Description("F")
 public class food extends Item {
 
-    private String taste; //맛
-    private String deadline; //유통기한
-
+    private String taste;       // 맛
+    private String bestBefore;  // 유통기한
 }
