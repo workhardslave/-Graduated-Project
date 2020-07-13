@@ -5,6 +5,7 @@ import com.example.demo.config.security.Role;
 import com.example.demo.diagnosis.domain.Diagnosis;
 import com.example.demo.dog.vo.Dog;
 import com.example.demo.hospital.vo.Hospital;
+import com.example.demo.order.domain.Order;
 import com.example.demo.overlap.Address;
 import com.example.demo.overlap.BaseTimeEntity;
 import lombok.Builder;
@@ -24,7 +25,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class Member extends BaseTimeEntity {
+public class
+Member extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
@@ -52,6 +54,9 @@ public class Member extends BaseTimeEntity {
 
     @OneToMany(mappedBy="member", orphanRemoval = true)
     List<Dog> dogList = new ArrayList<>();
+
+    @OneToMany(mappedBy="member", orphanRemoval = true)
+    List<Order> orders = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Role role;
