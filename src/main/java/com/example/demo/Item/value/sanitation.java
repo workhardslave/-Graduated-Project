@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 @Description("S")
 public class sanitation extends Item {
 
-    private String value; //밴드 , 먹는약, 바르는약
-    private String bestBefore; //유통기한
-
+    private String type;        // 종류 (ex. 밴드, 알약, 연고..)
+    private String bestBefore;  // 유통기한
 }

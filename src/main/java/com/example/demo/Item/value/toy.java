@@ -10,4 +10,5 @@ import javax.persistence.Entity;
 @Description("T")
 public class toy extends Item {
 
+    private String type;    // 장난감 종류
 }

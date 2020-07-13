@@ -21,7 +21,7 @@ public abstract class Item extends BaseTimeEntity {
     private int price;
     private int amount;
 
-    protected String Description;
+    protected String description;
 
     @ManyToOne(fetch = LAZY)
     private Hospital hospital;
@@ -35,7 +35,7 @@ public abstract class Item extends BaseTimeEntity {
     public void removeAmount(int quantity) {
         int restAmount = this.amount - quantity;
         if (restAmount < 0) {
-            throw new NotEnoughStockException("need more stock");
+            throw new NotEnoughStockException("There is no more amount");
         }
         this.amount = restAmount;
     }
