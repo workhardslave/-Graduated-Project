@@ -89,6 +89,16 @@
                                         <a sec:authorize="hasRole('ROLE_VET')" class="nav-link" th:href="@{/vet/myHospital}">동물병원 조회</a>
                                     </li>
 
+                                    <li class="nav-item dropdown">
+                                        <a sec:authorize="hasRole('ROLE_VET')" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">구해독몰</a>
+
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <a sec:authorize="hasRole('ROLE_VET')" class="dropdown-item" href="#">판매상품 등록</a>
+                                            <a sec:authorize="hasRole('ROLE_VET')" class="dropdown-item" href="#">판매상품 조회</a>
+                                            <a sec:authorize="hasRole('ROLE_VET')" class="dropdown-item" href="#">매출 조회</a>
+                                        </div>
+                                    </li>
+
                                     <li class="nav-item">
                                         <a sec:authorize="hasRole('ROLE_VET')" class="nav-link" th:href="@{/member/mypage}">정보조회</a>
                                     </li>
