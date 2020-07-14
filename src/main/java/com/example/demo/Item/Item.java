@@ -1,9 +1,9 @@
-package com.example.demo.Item;
+package com.example.demo.item;
 
 
 import com.example.demo.hospital.domain.Hospital;
 import com.example.demo.member.domain.BaseTimeEntity;
-import com.example.demo.overlap.NotEnoughStockException;
+import com.example.demo.item.overlap.NotEnoughAmountException;
 
 import javax.persistence.*;
 
@@ -12,7 +12,7 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "Ftype")
-public abstract class Item extends BaseTimeEntity {
+public abstract class item extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,7 +35,7 @@ public abstract class Item extends BaseTimeEntity {
     public void removeAmount(int quantity) {
         int restAmount = this.amount - quantity;
         if (restAmount < 0) {
-            throw new NotEnoughStockException("There is no more amount");
+            throw new NotEnoughAmountException("There is no more amount");
         }
         this.amount = restAmount;
     }

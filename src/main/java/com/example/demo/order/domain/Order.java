@@ -1,8 +1,8 @@
 package com.example.demo.order.domain;
 
 
-import com.example.demo.Delivery.domain.Delivery;
-import com.example.demo.Delivery.domain.DeliveryStatus;
+import com.example.demo.delivery.domain.Delivery;
+import com.example.demo.delivery.domain.DeliveryStatus;
 
 import com.example.demo.member.domain.BaseTimeEntity;
 import com.example.demo.member.domain.Member;
@@ -36,10 +36,10 @@ public class Order extends BaseTimeEntity {
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
-    private LocalDateTime orderDate; //주문시간
+    private LocalDateTime orderDate; // 주문시간
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus orderStatus; //배송상태 [ORDER, CANCEL]
+    private OrderStatus orderStatus; // 배송상태 [ORDER, CANCEL]
 
     private int amount;
 
@@ -50,19 +50,19 @@ public class Order extends BaseTimeEntity {
         this.orderStatus= orderStatus;
     }
 
-   //연관관계 메서드 (양방향)
+   // 연관관계 메서드 (양방향)
     public void setMember(Member member) {
         this.member = member;
         member.getOrders().add(this);
     }
 
-    //주문 상품삽입
+    // 주문상품 삽입
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
         orderItem.setOrder(this);
     }
 
-    //배송상태 삽입
+    // 배송상태 삽입
     public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
         delivery.setOrder(this);

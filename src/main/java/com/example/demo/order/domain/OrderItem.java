@@ -1,7 +1,7 @@
 package com.example.demo.order.domain;
 
 
-import com.example.demo.Item.Item;
+import com.example.demo.item.item;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,17 +18,16 @@ public class OrderItem {
     private Long id;
 
     @ManyToOne(fetch = LAZY)
-    private Item product;
+    private item product;
 
     @ManyToOne(fetch = LAZY)
     private Order order;
 
-    private int orderPrice; //주문 가격
+    private int orderPrice; // 주문가격
     private int count;
 
     //==생성 메서드==//
-    public static OrderItem createOrderItem(Item product, int orderPrice, int
-            count) {
+    public static OrderItem createOrderItem(item product, int orderPrice, int count) {
         OrderItem orderItem = new OrderItem();
         orderItem.setProduct(product);
         orderItem.setOrderPrice(orderPrice);
@@ -37,9 +36,9 @@ public class OrderItem {
         return orderItem;
     }
 
-    //주문취소
+    // 주문 취소
     public void cancel() {
-        getProduct().addAmount(count); //취소한 수량만큼 수량 +
+        getProduct().addAmount(count); // 취소한 수량만큼 수량 +
     }
 
     //==조회 로직==//
