@@ -27,7 +27,6 @@ import java.util.List;
 @Controller
 public class MemberController {
 
-
     private final MemberService memberService;
 
     @GetMapping("/")
@@ -67,16 +66,14 @@ public class MemberController {
         return "member/memberAuth/signIn";
     }
 
-    //회원정보 리스트
-    @GetMapping(value = "/admin/members")
-    @LogExecutionTime
-    public String readAllMemberAdmin(Model model) {
-        List<MemberResponseDto> members = memberService.findAllDesc();
-        model.addAttribute("members", members);
-
-        return "admin/memberControl/memberList";
+    // 로그인
+    @GetMapping("/member/login")
+    public String dispLogin() throws Exception
+    {
+        return "member/memberAuth/signIn";
     }
 
+    // 회원 마이페이지
     @GetMapping("/member/mypage")
     public String readMember(Model model, @LoginFindMember Member member) {
         if(member != null) {
@@ -86,7 +83,7 @@ public class MemberController {
         return "member/memberAuth/myPage";
     }
 
-    // 회원 정보수정 페이지
+    // 회원 정보수정
     @GetMapping("/member/settings/{id}")
     public String updateMember(@PathVariable Long id, Model model) {
         MemberResponseDto dto = memberService.findById(id);
@@ -96,7 +93,17 @@ public class MemberController {
         return "member/memberAuth/settings";
     }
 
-    // 관리자 회원정보 수정페이지
+    // 관리자, 회원 정보 리스트
+    @GetMapping(value = "/admin/members")
+    @LogExecutionTime
+    public String readAllMemberAdmin(Model model) {
+        List<MemberResponseDto> members = memberService.findAllDesc();
+        model.addAttribute("members", members);
+
+        return "admin/memberControl/memberList";
+    }
+
+    // 관리자, 회원 정보수정
     @GetMapping("/admin/member/settings/{id}")
     public String updateMemberAdmin(@PathVariable Long id, Model model){
         MemberResponseDto dto = memberService.findById(id);
@@ -104,13 +111,6 @@ public class MemberController {
         model.addAttribute("member", dto);
 
         return "admin/memberControl/settings";
-    }
-
-    // 로그인 페이지
-    @GetMapping("/member/login")
-    public String dispLogin() throws Exception
-    {
-        return "member/memberAuth/signIn";
     }
 
     // 관리자 정보조회
