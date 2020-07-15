@@ -1,6 +1,5 @@
 package com.example.demo.order.domain;
 
-
 import com.example.demo.delivery.domain.Delivery;
 import com.example.demo.delivery.domain.DeliveryStatus;
 
@@ -27,6 +26,7 @@ public class Order extends BaseTimeEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
     private Member member;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
@@ -69,8 +69,7 @@ public class Order extends BaseTimeEntity {
     }
 
     //==생성 메서드==//
-    public static Order createOrder(Member member, Delivery delivery,
-                                    OrderItem... op_joins) {
+    public static Order createOrder(Member member, Delivery delivery, OrderItem... op_joins) {
         Order order = new Order();
         order.setMember(member);
         order.setDelivery(delivery);

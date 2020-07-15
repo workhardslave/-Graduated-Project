@@ -7,8 +7,10 @@ import com.example.demo.member.domain.Member;
 import com.example.demo.member.dto.MemberResponseDto;
 import com.example.demo.member.dto.MemberSaveRequestDto;
 import com.example.demo.member.service.MemberService;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,9 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 
 import java.util.List;
-/**
- * 세션부분 추후 @Aspect 적용하기.
- * */
+
 @Slf4j
 @RequiredArgsConstructor
 @Controller
@@ -91,6 +91,20 @@ public class MemberController {
         model.addAttribute("member", dto);
 
         return "member/memberAuth/settings";
+    }
+
+    // 수의사, 판매상품 조회
+    @GetMapping("/vet/items")
+    public String readItems(Model model) {
+
+
+        return "member/item/itemList";
+    }
+
+    // 수의사, 판매상품 등록
+    @GetMapping("/vet/item/upload")
+    public String uploadItem() {
+        return "member/item/itemUpload";
     }
 
     // 관리자, 회원 정보 리스트
