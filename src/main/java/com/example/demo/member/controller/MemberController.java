@@ -7,8 +7,10 @@ import com.example.demo.member.domain.Member;
 import com.example.demo.member.dto.MemberResponseDto;
 import com.example.demo.member.dto.MemberSaveRequestDto;
 import com.example.demo.member.service.MemberService;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,14 +21,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 
 import java.util.List;
-/**
- * 세션부분 추후 @Aspect 적용하기.
- * */
+
 @Slf4j
 @RequiredArgsConstructor
 @Controller
 public class MemberController {
-
 
     private final MemberService memberService;
 
@@ -67,16 +66,14 @@ public class MemberController {
         return "member/memberAuth/signIn";
     }
 
-    //회원정보 리스트
-    @GetMapping(value = "/admin/members")
-    @LogExecutionTime
-    public String readAllMemberAdmin(Model model) {
-        List<MemberResponseDto> members = memberService.findAllDesc();
-        model.addAttribute("members", members);
-
-        return "admin/memberControl/memberList";
+    // 로그인
+    @GetMapping("/member/login")
+    public String dispLogin() throws Exception
+    {
+        return "member/memberAuth/signIn";
     }
 
+    // 회원 마이페이지
     @GetMapping("/member/mypage")
     public String readMember(Model model, @LoginFindMember Member member) {
         if(member != null) {
@@ -86,7 +83,7 @@ public class MemberController {
         return "member/memberAuth/myPage";
     }
 
-    // 회원 정보수정 페이지
+    // 회원 정보수정
     @GetMapping("/member/settings/{id}")
     public String updateMember(@PathVariable Long id, Model model) {
         MemberResponseDto dto = memberService.findById(id);
@@ -96,7 +93,31 @@ public class MemberController {
         return "member/memberAuth/settings";
     }
 
-    // 관리자 회원정보 수정페이지
+    // 수의사, 판매상품 조회
+    @GetMapping("/vet/items")
+    public String readItems(Model model) {
+
+
+        return "member/item/itemList";
+    }
+
+    // 수의사, 판매상품 등록
+    @GetMapping("/vet/item/upload")
+    public String uploadItem() {
+        return "member/item/itemUpload";
+    }
+
+    // 관리자, 회원 정보 리스트
+    @GetMapping(value = "/admin/members")
+    @LogExecutionTime
+    public String readAllMemberAdmin(Model model) {
+        List<MemberResponseDto> members = memberService.findAllDesc();
+        model.addAttribute("members", members);
+
+        return "admin/memberControl/memberList";
+    }
+
+    // 관리자, 회원 정보수정
     @GetMapping("/admin/member/settings/{id}")
     public String updateMemberAdmin(@PathVariable Long id, Model model){
         MemberResponseDto dto = memberService.findById(id);
@@ -104,13 +125,6 @@ public class MemberController {
         model.addAttribute("member", dto);
 
         return "admin/memberControl/settings";
-    }
-
-    // 로그인 페이지
-    @GetMapping("/member/login")
-    public String dispLogin() throws Exception
-    {
-        return "member/memberAuth/signIn";
     }
 
     // 관리자 정보조회

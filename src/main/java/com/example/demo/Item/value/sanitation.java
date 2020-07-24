@@ -1,7 +1,7 @@
-package com.example.demo.Item.value;
+package com.example.demo.item.value;
 
 
-import com.example.demo.Item.Item;
+import com.example.demo.item.domain.Item;
 import org.springframework.context.annotation.Description;
 
 import javax.persistence.Entity;

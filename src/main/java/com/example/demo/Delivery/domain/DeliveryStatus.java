@@ -1,4 +1,4 @@
-package com.example.demo.Delivery.domain;
+package com.example.demo.delivery.domain;
 
 public enum DeliveryStatus {
 

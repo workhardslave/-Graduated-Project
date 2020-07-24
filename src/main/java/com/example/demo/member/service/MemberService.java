@@ -54,9 +54,9 @@ public class MemberService implements UserDetailsService {
 
         Member findMember = memberRepository.findEmailCheck(value2);
 
-        if (findMember!=null) {
+        if (findMember != null) {
             return 1;
-        }else{
+        } else {
             return 0;
         }
     }
@@ -66,8 +66,7 @@ public class MemberService implements UserDetailsService {
     public Long SignUp(MemberSaveRequestDto memberDto) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         memberDto.SHA256_PassWord(passwordEncoder.encode(memberDto.getPassword()));
-//        memberDto.GIVE_Role(Role.ADMIN);
-        memberDto.GIVE_Role(Role.GUEST);
+
         if(memberDto.getRole() == Role.GUEST) {
             memberDto.GIVE_Role(Role.GUEST);
         } else if(memberDto.getRole() == Role.VET) {
@@ -77,7 +76,7 @@ public class MemberService implements UserDetailsService {
         return memberRepository.save(memberDto.toEntity()).getId();
     }
 
-    //회원 조회
+    // 회원 조회
     @Transactional(readOnly = true)
     public Member findMember(Object id){
         if(id instanceof Long) {
@@ -86,7 +85,7 @@ public class MemberService implements UserDetailsService {
             return member;
         }
 
-        else{
+        else {
             Member member = memberRepository.findEmailCheck((String) id);
 
             return member;
@@ -98,7 +97,7 @@ public class MemberService implements UserDetailsService {
     public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
         Member userEntityWrapper = memberRepository.findEmailCheck(userEmail);
 
-        if(userEntityWrapper == null ){
+        if(userEntityWrapper == null ) {
             throw new UsernameNotFoundException("User not authorized.");
         }
 

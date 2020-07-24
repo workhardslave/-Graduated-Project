@@ -1,4 +1,4 @@
-package com.example.demo.Delivery.domain;
+package com.example.demo.delivery.domain;
 
 
 import com.example.demo.member.domain.Address;
