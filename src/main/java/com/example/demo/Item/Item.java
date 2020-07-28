@@ -22,9 +22,9 @@ public abstract class Item extends BaseTimeEntity {
 
     protected String Description;
 
-    @ManyToOne(fetch = LAZY)
-    @Column(name = "hospital_id")
-    private Hospital hospital;
+//    @ManyToOne(fetch = LAZY)
+//    @Column(name = "hospital_id")
+//    private Hospital hospital;
 
     //==비즈니스 로직==//
     public void addStock(int quantity) {

@@ -37,13 +37,12 @@ public class HospitalService {
 
 
         if(id instanceof Long ){
-            Hospital hospital = hospitalRepository.findById((Long) id)
+            return hospitalRepository.findById((Long) id)
                     .orElseThrow(()->new IllegalArgumentException("동물병원이 없습니다 = " + id));
-            return hospital;
         }
         else {
-            Hospital hospital = hospitalRepository.findHospital((String) id);
-            return hospital;
+            return hospitalRepository.findHospital((String) id)
+                    .orElseThrow(()-> new IllegalArgumentException("동물병원이 없습니다 = "+ id));
         }
     }
 

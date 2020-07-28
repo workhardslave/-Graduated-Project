@@ -13,6 +13,6 @@ public interface HospitalRepository extends JpaRepository<Hospital, Long> {
     List<Hospital> findAllDesc();
 
     @Query("SELECT ho FROM Hospital ho WHERE ho.name = :name")
-    Hospital findHospital(String name);
+    Optional<Hospital> findHospital(String name);
 }
 

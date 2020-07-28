@@ -50,8 +50,10 @@ public class MemberService implements UserDetailsService {
 
         String value2 = hashMap.values().toString().substring(2, hashMap.values().toString().length()-2);
 
-        Member findMember = memberRepository.findEmailCheck(value2);
 
+
+        Member findMember = memberRepository.findEmailCheck(value2);
+        System.out.println("findMember확인 = " + findMember);
         if (findMember!=null) {
             return 1;
         }else{
@@ -79,15 +81,12 @@ public class MemberService implements UserDetailsService {
     @Transactional(readOnly = true)
     public Member findMember(Object id){
         if(id instanceof Long) {
-            Member member = memberRepository.findById((Long) id)
+            return memberRepository.findById((Long) id)
                     .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + id));
-            return member;
         }
 
         else{
-            Member member = memberRepository.findEmailCheck((String) id);
-
-            return member;
+            return memberRepository.findEmailCheck((String) id);
         }
 
     }
@@ -95,9 +94,6 @@ public class MemberService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
         Member userEntityWrapper = memberRepository.findEmailCheck(userEmail);
-        if(userEntityWrapper == null ){
-            throw new UsernameNotFoundException("User not authorized.");
-        }
 
         GrantedAuthority authority = new SimpleGrantedAuthority(userEntityWrapper.getRole().getValue());
         UserDetails userDetails = (UserDetails)new User(userEntityWrapper.getEmail(),
