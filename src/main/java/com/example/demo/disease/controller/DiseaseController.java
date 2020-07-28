@@ -3,21 +3,23 @@ package com.example.demo.disease.controller;
 import com.example.demo.config.auth.LogExecutionTime;
 import com.example.demo.config.auth.LoginFindMember;
 import com.example.demo.diagnosis.domain.Diagnosis;
+import com.example.demo.diagnosis.dto.DiagnosisDto;
+import com.example.demo.diagnosis.dto.DiagnosisNameCountDto;
 import com.example.demo.diagnosis.service.DiagnosisService;
-import com.example.demo.diagnosis.vo.DiagnosisDto;
-import com.example.demo.diagnosis.vo.DiagnosisNameCountDto;
 import com.example.demo.disease.dto.DiseaseResponseDto;
 import com.example.demo.disease.service.DiseaseService;
+import com.example.demo.dog.dto.DogResponseDto;
+import com.example.demo.dog.dto.DogTypeCountDto;
 import com.example.demo.dog.service.DogService;
-import com.example.demo.dog.vo.DogResponseDto;
-import com.example.demo.dog.vo.DogTypeCountDto;
+import com.example.demo.hospital.dto.HospitalResponseDto;
 import com.example.demo.hospital.service.HospitalService;
-import com.example.demo.hospital.vo.HospitalResponseDto;
+import com.example.demo.member.domain.Member;
+import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.service.MemberService;
-import com.example.demo.member.vo.Member;
+import com.example.demo.symptom.dto.SymptomForm;
+import com.example.demo.symptom.dto.SymptomResponseDto;
+
 import com.example.demo.symptom.service.SymptomService;
-import com.example.demo.symptom.vo.SymptomForm;
-import com.example.demo.symptom.vo.SymptomResponseDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonElement;
@@ -33,21 +35,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
-import java.security.Principal;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Slf4j
 @Controller
 public class DiseaseController {
 
-    private final MemberService memberService;
     private final DiseaseService diseaseService;
     private final DogService dogService;
     private final DiagnosisService diagnosisService;
@@ -58,7 +61,6 @@ public class DiseaseController {
     @GetMapping("/admin/diseases")
     @LogExecutionTime
     public String DiseaseInfoPage(Model model) {
-
         List<DiseaseResponseDto> diseasesAll = diseaseService.findAllDesc();
         List<DiagnosisNameCountDto> diagnosisNames = diagnosisService.findNameCount();
         List<DogTypeCountDto> dogCounts = dogService.findDogCount();
@@ -90,8 +92,10 @@ public class DiseaseController {
     @LogExecutionTime
     public String callAPI_put(@Valid DiseaseForm form, Model model, @LoginFindMember Member member) throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
-//        String url = "http://192.168.43.33:80/test";
-        String url = "http://localhost:80/test";
+
+        String url = "http://15.165.169.119:5000/test";
+        //String url = "http://localhost:80/test";
+
 
 
         MultiValueMap<String,String> parameters = new LinkedMultiValueMap<String,String>();
@@ -101,7 +105,7 @@ public class DiseaseController {
             parameters.add("증상" + i, form.getSymptom().get(i));
         }
 
-        // 플라스크에 증상 값을 POST 매핑으로 던져준다.
+        // Flask에 증상 값을 POST 매핑으로 던져준다.
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(url,parameters,String.class);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
@@ -109,13 +113,13 @@ public class DiseaseController {
         String jsonInString = "";
         JsonParser parser = new JsonParser();
 
-        // FLASK에서 예측 값 받아오기
+        // Flask에서 예측 값 받아오기
         try {
             HttpHeaders header = new HttpHeaders();
             HttpEntity<?> entity = new HttpEntity<>(header); // 값 받기
 
-//            String url2 = "http://192.168.43.33:80/test";
-            String url2 = "http://localhost:80/test";
+            String url2 = "http://15.165.169.119:5000/test";
+           // String url2 = "http://localhost:80/test";
             ResponseEntity<Object> resultMap = restTemplate.exchange(url2, HttpMethod.POST,entity, Object.class);
 
             result.put("Statuscode", resultMap.getStatusCodeValue());
@@ -129,12 +133,9 @@ public class DiseaseController {
         } catch (HttpClientErrorException | HttpServerErrorException e) {
             result.put("statusCode", e.getRawStatusCode());
             result.put("body", e.getStatusText());
-            System.out.println("dfdfdfdf");
-            System.out.println(e.toString());
         } catch (Exception e) {
             result.put("statusCode", "999");
             result.put("body", "excpetion 오류");
-            System.out.println(e.toString());
         }
 
         Object obj = parser.parse(jsonInString);
@@ -150,7 +151,6 @@ public class DiseaseController {
         List<HospitalResponseDto> hospitalList = hospitalService.findAllDesc();
 
         if(member != null) {
-
             model.addAttribute("member", member);
             model.addAttribute("diagnosis", jsonObj.get("data"));
             model.addAttribute("macak", jsonObj.get("마카다미아너트 중독증"));
@@ -160,10 +160,8 @@ public class DiseaseController {
             model.addAttribute("forms", form);
             model.addAttribute("hosList", hospitalList);
     }
+        return "member/recommends/recommendation";
 
-        log.info("--------연동 시간 측정-------");
-
-        return "members/recommends/recommendation";
     }
 
     // 회원이 보는 진단기록리스트
@@ -181,12 +179,6 @@ public class DiseaseController {
     @LogExecutionTime
     public String updateForm(@PathVariable Long id, Model model) {
         DiagnosisDto diagnosisInfo = diagnosisService.findById(id);
-
-        log.info(diagnosisInfo.getId().toString());
-        log.info(diagnosisInfo.getDog());
-        log.info(diagnosisInfo.getMacak().getPercent());
-        log.info(diagnosisInfo.getCorna().getPercent());
-        log.info(diagnosisInfo.getAir().getPercent());
 
         model.addAttribute("diagInfo", diagnosisInfo);
 

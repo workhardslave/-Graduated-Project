@@ -1,7 +1,7 @@
 package com.example.demo.symptom.service;
 
 import com.example.demo.symptom.repository.SymptomRepository;
-import com.example.demo.symptom.vo.SymptomResponseDto;
+import com.example.demo.symptom.dto.SymptomResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

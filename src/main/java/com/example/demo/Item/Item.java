@@ -1,12 +1,9 @@
 package com.example.demo.Item;
 
 
-import com.example.demo.hospital.vo.Hospital;
-import com.example.demo.overlap.BaseTimeEntity;
-import com.example.demo.overlap.NotEnoughStockException;
+import com.example.demo.member.domain.BaseTimeEntity;
 
 import javax.persistence.*;
-import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -35,7 +32,7 @@ public abstract class Item extends BaseTimeEntity {
     public void removeStock(int quantity) {
         int restStock = this.stockQuantity - quantity;
         if (restStock < 0) {
-            throw new NotEnoughStockException("need more stock");
+//            throw new NotEnoughStockException("need more stock");
         }
         this.stockQuantity = restStock;
     }

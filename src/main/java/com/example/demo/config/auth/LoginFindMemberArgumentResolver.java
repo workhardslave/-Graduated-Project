@@ -1,7 +1,9 @@
 package com.example.demo.config.auth;
 
+
+import com.example.demo.member.domain.Member;
 import com.example.demo.member.service.MemberService;
-import com.example.demo.member.vo.Member;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.Authentication;

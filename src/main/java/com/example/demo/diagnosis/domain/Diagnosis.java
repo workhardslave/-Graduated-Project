@@ -1,6 +1,6 @@
 package com.example.demo.diagnosis.domain;
 
-import com.example.demo.member.vo.Member;
+import com.example.demo.member.domain.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,12 +18,12 @@ public class Diagnosis {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
     private String name; // 진단 질병명
-
     private String dog;
     private String type;
 

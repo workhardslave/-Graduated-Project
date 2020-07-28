@@ -1,16 +1,17 @@
 package com.example.demo.Delivery.domain;
 
 
+import com.example.demo.member.domain.Address;
 import com.example.demo.order.domain.Order;
-import com.example.demo.overlap.Address;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 
+
+@Entity
 @Getter
 @Setter
-@Entity
 public class Delivery {
 
     @Id
@@ -19,6 +20,7 @@ public class Delivery {
     private Long id;
 
     @OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
     private Order order;
 
     @Embedded

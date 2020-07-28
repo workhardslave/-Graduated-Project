@@ -1,10 +1,9 @@
 package com.example.demo.order.domain;
 
-
 import com.example.demo.Delivery.domain.Delivery;
 import com.example.demo.Delivery.domain.DeliveryStatus;
-import com.example.demo.member.vo.Member;
-import com.example.demo.overlap.BaseTimeEntity;
+import com.example.demo.member.domain.BaseTimeEntity;
+import com.example.demo.member.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,60 +18,57 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "orders")
 public class Order extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "delivery_id")
-    private Delivery delivery; //배송정보
+    private Delivery delivery;
+
+    private LocalDateTime orderDate; // 주문시간
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus orderStatus; //배송상태 [ORDER, CANCEL]
+    private OrderStatus orderStatus; // 배송상태 [ORDER, CANCEL]
 
-
-
-    private int quantity;
-
-    private LocalDateTime orderDate; //주문시간
-
+    private int amount;
 
     @Builder
-    public Order(Member member, int quantity, OrderStatus orderStatus) {
+    public Order(Member member, int amount, OrderStatus orderStatus) {
         this.member = member;
-        this.quantity = quantity;
+        this.amount = amount;
         this.orderStatus= orderStatus;
     }
 
-
-   //연관관계 메서드 (양방향)
+   // 연관관계 메서드 (양방향)
     public void setMember(Member member) {
         this.member = member;
         member.getOrders().add(this);
     }
 
-    //주문 상품삽입
+    // 주문상품 삽입
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
         orderItem.setOrder(this);
     }
 
-    //배송상태 삽입
+    // 배송상태 삽입
     public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
         delivery.setOrder(this);
     }
 
     //==생성 메서드==//
-    public static Order createOrder(Member member, Delivery delivery,
-                                    OrderItem... op_joins) {
+    public static Order createOrder(Member member, Delivery delivery, OrderItem... op_joins) {
         Order order = new Order();
         order.setMember(member);
         order.setDelivery(delivery);
@@ -83,7 +79,6 @@ public class Order extends BaseTimeEntity {
         order.setOrderDate(LocalDateTime.now());
         return order;
     }
-
 
     //==비즈니스 로직==//
     /** 주문 취소 */
@@ -106,5 +101,4 @@ public class Order extends BaseTimeEntity {
         }
         return totalPrice;
     }
-
 }

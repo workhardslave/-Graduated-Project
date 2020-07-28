@@ -1,24 +1,17 @@
 package com.example.demo.hospital.controller;
 
 import com.example.demo.config.auth.LoginFindMember;
-import com.example.demo.config.auth.LoginUser;
-import com.example.demo.hospital.repository.HospitalRepository;
+import com.example.demo.hospital.domain.Hospital;
+
+import com.example.demo.hospital.dto.HospitalSaveRequestDto;
 import com.example.demo.hospital.service.HospitalService;
-import com.example.demo.hospital.vo.Hospital;
-import com.example.demo.hospital.vo.HospitalSaveRequestDto;
-import com.example.demo.member.repository.MemberRepository;
+import com.example.demo.member.domain.Member;
 import com.example.demo.member.service.MemberService;
-import com.example.demo.member.vo.Member;
-import com.example.demo.member.vo.MemberResponseDto;
+import com.example.demo.reserve.dto.ReserveUpdateRequestDto;
+
 import com.example.demo.reserve.service.ReserveService;
-import com.example.demo.reserve.vo.ReserveUpdateRequestDto;
-
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,6 +19,7 @@ public class HospitalApiController {
 
     private final HospitalService hospitalService;
     private final ReserveService reserveService;
+
     private final MemberService memberService;
 
     // 수의사, 동물병원 삭제 API
@@ -81,6 +75,7 @@ public class HospitalApiController {
     @DeleteMapping("/api/vet/hospital/reservation/delete/{id}")
     public Long delete(@PathVariable Long id) {
         reserveService.delete(id);
+
         return id;
     }
 }

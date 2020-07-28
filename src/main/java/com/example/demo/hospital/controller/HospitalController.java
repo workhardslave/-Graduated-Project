@@ -2,14 +2,13 @@ package com.example.demo.hospital.controller;
 
 import com.example.demo.config.auth.LogExecutionTime;
 import com.example.demo.config.auth.LoginFindMember;
-import com.example.demo.config.auth.LoginUser;
+
+import com.example.demo.hospital.domain.Hospital;
+import com.example.demo.hospital.dto.HospitalResponseDto;
 import com.example.demo.hospital.service.HospitalService;
-import com.example.demo.hospital.vo.Hospital;
-import com.example.demo.hospital.vo.HospitalResponseDto;
-import com.example.demo.member.service.MemberService;
-import com.example.demo.member.vo.Member;
+import com.example.demo.member.domain.Member;
+import com.example.demo.reserve.dto.ReserveResponseDto;
 import com.example.demo.reserve.service.ReserveService;
-import com.example.demo.reserve.vo.ReserveResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.User;
@@ -18,7 +17,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -28,8 +26,6 @@ public class HospitalController {
 
     private final HospitalService hospitalService;
     private final ReserveService reserveService;
-
-
     // 동물병원 등록 페이지
     @GetMapping("/vet/hospital/registration")
     public String registerHospital(Model model) {
@@ -55,6 +51,7 @@ public class HospitalController {
     public String updateForm(@PathVariable Long id, Model model) {
         HospitalResponseDto dto = hospitalService.findById(id);
         model.addAttribute("hos", dto);
+
         return "admin/hospital/hospitalDetail";
     }
 
@@ -62,7 +59,6 @@ public class HospitalController {
     @GetMapping("/vet/myHospital")
     @LogExecutionTime
     public String readMyHospital(Model model, @LoginFindMember Member member) {
-
 
         if(member.getHospital() == null) {
             return "home";      // 동물병원 등록 페이지 redirect
@@ -91,7 +87,6 @@ public class HospitalController {
     // 수의사, 동물병원 예약 수정
     @GetMapping("/vet/hospital/reservation/{id}")
     public String updateEachReservation(@PathVariable Long id, Model model) {
-
         ReserveResponseDto reserveDto = reserveService.findById(id);
         model.addAttribute("reserves", reserveDto);
         return "hospital/reservationSettings";

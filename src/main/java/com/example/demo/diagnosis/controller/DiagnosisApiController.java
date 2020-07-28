@@ -1,17 +1,14 @@
 package com.example.demo.diagnosis.controller;
 
 import com.example.demo.diagnosis.service.DiagnosisService;
-import com.example.demo.diagnosis.vo.DiagnosisNameCountDto;
-import com.example.demo.disease.dto.DiseaseNameCountDto;
+import com.example.demo.diagnosis.dto.DiagnosisNameCountDto;
 import com.example.demo.disease.dto.DiseaseResponseDto;
 import com.example.demo.disease.service.DiseaseService;
 import com.example.demo.dog.service.DogService;
-import com.example.demo.dog.vo.DogTypeCountDto;
-import com.example.demo.reserve.service.ReserveService;
-import com.example.demo.reserve.vo.ReserveResponseDto;
+import com.example.demo.dog.dto.DogTypeCountDto;
 import com.example.demo.symptom.repository.SymptomRepository;
-import com.example.demo.symptom.vo.Symptom;
-import com.example.demo.symptom.vo.SymptomForm;
+import com.example.demo.symptom.domain.Symptom;
+import com.example.demo.symptom.dto.SymptomForm;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +28,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class DiagnosisApiController {
-
     private final SymptomRepository symptomRepository;
     private final DiseaseService diseaseService;
     private final DiagnosisService diagnosisService;
@@ -41,18 +37,14 @@ public class DiagnosisApiController {
     @PostMapping("/api/AIRemodeling")
     public String variable(@Valid SymptomForm form, Model model) {
 
-        log.info("값 확인");
-        log.info("증상" + form.getModel());
-        log.info("test_size" + form.getTest_size());
-        log.info(form.getRandom_state());
-
         symptomRepository.save(Symptom.builder()
                 .name(form.getModel())
                 .build());
 
         RestTemplate restTemplate = new RestTemplate();
-//        String url = "http://192.168.43.33:80/reset";
-        String url = "http://localhost:80/reset";
+ 
+        String url = "http://15.165.169.119:5000/reset";
+//        String url = "http://localhost:80/reset";
 
         MultiValueMap<String,String> parameters = new LinkedMultiValueMap<String,String>();
 

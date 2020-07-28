@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/config :: configFragment" />
+    <body>
+        <header th:replace="fragments/header :: headerFragment"></header>
+
+        <div class="limiter">
+            <div class="container-login100" style="background-image: url('/static/images/bg-01.jpg');">
+                <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+                    <form class="login100-form validate-form">
+                        <span class="login100-form-title p-b-49">정보조회</span>
+
+                        <div class="form-group">
+                            <label th:for="name">이름</label>
+                            <input type="text" id="name" placeholder="회원이름" th:field="${member.name}" class="form-control" readonly required>
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="email">이메일</label>
+                            <input type="email" th:field="${member.email}" class="form-control" readonly required>
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="password">비밀번호</label>
+                            <input type="password" th:value="${member.password}" class="form-control" readonly required>
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="phone">전화번호</label>
+                            <input type="text" th:field="${member.phone}" class="form-control"
+                                   maxlength="11" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" readonly required>
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="birth">생일</label>
+                            <input type="date" th:field="${member.birth}" class="form-control" readonly required>
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="zipcode">우편번호</label>
+                            <input type="text" th:field="${member.address.zipcode}" class="form-control" id="sample6_postcode" placeholder="우편번호" readonly required>
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="city">주소</label>
+                            <input type="text" th:field="${member.address.city}" class="form-control" id="sample6_address" placeholder="주소" readonly required><br>
+                            <label th:for="street">상세주소</label>
+                            <input type="text" th:field="${member.address.street}" class="form-control" id="sample6_detailAddress" placeholder="상세주소" readonly required>
+                            <!--
+                            <input type="text" id="sample6_extraAddress" class="form-control" placeholder="참고항목" required></br>
+                            -->
+                        </div>
+
+                        <div class="row" style="padding-left: 15px; padding-bottom: 15px;">
+                            <span>
+                                <input type="radio" id="GUEST" name="role" value="GUEST"
+                                       th:attr="checked=${member.role.toString() == 'GUEST' ? 'true' : 'false'}" disabled>
+                                <label for="GUEST" style="padding-right: 10px">사용자</label>
+                            </span>
+
+                            <span>
+                                <input type="radio" id="VET" name="role" value="VET"
+                                       th:attr="checked=${member.role.toString() == 'VET' ? 'true' : 'false'}" disabled>
+                                <label for="VET" style="padding-right: 10px">수의사</label>
+                            </span>
+                        </div>
+
+                        <div class="container-login100-form-btn">
+                            <div class="wrap-login100-form-btn">
+                                <div class="login100-form-bgbtn"></div>
+                                <a th:href = "@{/member/settings/{id}(id = ${member.id})}" class="login100-form-btn" role="button">정보수정</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="dropDownSelect1"></div>
+
+        <!--===============================================================================================-->
+        <script src="/../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="/../../static/vendor/animsition/js/animsition.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="/../../static/vendor/bootstrap/js/popper.js"></script>
+        <script src="/../../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="/../../static/vendor/select2/select2.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="/../../static/vendor/daterangepicker/moment.min.js"></script>
+        <script src="/../../static/vendor/daterangepicker/daterangepicker.js"></script>
+        <!--===============================================================================================-->
+        <script src="/../../static/vendor/countdowntime/countdowntime.js"></script>
+        <!--===============================================================================================-->
+        <script src="/../../static/js/main.js"></script>
+        <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+        <script src="/static/js/postcode-api.js"></script>
+
+        <footer th:replace="fragments/footer :: footerFragment"></footer>
+    </body>
+</html>

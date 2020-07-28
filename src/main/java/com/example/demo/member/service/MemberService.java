@@ -5,11 +5,14 @@ import com.example.demo.diagnosis.domain.Diagnosis;
 import com.example.demo.diagnosis.repository.DiagnosisRepository;
 import com.example.demo.diagnosis.service.DiagnosisService;
 import com.example.demo.hospital.service.HospitalService;
+import com.example.demo.member.domain.Member;
 import com.example.demo.member.repository.MemberRepository;
-import com.example.demo.member.vo.*;
+import com.example.demo.member.dto.*;
+
 import com.example.demo.reserve.service.ReserveService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -39,7 +42,6 @@ public class MemberService implements UserDetailsService {
     // 회원가입 아이디 중복체크
     @Transactional
     public int validateDuplicateMember(String user_email) {
-
         String value = user_email;
         value = value.substring(1,value.length()-1);
         HashMap<String, String> hashMap = new HashMap<>();
@@ -51,12 +53,11 @@ public class MemberService implements UserDetailsService {
         String value2 = hashMap.values().toString().substring(2, hashMap.values().toString().length()-2);
 
 
-
         Member findMember = memberRepository.findEmailCheck(value2);
         System.out.println("findMember확인 = " + findMember);
-        if (findMember!=null) {
+        if (findMember != null) {
             return 1;
-        }else{
+        } else {
             return 0;
         }
     }
@@ -67,7 +68,6 @@ public class MemberService implements UserDetailsService {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         memberDto.SHA256_PassWord(passwordEncoder.encode(memberDto.getPassword()));
 
-//        memberDto.GIVE_Role(Role.ADMIN);
         if(memberDto.getRole() == Role.GUEST) {
             memberDto.GIVE_Role(Role.GUEST);
         } else if(memberDto.getRole() == Role.VET) {
@@ -77,16 +77,16 @@ public class MemberService implements UserDetailsService {
         return memberRepository.save(memberDto.toEntity()).getId();
     }
 
-    //회원 조회
+    // 회원 조회
     @Transactional(readOnly = true)
     public Member findMember(Object id){
         if(id instanceof Long) {
             return memberRepository.findById((Long) id)
                     .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + id));
         }
-
-        else{
-            return memberRepository.findEmailCheck((String) id);
+        else {
+            Member member = memberRepository.findEmailCheck((String) id);
+            return member;
         }
 
     }
@@ -95,10 +95,13 @@ public class MemberService implements UserDetailsService {
     public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
         Member userEntityWrapper = memberRepository.findEmailCheck(userEmail);
 
+        if(userEntityWrapper == null ) {
+            throw new UsernameNotFoundException("User not authorized.");
+        }
+
         GrantedAuthority authority = new SimpleGrantedAuthority(userEntityWrapper.getRole().getValue());
         UserDetails userDetails = (UserDetails)new User(userEntityWrapper.getEmail(),
                 userEntityWrapper.getPassword(), Arrays.asList(authority));
-        log.info(userDetails.getPassword());
 
         return userDetails;
     }
@@ -109,6 +112,7 @@ public class MemberService implements UserDetailsService {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + id));
         member.update(requestDto.getCity(), requestDto.getStreet(), requestDto.getZipcode(), requestDto.getPhone());
+
         return id;
     }
 
@@ -118,10 +122,6 @@ public class MemberService implements UserDetailsService {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + id));
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        log.info("입력한 : " + requestDto.getPassword());
-        log.info("본래 : " +member.getPassword());
-        log.info("password : " + member.getPassword().getClass());
-        log.info("dto pwd class : " + requestDto.getPassword().getClass());
 
         String encodePwd = passwordEncoder.encode(requestDto.getPassword());
         member.updatePwd(encodePwd);
@@ -155,13 +155,11 @@ public class MemberService implements UserDetailsService {
     public void  delete(Long id) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원/수의사/관리자가 없습니다. id=" + id));
-        if(member.getHospital() != null){ //수의사인데 병원을 가지고있는경우
-
+        if(member.getHospital() != null) { //수의사인데 병원을 가지고있는경우
             hospitalService.deleteHospital(member.getHospital().getId()); //예약정보 전부삭제
             memberRepository.delete(member);
         }
-
-        else if(member.getHospital() == null) { //수의사인데 병원이 없거나, 일반 사용자일경우
+        else if(member.getHospital() == null) {                             // 수의사인데 병원이 없거나, 일반 사용자일경우
             reserveService.delete_member(member);
             List<Diagnosis> diagnosis = diagnosisRepository.findAllDesc(member);
             diagnosisService.delete(diagnosis);
@@ -177,5 +175,5 @@ public class MemberService implements UserDetailsService {
                 .collect(Collectors.toList());
     }
 
-
 }
+

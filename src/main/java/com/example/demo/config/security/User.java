@@ -1,7 +1,7 @@
 package com.example.demo.config.security;
 
 
-import com.example.demo.overlap.BaseTimeEntity;
+import com.example.demo.member.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
