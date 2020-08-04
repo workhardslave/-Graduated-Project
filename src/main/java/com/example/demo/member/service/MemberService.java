@@ -31,6 +31,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+
 public class MemberService implements UserDetailsService {
 
     private final DiagnosisRepository diagnosisRepository;
@@ -42,22 +43,24 @@ public class MemberService implements UserDetailsService {
     // 회원가입 아이디 중복체크
     @Transactional
     public int validateDuplicateMember(String user_email) {
-        String value = user_email;
-        value = value.substring(1,value.length()-1);
-        HashMap<String, String> hashMap = new HashMap<>();
-
-        String[] entry = value.split(":");
-
-        hashMap.put(entry[0].trim(), entry[1].trim());
-
-        String value2 = hashMap.values().toString().substring(2, hashMap.values().toString().length()-2);
-
-        Member findMember = memberRepository.findEmailCheck(value2);
+//        String value = user_email;
+//        System.out.println("value : " + value);
+//        value = value.substring(1,value.length()-1);
+//        HashMap<String, String> hashMap = new HashMap<>();
+//
+//        String[] entry = value.split(":");
+//
+//        hashMap.put(entry[0].trim(), entry[1].trim());
+//
+//        String value2 = hashMap.values().toString().substring(2, hashMap.values().toString().length()-2);
+//
+//        Member findMember = memberRepository.findEmailCheck(value2);
+        Member findMember = memberRepository.findEmailCheck(user_email);
 
         if (findMember!=null) {
-            return 1;
+            return 1; // 중복 O
         }else{
-            return 0;
+            return 0; // 중복 X
         }
     }
 
@@ -67,7 +70,6 @@ public class MemberService implements UserDetailsService {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         memberDto.SHA256_PassWord(passwordEncoder.encode(memberDto.getPassword()));
 //        memberDto.GIVE_Role(Role.ADMIN);
-        memberDto.GIVE_Role(Role.GUEST);
         if(memberDto.getRole() == Role.GUEST) {
             memberDto.GIVE_Role(Role.GUEST);
         } else if(memberDto.getRole() == Role.VET) {
@@ -155,7 +157,7 @@ public class MemberService implements UserDetailsService {
 
     // 삭제 API
     @Transactional
-    public void  delete(Long id) {
+    public Long  delete(Long id) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원/수의사/관리자가 없습니다. id=" + id));
         if(member.getHospital() != null) { //수의사인데 병원을 가지고있는경우
@@ -168,6 +170,7 @@ public class MemberService implements UserDetailsService {
             diagnosisService.delete(diagnosis);
             memberRepository.delete(member);
         }
+        return id;
 
     }
 
