@@ -1,25 +1,21 @@
 package com.example.demo.disease.controller;
 
-import com.example.demo.config.auth.LogExecutionTime;
-import com.example.demo.config.auth.LoginFindMember;
 import com.example.demo.diagnosis.domain.Diagnosis;
+import com.example.demo.diagnosis.service.DiagnosisService;
 import com.example.demo.diagnosis.dto.DiagnosisDto;
 import com.example.demo.diagnosis.dto.DiagnosisNameCountDto;
-import com.example.demo.diagnosis.service.DiagnosisService;
 import com.example.demo.disease.dto.DiseaseResponseDto;
 import com.example.demo.disease.service.DiseaseService;
+import com.example.demo.dog.service.DogService;
 import com.example.demo.dog.dto.DogResponseDto;
 import com.example.demo.dog.dto.DogTypeCountDto;
-import com.example.demo.dog.service.DogService;
-import com.example.demo.hospital.dto.HospitalResponseDto;
 import com.example.demo.hospital.service.HospitalService;
-import com.example.demo.member.domain.Member;
+import com.example.demo.hospital.dto.HospitalResponseDto;
 import com.example.demo.member.repository.MemberRepository;
-import com.example.demo.member.service.MemberService;
+import com.example.demo.member.domain.Member;
+import com.example.demo.symptom.service.SymptomService;
 import com.example.demo.symptom.dto.SymptomForm;
 import com.example.demo.symptom.dto.SymptomResponseDto;
-
-import com.example.demo.symptom.service.SymptomService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonElement;
@@ -35,22 +31,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
+import java.security.Principal;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Slf4j
 @Controller
 public class DiseaseController {
 
+    private final MemberRepository memberRepository;
     private final DiseaseService diseaseService;
     private final DogService dogService;
     private final DiagnosisService diagnosisService;
@@ -59,7 +54,6 @@ public class DiseaseController {
 
     // 전체 질병 정보 시각화
     @GetMapping("/admin/diseases")
-    @LogExecutionTime
     public String DiseaseInfoPage(Model model) {
         List<DiseaseResponseDto> diseasesAll = diseaseService.findAllDesc();
         List<DiagnosisNameCountDto> diagnosisNames = diagnosisService.findNameCount();
@@ -75,8 +69,8 @@ public class DiseaseController {
 
     // 질병 진단 문진표
     @GetMapping("/member/disease/chart")
-    @LogExecutionTime
-    public String DiseaseForm(Model model, @LoginFindMember Member member) {
+    public String DiseaseForm(Model model, Principal principal) {
+        Member member = memberRepository.findEmailCheck(principal.getName());
         List<DogResponseDto> Dogs = dogService.findAllDesc(member);
         List<SymptomResponseDto> Symptoms = symptomService.findAllDesc();
 
@@ -89,14 +83,11 @@ public class DiseaseController {
 
     // 외부 API와 연동
     @PostMapping("/api/disease/form")
-    @LogExecutionTime
-    public String callAPI_put(@Valid DiseaseForm form, Model model, @LoginFindMember Member member) throws JsonProcessingException {
+    public String callAPI_put(@Valid DiseaseForm form, Model model, Principal principal) throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
 
 //        String url = "http://15.165.169.119:5000/test";
         String url = "http://localhost:80/test";
-
-
 
         MultiValueMap<String,String> parameters = new LinkedMultiValueMap<String,String>();
         Diagnosis diagnosis = new Diagnosis();
@@ -142,6 +133,7 @@ public class DiseaseController {
         JsonObject jsonObj = (JsonObject) obj;
         JsonElement k = jsonObj.get("코로나 바이러스");
 
+        Member member = memberRepository.findEmailCheck(principal.getName());
 
         // setting
         diagnosisService.DiagnosisSetting(jsonObj.get("data").toString(), jsonObj.get("코로나 바이러스").toString(),
@@ -159,15 +151,15 @@ public class DiseaseController {
             model.addAttribute("diseases", diseaseAll);
             model.addAttribute("forms", form);
             model.addAttribute("hosList", hospitalList);
-    }
-        return "member/recommends/recommendation";
+        }
 
+        return "member/recommends/recommendation";
     }
 
     // 회원이 보는 진단기록리스트
     @GetMapping(value = "/member/chart/record")
-    @LogExecutionTime
-    public String list(Model model, @LoginFindMember Member member) {
+    public String list(Model model, Principal principal) {
+        Member member = memberRepository.findEmailCheck(principal.getName()); // 추후 ASPECT 적용대상
         List<DiagnosisDto> diagnosis = diagnosisService.findAllDesc(member);
         model.addAttribute("dias", diagnosis);
 
@@ -176,7 +168,6 @@ public class DiseaseController {
 
     // 진단 시각화 페이지
     @GetMapping("/member/chart/record/{id}")
-    @LogExecutionTime
     public String updateForm(@PathVariable Long id, Model model) {
         DiagnosisDto diagnosisInfo = diagnosisService.findById(id);
 
