@@ -1,11 +1,11 @@
 package com.example.demo.member.service;
 
-import com.example.demo.config.security.Role;
 import com.example.demo.diagnosis.domain.Diagnosis;
 import com.example.demo.diagnosis.repository.DiagnosisRepository;
 import com.example.demo.diagnosis.service.DiagnosisService;
 import com.example.demo.hospital.service.HospitalService;
 import com.example.demo.member.domain.Member;
+import com.example.demo.config.Role;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.dto.*;
 
@@ -23,9 +23,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,12 +50,11 @@ public class MemberService implements UserDetailsService {
 
         String value2 = hashMap.values().toString().substring(2, hashMap.values().toString().length()-2);
 
-
         Member findMember = memberRepository.findEmailCheck(value2);
-        System.out.println("findMember확인 = " + findMember);
-        if (findMember != null) {
+
+        if (findMember!=null) {
             return 1;
-        } else {
+        }else{
             return 0;
         }
     }
@@ -68,6 +65,8 @@ public class MemberService implements UserDetailsService {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         memberDto.SHA256_PassWord(passwordEncoder.encode(memberDto.getPassword()));
 
+        //  memberDto.GIVE_Role(Role.ADMIN);
+
         if(memberDto.getRole() == Role.GUEST) {
             memberDto.GIVE_Role(Role.GUEST);
         } else if(memberDto.getRole() == Role.VET) {
@@ -77,25 +76,11 @@ public class MemberService implements UserDetailsService {
         return memberRepository.save(memberDto.toEntity()).getId();
     }
 
-    // 회원 조회
-    @Transactional(readOnly = true)
-    public Member findMember(Object id){
-        if(id instanceof Long) {
-            return memberRepository.findById((Long) id)
-                    .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + id));
-        }
-        else {
-            Member member = memberRepository.findEmailCheck((String) id);
-            return member;
-        }
-
-    }
-
     @Override
     public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
         Member userEntityWrapper = memberRepository.findEmailCheck(userEmail);
 
-        if(userEntityWrapper == null ) {
+        if(userEntityWrapper == null ){
             throw new UsernameNotFoundException("User not authorized.");
         }
 
@@ -111,6 +96,7 @@ public class MemberService implements UserDetailsService {
     public Long update(Long id, MemberUpdateRequestDto requestDto) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + id));
+
         member.update(requestDto.getCity(), requestDto.getStreet(), requestDto.getZipcode(), requestDto.getPhone());
 
         return id;
@@ -152,11 +138,12 @@ public class MemberService implements UserDetailsService {
 
     // 삭제 API
     @Transactional
-    public void  delete(Long id) {
+    public void delete(Long id) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원/수의사/관리자가 없습니다. id=" + id));
-        if(member.getHospital() != null) { //수의사인데 병원을 가지고있는경우
-            hospitalService.deleteHospital(member.getHospital().getId()); //예약정보 전부삭제
+
+        if(member.getHospital() != null){                                   // 수의사인데 병원을 가지고있는경우
+            hospitalService.deleteHospital(member.getHospital().getId());   // 예약정보 전부삭제
             memberRepository.delete(member);
         }
         else if(member.getHospital() == null) {                             // 수의사인데 병원이 없거나, 일반 사용자일경우
@@ -174,6 +161,4 @@ public class MemberService implements UserDetailsService {
                 .map(MemberResponseDto::new)
                 .collect(Collectors.toList());
     }
-
 }
-
