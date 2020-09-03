@@ -1,9 +1,12 @@
-package com.example.demo.member.dto;
 
+package com.example.demo.member.dto;
+import com.example.demo.config.security.Role;
 import com.example.demo.member.domain.Member;
-import com.example.demo.config.Role;
 import com.example.demo.member.domain.Address;
-import lombok.*;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor

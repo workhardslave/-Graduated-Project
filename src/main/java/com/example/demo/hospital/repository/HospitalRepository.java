@@ -11,10 +11,7 @@ public interface HospitalRepository extends JpaRepository<Hospital, Long> {
     @Query("SELECT ho FROM Hospital ho ORDER BY ho.id DESC")
     List<Hospital> findAllDesc();
 
-    @Query("SELECT ho FROM Hospital ho WHERE ho.id = :id")
-    Hospital findOne(Long id);
-
     @Query("SELECT ho FROM Hospital ho WHERE ho.name = :name")
-    Hospital findname(String name);
+    Hospital findHospital(String name);
 }
 
