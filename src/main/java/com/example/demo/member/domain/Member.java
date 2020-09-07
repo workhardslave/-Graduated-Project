@@ -1,16 +1,11 @@
 package com.example.demo.member.domain;
 
 
-import com.example.demo.config.security.Role;
+import com.example.demo.config.Role;
 import com.example.demo.diagnosis.domain.Diagnosis;
 import com.example.demo.dog.domain.Dog;
 import com.example.demo.hospital.domain.Hospital;
-
-import com.example.demo.order.domain.Order;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.web.context.WebApplicationContext;
@@ -52,9 +47,6 @@ public class Member extends BaseTimeEntity {
 
     @OneToMany(mappedBy="member", orphanRemoval = true)
     List<Dog> dogList = new ArrayList<>();
-
-    @OneToMany(mappedBy="member", orphanRemoval = true)
-    List<Order> orders = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -107,23 +99,5 @@ public class Member extends BaseTimeEntity {
 
     public String getRoleKey() {
         return this.role.getValue();
-    }
-
-
-    @Override
-    public String toString() {
-        return "Member{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", birth='" + birth + '\'' +
-                ", phone='" + phone + '\'' +
-                ", address=" + address +
-                ", hospital=" + hospital +
-                ", diList=" + diList +
-                ", dogList=" + dogList +
-                ", role=" + role +
-                '}';
     }
 }

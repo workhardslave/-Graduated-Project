@@ -191,10 +191,10 @@
                     data: JSON.stringify(data)
                 }).done(function() {
                     alert('패스워드 수정되었습니다!');
-                    window.location.href = "/admin/settings/"+id;
+                    window.location.href = "/member/settings/"+id;
                 }).fail(function(request, status, error) {
                     alert("패스워드를 다시 확인해 주세요!");
-                    window.location.href = "/admin/settings/"+id;
+                    window.location.href = "/member/settings/"+id;
                 });
 
             }

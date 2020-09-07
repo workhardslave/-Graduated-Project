@@ -1,9 +1,8 @@
 package com.example.demo.reserve.service;
 
+import com.example.demo.hospital.repository.HospitalRepository;
 import com.example.demo.hospital.domain.Hospital;
 import com.example.demo.member.domain.Member;
-
-import com.example.demo.hospital.service.HospitalService;
 import com.example.demo.reserve.repository.ReserveRepository;
 import com.example.demo.reserve.domain.Reserve;
 import com.example.demo.reserve.dto.ReserveResponseDto;
@@ -21,8 +20,7 @@ import java.util.stream.Collectors;
 public class ReserveService {
 
     private final ReserveRepository reserveRepository;
-
-    private final HospitalService hospitalService;
+    private final HospitalRepository hospitalRepository;
 
     // 사용자가 본인의 병원예약정보조회
     @Transactional(readOnly = true)
@@ -30,9 +28,6 @@ public class ReserveService {
         return reserveRepository.findAllMemberDesc(member).stream()
                 .map(ReserveResponseDto::new)
                 .collect(Collectors.toList());
-
-
-
     }
 
     @Transactional
@@ -99,7 +94,8 @@ public class ReserveService {
     // 사용자 병원예약 POST
     @Transactional
     public Long Reserve(ReserveSaveRequestDto reserveDto,Member member) {
-        Hospital hospital =  hospitalService.findHospital(reserveDto.getName());
+        Hospital hospital =  hospitalRepository.findname(reserveDto.getName());
+
         reserveDto.Reserve_Hospital(hospital);
         reserveDto.Reserve_Member(member);
 
