@@ -6,7 +6,6 @@ import com.example.demo.diagnosis.domain.Diagnosis;
 import com.example.demo.dog.domain.Dog;
 import com.example.demo.hospital.domain.Hospital;
 
-import com.example.demo.order.domain.Order;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -52,9 +51,6 @@ public class Member extends BaseTimeEntity {
 
     @OneToMany(mappedBy="member", orphanRemoval = true)
     List<Dog> dogList = new ArrayList<>();
-
-    @OneToMany(mappedBy="member", orphanRemoval = true)
-    List<Order> orders = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Role role;

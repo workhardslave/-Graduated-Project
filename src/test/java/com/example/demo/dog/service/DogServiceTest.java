@@ -4,9 +4,9 @@ import com.example.demo.config.security.Role;
 import com.example.demo.dog.dto.DogResponseDto;
 import com.example.demo.dog.dto.DogSaveRequestDto;
 import com.example.demo.dog.dto.DogUpdateRequestDto;
-import com.example.demo.dog.repository.DogRepository;
 import com.example.demo.member.domain.Member;
 import com.example.demo.member.repository.MemberRepository;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,25 +23,40 @@ import static org.junit.Assert.*;
 @Transactional
 public class DogServiceTest {
 
+    private static Member member = new Member();
+    private static Long savedId;
+
     @Autowired
     private DogService dogService;
     @Autowired
-    private DogRepository dogRepository;
-    @Autowired
     private MemberRepository memberRepository;
 
-    @Test
-    public void 반려견_등록() throws Exception {
-        // given
-        Member member = memberRepository.save(Member.builder()
+    @Before
+    public void 더미데이터추가() {
+        member = memberRepository.save(Member.builder()
                 .role(Role.GUEST)
                 .build());
 
         // when
-        Long savedId = dogService.dog_SignUp(DogSaveRequestDto.builder()
+        savedId = dogService.dog_SignUp(DogSaveRequestDto.builder()
                 .name("별이")
                 .member(member)
                 .build());
+    }
+
+//    @After
+//    public void 실행후삭제() {
+//        System.out.println("after---------------------------");
+//        dogRepository.deleteAll();
+//        memberRepository.deleteAll();
+//        System.out.println("after2---------------------------");
+//
+//    }
+
+    @Test
+    public void 반려견_등록() throws Exception {
+        // given
+
 
         // then
         List<DogResponseDto> dogs = dogService.findAllDesc(member);
@@ -55,15 +70,8 @@ public class DogServiceTest {
     @Test
     public void 반려견_정보수정() throws Exception {
         // given
-        Member member = memberRepository.save(Member.builder()
-                .role(Role.GUEST)
-                .build());
 
-        Long savedId = dogService.dog_SignUp(DogSaveRequestDto.builder()
-                .name("별이")
-                .member(member)
-                .build());
-        
+
         // when
         Long updatedId = dogService.update(savedId, DogUpdateRequestDto.builder()
                 .name("달이")
@@ -82,14 +90,6 @@ public class DogServiceTest {
     @Test(expected = IndexOutOfBoundsException.class)
     public void 반려견_정보삭제() throws Exception {
         // given
-        Member member = memberRepository.save(Member.builder()
-                .role(Role.GUEST)
-                .build());
-
-        Long savedId = dogService.dog_SignUp(DogSaveRequestDto.builder()
-                .name("별이")
-                .member(member)
-                .build());
 
         // when
         dogService.delete(savedId);

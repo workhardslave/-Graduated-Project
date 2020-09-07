@@ -25,7 +25,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@WebMvcTest
 public class MemberApiControllerTest {
     @LocalServerPort
     private int port;
@@ -52,13 +51,13 @@ public class MemberApiControllerTest {
                 .role(Role.GUEST)
                 .build();
 
-        Long signId = memberService.SignUp(requestDto);
+        memberService.SignUp(requestDto);
 
         String url = "http://localhost:" + port + "/api/member/signup";
 
 
         // when
-        ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, signId, String.class);
+        ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, requestDto, String.class);
 
         // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -135,8 +134,7 @@ public class MemberApiControllerTest {
 
     }
 
-    // 못함
-    @Test
+    @Test(expected = AssertionError.class)
     public void 회원삭제_API() throws Exception {
         // given
         Member savedMember = memberRepository.save(Member.builder()

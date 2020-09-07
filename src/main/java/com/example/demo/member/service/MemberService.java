@@ -43,18 +43,19 @@ public class MemberService implements UserDetailsService {
     // 회원가입 아이디 중복체크
     @Transactional
     public int validateDuplicateMember(String user_email) {
-//        String value = user_email;
-//        System.out.println("value : " + value);
-//        value = value.substring(1,value.length()-1);
-//        HashMap<String, String> hashMap = new HashMap<>();
-//
-//        String[] entry = value.split(":");
-//
-//        hashMap.put(entry[0].trim(), entry[1].trim());
-//
-//        String value2 = hashMap.values().toString().substring(2, hashMap.values().toString().length()-2);
-//
-//        Member findMember = memberRepository.findEmailCheck(value2);
+        // by승환, 앞단의 잘못된 데이터 형태의 전송으로인한 잘못된 코드_200826
+        /*String value = user_email;
+        System.out.println("value : " + value);
+        value = value.substring(1,value.length()-1);
+        HashMap<String, String> hashMap = new HashMap<>();
+
+        String[] entry = value.split(":");
+
+        hashMap.put(entry[0].trim(), entry[1].trim());
+
+        String value2 = hashMap.values().toString().substring(2, hashMap.values().toString().length()-2);
+
+        Member findMember = memberRepository.findEmailCheck(value2);*/
         Member findMember = memberRepository.findEmailCheck(user_email);
 
         if (findMember!=null) {
