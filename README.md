@@ -8,19 +8,19 @@
 #### Web Server (Java based)
 ```
 // Move to the directory where a .jar file exists
-cd libs
+$ cd libs
 
 // Run the .jar file
-java -jar demo-0.0.1-SNAPSHOT.jar
+$ java -jar demo-0.0.1-SNAPSHOT.jar
 ```
 
 #### AI Server (Python based)
 ```
 # Move to the directory where a .py file exists
-cd guhaedogML
+$ cd guhaedogML
 
 # Run the .py file
-python app.py
+$ python app.py
 ```
 
 ### Architecture
