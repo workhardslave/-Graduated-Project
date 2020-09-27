@@ -23,6 +23,9 @@ cd guhaedogML
 python app.py
 ```
 
+### Architecture
+![guhaedog_architecture](img/guhaedog_architecture.png)
+
 ### Tech Stack
 |Frontend   |Backend          |Database|AI            |Cloud       |
 |-----------|-----------------|--------|--------------|------------|
