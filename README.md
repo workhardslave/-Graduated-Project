@@ -8,20 +8,23 @@
 #### Web Server (Java based)
 ```
 // Move to the directory where a .jar file exists
-cd libs
+$ cd libs
 
 // Run the .jar file
-java -jar demo-0.0.1-SNAPSHOT.jar
+$ java -jar demo-0.0.1-SNAPSHOT.jar
 ```
 
 #### AI Server (Python based)
 ```
 # Move to the directory where a .py file exists
-cd guhaedogML
+$ cd guhaedogML
 
 # Run the .py file
-python app.py
+$ python app.py
 ```
+
+### Architecture
+![guhaedog_architecture](img/guhaedog_architecture.png)
 
 ### Tech Stack
 |Frontend   |Backend          |Database|AI            |Cloud       |
@@ -39,7 +42,7 @@ python app.py
 ### Team
 :dog: Guhaedog
 
-### Developer
+### Developers
 - https://github.com/da-nyee (Daeun Lee, 이다은)
 - https://github.com/HyeonWuJeon (Hyeonwu Jeon, 전현우)
 - https://github.com/workhardslave (Seunghwan Hwang, 황승환)
